@@ -45,7 +45,7 @@
                 </li>
                 <li class="{{Route::currentRouteName() == 'cursos.index' ? 'sel' : ''}}">
                     <i class="fas fa-box"></i>
-                    <a href="{{route('cursos.index')}}">Cursos</a>
+                    <a href="{{route('cursos.index')}}">Estampas</a>
                 </li>
                 <li class="{{Route::currentRouteName() == 'disciplinas.index' ? 'sel' : ''}}">
                     <i class="far fa-file"></i>

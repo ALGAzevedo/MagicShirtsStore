@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('content')
-    <h2>Apresentação</h2>
+    <h2>About</h2>
     <p>
         A Magic Shirt Store foi fundada em 2021 e pretende levar até si os melhores designs para as suas t-shirts ou poder
         até criar a sua própria t-shirt.
