@@ -11,4 +11,5 @@ class Estampa extends Model
     use HasFactory;
 
     use SoftDeletes;
+
 }
