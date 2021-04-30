@@ -3,10 +3,8 @@
 @section('content')
     <h2>Apresentação</h2>
     <p>
-        O Departamento de Engenharia Informática (DEI) foi criado formalmente em 1997 com a aprovação
-        dos Estatutos da Escola Superior de Tecnologia e Gestão (ESTG), tendo no entanto as suas origens
-        na área de Informática existente na ESTG desde que esta entrou em funcionamento no ano letivo
-        1989/90.
+        A Magic Shirt Store foi fundada em 2021 e pretende levar até si os melhores designs para as suas t-shirts ou poder
+        até criar a sua própria t-shirt.
     </p>
     <p>
         O DEI é uma unidade funcional da ESTG à qual estão afetos docentes, laboratórios e serviços de

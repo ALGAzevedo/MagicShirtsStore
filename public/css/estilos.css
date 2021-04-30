@@ -58,10 +58,11 @@ header {
     display: flex;
     flex-direction: row;
     height: 100px;
-    color: white;
-    background-color: black;
+    color: black;
+    background-color: white;
     align-items: center;
 }
+
 
 #logo {
     text-align: center;
@@ -92,6 +93,14 @@ h1 {
     flex-grow: 1;
 }
 
+.cart{
+    padding: 15px;
+}
+
+.cart a{
+    text-decoration: none;
+}
+
 /*Área que contém o menu, a secção principal, a barra lateral e o footer*/
 .container {
     display: flex;
@@ -120,7 +129,7 @@ section {
 
 /*Formatação da área de navegação*/
 nav {
-    background-color: black;
+    background-color: white;
     min-width: 150px;
     color: silver;
     overflow: hidden;

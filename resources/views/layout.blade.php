@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
     <link rel="stylesheet" href="/css/estilos.css">
 
-    <title>Example</title>
+    <title>Magic Shirt Store</title>
 </head>
 
 <body>
@@ -17,12 +17,19 @@
         <div id="logo">
             <img src="/img/logo.png" alt="Logo">
         </div>
-        <h1>Departamento de Engenharia Informática</h1>
+        <h1>Magic Shirt Store</h1>
 
         <div class="avatar-area">
             <span class="name-user">Maria Costa</span>
             <img src="/img/default_img.png" alt="User img">
         </div>
+
+        <div class="cart">
+            <a href="#">
+                <i class="fas fa-shopping-cart"></i>
+            </a>
+        </div>
+
         <div id="menuIcon">
             <div class="bar1"></div>
             <div class="bar2"></div>
@@ -34,7 +41,7 @@
             <ul>
                 <li class="{{Route::currentRouteName() == 'home' ? 'sel' : ''}}">
                     <i class="fas fa-info-circle"></i>
-                    <a href="{{route('home')}}">Apresentação</a>
+                    <a href="{{route('home')}}">About</a>
                 </li>
                 <li class="{{Route::currentRouteName() == 'cursos.index' ? 'sel' : ''}}">
                     <i class="fas fa-box"></i>
