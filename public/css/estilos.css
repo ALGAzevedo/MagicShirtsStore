@@ -251,8 +251,8 @@ aside {
     cursor: pointer;
 }
 
-/*Formatação das áreas dos semestres, docentes e cursos*/
-.cursos-area,
+/*Formatação das áreas dos semestres, docentes e estampas*/
+.estampa-area,
 .docentes-area {
     display: flex;
     flex-direction: row;
@@ -260,13 +260,13 @@ aside {
 }
 
 .docente,
-.curso {
+.estampa {
     margin: 5px;
     line-height: 1.5;
     background-color: rgba(0, 0, 0, 0.05);
 }
 
-.curso {
+.estampa {
     width: calc((100%/3) - 10px);
 }
 
@@ -274,27 +274,27 @@ aside {
     width: calc((100%/4) - 10px);
 }
 
-.curso-imagem,
+.estampa-imagem,
 .docente-imagem {
     text-align: center;
     padding: 5px;
     background-color: rgba(0, 0, 0, 0.1);
 }
 
-.curso-info-area,
+.estampa-info-area,
 .docente-info-area {
     padding: 5px;
 }
 
-.curso-label {
+.estampa-label {
     font-weight: bold;
 }
 
-.curso-label:after {
+.estampa-label:after {
     content: ":";
 }
 
-.curso img {
+.estampa img {
     width: 90%;
     height: 200px;
     object-fit: scale-down;
@@ -355,7 +355,7 @@ table {
     width: 50px;
 }
 
-/*cursos formatação do formulário*/
+/*estampas formatação do formulário*/
 .area-form {
     display: flex;
     flex-direction: row;
@@ -503,7 +503,7 @@ table {
 
 @media(max-width:1200px) {
 
-    .curso,
+    .estampa,
     .docente {
         width: calc((100%/2) - 10px);
     }
@@ -521,15 +521,15 @@ table {
 
 @media(max-width:1000px) {
 
-    /*Na área dos cursos e dos docentes e dos semestre a informação passa a ser vista em coluna*/
-    .cursos-area,
+    /*Na área dos estampas e dos docentes e dos semestre a informação passa a ser vista em coluna*/
+    .estampa-area,
     .docentes-area,
     .semestres-area {
         flex-direction: column;
     }
 
     /*A informação é apresentada ocupando toda a largura disponível*/
-    .curso,
+    .estampa,
     .docente {
         width: auto;
     }
