@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use \App\Http\Controllers\PageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [PageController::class, 'index'])->name('home');
+Route::get('admin/disciplinas', [DisciplinaController::class, 'admin_index'])->name('admin.disciplinas');
+Route::get('disciplinas', [DisciplinaController::class, 'index'])->name('disciplinas.index');
+
+Route::get('cursos', [CursoController::class, 'index'])->name('cursos.index');
+
+Route::get('docentes',  [DocenteController::class, 'index'])->name('docentes.index');
+
+Route::get('candidaturas', [CandidaturaController::class, 'create'])->name('candidaturas.index');
+
+Route::post('candidaturas', [CandidaturaController::class, 'store'])->name('candidaturas.store');
