@@ -13,7 +13,7 @@
         <div class="curso-info-area">
             <div class="curso-info">
                 <span class="curso-label">Categoria</span>
-                <span class="curso-info-desc">{{$estampa->categoriaRef->nome}}</span>
+                <span class="curso-info-desc">{{$estampa->categoriaRef}}</span>
             </div>
             <div class="curso-info">
                 <span class="curso-label">Nome</span>
