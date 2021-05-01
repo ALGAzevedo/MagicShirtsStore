@@ -19,4 +19,14 @@ class Estampa extends Model
         return $this->belongsTo(Categoria::class, 'categoria_id', 'id');
     }
 
+    public function tshirt()
+    {
+        return $this->hasMany(Tshirt::class, 'id', 'estampa_id');
+    }
+
+    public function cliente()
+    {
+        return $this->belongsTo(Cliente::class, 'cliente_id', 'id');
+    }
+
 }
