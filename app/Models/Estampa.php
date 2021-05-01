@@ -12,4 +12,11 @@ class Estampa extends Model
 
     use SoftDeletes;
 
+    protected $with = ['categoriaRef'];
+
+    public function categoriaRef(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Categoria::class, 'categoria_id', 'id');
+    }
+
 }

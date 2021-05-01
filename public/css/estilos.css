@@ -251,7 +251,7 @@ aside {
     cursor: pointer;
 }
 
-/*Formatação das áreas dos semestres, docentes e cursos*/
+/*Formatação das áreas dos semestres, docentes e estampas*/
 .cursos-area,
 .docentes-area {
     display: flex;
@@ -355,7 +355,7 @@ table {
     width: 50px;
 }
 
-/*cursos formatação do formulário*/
+/*estampas formatação do formulário*/
 .area-form {
     display: flex;
     flex-direction: row;
@@ -521,7 +521,7 @@ table {
 
 @media(max-width:1000px) {
 
-    /*Na área dos cursos e dos docentes e dos semestre a informação passa a ser vista em coluna*/
+    /*Na área dos estampas e dos docentes e dos semestre a informação passa a ser vista em coluna*/
     .cursos-area,
     .docentes-area,
     .semestres-area {

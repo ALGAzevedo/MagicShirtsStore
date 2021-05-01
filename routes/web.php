@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\PageController;
-
+use \App\Http\Controllers\EstampaController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,10 +15,15 @@ use \App\Http\Controllers\PageController;
 */
 
 Route::get('/', [PageController::class, 'index'])->name('home');
+
+Route::get('estampas', [EstampaController::class, 'index'])->name('estampas.index');
+
+
+
 Route::get('admin/disciplinas', [DisciplinaController::class, 'admin_index'])->name('admin.disciplinas');
+
 Route::get('disciplinas', [DisciplinaController::class, 'index'])->name('disciplinas.index');
 
-Route::get('cursos', [CursoController::class, 'index'])->name('cursos.index');
 
 Route::get('docentes',  [DocenteController::class, 'index'])->name('docentes.index');
 
