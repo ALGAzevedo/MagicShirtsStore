@@ -29,7 +29,7 @@
                 <div class="estampa-info-area">
                     <div class="estampa-info">
                         <span class="estampa-label">Categoria</span>
-                        <span class="estampa-info-desc">{{$categoria->nome}}</span>
+                        <span class="estampa-info-desc">{{$estampa->categoriaRef->nome}}</span>
                     </div>
                     <div class="curso-info">
                         <span class="estampa-label">Nome</span>
