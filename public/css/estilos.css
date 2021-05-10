@@ -352,7 +352,8 @@ table {
 
 .search-item label {
     display: inline-block;
-    width: 50px;
+    width: 70px;
+    font-weight: bold;
 }
 
 /*estampas formatação do formulário*/
@@ -442,7 +443,7 @@ table {
 }
 
 #btn-filter {
-    margin-left: 50px;
+    margin-left: 70px;
 }
 
 .add-disc button {

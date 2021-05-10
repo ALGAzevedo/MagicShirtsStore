@@ -3,7 +3,7 @@
 @section('content')
 
     <h2>Estampas</h2>
-    <form class="disc-search" action="#" method="GET">
+    <form class="estampa-search" action="#" method="GET">
         <div class="search-item">
             <label for="idCat">Categoria:  </label>
             <select name="categoria" id="idCat">
@@ -29,7 +29,7 @@
                 <div class="estampa-info-area">
                     <div class="estampa-info">
                         <span class="estampa-label">Categoria</span>
-                        <span class="estampa-info-desc">{{$estampa->categoriaRef}}</span>
+                        <span class="estampa-info-desc">{{$estampa->categoriaRef->nome}}</span>
                     </div>
                     <div class="curso-info">
                         <span class="estampa-label">Nome</span>
