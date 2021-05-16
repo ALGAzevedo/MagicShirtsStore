@@ -13,4 +13,14 @@ class Tshirt extends Model
     {
         return $this->belongsTo(Estampa::class, 'estampa_id', 'id');
     }
+
+    public function cor(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Cor::class);
+    }
+
+    public function encomenda(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Encomenda::class);
+    }
 }
