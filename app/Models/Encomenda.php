@@ -11,6 +11,11 @@ class Encomenda extends Model
 
     public $timestamps = false;
 
+    protected $fillable = [
+        'cliente_id', 'estado', 'data', 'preco_total', 'notas', 'nif', 'endereco',
+        'tipo_pagamento', 'ref_pagamento', 'recibo_url'
+    ];
+
     public function cliente(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Cliente::class);

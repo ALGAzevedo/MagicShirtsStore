@@ -14,6 +14,11 @@ class Estampa extends Model
 
     protected $with = ['categoriaRef'];
 
+    protected $fillable = [
+        'cliente_id', 'categoria_id', 'nome', 'descricao', 'imagem_url',
+        'informacao_extra'
+    ];
+
     public function categoriaRef(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Categoria::class, 'categoria_id', 'id');
