@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Categoria;
+use App\Models\Cor;
 use App\Models\Estampa;
 use Illuminate\Http\Request;
 
@@ -14,9 +15,11 @@ class EstampaController extends Controller
         $id = $request->query('categoria', $listaCategorias[0]->id);
         $categoria = Categoria::findOrFail($id);
         $estampas = Estampa::where('categoria_id', $id)->get();
+
+        $listaCores = Cor::all();
         return view(
             'estampas.index',
-            compact('listaCategorias','estampas', 'categoria'));
+            compact('listaCategorias','estampas', 'categoria', 'listaCores'));
     }
 
 }
