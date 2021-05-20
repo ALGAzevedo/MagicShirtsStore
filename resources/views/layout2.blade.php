@@ -23,14 +23,14 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#!">
+                <li class="nav-item">
+                    <a class="nav-link {{Route::currentRouteName() == 'home' ? 'active' : ''}}" href="{{route('home')}}">
                         Home
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
-                <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
-                <li class="nav-item"><a class="nav-link" href="#!">Services</a></li>
+                <li class="nav-item"><a class="nav-link {{Route::currentRouteName() == 'about' ? 'active' : ''}}" href="{{route('about')}}">About</a></li>
+                <li class="nav-item"><a class="nav-link {{Route::currentRouteName() == 'estampas.index' ? 'active' : ''}}" href="{{route('estampas.index')}}">Catálogo</a></li>
                 <li class="nav-item"><a class="nav-link" href="#!">Contact</a></li>
             </ul>
         </div>
@@ -40,8 +40,6 @@
 
     @yield('content')
 
-    </div>
-</div>
 <!-- Footer-->
 <footer class="py-5 bg-dark">
     <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p></div>

@@ -10,6 +10,75 @@
  * Copyright 2011-2021 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+
+
+/*Formatação das áreas das estampas*/
+.estampa-area{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.estampa-area{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.estampa {
+    margin: 5px;
+    line-height: 1.5;
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.estampa {
+    width: calc((100% / 4) - 10px);
+}
+
+.estampa-imagem{
+    text-align: center;
+    padding: 5px;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.estampa-info-area{
+    padding: 5px;
+}
+
+.estampa-label {
+    font-weight: bold;
+}
+
+.estampa-label:after {
+    content: ":";
+}
+
+.estampa img {
+    width: 90%;
+    height: 200px;
+    object-fit: scale-down;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 :root {
   --blue: #007bff;
   --indigo: #6610f2;
