@@ -14,8 +14,13 @@ class Cliente extends Model
         return $this->belongsTo(User::class, 'id', 'id');
     }
 
-    public function estampa()
+    public function estampa(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Estampa::class, 'id', 'cliente_id');
+    }
+
+    public function encomenda(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Encomenda::class);
     }
 }

@@ -1,3 +1,24 @@
+/*
+FEITO POR NÓS
+
+
+
+Formatação do formuário da encomenda
+ */
+
+.form-control{
+    width: auto;
+}
+
+/*
+
+FEITO POR NÓS
+ */
+
+
+
+
+
 /*Formatação do icone do menu hamburger e das barras*/
 #menuIcon div {
     width: 35px;
@@ -344,17 +365,6 @@ table {
     text-align: center;
 }
 
-.search-item {
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 5px;
-}
-
-.search-item label {
-    display: inline-block;
-    width: 70px;
-    font-weight: bold;
-}
 
 /*estampas formatação do formulário*/
 .area-form {
@@ -442,9 +452,6 @@ table {
     flex-grow: 0;
 }
 
-#btn-filter {
-    margin-left: 70px;
-}
 
 .add-disc button {
     border: 0;

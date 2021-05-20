@@ -11,4 +11,9 @@ class Cor extends Model
 
     //Overrides table name
     protected $table = 'cores';
+
+    public function tshirt(){
+
+        return $this->hasMany(Tshirt::class);
+    }
 }

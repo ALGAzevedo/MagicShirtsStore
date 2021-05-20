@@ -1,86 +1,55 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>MagicShirts Store</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="/public/assets/favicon.ico" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="/css/styles.css" rel="stylesheet" />
+</head>
+<body>
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <div class="navbar-brand">
+            <img class="logo-img .img-responsive .img-fluid" src="/img/logo.png" alt="Logo">
+            <a class="navbar-brand" href="#!"> Magic Shirt Store</a>
+        </div>
 
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>Magic Shirts Store</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="Online shirts store"/>
-        <meta name="keywords"
-              content="store, magicshirtstore, shirts, aplicacoes para a internet"/>
-        <meta name="author" content="André Azevedo, João Ferreira, Jerry D'Almeida"/>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#!">
+                        Home
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="#!">Services</a></li>
+                <li class="nav-item"><a class="nav-link" href="#!">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- Page Content-->
 
-        <!-- Theme style  -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
-        <<link rel="stylesheet" href="/css/app.css">
+    @yield('content')
 
-
-        <!-- Icomoon Icon Fonts-->
-        <link rel="stylesheet" href="css/icomoon.css">
-        <!-- Bootstrap  -->
-        <link rel="stylesheet" href="css/bootstrap.css">
-
-        <!-- Flexslider  -->
-        <link rel="stylesheet" href="css/flexslider.css">
-
-        <!-- Owl Carousel  -->
-        <link rel="stylesheet" href="css/owl.carousel.min.css">
-        <link rel="stylesheet" href="css/owl.theme.default.min.css">
-
-        <!-- Animate.css -->
-        <link rel="stylesheet" href="css/animate.css">
-
-    </head>
-    <body>
-
-
-        <nav class="fh5co-nav" role="navigation">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-3 col-xs-2">
-                        <div id="fh5co-logo"><a href="index.html">Magic Shirts Store.</a></div>
-                    </div>
-                    <div class="col-md-6 col-xs-6 text-center menu-1">
-                        <ul>
-                            <li class="has-dropdown">
-                                <a href="product.html">Shop</a>
-                                <ul class="dropdown">
-                                    <li><a href="single.html">Single Shop</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="about.html">About</a></li>
-                            <li class="has-dropdown">
-                                <a href="services.html">Services</a>
-                                <ul class="dropdown">
-                                    <li><a href="#">Web Design</a></li>
-                                    <li><a href="#">eCommerce</a></li>
-                                    <li><a href="#">Branding</a></li>
-                                    <li><a href="#">API</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="contact.html">Contact</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-3 col-xs-4 text-right hidden-xs menu-2">
-                        <ul>
-                            <li class="search">
-                                <div class="input-group">
-                                    <input type="text" placeholder="Search..">
-                                    <span class="input-group-btn">
-						        <button class="btn btn-primary" type="button"><i class="icon-search"></i></button>
-						      </span>
-                                </div>
-                            </li>
-                            <li class="shopping-cart"><a href="#" class="cart"><span><small>0</small><i class="icon-shopping-cart"></i></span></a></li>
-                        </ul>
-                    </div>
-                </div>
-
-            </div>
-        </nav>
-
-
-
-    </body>
+    </div>
+</div>
+<!-- Footer-->
+<footer class="py-5 bg-dark">
+    <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p></div>
+</footer>
+<!-- Bootstrap core JS-->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="js/scripts.js"></script>
+</body>
 </html>
-
