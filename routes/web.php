@@ -1,8 +1,9 @@
 <?php
 
+use App\Http\Controllers\EncomendaController;
+use App\Http\Controllers\EstampaController;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\PageController;
-use \App\Http\Controllers\EstampaController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,3 +20,5 @@ Route::get('/', [PageController::class, 'index'])->name('home');
 Route::get('estampas', [EstampaController::class, 'index'])->name('estampas.index');
 
 Route::get('about', [PageController::class, 'about'])->name('about');
+
+Route::get('encomendas.index', [EncomendaController::class, 'create'])->name('encomendas.index');
