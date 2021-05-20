@@ -28,6 +28,10 @@
             </select>
         </div>
     </form>
+
+    <label for="quantidade">Quantidade: </label>
+    <input class="form-control" type="text" placeholder="Insira quantidade" aria-label="default input example">
+
     <form class="estampa-search" action="#" method="GET">
         <div class="search-item">
             <label for="idCat">Categoria: </label>
@@ -43,6 +47,7 @@
             <button type="submit" class="btn btn-secondary">Filtrar</button>
         </div>
     </form>
+
 
     <div class="estampa-area">
         @foreach($estampas as $estampa)
