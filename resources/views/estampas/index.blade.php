@@ -27,7 +27,7 @@
             @foreach($estampas as $estampa)
                 <div class="estampa">
                     <div class="estampa-imagem">
-                        <a class="nav-link" href="{{route('encomendas.index',  ['estampa' => $estampa])}}">
+                        <a class="nav-link" href="{{route('tshirts.choose',  ['estampa' => $estampa])}}">
                             <img src="storage/estampas/{{$estampa->imagem_url}}" alt="Imagem da estampa"
                                  class="rounded img-thumbnail">
                         </a>

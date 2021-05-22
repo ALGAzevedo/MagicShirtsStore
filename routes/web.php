@@ -1,7 +1,9 @@
 <?php
 
-use App\Http\Controllers\EncomendaController;
+
 use App\Http\Controllers\EstampaController;
+
+use App\Http\Controllers\TshirtController;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\PageController;
 /*
@@ -21,5 +23,4 @@ Route::get('estampas', [EstampaController::class, 'index'])->name('estampas.inde
 
 Route::get('about', [PageController::class, 'about'])->name('about');
 
-Route::get('encomendas', [EncomendaController::class, 'create'])->name('encomendas.index');
-Route::get('encomendas/{estampa}', [EncomendaController::class, 'create'])->name('encomendas.index');
+Route::get('tshirts/{estampa}', [TshirtController::class, 'choose'])->name('tshirts.choose');
