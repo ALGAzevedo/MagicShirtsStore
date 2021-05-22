@@ -23,4 +23,6 @@ Route::get('estampas', [EstampaController::class, 'index'])->name('estampas.inde
 
 Route::get('about', [PageController::class, 'about'])->name('about');
 
-Route::get('tshirts/{estampa}', [TshirtController::class, 'choose'])->name('tshirts.choose');
+Route::get('tshirts', [TshirtController::class, 'choose'])->name('tshirts.choose');
+
+//Route::get('tshirts/{estampa}/{codigo}', [TshirtController::class, 'choose'])->name('tshirts.chooseWithColor');

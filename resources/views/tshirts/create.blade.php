@@ -7,20 +7,30 @@
             <h2>Escolha a sua Tshirt</h2>
         </div>
         <div class="d-flex flex-row bd-highlight">
+
             @csrf
+
+            <!-- route('tshirts.chooseWithColor', ['estampa' => $estampa, 'cor' => $corSel])}} -->
+
             <div class="filter p-2 flex-grow-1">
-                <form class="cor-search">
+                <form class="cor-search" action="{{route('tshirts.choose', ['estampa' => $estampa, 'cor' => $corSel])}}" method="GET">
                     <div class="search-item">
                         <label for="idCor">Escolha a cor: </label>
                         <select class="form-control" name="cor" id="idCor">
                             @foreach ($listaCores as $cor)
-                                <option value="{{$cor->id}}" selected>
+                                <option
+                                    value="{{$cor->codigo}}" {{$corSel->codigo == $cor->codigo ? 'selected' : ''}}>
                                     {{$cor->nome}}
                                 </option>
                             @endforeach
                         </select>
                     </div>
+                    <br>
+                    <div class="search-item">
+                        <button type="submit" class="btn btn-secondary">Filtrar</button>
+                    </div>
                 </form>
+
                 <form class="cor-search">
                     <div class="form-tamanho">
                         <label for="exampleFormControlSelect1">Escolha o tamanho: </label>
@@ -49,8 +59,9 @@
                        aria-label="default input example">
             </div>
             <div class="layered-image p-2 bd-highlight">
-                <img class="image-base img-thumbnail" src="{{asset('storage/tshirt_base/fafafa.jpg')}}" alt="tshirt base"/>
-                <img class="image-overlay" src="{{asset('storage/estampas/' . $estampa->imagem_url)}}" alt="" />
+                <img class="image-base img-thumbnail" src="{{asset('storage/tshirt_base/' . $cor->codigo . '.jpg')}}"
+                     alt="tshirt base"/>
+                <img class="image-overlay" src="{{asset('storage/estampas/' . $estampa->imagem_url)}}" alt=""/>
             </div>
 
         </div>
