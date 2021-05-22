@@ -16,3 +16,4 @@ yarn-error.log
 database
 
 storage/debugbar/
+package-lock.json
