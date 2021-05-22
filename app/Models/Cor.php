@@ -12,6 +12,10 @@ class Cor extends Model
     //Overrides table name
     protected $table = 'cores';
 
+    protected $primaryKey = 'codigo';
+
+    protected $keyType = 'string';
+
     public function tshirt(){
 
         return $this->hasMany(Tshirt::class);
