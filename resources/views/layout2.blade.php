@@ -16,7 +16,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
         <div class="navbar-brand">
-            <img class="logo-img .img-responsive .img-fluid" src="/img/logo.png" alt="Logo">
+            <img class="logo-img .img-responsive .img-fluid" src="{{asset('storage/logo.png')}}" alt="Logo">
             <a class="navbar-brand" href="#!"> Magic Shirt Store</a>
         </div>
 

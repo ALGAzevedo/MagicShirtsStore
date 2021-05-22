@@ -49,7 +49,7 @@
                        aria-label="default input example">
             </div>
             <div class="layered-image p-2 bd-highlight">
-                <img class="image-base img-thumbnail" src="/img/plain_white.png" alt="tshirt base"/>
+                <img class="image-base img-thumbnail" src="{{asset('storage/tshirt_base/fafafa.jpg')}}" alt="tshirt base"/>
                 <img class="image-overlay" src="{{asset('storage/estampas/' . $estampa->imagem_url)}}" alt="" />
             </div>
 
