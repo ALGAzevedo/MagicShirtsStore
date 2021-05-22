@@ -21,4 +21,5 @@ Route::get('estampas', [EstampaController::class, 'index'])->name('estampas.inde
 
 Route::get('about', [PageController::class, 'about'])->name('about');
 
-Route::get('encomendas.index', [EncomendaController::class, 'create'])->name('encomendas.index');
+Route::get('encomendas', [EncomendaController::class, 'create'])->name('encomendas.index');
+Route::get('encomendas/{estampa}', [EncomendaController::class, 'create'])->name('encomendas.index');

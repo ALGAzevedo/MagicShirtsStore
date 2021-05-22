@@ -12,12 +12,11 @@
  */
 
 
-/*Formatação das áreas das estampas*/
-.estampa-area{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-}
+
+
+/**
+    FORMATACAO DA AREA DA ESTAMPA
+ */
 
 .estampa-area{
     display: flex;
@@ -59,6 +58,25 @@
     object-fit: scale-down;
 }
 
+
+/**
+
+FORMATACAO DA AREA DA ENCOMENDA
+ */
+.layered-image {
+    position: relative;
+}
+
+.image-base{
+    position: relative;
+}
+.image-overlay {
+    width: 40%;
+    height: 40%;
+    position: absolute;
+    top: 120px;
+    left: 130px;
+}
 
 
 
