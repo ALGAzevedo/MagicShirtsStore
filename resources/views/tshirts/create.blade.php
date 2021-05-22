@@ -13,7 +13,7 @@
             <!-- route('tshirts.chooseWithColor', ['estampa' => $estampa, 'cor' => $corSel])}} -->
 
             <div class="filter p-2 flex-grow-1">
-                <form class="cor-search" action="{{route('tshirts.choose', ['estampa' => $estampa, 'cor' => $corSel])}}" method="GET">
+                <form class="cor-search" action="#" method="GET">
                     <div class="search-item">
                         <label for="idCor">Escolha a cor: </label>
                         <select class="form-control" name="cor" id="idCor">
@@ -59,7 +59,7 @@
                        aria-label="default input example">
             </div>
             <div class="layered-image p-2 bd-highlight">
-                <img class="image-base img-thumbnail" src="{{asset('storage/tshirt_base/' . $cor->codigo . '.jpg')}}"
+                <img class="image-base img-thumbnail" src="{{asset('storage/tshirt_base/' . $corSel->codigo . '.jpg')}}"
                      alt="tshirt base"/>
                 <img class="image-overlay" src="{{asset('storage/estampas/' . $estampa->imagem_url)}}" alt=""/>
             </div>
