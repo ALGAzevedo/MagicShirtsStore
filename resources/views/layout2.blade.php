@@ -33,11 +33,18 @@
                     </a>
                 </li>
                 <li class="nav-item"><a class="nav-link {{Route::currentRouteName() == 'about' ? 'active' : ''}}"
-                                        href="{{route('about')}}">About</a></li>
+                                        href="{{route('about')}}">About</a>
+                </li>
                 <li class="nav-item"><a
                         class="nav-link {{Route::currentRouteName() == 'estampas.index' ? 'active' : ''}}"
-                        href="{{route('estampas.index')}}">Catálogo</a></li>
-                <li class="nav-item"><a class="nav-link" href="#!">Contact</a></li>
+                        href="{{route('estampas.index')}}">Catálogo</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{Route::currentRouteName() == 'administracao' ? 'active' : ''}}"
+                       href="{{route('administracao')}}">
+                        Administração
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
@@ -47,7 +54,7 @@
 @yield('content')
 
 <!-- Footer-->
-<footer class="py-5 bg-dark fixed-bottom">
+<footer id="footer"class="py-5 bg-dark mt-auto">
     <div class="container">
         <p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p>
     </div>

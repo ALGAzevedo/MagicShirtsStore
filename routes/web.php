@@ -1,9 +1,11 @@
 <?php
 
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EstampaController;
 
 use App\Http\Controllers\TshirtController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\PageController;
 /*
@@ -24,5 +26,13 @@ Route::get('estampas', [EstampaController::class, 'index'])->name('estampas.inde
 Route::get('about', [PageController::class, 'about'])->name('about');
 
 Route::get('tshirts/{estampa}', [TshirtController::class, 'choose'])->name('tshirts.choose');
+
+
+
+//ADMINISTRAÇÃO
+
+Route::get('administracao', [DashboardController::class, 'index'])->name('administracao');
+
+Route::get('administracao/users', [UserController::class, 'admin_index'])->name('admin.users');
 
 //Route::get('tshirts/{estampa}/{codigo}', [TshirtController::class, 'choose'])->name('tshirts.chooseWithColor');

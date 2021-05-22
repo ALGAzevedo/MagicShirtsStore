@@ -31,7 +31,7 @@
         <div class="sidebar-brand-icon">
             <img src="/img/logo.png" alt="Logo" class="logo-img">
         </div>
-        <div class="sidebar-brand-text mx-3">DEI</div>
+        <div class="sidebar-brand-text mx-3">Admin</div>
       </a>
 
       <!-- Divider -->
@@ -49,29 +49,30 @@
 
 
       <!-- Nav Item -->
-      <li class="nav-item">
-        <a class="nav-link" href="#">
+      <li class="nav-item" {{Route::currentRouteName()=='admin.users'? 'active': ''}}>
+        <a class="nav-link" href="{{route('admin.users')}}">
           <i class="fas fa-fw fa-table"></i>
-          <span>Cursos</span></a>
+          <span>Utilizadores</span></a>
       </li>
         <!-- Nav Item -->
         <li class="nav-item">
             <a class="nav-link" href="#">
               <i class="fas fa-fw fa-table"></i>
-              <span>Disciplinas</span></a>
+              <span>Estampas</span></a>
           </li>
             <!-- Nav Item -->
       <li class="nav-item">
         <a class="nav-link" href="#">
           <i class="fas fa-fw fa-table"></i>
-          <span>Docentes</span></a>
+          <span>Encomendas</span></a>
       </li>
         <!-- Nav Item -->
         <li class="nav-item">
-            <a class="nav-link" href="#">
-              <i class="fas fa-fw fa-table"></i>
-              <span>Alunos</span></a>
-          </li>
+            <a class="nav-link" href="{{url('/')}}">
+                <i class="fas fa-fw fa-home"></i>
+                <span>Voltar à Loja</span>
+            </a>
+        </li>
 
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
