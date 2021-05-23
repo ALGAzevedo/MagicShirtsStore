@@ -17,11 +17,20 @@
         @foreach ($users as $user)
             <tr {{$user->admin ? 'class=table-success' : ''}}>
                 <td>
-                    <img src="{{$user->foto_url ? asset('storage/fotos/' . $user->foto_url) : asset('img/default_img.png') }}" alt="Foto do utilizador"  class="img-profile rounded-circle" style="width:40px;height:40px">
+                    <img
+                        src="{{$user->foto_url ? asset('storage/fotos/' . $user->foto_url) : asset('img/default_img.png') }}"
+                        alt="Foto do utilizador" class="img-profile rounded-circle" style="width:40px;height:40px">
                 </td>
                 <td>{{$user->name}}</td>
                 <td>{{$user->email}}</td>
-                <td>{{$user->tipo}}</td>
+                @if($user->tipo == 'F')
+                    <td>Funcionário</td>
+                @elseif($user->tipo == 'C')
+                    <td>Cliente</td>
+                @else
+                    <td>Administrador</td>
+                @endif
+
                 <td><a href="#" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Alterar</a></td>
                 <td>
                     <form action="#" method="POST">

@@ -13,7 +13,7 @@ class UserController extends Controller
 
         //$users = User::pluck('name', 'email', 'tipo')->paginate(10);
         $users = $qry->paginate(10);
-        return view('users.index')
+        return view('users.admin')
             ->withUsers($users);
     }
 }

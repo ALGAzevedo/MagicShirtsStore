@@ -9,7 +9,6 @@
         <div class="d-flex flex-row bd-highlight">
 
             @csrf
-
             <!-- route('tshirts.chooseWithColor', ['estampa' => $estampa, 'cor' => $corSel])}} -->
 
             <div class="filter p-2 flex-grow-1">
