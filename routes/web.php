@@ -8,6 +8,7 @@ use App\Http\Controllers\TshirtController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\PageController;
+use \App\Http\Controllers\CartController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -36,3 +37,8 @@ Route::get('administracao', [DashboardController::class, 'index'])->name('admini
 Route::get('administracao/users', [UserController::class, 'admin_index'])->name('admin.users');
 
 //Route::get('tshirts/{estampa}/{codigo}', [TshirtController::class, 'choose'])->name('tshirts.chooseWithColor');
+
+
+//LOJA
+
+Route::get('cart', [CartController::class, 'index'])->name('cart');
