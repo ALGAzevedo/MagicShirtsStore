@@ -38,7 +38,7 @@
                     <td>Não</td>
                 @endif
 
-                <td><a href="#" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Alterar</a></td>
+                <td><a href="{{route('admin.funcionarios.edit', ['funcionario' => $func])}}" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Alterar</a></td>
                 <td>
                     <form action="#" method="POST">
                         @csrf

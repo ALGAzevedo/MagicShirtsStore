@@ -31,9 +31,13 @@ Route::get('tshirts/{estampa}', [TshirtController::class, 'choose'])->name('tshi
 
 //ADMINISTRAÇÃO
 
+//MAIN
 Route::get('administracao', [DashboardController::class, 'index'])->name('administracao');
 
+
+//ADMINISTRACAO FUNCIONARIOS
 Route::get('administracao/funcionarios', [UserController::class, 'admin_funcs'])->name('admin.funcionarios');
+Route::get('administracao/funcionarios/{funcionario}/edit', [UserController::class, 'admin_edit'])->name('admin.funcionarios.edit');
 
 //Route::get('tshirts/{estampa}/{codigo}', [TshirtController::class, 'choose'])->name('tshirts.chooseWithColor');
 
