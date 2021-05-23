@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <title>Dashboard</title>
+  <title>Backoffice Magic Shirt Store</title>
 
   <!-- Custom fonts for this template-->
   <link href="{{asset('vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
@@ -31,7 +31,7 @@
         <div class="sidebar-brand-icon">
             <img src="/img/logo.png" alt="Logo" class="logo-img">
         </div>
-        <div class="sidebar-brand-text mx-3">Admin</div>
+        <div class="sidebar-brand-text mx-3">Backoffice</div>
       </a>
 
       <!-- Divider -->
