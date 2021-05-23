@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserPost;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -38,6 +39,11 @@ class UserController extends Controller
         $funcionario->name = $validated_data['name'];
         $funcionario->tipo = $validated_data['tipo'];
         $funcionario->bloqueado = $validated_data['bloqueado'];
+        if ($request->hasFile('foto')) {
+            Storage::delete('public/fotos/' . $funcionario->foto_url);
+            $path = $request->foto->store('public/fotos');
+            $funcionario->foto_url = basename($path);
+        }
         $funcionario->save();
         return redirect()->route('admin.funcionarios')
             ->with('alert-msg', 'Funcionario "' . $funcionario->name . '" foi alterado com sucesso!')
@@ -64,6 +70,17 @@ class UserController extends Controller
 
         return redirect()->route('admin.funcionarios')
             ->with('alert-msg', 'Funcionario "' . $validated_data['name'] . '" foi criado com sucesso!')
+            ->with('alert-type', 'success');
+    }
+
+    public function destroy_foto(User $funcionario)
+    {
+        Storage::delete('public/fotos/' . $funcionario->foto_url);
+        $funcionario->foto_url = null;
+        $funcionario->save();
+        return redirect()->route('admin.funcionarios.edit', ['funcionario' => $funcionario])
+            ->with('alert-msg', 'Foto do docente "' . $funcionario->name .
+                '" foi removida!')
             ->with('alert-type', 'success');
     }
 

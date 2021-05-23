@@ -1,7 +1,8 @@
 @extends('layout_admin')
 @section('title','Novo Funcionário')
 @section('content')
-    <form method="POST" action="{{route('admin.funcionarios.store')}}" class="form-group">
+    <form method="POST" action="{{route('admin.funcionarios.store')}}" class="form-group"
+          enctype="multipart/form-data">>
         @csrf
         @include('funcionarios.partials.create-edit')
         <div class="form-group text-right">

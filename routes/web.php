@@ -40,6 +40,8 @@ Route::get('administracao/funcionarios/create', [UserController::class, 'create'
 Route::post('administracao/funcionarios', [UserController::class, 'store'])->name('admin.funcionarios.store');
 Route::put('administracao/funcionarios/{funcionario}', [UserController::class, 'update'])->name('admin.funcionarios.update');
 Route::delete('administracao/funcionarios/{funcionario}', [UserController::class, 'destroy'])->name('admin.funcionarios.destroy');
+Route::delete('administracao/funcionarios/{funcionario}/foto', [UserController::class, 'destroy_foto'])->name('admin.funcionarios.foto.destroy');
+
 
 
 Auth::routes();

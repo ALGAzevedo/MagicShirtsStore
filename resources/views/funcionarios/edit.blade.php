@@ -2,7 +2,7 @@
 @section('title', 'Alterar Funcionário')
 @section('content')
     <form method="POST" action="{{route('admin.funcionarios.update', ['funcionario' => $funcionario]) }}"
-          class="form-group">
+          class="form-group" enctype="multipart/form-data">>
         @csrf
         @method('PUT')
         <input type="hidden" name="user_id" value="{{$funcionario->id}}">
@@ -15,10 +15,20 @@
                      style="max-width:100%">
             </div>
         @endisset
-        <button type="submit" class="btn btn-success" name="ok">Save</button>
-        <a href="{{route('admin.funcionarios.edit', ['funcionario' => $funcionario]) }}"
-           class="btn btn-secondary">Reset</a>
-        <a href="{{route('admin.funcionarios') }}" class="btn btn-danger">Cancel</a>
+        <div class="form-group text-right">
+            @isset($funcionario->foto_url)
+                <button type="submit" class="btn btn-danger" name="deletefoto"
+                        form="form_delete_photo">Apagar Foto
+                </button>
+            @endisset
+            <button type="submit" class="btn btn-success" name="ok">Save</button>
+            <a href="{{route('admin.funcionarios.edit', ['funcionario' => $funcionario]) }}"
+               class="btn btn-secondary">Reset</a>
+            <a href="{{route('admin.funcionarios') }}" class="btn btn-danger">Cancel</a>
         </div>
+    </form>
+    <form id="form_delete_photo" action="{{route('admin.funcionarios.foto.destroy',['funcionario' => $funcionario])}}" method="POST">
+        @csrf
+        @method('DELETE')
     </form>
 @endsection
