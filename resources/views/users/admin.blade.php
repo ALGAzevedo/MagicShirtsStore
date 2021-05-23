@@ -2,6 +2,30 @@
 @section('title','Users' )
 @section('content')
 
+
+    <div class="row mb-3">
+        <div class="col-3">
+            <a href="{{route('admin.users.create')}}" class="btn btn-success" role="button" aria-pressed="true">Novo
+                Funcionário</a>
+        </div>
+        <div class="col-9">
+            <form method="GET" action="{{route('admin.disciplinas')}}" class="form-group">
+                <div class="input-group">
+                    <select class="custom-select" name="curso" id="inputCurso" aria-label="Curso">
+                        <option value="" {{'' == old('curso', $selectedCurso) ? 'selected' : ''}}>Todos Cursos</option>
+                        @foreach ($cursos as $abr => $nome)
+                            <option
+                                value={{$abr}} {{$abr == old('curso', $selectedCurso) ? 'selected' : ''}}>{{$nome}}</option>
+                        @endforeach
+                    </select>
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="submit">Filtrar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <table class="table">
         <thead>
         <tr>
@@ -9,6 +33,8 @@
             <th>Nome</th>
             <th>Email</th>
             <th>Tipo</th>
+            <th>Bloqueado</th>
+            <th></th>
             <th></th>
             <th></th>
         </tr>
@@ -31,6 +57,12 @@
                     <td>Administrador</td>
                 @endif
 
+                @if($user->bloqueado == 1)
+                    <td>Sim</td>
+                @else
+                    <td>Não</td>
+                @endif
+                
                 <td><a href="#" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Alterar</a></td>
                 <td>
                     <form action="#" method="POST">
