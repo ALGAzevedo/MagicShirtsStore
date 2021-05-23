@@ -15,6 +15,19 @@ class User extends Authenticatable
     use SoftDeletes;
     public $timestamps = false;
 
+
+//    /**
+//     * Overrides the method to ignore the remember token.
+//     */
+//    public function setAttribute($key, $value)
+//    {
+//        $isRememberTokenAttribute = $key == $this->getRememberTokenName();
+//        if (!$isRememberTokenAttribute)
+//        {
+//            parent::setAttribute($key, $value);
+//        }
+//    }
+
     /**
      * The attributes that are mass assignable.
      *
@@ -24,6 +37,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'tipo',
+        'bloqueado',
     ];
 
     /**

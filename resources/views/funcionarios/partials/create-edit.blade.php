@@ -1,78 +1,50 @@
 <div class="form-group">
     <label for="inputNome">Nome</label>
-    <input type="text" class="form-control" name="name" id="inputNome" value="{{old('name', $user->name)}}">
+    <input type="text" class="form-control" name="name" id="inputNome" value="{{old('name', $funcionario->name)}}">
     @error('name')
     <div class="small text-danger">{{$message}}</div>
     @enderror
 </div>
 <div class="form-group">
     <label for="inputEmail">Email</label>
-    <input type="text" class="form-control" name="email" id="inputEmail" value="{{old('email', $user->email)}}">
+    <input type="email" class="form-control" name="email" id="inputEmail" value="{{old('email', $funcionario->email)}}">
     @error('email')
     <div class="small text-danger">{{$message}}</div>
     @enderror
 </div>
 <div class="form-group">
+    <label for="inputPassword">Password</label>
+    <input type="password" class="form-control" name="password" id="password" value="{{old('password', $funcionario->password)}}">
+    @error('password')
+    <div class="small text-danger">{{$message}}</div>
+    @enderror
+</div>
+
+<div class="form-group">
+    <div>Tipo</div>
     <div class="form-check form-check-inline">
-        <input type="hidden" name="tipo" value="{{$user->tipo = 'F'}}">
+        <input type="radio" class="form-check-input" id="inputFuncionario" name="tipo"
+               value="F" {{old('tipo',  $funcionario->tipo) == 'F' ? 'checked' : ''}}>
+        <label class="form-check-label" for="inputFuncionario"> Funcionário </label>
+        <input type="radio" class="form-check-input ml-4" id="inputAdministrador" name="tipo"
+               value="A" {{old('tipo',  $funcionario->tipo) == 'A' ? 'checked' : ''}}>
+        <label class="form-check-label" for="inputAdministrador"> Administrador </label>
     </div>
     @error('tipo')
     <div class="small text-danger">{{$message}}</div>
     @enderror
 </div>
 <div class="form-group">
-    <div>Género</div>
     <div class="form-check form-check-inline">
-        <input type="radio" class="form-check-input" id="inputMasculino" name="genero"
-               value="M" {{old('genero',  $docente->user->genero) == 'M' ? 'checked' : ''}}>
-        <label class="form-check-label" for="inputMasculino"> Masculino </label>
-        <input type="radio" class="form-check-input ml-4" id="inputFeminino" name="genero"
-               value="F" {{old('genero',  $docente->user->genero) == 'F' ? 'checked' : ''}}>
-        <label class="form-check-label" for="inputFeminino"> Feminino </label>
+        <input type="hidden" name="bloqueado" value="0">
+        <input type="checkbox" class="form-check-input" id="inputBloqueado" name="bloqueado"
+               value="1" {{old('bloqueado', $funcionario->bloqueado) == '1' ? 'checked' : ''}}>
+        <label class="form-check-label" for="inputAdmin">
+            Bloqueado
+        </label>
     </div>
-    @error('genero')
+    @error('bloqueado')
     <div class="small text-danger">{{$message}}</div>
     @enderror
 </div>
-<div class="form-group">
-    <label for="inputDepartamento">Departamento</label>
-    <select class="form-control" name="departamento" id="inputDepartamento">
-        @foreach ($departamentos as $abr => $nome)
-            <option
-                value={{$abr}} {{$abr == old('departamento', $docente->departamento) ? 'selected' : ''}}>{{$nome}}</option>
-        @endforeach
-    </select>
-    @error('departamento')
-    <div class="small text-danger">{{$message}}</div>
-    @enderror
-</div>
-<div class="form-group">
-    <label for="inputGabinete">Gabinete</label>
-    <input type="text" class="form-control" name="gabinete" id="inputGabinete"
-           value="{{old('gabinete', $docente->gabinete)}}">
-    @error('gabinete')
-    <div class="small text-danger">{{$message}}</div>
-    @enderror
-</div>
-<div class="form-group">
-    <label for="inputExtensao">Extensão</label>
-    <input type="text" class="form-control" name="extensao" id="inputExtensao"
-           value="{{old('extensao', $docente->extensao)}}">
-    @error('extensao')
-    <div class="small text-danger">{{$message}}</div>
-    @enderror
-</div>
-<div class="form-group">
-    <label for="inputCacifo">Cacifo</label>
-    <input type="text" class="form-control" name="cacifo" id="inputCacifo" value="{{old('cacifo', $docente->cacifo)}}">
-    @error('cacifo')
-    <div class="small text-danger">{{$message}}</div>
-    @enderror
-</div>
-<div class="form-group">
-    <label for="inputFoto">Upload da foto</label>
-    <input type="file" class="form-control" name="foto" id="inputFoto">
-    @error('foto')
-    <div class="small text-danger">{{$message}}</div>
-    @enderror
-</div>
+

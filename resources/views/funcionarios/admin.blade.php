@@ -2,7 +2,12 @@
 @section('title','Users' )
 @section('content')
 
-
+    <div class="row mb-3">
+        <div class="col-3">
+            <a href="{{route('admin.funcionarios.create')}}" class="btn btn-success" role="button" aria-pressed="true">Novo
+                Funcionario</a>
+        </div>
+    </div>
     <table class="table">
         <thead>
         <tr>
@@ -38,7 +43,8 @@
                     <td>Não</td>
                 @endif
 
-                <td><a href="{{route('admin.funcionarios.edit', ['funcionario' => $func])}}" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Alterar</a></td>
+                <td><a href="{{route('admin.funcionarios.edit', ['funcionario' => $func])}}"
+                       class="btn btn-primary btn-sm" role="button" aria-pressed="true">Alterar</a></td>
                 <td>
                     <form action="#" method="POST">
                         @csrf

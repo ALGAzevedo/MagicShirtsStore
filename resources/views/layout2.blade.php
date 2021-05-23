@@ -52,7 +52,6 @@
 <!-- Page Content-->
 
 @yield('content')
-
 <!-- Footer-->
 <footer id="footer"class="py-5 bg-dark mt-auto">
     <div class="container">
