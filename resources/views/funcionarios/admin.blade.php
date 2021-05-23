@@ -46,7 +46,7 @@
                 <td><a href="{{route('admin.funcionarios.edit', ['funcionario' => $func])}}"
                        class="btn btn-primary btn-sm" role="button" aria-pressed="true">Alterar</a></td>
                 <td>
-                    <form action="#" method="POST">
+                    <form action="{{route('admin.funcionarios.destroy', ['funcionario' =>$func])}}" method="POST">
                         @csrf
                         @method("DELETE")
                         <input type="submit" class="btn btn-danger btn-sm" value="Apagar">
