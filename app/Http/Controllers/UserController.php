@@ -7,13 +7,14 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function admin_index(){
+    public function admin_funcs(){
 
         $qry = User::query();
-
-        //$users = User::pluck('name', 'email', 'tipo')->paginate(10);
-        $users = $qry->paginate(10);
-        return view('users.admin')
-            ->withUsers($users);
+        $qry->where('tipo','F');
+        //$funcionarios = User::pluck('name', 'email', 'tipo')->paginate(10);
+        $funcs = $qry->paginate(10);
+        return view('funcionarios.admin')
+            ->withFuncs($funcs);
     }
+    
 }
