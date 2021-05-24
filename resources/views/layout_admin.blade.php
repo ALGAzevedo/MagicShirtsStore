@@ -55,8 +55,8 @@
           <span>Funcionários</span></a>
       </li>
         <!-- Nav Item -->
-        <li class="nav-item">
-            <a class="nav-link" href="#">
+        <li class="nav-item" {{Route::currentRouteName()=='admin.clientes'? 'active': ''}}>
+            <a class="nav-link" href="{{route('admin.clientes')}}">
                 <i class="fas fa-fw fa-table"></i>
                 <span>Clientes</span></a>
         </li>
