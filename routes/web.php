@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EstampaController;
 
@@ -42,6 +43,9 @@ Route::put('administracao/funcionarios/{funcionario}', [UserController::class, '
 Route::delete('administracao/funcionarios/{funcionario}', [UserController::class, 'destroy'])->name('admin.funcionarios.destroy');
 Route::delete('administracao/funcionarios/{funcionario}/foto', [UserController::class, 'destroy_foto'])->name('admin.funcionarios.foto.destroy');
 
+//ADMINISTRACAO PARA CLIENTES
+
+Route::get('administracao/clientes', [ClienteController::class, 'show_clientes'])->name('admin.clientes');
 
 
 
