@@ -45,6 +45,6 @@ Route::delete('administracao/funcionarios/{funcionario}/foto', [UserController::
 
 
 
-Auth::routes();
+Auth::routes(['register' => true]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
