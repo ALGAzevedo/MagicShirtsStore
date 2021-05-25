@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cor;
 use App\Models\Estampa;
+use App\Models\Preco;
 use Illuminate\Http\Request;
 
 class TshirtController extends Controller
@@ -18,8 +19,10 @@ class TshirtController extends Controller
         //$estampaRef =$request->query('estampa', $listaEstampas[0]->id);
 
         $estampa = Estampa::findOrFail($estampa->id);
+       
+        $preco = $this->getPrice();
 
-        return view('tshirts.create', compact('listaCores', 'estampa', 'corSel'));
+        return view('tshirts.create', compact('listaCores', 'estampa', 'corSel', 'preco'));
     }
 
     public function chooseWithColor(Estampa $estampa, Cor $cor)
@@ -28,5 +31,11 @@ class TshirtController extends Controller
         $corSel = $cor;
         $estampa = Estampa::findOrFail($estampa->id);
         return view('tshirts.create', compact('listaCores', 'estampa', 'corSel'));
+    }
+
+    private function getPrice(){
+        $precos = Preco::all();
+        //foreach($precos as $preco)
+            return $precos[0];
     }
 }
