@@ -12,17 +12,21 @@
                             <div class="layered-image p-2 bd-highlight">
                                 <img class="image-base img-thumbnail" src="{{asset('storage/tshirt_base/' . $corSel->codigo . '.jpg')}}"
                                     alt="tshirt base"/>
-                                <img class="image-overlay" src="{{asset('storage/estampas/' . $estampa->imagem_url)}}" alt=""/>
+                                <img class="image-overlay" src="{{asset('storage/estampas/' . $estampa->imagem_url)}}" alt="{{$estampa->nome}}"/>
                             </div>
                     </div>
                     <div class="col-md-6">
-                        <h1 class="display-5 font-weight-bold">{Nome}</h1>
+                        <h1 class="display-5 font-weight-bold">{{$estampa->nome}}</h1>
                         <div class="fs-5 mb-3">
-                            <h4>{preço}</h4>
+                        @if($estampa->client_id)
+                            <h4>{{$preco->preco_un_proprio}}</h4>
+                        @else
+                            <h4>{{$preco->preco_un_catalogo}}</h4>
+                        @endif
                         </div>
-                        <p class="lea">{Descrição}</p>
-                        <form action="{{ url('/') }}" method="GET">
-                        @csrf
+                        <p class="lea">{{$estampa->descricao}}</p>
+                        <form action="" method="GET">
+                        <!--@csrf-->
                         <div class="form-row">
                         <div class="col-md-5 my-1">
                             <label for="idCor">Escolha a cor: </label>
