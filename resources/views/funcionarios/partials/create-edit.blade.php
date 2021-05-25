@@ -14,7 +14,8 @@
 </div>
 <div class="form-group">
     <label for="inputPassword">Password</label>
-    <input type="password" class="form-control" name="password" id="password" value="{{old('password', $funcionario->password)}}">
+    <input type="password" class="form-control" name="password" id="password"
+           value="{{old('password', $funcionario->password)}}">
     @error('password')
     <div class="small text-danger">{{$message}}</div>
     @enderror

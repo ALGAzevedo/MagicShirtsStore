@@ -40,7 +40,7 @@
                     <td>Não</td>
                 @endif
 
-                <td><a href="#"
+                <td><a href="{{route('admin.clientes.edit', ['cliente'=> $cliente])}}"
                        class="btn btn-primary btn-sm" role="button" aria-pressed="true">Alterar</a></td>
 
                 <td>
