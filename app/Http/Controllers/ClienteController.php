@@ -9,7 +9,9 @@ class ClienteController extends Controller
 {
     public function show_clientes()
     {
-        $clientes = Cliente::all();
+        $qry = Cliente::query();
+        $qry = $qry->where('id', '>', '0');
+        $clientes = $qry->paginate(10);
         return view('clientes.admin')
         ->withClientes($clientes);
     }

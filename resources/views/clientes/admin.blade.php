@@ -23,7 +23,6 @@
         @foreach ($clientes as $cliente)
             <tr class=table-success'>
                 <td>
-
                     <img
                         src="{{$cliente->user->foto_url ? asset('storage/fotos/' . $cliente->user->foto_url) : asset('img/default_img.png') }}"
                         alt="Foto do utilizador" class="img-profile rounded-circle" style="width:40px;height:40px">
@@ -55,5 +54,5 @@
         @endforeach
         </tbody>
     </table>
-    {{ $clientes->withQueryString()->links() }}
+    {{ $clientes->withQueryString()->links()}}
 @endsection
