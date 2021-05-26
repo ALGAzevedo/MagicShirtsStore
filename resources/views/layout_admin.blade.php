@@ -60,6 +60,11 @@
               <i class="fas fa-fw fa-table"></i>
               <span>Estampas</span></a>
           </li>
+        <li class="nav-item" {{Route::currentRouteName()=='admin.categorias'? 'active': ''}}>
+            <a class="nav-link" href="{{route('admin.categorias')}}">
+                <i class="fas fa-fw fa-table"></i>
+                <span>Categorias</span></a>
+        </li>
             <!-- Nav Item -->
       <li class="nav-item">
         <a class="nav-link" href="#">
