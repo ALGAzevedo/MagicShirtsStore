@@ -10,6 +10,11 @@ class Categoria extends Model
 {
     use HasFactory;
     use softDeletes;
+    public $timestamps = false;
+
+    protected $fillable = [
+        'nome'
+    ];
 
     public function estampas(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
