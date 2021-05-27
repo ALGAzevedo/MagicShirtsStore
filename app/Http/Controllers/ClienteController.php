@@ -110,4 +110,15 @@ class ClienteController extends Controller
         }
     }
 
+    public function block(Cliente $cliente)
+    {
+
+        $cliente->user->bloqueado = '1';
+        $cliente->user->save();
+
+        return redirect()->route('admin.clientes')
+            ->with('alert-msg', 'Cliente "' . $cliente->user->name . '" foi alterado com sucesso!')
+            ->with('alert-type', 'success');
+    }
+
 }
