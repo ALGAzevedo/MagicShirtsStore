@@ -72,6 +72,7 @@ Route::post('administracao/clientes', [ClienteController::class, 'store'])->name
 Route::put('administracao/clientes/{cliente}', [ClienteController::class, 'update'])->name('admin.clientes.update');
 Route::delete('administracao/clientes/{cliente}', [ClienteController::class, 'destroy'])->name('admin.clientes.destroy');
 Route::delete('administracao/clientes/{cliente}/foto', [ClienteController::class, 'destroy_foto'])->name('admin.clientes.foto.destroy');
+Route::put('administracao/clientes/{cliente}/block', [ClienteController::class, 'block'])->name('admin.clientes.block');
 
 
 Auth::routes(['register' => true]);

@@ -46,8 +46,14 @@
                        class="btn btn-primary btn-sm" role="button" aria-pressed="true">Alterar</a>
                 </td>
                 <td>
-                    <a href="{{route('admin.clientes.edit', ['cliente'=> $cliente])}}"
-                       class="btn btn-warning btn-sm" role="button" aria-pressed="true">Bloquear</a>
+                    <form method="POST" action="{{route('admin.clientes.block', ['cliente' => $cliente]) }}"
+                          class="form-group" enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT')
+                        <button type="submit" class="btn btn-warning btn-sm" role="button" aria-pressed="true">
+                            Bloquear
+                        </button>
+                    </form>
                 </td>
 
                 <td>
