@@ -7,6 +7,7 @@ use App\Http\Controllers\EstampaController;
 
 use App\Http\Controllers\TshirtController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\PageController;
 /*
@@ -52,9 +53,6 @@ Route::post('administracao/clientes', [ClienteController::class, 'store'])->name
 Route::put('administracao/clientes/{cliente}', [ClienteController::class, 'update'])->name('admin.clientes.update');
 Route::delete('administracao/clientes/{cliente}', [ClienteController::class, 'destroy'])->name('admin.clientes.destroy');
 Route::delete('administracao/clientes/{cliente}/foto', [ClienteController::class, 'destroy_foto'])->name('admin.clientes.foto.destroy');
-
-
-
 
 
 Auth::routes(['register' => true]);

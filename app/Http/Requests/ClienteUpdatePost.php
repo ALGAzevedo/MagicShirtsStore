@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class ClientePost extends FormRequest
+class ClienteUpdatePost extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,18 +24,14 @@ class ClientePost extends FormRequest
      */
     public function rules()
     {
-
         return [
             'name' => 'required',
             'endereco' => 'required',
             'bloqueado' => 'required|in:1,0',
-            'password' => [
-                'required'
-            ],
             'nif' => [
                 'required',
                 'numeric',
-                'size:9'
+                'size:9',
             ],
             'tipo_pagamento' => 'required|in:LC,PAYPAL,VISA',
             'ref_pagamento' => 'required',

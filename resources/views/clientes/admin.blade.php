@@ -44,7 +44,7 @@
                        class="btn btn-primary btn-sm" role="button" aria-pressed="true">Alterar</a></td>
 
                 <td>
-                    <form action="#" method="POST">
+                    <form action="{{route('admin.clientes.destroy', ['cliente' =>$cliente])}}" method="POST">
                         @csrf
                         @method("DELETE")
                         <input type="submit" class="btn btn-danger btn-sm" value="Apagar">

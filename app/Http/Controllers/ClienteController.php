@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ClientePost;
+
+use App\Http\Requests\UserPost;
 use App\Models\Cliente;
-use Illuminate\Http\Request;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
@@ -27,12 +29,13 @@ class ClienteController extends Controller
 
     public function update(ClientePost $request, User $cliente)
     {
-
         $validated_data = $request->validated();
         $cliente->user->name = $validated_data['name'];
         $cliente->user->bloqueado = $validated_data['bloqueado'];
         $cliente->user->email = $validated_data['email'];
-        $cliente->user->password = $validated_data['password'];
+        if ($request->has('password')) {
+            $cliente->user->password = $validated_data['password'];
+        }
         if ($request->hasFile('foto')) {
             Storage::delete('public/fotos/' . $cliente->user->foto_url);
             $path = $request->foto->store('public/fotos');
@@ -76,6 +79,34 @@ class ClienteController extends Controller
         return redirect()->route('/')
             ->with('alert-msg', 'Cliente "' . $validated_data['name'] . '" foi criado com sucesso!')
             ->with('alert-type', 'success');
+    }
+
+    public function destroy(Cliente $cliente)
+    {
+        $oldName = $cliente->name;
+        $oldUserID = $cliente->id;
+        $oldUrlFoto = $cliente->foto_url;
+        try {
+            //User::destroy($oldUserID);
+            Storage::delete('public/fotos/' . $oldUrlFoto);
+            return redirect()->route('admin.clientes')
+                ->with('alert-msg', 'Cliente "' . $oldName . '" foi apagado com sucesso!')
+                ->with('alert-type', 'success');
+
+        } catch (\Throwable $th) {
+            // $th é a exceção lançada pelo sistema - por norma, erro ocorre no servidor BD MySQL
+            // Descomentar a próxima linha para verificar qual a informação que a exceção tem
+
+            if ($th->errorInfo[1] == 1451) {   // 1451 - MySQL Error number for "Cannot delete or update a parent row: a foreign key constraint fails (%s)"
+                return redirect()->route('admin.clientes')
+                    ->with('alert-msg', 'Não foi possível apagar o Cliente "' . $oldName . '", porque este cliente já está em uso!')
+                    ->with('alert-type', 'danger');
+            } else {
+                return redirect()->route('admin.clientes')
+                    ->with('alert-msg', 'Não foi possível apagar o Cliente "' . $oldName . '". Erro: ' . $th->errorInfo[2])
+                    ->with('alert-type', 'danger');
+            }
+        }
     }
 
 }
