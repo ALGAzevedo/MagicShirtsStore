@@ -85,11 +85,6 @@
           <i class="fas fa-fw fa-table"></i>
           <span>Encomendas</span></a>
       </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">
-                <i class="fas fa-fw fa-table"></i>
-                <span>Encomendas</span></a>
-        </li>
         <!-- Nav Item -->
         <li class="nav-item">
             <a class="nav-link" href="{{url('/')}}">
