@@ -2,7 +2,7 @@
 @section('title', 'Alterar Funcionário')
 @section('content')
     <form method="POST" action="{{route('admin.funcionarios.update', ['funcionario' => $funcionario]) }}"
-          class="form-group" enctype="multipart/form-data">>
+          class="form-group" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <input type="hidden" name="user_id" value="{{$funcionario->id}}">
@@ -27,7 +27,8 @@
             <a href="{{route('admin.funcionarios') }}" class="btn btn-danger">Cancel</a>
         </div>
     </form>
-    <form id="form_delete_photo" action="{{route('admin.funcionarios.foto.destroy',['funcionario' => $funcionario])}}" method="POST">
+    <form id="form_delete_photo" action="{{route('admin.funcionarios.foto.destroy',['funcionario' => $funcionario])}}"
+          method="POST">
         @csrf
         @method('DELETE')
     </form>

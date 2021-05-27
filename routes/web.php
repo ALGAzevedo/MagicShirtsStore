@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EstampaController;
 
@@ -41,6 +42,17 @@ Route::post('administracao/funcionarios', [UserController::class, 'store'])->nam
 Route::put('administracao/funcionarios/{funcionario}', [UserController::class, 'update'])->name('admin.funcionarios.update');
 Route::delete('administracao/funcionarios/{funcionario}', [UserController::class, 'destroy'])->name('admin.funcionarios.destroy');
 Route::delete('administracao/funcionarios/{funcionario}/foto', [UserController::class, 'destroy_foto'])->name('admin.funcionarios.foto.destroy');
+
+//ADMINISTRACAO PARA CLIENTES
+
+Route::get('administracao/clientes', [ClienteController::class, 'show_clientes'])->name('admin.clientes');
+Route::get('administracao/clientes/{cliente}/edit', [ClienteController::class, 'edit'])->name('admin.clientes.edit');
+Route::get('administracao/clientes/create', [ClienteController::class, 'create'])->name('admin.clientes.create');
+Route::post('administracao/clientes', [ClienteController::class, 'store'])->name('admin.clientes.store');
+Route::put('administracao/clientes/{cliente}', [ClienteController::class, 'update'])->name('admin.clientes.update');
+Route::delete('administracao/clientes/{cliente}', [ClienteController::class, 'destroy'])->name('admin.clientes.destroy');
+Route::delete('administracao/clientes/{cliente}/foto', [ClienteController::class, 'destroy_foto'])->name('admin.clientes.foto.destroy');
+
 
 
 

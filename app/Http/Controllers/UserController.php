@@ -32,8 +32,6 @@ class UserController extends Controller
     public function update(UserPost $request, User $funcionario)
     {
 
-//        $funcionario->fill($request->validated());
-//        $funcionario->save();
         $validated_data = $request->validated();
         $funcionario->email = $validated_data['email'];
         $funcionario->name = $validated_data['name'];

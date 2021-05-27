@@ -10089,3 +10089,16 @@ FORMATACAO DA AREA DA ENCOMENDA
     left: 160px;
 }
 
+
+
+
+/**
+
+FORMATACAO NAV IMAGEM PERFIL FRONTPAGE
+
+ */
+.img-profile{
+    height: 2rem;
+    width: 2rem;
+}
+
