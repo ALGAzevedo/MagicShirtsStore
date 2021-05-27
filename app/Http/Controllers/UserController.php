@@ -37,6 +37,7 @@ class UserController extends Controller
         $funcionario->name = $validated_data['name'];
         $funcionario->tipo = $validated_data['tipo'];
         $funcionario->bloqueado = $validated_data['bloqueado'];
+        $funcionario->password = $validated_data['password'];
         if ($request->hasFile('foto')) {
             Storage::delete('public/fotos/' . $funcionario->foto_url);
             $path = $request->foto->store('public/fotos');
@@ -63,6 +64,10 @@ class UserController extends Controller
         $newUser->name = $validated_data['name'];
         $newUser->tipo = $validated_data['tipo'];
         $newUser->bloqueado = $validated_data['bloqueado'];
+        if ($request->hasFile('foto')) {
+            $path = $request->foto->store('public/fotos');
+            $newUser->url_foto = basename($path);
+        }
         $newUser->password = Hash::make($validated_data['password']);
         $newUser->save();
 

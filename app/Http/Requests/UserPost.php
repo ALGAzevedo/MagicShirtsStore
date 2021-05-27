@@ -24,6 +24,7 @@ class UserPost extends FormRequest
      */
     public function rules()
     {
+
         return [
             'name' =>         'required',
             'tipo' =>        'required|in:A,F',

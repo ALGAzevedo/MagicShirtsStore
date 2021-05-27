@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Password;
 
 class ClientePost extends FormRequest
 {
@@ -23,13 +25,14 @@ class ClientePost extends FormRequest
      */
     public function rules()
     {
+
         return [
-            'name' =>         'required',
+            'name' => 'required',
             'endereco' => 'required',
-            'bloqueado' =>     'required|in:1,0',
+            'bloqueado' => 'required|in:1,0',
             'password' => [
-                'required',
-                ],
+                'required'
+            ],
             'nif' => [
                 'required',
                 'numeric',
@@ -40,7 +43,7 @@ class ClientePost extends FormRequest
             'email' => [
                 'required',
                 'email',
-                Rule::unique('users', 'email')->ignore($this->id),
+                Rule::unique('users', 'email')->ignore($this->user_id),
             ],
 
             'foto' => 'nullable|image|max:8192', // Máximum size = 8Mb
