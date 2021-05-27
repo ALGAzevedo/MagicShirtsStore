@@ -77,7 +77,7 @@ class UserController extends Controller
         $funcionario->foto_url = null;
         $funcionario->save();
         return redirect()->route('admin.funcionarios.edit', ['funcionario' => $funcionario])
-            ->with('alert-msg', 'Foto do docente "' . $funcionario->name .
+            ->with('alert-msg', 'Foto do funcionário "' . $funcionario->name .
                 '" foi removida!')
             ->with('alert-type', 'success');
     }
@@ -90,8 +90,8 @@ class UserController extends Controller
         try {
             //User::destroy($oldUserID);
             Storage::delete('public/fotos/' . $oldUrlFoto);
-            return redirect()->route('admin.docentes')
-                ->with('alert-msg', 'Docente "' . $oldName . '" foi apagado com sucesso!')
+            return redirect()->route('admin.funcionarios')
+                ->with('alert-msg', 'Funcionário "' . $oldName . '" foi apagado com sucesso!')
                 ->with('alert-type', 'success');
 
         } catch (\Throwable $th) {
@@ -99,12 +99,12 @@ class UserController extends Controller
             // Descomentar a próxima linha para verificar qual a informação que a exceção tem
 
             if ($th->errorInfo[1] == 1451) {   // 1451 - MySQL Error number for "Cannot delete or update a parent row: a foreign key constraint fails (%s)"
-                return redirect()->route('admin.docentes')
-                    ->with('alert-msg', 'Não foi possível apagar o Docente "' . $oldName . '", porque este docente já está em uso!')
+                return redirect()->route('admin.funcionários')
+                    ->with('alert-msg', 'Não foi possível apagar o Funcionário "' . $oldName . '", porque este funcionário já está em uso!')
                     ->with('alert-type', 'danger');
             } else {
-                return redirect()->route('admin.docentes')
-                    ->with('alert-msg', 'Não foi possível apagar o Docente "' . $oldName . '". Erro: ' . $th->errorInfo[2])
+                return redirect()->route('admin.funcionários')
+                    ->with('alert-msg', 'Não foi possível apagar o Funcionário "' . $oldName . '". Erro: ' . $th->errorInfo[2])
                     ->with('alert-type', 'danger');
             }
         }
