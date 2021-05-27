@@ -70,6 +70,7 @@ class ClienteController extends Controller
         $newUser->save();
 
         $newCliente = new Cliente;
+        $newCliente->id = $newUser->id;
         $newCliente->endereco = $validated_data['endereco'];
         $newCliente->nif = $validated_data['nif'];
         $newCliente->tipo_pagamento = $validated_data['tipo_pagamento'];
