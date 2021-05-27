@@ -76,5 +76,4 @@ Route::delete('administracao/clientes/{cliente}/foto', [ClienteController::class
 
 Auth::routes(['register' => true]);
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
