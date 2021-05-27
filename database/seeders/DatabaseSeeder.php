@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
 
         DB::statement("SET foreign_key_checks=0");
 
-        DB::table('users')->delete();
+        DB::table('funcionarios')->delete();
         DB::table('clientes')->delete();
         DB::table('estampas')->delete();
         DB::table('cores')->delete();
@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
         DB::table('encomendas')->delete();
         DB::table('tshirts')->delete();
 
-        DB::statement('ALTER TABLE users AUTO_INCREMENT = 0');
+        DB::statement('ALTER TABLE funcionarios AUTO_INCREMENT = 0');
         DB::statement('ALTER TABLE estampas AUTO_INCREMENT = 0');
         DB::statement('ALTER TABLE categorias AUTO_INCREMENT = 0');
         DB::statement('ALTER TABLE precos AUTO_INCREMENT = 0');
