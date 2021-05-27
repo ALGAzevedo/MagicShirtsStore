@@ -37,6 +37,7 @@ class ClientePost extends FormRequest
                 'numeric',
                 'size:9'
             ],
+            'tipo' => 'required|in:C',
             'tipo_pagamento' => 'required|in:MC,PAYPAL,VISA',
             'ref_pagamento' => 'required',
             'email' => [

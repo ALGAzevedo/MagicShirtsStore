@@ -71,6 +71,14 @@
     @enderror
 </div>
 <div class="form-group">
+    <div class="form-check form-check-inline">
+        <input type="hidden" name="tipo" value="C">
+    </div>
+    @error('tipo')
+    <div class="small text-danger">{{$message}}</div>
+    @enderror
+</div>
+<div class="form-group">
     <label for="inputFoto">Upload da foto</label>
     <input type="file" class="form-control" name="foto" id="inputFoto">
     @error('foto')
