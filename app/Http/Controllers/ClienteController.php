@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ClientePost;
+use App\Http\Requests\ClienteUpdatePost;
 
 use App\Http\Requests\UserPost;
 use App\Models\Cliente;
@@ -27,13 +27,13 @@ class ClienteController extends Controller
             ->withCliente($cliente);
     }
 
-    public function update(ClientePost $request, User $cliente)
+    public function update(ClienteUpdatePost $request, Cliente $cliente)
     {
         $validated_data = $request->validated();
         $cliente->user->name = $validated_data['name'];
         $cliente->user->bloqueado = $validated_data['bloqueado'];
         $cliente->user->email = $validated_data['email'];
-        if ($request->has('password')) {
+        if ($request->filled('password')) {
             $cliente->user->password = $validated_data['password'];
         }
         if ($request->hasFile('foto')) {
@@ -49,7 +49,7 @@ class ClienteController extends Controller
         $cliente->ref_pagamento = $validated_data['ref_pagamento'];
         $cliente->save();
 
-        return redirect()->route('/')
+        return redirect()->route('home')
             ->with('alert-msg', 'Cliente "' . $cliente->user->name . '" foi alterado com sucesso!')
             ->with('alert-type', 'success');
     }

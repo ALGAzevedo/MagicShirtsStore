@@ -31,9 +31,10 @@ class ClienteUpdatePost extends FormRequest
             'nif' => [
                 'required',
                 'numeric',
-                'size:9',
+                'digits:9',
             ],
-            'tipo_pagamento' => 'required|in:LC,PAYPAL,VISA',
+            'password' => 'nullable',
+            'tipo_pagamento' => 'required|in:MC,PAYPAL,VISA',
             'ref_pagamento' => 'required',
             'email' => [
                 'required',
