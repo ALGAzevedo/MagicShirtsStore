@@ -15,6 +15,7 @@ class UserController extends Controller
         $qry = User::query();
         $qry->where('tipo', 'F')
             ->orWhere('tipo', 'A')
+            ->orWhereNull('deleted_at')
             ->orderBy('name');
 
         //$funcionarios = User::pluck('name', 'email', 'tipo')->paginate(10);
