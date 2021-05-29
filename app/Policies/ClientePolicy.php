@@ -2,16 +2,17 @@
 
 namespace App\Policies;
 
+use App\Models\Cliente;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class FuncionarioPolicy
+class ClientePolicy
 {
     use HandlesAuthorization;
 
     /**
      * Determine if the user has Super User privileges (ADMIN)
-     * Admin user is granted all previleges over "Funcionario(User)" entity
+     * Admin user is granted all previleges over "Cliente" entity
      *
      *
      * @param \App\Models\User $user
@@ -24,6 +25,7 @@ class FuncionarioPolicy
             return true;
         }
     }
+
     /**
      * Determine whether the user can view any models.
      *
@@ -39,12 +41,12 @@ class FuncionarioPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
+     * @param  \App\Models\Cliente  $cliente
      * @return mixed
      */
-    public function view(User $user, User $model)
+    public function view(User $user, Cliente $cliente)
     {
-        return $user->id == $model->id;
+        return $user->id == $cliente->id;
     }
 
     /**
@@ -55,41 +57,41 @@ class FuncionarioPolicy
      */
     public function create(User $user)
     {
-        return false;
+        return $user->tipo == 'C';
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
+     * @param  \App\Models\Cliente  $cliente
      * @return mixed
      */
-    public function update(User $user, User $model)
+    public function update(User $user, Cliente $cliente)
     {
-        return false;
+        //TODO
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
+     * @param  \App\Models\Cliente  $cliente
      * @return mixed
      */
-    public function delete(User $user, User $model)
+    public function delete(User $user, Cliente $cliente)
     {
-        return false;
+        //
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
+     * @param  \App\Models\Cliente  $cliente
      * @return mixed
      */
-    public function restore(User $user, User $model)
+    public function restore(User $user, Cliente $cliente)
     {
         //
     }
@@ -98,10 +100,10 @@ class FuncionarioPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
+     * @param  \App\Models\Cliente  $cliente
      * @return mixed
      */
-    public function forceDelete(User $user, User $model)
+    public function forceDelete(User $user, Cliente $cliente)
     {
         //
     }
