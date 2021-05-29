@@ -33,13 +33,6 @@ Route::get('about', [PageController::class, 'about'])->name('about');
 
 Route::get('tshirts/{estampa}', [TshirtController::class, 'choose'])->name('tshirts.choose');
 
-//ADMINISTRAÇÃO
-
-//MAIN
-Route::get('administracao', [DashboardController::class, 'index'])->name('administracao');
-
-
-
 
 
 //ROTAS DO CARRINHO
@@ -47,7 +40,10 @@ Route::get('administracao', [DashboardController::class, 'index'])->name('admini
 //Route::get('tshirts/{estampa}/{codigo}', [TshirtController::class, 'choose'])->name('tshirts.chooseWithColor');
 Route::get('cart', [CartController::class, 'index'])->name('cart');
 
+//ADMINISTRAÇÃO
 
+//MAIN
+Route::get('administracao', [DashboardController::class, 'index'])->name('administracao');
 
 //ADMINISTRACAO ESTAMPAS
 Route::get('administracao/estampas', [EstampaController::class, 'admin_index'])->name('admin.estampas');
