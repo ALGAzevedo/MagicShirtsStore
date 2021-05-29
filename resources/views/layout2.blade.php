@@ -61,8 +61,8 @@
                         href="{{route('estampas.index')}}">Catálogo</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{Route::currentRouteName() == 'administracao' ? 'active' : ''}}"
-                       href="{{route('administracao')}}">
+                    <a class="nav-link {{Route::currentRouteName() == 'administracao.dashboard' ? 'active' : ''}}"
+                       href="{{route('admin.dashboard')}}">
                         Administração
                     </a>
                 </li>

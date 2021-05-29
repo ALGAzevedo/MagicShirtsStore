@@ -29,7 +29,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('administracao')}}">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('admin.dashboard')}}">
             <div class="sidebar-brand-icon">
                 <img src="/img/logo.png" alt="Logo" class="logo-img">
             </div>
@@ -51,17 +51,20 @@
 
 
         <!-- Nav Item -->
-        <li class="nav-item" {{Route::currentRouteName()=='admin.funcionarios'? 'active': ''}}>
-            <a class="nav-link" href="{{route('admin.funcionarios')}}">
-                <i class="fas fa-fw fa-table"></i>
-                <span>Funcionários</span></a>
-        </li>
-        <!-- Nav Item -->
+        @can('viewAny', App\Models\User::class)
+            <li class="nav-item" {{Route::currentRouteName()=='admin.funcionarios'? 'active': ''}}>
+                <a class="nav-link" href="{{route('admin.funcionarios')}}">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Funcionários</span></a>
+            </li>
+    @endcan
+    <!-- Nav Item -->
         <li class="nav-item" {{Route::currentRouteName()=='admin.clientes'? 'active': ''}}>
             <a class="nav-link" href="{{route('admin.clientes')}}">
                 <i class="fas fa-fw fa-table"></i>
                 <span>Clientes</span></a>
         </li>
+
         <!-- Nav Item -->
         <li class="nav-item" {{Route::currentRouteName()=='admin.estampas'? 'active': ''}}>
             <a class="nav-link" href="{{route('admin.estampas')}}">

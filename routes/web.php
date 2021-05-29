@@ -43,51 +43,61 @@ Route::get('cart', [CartController::class, 'index'])->name('cart');
 //ADMINISTRAÇÃO
 
 //MAIN
-Route::get('administracao', [DashboardController::class, 'index'])->name('administracao');
 
+Route::middleware('auth')->prefix('administracao')->name('admin.')->group(function (){
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 //ADMINISTRACAO ESTAMPAS
-Route::get('administracao/estampas', [EstampaController::class, 'admin_index'])->name('admin.estampas');
-Route::get('administracao/estampas/{estampa}/edit', [EstampaController::class, 'edit'])->name('admin.estampas.edit');
-Route::put('administracao/estampas/{estampa}', [EstampaController::class, 'update'])->name('admin.estampas.update');
-Route::delete('administracao/estampas/{estampa}', [EstampaController::class, 'destroy'])->name('admin.estampas.destroy');
-Route::get('administracao/estampas/create', [EstampaController::class, 'create'])->name('admin.estampas.create');
-Route::post('administracao/estampas', [EstampaController::class, 'store'])->name('admin.estampas.store');
+    Route::get('estampas', [EstampaController::class, 'admin_index'])->name('estampas');
+    Route::get('estampas/{estampa}/edit', [EstampaController::class, 'edit'])->name('estampas.edit');
+    Route::put('estampas/{estampa}', [EstampaController::class, 'update'])->name('estampas.update');
+    Route::delete('estampas/{estampa}', [EstampaController::class, 'destroy'])->name('estampas.destroy');
+    Route::get('estampas/create', [EstampaController::class, 'create'])->name('estampas.create');
+    Route::post('estampas', [EstampaController::class, 'store'])->name('estampas.store');
 
 //ADMINISTRACAO CATEGORIAS
-Route::get('administracao/categorias', [CategoriaController::class, 'admin_index'])->name('admin.categorias');
-Route::get('administracao/categorias/create', [CategoriaController::class, 'create'])->name('admin.categorias.create');
-Route::post('administracao/categorias', [CategoriaController::class, 'store'])->name('admin.categorias.store');
-Route::get('administracao/categorias/{categoria}/edit', [CategoriaController::class, 'edit'])->name('admin.categorias.edit');
-Route::put('administracao/categorias/{categoria}', [CategoriaController::class, 'update'])->name('admin.categorias.update');
-Route::delete('administracao/categorias/{categoria}', [CategoriaController::class, 'destroy'])->name('admin.categorias.destroy');
+    Route::get('categorias', [CategoriaController::class, 'admin_index'])->name('categorias');
+    Route::get('categorias/create', [CategoriaController::class, 'create'])->name('categorias.create');
+    Route::post('categorias', [CategoriaController::class, 'store'])->name('categorias.store');
+    Route::get('categorias/{categoria}/edit', [CategoriaController::class, 'edit'])->name('categorias.edit');
+    Route::put('categorias/{categoria}', [CategoriaController::class, 'update'])->name('categorias.update');
+    Route::delete('categorias/{categoria}', [CategoriaController::class, 'destroy'])->name('categorias.destroy');
 
 //ADMINISTRACAO PRECOS
-Route::get('administracao/precos', [PrecosController::class, 'admin_index'])->name('admin.precos');
-Route::get('administracao/precos/{precos}/edit', [PrecosController::class, 'edit'])->name('admin.precos.edit');
-Route::put('administracao/precos/{precos}', [PrecosController::class, 'update'])->name('admin.precos.update');
+    Route::get('precos', [PrecosController::class, 'admin_index'])->name('precos');
+    Route::get('precos/{precos}/edit', [PrecosController::class, 'edit'])->name('precos.edit');
+    Route::put('precos/{precos}', [PrecosController::class, 'update'])->name('precos.update');
 
 //ADMINISTRACAO ENCOMENDAS
-Route::get('administracao/encomendas', [EncomendaController::class, 'admin_index'])->name('admin.encomendas');
+    Route::get('encomendas', [EncomendaController::class, 'admin_index'])->name('encomendas');
 
 //ADMINISTRACAO FUNCIONARIOS
-Route::get('administracao/funcionarios', [UserController::class, 'admin_funcs'])->name('admin.funcionarios');
-Route::get('administracao/funcionarios/{funcionario}/edit', [UserController::class, 'edit'])->name('admin.funcionarios.edit');
-Route::get('administracao/funcionarios/create', [UserController::class, 'create'])->name('admin.funcionarios.create');
-Route::post('administracao/funcionarios', [UserController::class, 'store'])->name('admin.funcionarios.store');
-Route::put('administracao/funcionarios/{funcionario}', [UserController::class, 'update'])->name('admin.funcionarios.update');
-Route::delete('administracao/funcionarios/{funcionario}', [UserController::class, 'destroy'])->name('admin.funcionarios.destroy');
-Route::delete('administracao/funcionarios/{funcionario}/foto', [UserController::class, 'destroy_foto'])->name('admin.funcionarios.foto.destroy');
+    Route::get('funcionarios', [UserController::class, 'admin_funcs'])->name('funcionarios')
+    ->middleware('can:viewAnym App\Models\User');
+    Route::get('funcionarios/{funcionario}/edit', [UserController::class, 'edit'])->name('funcionarios.edit')
+    ->middleware('can:view, funcionario');
+    Route::get('funcionarios/create', [UserController::class, 'create'])->name('funcionarios.create')
+    ->middleware('can:create, App\Models\User');
+    Route::post('funcionarios', [UserController::class, 'store'])->name('funcionarios.store')
+    ->middleware('can:store, App\Models\User');
+    Route::put('funcionarios/{funcionario}', [UserController::class, 'update'])->name('funcionarios.update')
+    ->middleware('can:update, funcionario');
+    Route::delete('funcionarios/{funcionario}', [UserController::class, 'destroy'])->name('funcionarios.destroy')
+    ->middleware('can:delete, funcionario');
+    Route::delete('funcionarios/{funcionario}/foto', [UserController::class, 'destroy_foto'])->name('funcionarios.foto.destroy')
+    ->middleware('can:update, funcionario');
 
 //ADMINISTRACAO PARA CLIENTES
 
-Route::get('administracao/clientes', [ClienteController::class, 'show_clientes'])->name('admin.clientes');
-Route::get('administracao/clientes/{cliente}/edit', [ClienteController::class, 'edit'])->name('admin.clientes.edit');
-Route::get('administracao/clientes/create', [ClienteController::class, 'create'])->name('admin.clientes.create');
-//Route::post('administracao/clientes', [ClienteController::class, 'store'])->name('admin.clientes.store');
-Route::put('administracao/clientes/{cliente}', [ClienteController::class, 'update'])->name('admin.clientes.update');
-Route::delete('administracao/clientes/{cliente}', [ClienteController::class, 'destroy'])->name('admin.clientes.destroy');
-Route::delete('administracao/clientes/{cliente}/foto', [ClienteController::class, 'destroy_foto'])->name('admin.clientes.foto.destroy');
-Route::put('administracao/clientes/{cliente}/block', [ClienteController::class, 'block'])->name('admin.clientes.block');
+    Route::get('clientes', [ClienteController::class, 'show_clientes'])->name('clientes');
+    Route::get('clientes/{cliente}/edit', [ClienteController::class, 'edit'])->name('clientes.edit');
+    Route::get('clientes/create', [ClienteController::class, 'create'])->name('clientes.create');
+//Route::post('clientes', [ClienteController::class, 'store'])->name('admin.clientes.store');
+    Route::put('clientes/{cliente}', [ClienteController::class, 'update'])->name('clientes.update');
+    Route::delete('clientes/{cliente}', [ClienteController::class, 'destroy'])->name('clientes.destroy');
+    Route::delete('clientes/{cliente}/foto', [ClienteController::class, 'destroy_foto'])->name('clientes.foto.destroy');
+    Route::put('clientes/{cliente}/block', [ClienteController::class, 'block'])->name('clientes.block');
+});
+
 
 
 Auth::routes(['register' => true]);
