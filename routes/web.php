@@ -5,6 +5,8 @@ use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EstampaController;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\PrecosController;
+use App\Http\Controllers\EncomendaController;
 
 use App\Http\Controllers\TshirtController;
 use App\Http\Controllers\UserController;
@@ -49,10 +51,17 @@ Route::post('administracao/estampas', [EstampaController::class, 'store'])->name
 Route::get('administracao/categorias', [CategoriaController::class, 'admin_index'])->name('admin.categorias');
 Route::get('administracao/categorias/create', [CategoriaController::class, 'create'])->name('admin.categorias.create');
 Route::post('administracao/categorias', [CategoriaController::class, 'store'])->name('admin.categorias.store');
-Route::get('administracao/{categoria}/edit', [CategoriaController::class, 'edit'])->name('admin.categorias.edit');
-Route::put('administracao/{categoria}', [CategoriaController::class, 'update'])->name('admin.categorias.update');
+Route::get('administracao/categorias/{categoria}/edit', [CategoriaController::class, 'edit'])->name('admin.categorias.edit');
+Route::put('administracao/categorias/{categoria}', [CategoriaController::class, 'update'])->name('admin.categorias.update');
 Route::delete('administracao/categorias/{categoria}', [CategoriaController::class, 'destroy'])->name('admin.categorias.destroy');
 
+//ADMINISTRACAO PRECOS
+Route::get('administracao/precos', [PrecosController::class, 'admin_index'])->name('admin.precos');
+Route::get('administracao/precos/{precos}/edit', [PrecosController::class, 'edit'])->name('admin.precos.edit');
+Route::put('administracao/precos/{precos}', [PrecosController::class, 'update'])->name('admin.precos.update');
+
+//ADMINISTRACAO
+Route::get('administracao/encomendas', [EncomendaController::class, 'admin_index'])->name('admin.encomendas');
 
 //ADMINISTRACAO FUNCIONARIOS
 Route::get('administracao/funcionarios', [UserController::class, 'admin_funcs'])->name('admin.funcionarios');

@@ -1,5 +1,5 @@
 @extends('layout_admin')
-
+@section('title','Categorias')
 @section('content')
     <div class="row mb-3">
         <div class="col-3">
