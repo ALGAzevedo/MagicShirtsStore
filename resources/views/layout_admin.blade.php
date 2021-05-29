@@ -65,9 +65,9 @@
         <!-- Nav Item -->
         <li class="nav-item" {{Route::currentRouteName()=='admin.estampas'? 'active': ''}}>
             <a class="nav-link" href="{{route('admin.estampas')}}">
-              <i class="fas fa-fw fa-table"></i>
-              <span>Estampas</span></a>
-          </li>
+                <i class="fas fa-fw fa-table"></i>
+                <span>Estampas</span></a>
+        </li>
         <li class="nav-item" {{Route::currentRouteName()=='admin.categorias'? 'active': ''}}>
             <a class="nav-link" href="{{route('admin.categorias')}}">
                 <i class="fas fa-fw fa-table"></i>
@@ -78,12 +78,12 @@
                 <i class="fas fa-fw fa-table"></i>
                 <span>Preços</span></a>
         </li>
-            <!-- Nav Item -->
-      <li class="nav-item">
-        <a class="nav-link" href="#">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Encomendas</span></a>
-      </li>
+        <!-- Nav Item -->
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+                <i class="fas fa-fw fa-table"></i>
+                <span>Encomendas</span></a>
+        </li>
         <!-- Nav Item -->
         <li class="nav-item">
             <a class="nav-link" href="{{url('/')}}">

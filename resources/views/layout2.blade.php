@@ -8,28 +8,29 @@
     <title>MagicShirts Store</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="/public/assets/favicon.ico"/>
-     <!-- Font Awesome -->
-     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-  <!-- Core theme CSS (includes Bootstrap)-->
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+          integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <!-- Core theme CSS (includes Bootstrap)-->
     <link href="/css/styles.css" rel="stylesheet"/>
-    
+
 </head>
 <body>
 
 <div class="utility-nav d-none d-md-block">
-  <div class="container">
-    <div class="row">
-      <div class="col-12 col-md-6">
-        <p class="small">Estampagem de t-shirts Online
-        </p>
-      </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <p class="small">Estampagem de t-shirts Online
+                </p>
+            </div>
 
-      <div class="col-12 col-md-6 text-right">
-      <a href="#"><i class="fas fa-user mr-1"></i> Iniciar sessão</a>
-        </li>
-      </div>
+            <div class="col-12 col-md-6 text-right">
+                <a href="#"><i class="fas fa-user mr-1"></i> Iniciar sessão</a>
+                </li>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
 <!-- Navigation-->
@@ -68,12 +69,13 @@
 
                 <li class="nav-item">
                     <a class="nav-link mx-2"
-                    title="Carrinho"
+                       title="Carrinho"
                        href="{{route('cart')}}">
-                       <i class="fas fa-shopping-bag" aria-hidden="true"></i> <span class="badge badge-pill badge-danger ml-1">3</span>
+                        <i class="fas fa-shopping-bag" aria-hidden="true"></i> <span
+                            class="badge badge-pill badge-danger ml-1">3</span>
                     </a>
                 </li>
-          
+
                 @guest
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -84,12 +86,15 @@
                 @else
                 <!-- Nav Item - User Information -->
                     <li class="nav-item dropdown no-arrow">
-                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{Auth::user()->name}}</span>
-                            <img class="img-profile rounded-circle" src="{{Auth::user()->foto_url ? asset('storage/fotos/' . Auth::user()->foto_url) : asset('img/default_img.png') }}">
+                            <img class="img-profile rounded-circle"
+                                 src="{{Auth::user()->foto_url ? asset('storage/fotos/' . Auth::user()->foto_url) : asset('img/default_img.png') }}">
                         </a>
                         <!-- Dropdown - User Information -->
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                             aria-labelledby="userDropdown">
                             <a class="dropdown-item" href="#">
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Perfil
@@ -109,11 +114,20 @@
 
     </div>
 </nav>
-<!-- Page Content-->
+<div class="container-fluid text-center">
+    <!-- Page Content-->
+    @if (session('alert-msg'))
+        @include('partials.message')
+    @endif
+    @if ($errors->any())
+        @include('partials.errors-message')
+    @endif
 
-@yield('content')
+    @yield('content')
+</div>
+
 <!-- Footer-->
-<footer id="footer"class="py-5 bg-dark mt-auto">
+<footer id="footer" class="py-5 bg-dark mt-auto">
     <div class="container">
         <p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p>
     </div>
