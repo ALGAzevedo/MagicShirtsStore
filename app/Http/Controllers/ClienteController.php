@@ -112,8 +112,11 @@ class ClienteController extends Controller
 
     public function block(Cliente $cliente)
     {
-
-        $cliente->user->bloqueado = '1';
+        if( $cliente->user->bloqueado == '0'){
+            $cliente->user->bloqueado = '1';
+        }else{
+            $cliente->user->bloqueado = '0';
+        }
         $cliente->user->save();
 
         return redirect()->route('admin.clientes')
