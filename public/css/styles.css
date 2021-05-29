@@ -10064,10 +10064,10 @@ NOSSA AREA DE TRABALHO MA MEENNNSSSSS
 }
 
 .estampa img {
-  width: 90%;
-  height: 200px;
-  object-fit: scale-down;
-=======
+    width: 90%;
+    height: 200px;
+    object-fit: scale-down;
+}
 .estampa-area{
     display: flex;
     flex-direction: row;
@@ -10237,8 +10237,7 @@ input[type=number] {
   font-weight: 700;
   color:#007bff
 }
-=======
- */
+
 .layered-image {
     position: relative;
 }
