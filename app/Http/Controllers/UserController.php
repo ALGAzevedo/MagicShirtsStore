@@ -12,10 +12,9 @@ class UserController extends Controller
     public function admin_funcs()
     {
 
-        $qry = User::query();
-        $qry->where('tipo', 'F')
-            ->orWhere('tipo', 'A')
-            ->orWhereNull('deleted_at')
+        $qry = User::withoutTrashed();
+        $qry->where('tipo', '=','F')
+            ->orWhere('tipo','=', 'A')
             ->orderBy('name');
 
         //$funcionarios = User::pluck('name', 'email', 'tipo')->paginate(10);
