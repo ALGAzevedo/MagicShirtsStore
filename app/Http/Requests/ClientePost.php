@@ -29,6 +29,7 @@ class ClientePost extends FormRequest
             'name' => 'required',
             'endereco' => 'required',
             'bloqueado' => 'required|in:1,0',
+            'tipo' => 'required|in:C',
             'password' => [
                 'required'
             ],
@@ -37,9 +38,13 @@ class ClientePost extends FormRequest
                 'numeric',
                 'size:9'
             ],
-            'tipo' => 'required|in:C',
-            'tipo_pagamento' => 'required|in:MC,PAYPAL,VISA',
-            'ref_pagamento' => 'required',
+            'endereco' => [
+                'nullable',
+                'string',
+                'max:255',
+            ],
+            'tipo_pagamento' => 'nullable|in:MC,PAYPAL,VISA',
+            'ref_pagamento' => 'required_if:tipo_pagamento',
             'email' => [
                 'required',
                 'email',
