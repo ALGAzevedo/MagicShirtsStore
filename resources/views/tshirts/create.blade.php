@@ -4,6 +4,7 @@
 
     <div class="container">
 
+
             <!-- Product section-->
             <section class="py-5">
                 <div class="row gx-4 gx-lg-5 align-items-center">
@@ -14,6 +15,22 @@
                                     alt="tshirt base"/>
                                 <img class="image-overlay" src="{{asset('storage/estampas/' . $estampa->imagem_url)}}" alt="{{$estampa->nome}}"/>
                             </div>
+
+            @csrf
+            <!-- route('tshirts.chooseWithColor', ['estampa' => $estampa, 'cor' => $corSel])}} -->
+
+            <div class="filter p-2 flex-grow-1">
+                <form class="cor-search" action="#" method="GET">
+                    <div class="search-item">
+                        <label for="idCor">Escolha a cor: </label>
+                        <select class="form-control" name="cor" id="idCor">
+                            @foreach ($listaCores as $cor)
+                                <option
+                                    value="{{$cor->codigo}}" {{$corSel->codigo == $cor->codigo ? 'selected' : ''}}>
+                                    {{$cor->nome}}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="col-md-6">
                         <h1 class="display-5 font-weight-bold">{{$estampa->nome}}</h1>
