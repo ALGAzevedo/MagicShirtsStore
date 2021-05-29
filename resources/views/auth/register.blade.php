@@ -45,6 +45,74 @@
                             </div>
 
                             <div class="form-group row">
+                                <label for="nif" class="col-md-4 col-form-label text-md-right">{{ __('NIF') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="nif" type="text"
+                                           class="form-control @error('nif') is-invalid @enderror" name="nif"
+                                           value="{{ old('nif') }}" required autocomplete="name" autofocus>
+
+                                    @error('nif')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="endereco"
+                                       class="col-md-4 col-form-label text-md-right">{{ __('Endereço') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="endereco" type="text"
+                                           class="form-control @error('endereco') is-invalid @enderror" name="endereco"
+                                           value="{{ old('endereco') }}" required autocomplete="name" autofocus>
+
+                                    @error('name')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="tipo_pagamento"
+                                       class="col-md-4 col-form-label text-md-right">{{ __('Tipo de Pagamento') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="tipo_pagamento" type="text"
+                                           class="form-control @error('tipo_pagamento') is-invalid @enderror"
+                                           name="tipo_pagamento"
+                                           value="{{ old('tipo_pagamento') }}" required autocomplete="name" autofocus>
+
+                                    @error('tipo_pagamento')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="ref_pagamento"
+                                       class="col-md-4 col-form-label text-md-right">{{ __('Referência de Pagamento') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="ref_pagamento" type="text"
+                                           class="form-control @error('ref_pagamento') is-invalid @enderror"
+                                           name="ref_pagamento"
+                                           value="{{ old('ref_pagamento') }}" required autocomplete="name" autofocus>
+
+                                    @error('tipo_pagamento')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row">
                                 <label for="password"
                                        class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
