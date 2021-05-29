@@ -60,7 +60,7 @@ Route::get('administracao/precos', [PrecosController::class, 'admin_index'])->na
 Route::get('administracao/precos/{precos}/edit', [PrecosController::class, 'edit'])->name('admin.precos.edit');
 Route::put('administracao/precos/{precos}', [PrecosController::class, 'update'])->name('admin.precos.update');
 
-//ADMINISTRACAO
+//ADMINISTRACAO ENCOMENDAS
 Route::get('administracao/encomendas', [EncomendaController::class, 'admin_index'])->name('admin.encomendas');
 
 //ADMINISTRACAO FUNCIONARIOS
