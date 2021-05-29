@@ -17,6 +17,7 @@
             <th></th>
             <th></th>
             <th></th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -33,15 +34,33 @@
                 <td>{{$cliente->endereco}}</td>
                 <td>{{$cliente->tipo_pagamento}}</td>
                 <td>{{$cliente->ref_pagamento}}</td>
-                    <td>Cliente</td>
+                <td>Cliente</td>
                 @if($cliente->user->bloqueado == 1)
                     <td>Sim</td>
                 @else
                     <td>Não</td>
                 @endif
 
-                <td><a href="{{route('admin.clientes.edit', ['cliente'=> $cliente])}}"
-                       class="btn btn-primary btn-sm" role="button" aria-pressed="true">Alterar</a></td>
+                <td>
+                    <a href="{{route('admin.clientes.edit', ['cliente'=> $cliente])}}"
+                       class="btn btn-primary btn-sm" role="button" aria-pressed="true">Alterar</a>
+                </td>
+                <td>
+                    <form method="POST" action="{{route('admin.clientes.block', ['cliente' => $cliente]) }}"
+                          class="form-group" enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT')
+                        @if($cliente->user->bloqueado == 0)
+                            <button type="submit" class="btn btn-warning btn-sm" role="button" aria-pressed="true">
+                                Bloquear
+                            </button>
+                        @else
+                            <button type="submit" class="btn btn-warning btn-sm" role="button" aria-pressed="true">
+                                Desbloquear
+                            </button>
+                        @endif
+                    </form>
+                </td>
 
                 <td>
                     <form action="{{route('admin.clientes.destroy', ['cliente' =>$cliente])}}" method="POST">
