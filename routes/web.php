@@ -13,6 +13,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\PageController;
+use \App\Http\Controllers\CartController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -36,6 +37,15 @@ Route::get('tshirts/{estampa}', [TshirtController::class, 'choose'])->name('tshi
 
 //MAIN
 Route::get('administracao', [DashboardController::class, 'index'])->name('administracao');
+
+
+
+
+
+//ROTAS DO CARRINHO
+
+//Route::get('tshirts/{estampa}/{codigo}', [TshirtController::class, 'choose'])->name('tshirts.chooseWithColor');
+Route::get('cart', [CartController::class, 'index'])->name('cart');
 
 
 

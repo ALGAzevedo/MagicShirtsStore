@@ -8,16 +8,36 @@
     <title>MagicShirts Store</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="/public/assets/favicon.ico"/>
-    <!-- Core theme CSS (includes Bootstrap)-->
+     <!-- Font Awesome -->
+     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+  <!-- Core theme CSS (includes Bootstrap)-->
     <link href="/css/styles.css" rel="stylesheet"/>
+    
 </head>
 <body>
+
+<div class="utility-nav d-none d-md-block">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-md-6">
+        <p class="small">Estampagem de t-shirts Online
+        </p>
+      </div>
+
+      <div class="col-12 col-md-6 text-right">
+      <a href="#"><i class="fas fa-user mr-1"></i> Iniciar sessão</a>
+        </li>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
         <div class="navbar-brand">
             <img class="logo-img .img-responsive .img-fluid" src="{{asset('storage/logo.png')}}" alt="Logo">
-            <a class="navbar-brand" href="#!"> Magic Shirt Store</a>
+            <a class="navbar-brand" href="{{url('/')}}"> Magic Shirt Store</a>
         </div>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
@@ -45,6 +65,15 @@
                         Administração
                     </a>
                 </li>
+
+                <li class="nav-item">
+                    <a class="nav-link mx-2"
+                    title="Carrinho"
+                       href="{{route('cart')}}">
+                       <i class="fas fa-shopping-bag" aria-hidden="true"></i> <span class="badge badge-pill badge-danger ml-1">3</span>
+                    </a>
+                </li>
+          
                 @guest
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
