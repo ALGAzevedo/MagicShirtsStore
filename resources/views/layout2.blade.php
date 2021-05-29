@@ -12,26 +12,9 @@
      <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
   <!-- Core theme CSS (includes Bootstrap)-->
     <link href="/css/styles.css" rel="stylesheet"/>
-    
+
 </head>
 <body>
-
-<div class="utility-nav d-none d-md-block">
-  <div class="container">
-    <div class="row">
-      <div class="col-12 col-md-6">
-        <p class="small">Estampagem de t-shirts Online
-        </p>
-      </div>
-
-      <div class="col-12 col-md-6 text-right">
-      <a href="#"><i class="fas fa-user mr-1"></i> Iniciar sessão</a>
-        </li>
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
@@ -73,7 +56,7 @@
                        <i class="fas fa-shopping-bag" aria-hidden="true"></i> <span class="badge badge-pill badge-danger ml-1">3</span>
                     </a>
                 </li>
-          
+
                 @guest
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -115,7 +98,7 @@
 <!-- Footer-->
 <footer id="footer"class="py-5 bg-dark mt-auto">
     <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p>
+        <p class="m-0 text-center text-white">Copyright &copy; MagicShirtsStore {{date('Y')}}</p>
     </div>
 </footer>
 
