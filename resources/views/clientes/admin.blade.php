@@ -50,9 +50,15 @@
                           class="form-group" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
-                        <button type="submit" class="btn btn-warning btn-sm" role="button" aria-pressed="true">
-                            Bloquear
-                        </button>
+                        @if($cliente->user->bloqueado == 0)
+                            <button type="submit" class="btn btn-warning btn-sm" role="button" aria-pressed="true">
+                                Bloquear
+                            </button>
+                        @else
+                            <button type="submit" class="btn btn-warning btn-sm" role="button" aria-pressed="true">
+                                Desbloquear
+                            </button>
+                        @endif
                     </form>
                 </td>
 

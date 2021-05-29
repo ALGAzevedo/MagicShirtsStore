@@ -19,7 +19,7 @@ class EstampaController extends Controller
 
         return view(
             'estampas.index',
-            compact('listaCategorias','estampas', 'categoria'));
+            compact('listaCategorias', 'estampas', 'categoria'));
     }
 
 
@@ -29,10 +29,9 @@ class EstampaController extends Controller
 
         $qry = Estampa::query();
 
-        if($categoriaSel == 'Sem Categoria') {
+        if ($categoriaSel == 'Sem Categoria') {
             $qry->whereNULL('categoria_id');
-        }
-        else if($categoriaSel && $categoriaSel != 'show_all') {
+        } else if ($categoriaSel && $categoriaSel != 'show_all') {
             $qry->where('categoria_id', $categoriaSel);
         }
 
@@ -43,11 +42,12 @@ class EstampaController extends Controller
         $estampas = $qry->paginate(10);
 
         return view('estampas.admin',
-        compact('estampas', 'listaCategorias', 'categoriaSel'));
+            compact('estampas', 'listaCategorias', 'categoriaSel'));
     }
 
 
-    public function edit(Estampa $estampa) {
+    public function edit(Estampa $estampa)
+    {
         $listaCat = Categoria::all();
         $cat = $listaCat->where('id', $estampa->id);
 
@@ -60,7 +60,6 @@ class EstampaController extends Controller
 
 
         $estampa->fill($request->validated());
-
 
 
         $estampa->save();
@@ -94,11 +93,12 @@ class EstampaController extends Controller
             }
         }
     }
+
     public function create()
     {
         $estampa = new Estampa();
         $listaCat = Categoria::all();
-        return view('estampas.AdminCreate',compact('estampa', 'listaCat'));
+        return view('estampas.AdminCreate', compact('estampa', 'listaCat'));
     }
 
 
@@ -112,7 +112,7 @@ class EstampaController extends Controller
         $newEstampa->nome = $validated_data['nome'];
         $newEstampa->categoria_id = $validated_data['categoria_id'];
         $newEstampa->descricao = $validated_data['descricao'];
-        if($request->hasFile('estampa_img')) {
+        if ($request->hasFile('estampa_img')) {
             $path = $request->estampa_img->store('public/estampas');
             $newEstampa->imagem_url = basename($path);
         }
@@ -122,11 +122,6 @@ class EstampaController extends Controller
             ->with('alert-msg', 'Estampa "' . $newEstampa->nome . '" foi criada com sucesso!')
             ->with('alert-type', 'success');
     }
-
-
-
-
-
 
 
 }
