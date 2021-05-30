@@ -91,7 +91,7 @@ Route::middleware('auth')->prefix('administracao')->name('admin.')->group(functi
 //ADMINISTRACAO PARA CLIENTES
 
     Route::get('clientes', [ClienteController::class, 'show_clientes'])->name('clientes')
-        ->middleware('can:viewAny App\Models\Cliente');
+        ->middleware('can:viewAny, App\Models\Cliente');
     Route::get('clientes/{cliente}/edit', [ClienteController::class, 'edit'])->name('clientes.edit')
         ->middleware('can:view, cliente');
     Route::get('clientes/create', [ClienteController::class, 'create'])->name('clientes.create')
