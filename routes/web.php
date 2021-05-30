@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\PageController;
 use \App\Http\Controllers\CartController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,7 +35,6 @@ Route::get('about', [PageController::class, 'about'])->name('about');
 Route::get('tshirts/{estampa}', [TshirtController::class, 'choose'])->name('tshirts.choose');
 
 
-
 //ROTAS DO CARRINHO
 
 //Route::get('tshirts/{estampa}/{codigo}', [TshirtController::class, 'choose'])->name('tshirts.chooseWithColor');
@@ -44,7 +44,7 @@ Route::get('cart', [CartController::class, 'index'])->name('cart');
 
 //MAIN
 
-Route::middleware('auth')->prefix('administracao')->name('admin.')->group(function (){
+Route::middleware('auth')->prefix('administracao')->name('admin.')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 //ADMINISTRACAO ESTAMPAS
     Route::get('estampas', [EstampaController::class, 'admin_index'])->name('estampas');
@@ -72,24 +72,24 @@ Route::middleware('auth')->prefix('administracao')->name('admin.')->group(functi
 
 //ADMINISTRACAO FUNCIONARIOS
     Route::get('funcionarios', [UserController::class, 'admin_funcs'])->name('funcionarios')
-    ->middleware('can:viewAny App\Models\User');
+        ->middleware('can:viewAny App\Models\User');
     Route::get('funcionarios/{funcionario}/edit', [UserController::class, 'edit'])->name('funcionarios.edit')
-    ->middleware('can:view, funcionario');
+        ->middleware('can:view, funcionario');
     Route::get('funcionarios/create', [UserController::class, 'create'])->name('funcionarios.create')
-    ->middleware('can:create, App\Models\User');
+        ->middleware('can:create, App\Models\User');
     Route::post('funcionarios', [UserController::class, 'store'])->name('funcionarios.store')
-    ->middleware('can:store, App\Models\User');
+        ->middleware('can:store, App\Models\User');
     Route::put('funcionarios/{funcionario}', [UserController::class, 'update'])->name('funcionarios.update')
-    ->middleware('can:update, funcionario');
+        ->middleware('can:update, funcionario');
     Route::delete('funcionarios/{funcionario}', [UserController::class, 'destroy'])->name('funcionarios.destroy')
-    ->middleware('can:delete, funcionario');
+        ->middleware('can:delete, funcionario');
     Route::delete('funcionarios/{funcionario}/foto', [UserController::class, 'destroy_foto'])->name('funcionarios.foto.destroy')
-    ->middleware('can:update, funcionario');
+        ->middleware('can:update, funcionario');
 
 //ADMINISTRACAO PARA CLIENTES
 
     Route::get('clientes', [ClienteController::class, 'show_clientes'])->name('clientes')
-    ->middleware('can:viewAny App\Models\Cliente');
+        ->middleware('can:viewAny App\Models\Cliente');
     Route::get('clientes/{cliente}/edit', [ClienteController::class, 'edit'])->name('clientes.edit')
         ->middleware('can:view, cliente');
     Route::get('clientes/create', [ClienteController::class, 'create'])->name('clientes.create')
@@ -105,6 +105,9 @@ Route::middleware('auth')->prefix('administracao')->name('admin.')->group(functi
         ->middleware('can:updateBlock, cliente');
 });
 
+//EDICAO PERFIL DO CLIENTE
+
+Route::get('clientes/{cliente}/edit', [ClienteController::class, 'edit'])->name('clientes.edit');
 
 
 Auth::routes(['register' => true]);

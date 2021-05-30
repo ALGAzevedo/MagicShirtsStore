@@ -23,7 +23,7 @@ class ClienteController extends Controller
 
     public function edit(Cliente $cliente)
     {
-        return view('clientes.edit')
+        return view('clientes.editCliente')
             ->withCliente($cliente);
     }
 
