@@ -3,7 +3,6 @@
 @section('content')
     <div class="container">
 
-
         <!--Section: Block Content-->
         <section class="mt-5 mb-4">
             <div class="page-title-wrapper mb-4">
@@ -45,7 +44,7 @@
                                                 <p class="small text-muted">Tamanho: {{ $row['tamanho'] }} </p>
 
                                             </td>
-                                            <td class="cart-item_price">{{ $row['preco_un'] }}</td>
+                                            <td class="cart-item_price">{{ $row['preco_un'] }}&euro;</td>
                                             <td>
                                                 <form action="{{route('carrinho.update', $key)}}" method="POST">
                                                     @csrf
@@ -73,8 +72,8 @@
                                                     </div>
                                                 </form>
                                             </td>
-                                            <td class="cart-item_subtotal ">
-                                                <span class="">{{ $row['subtotal'] }}</span>
+                                            <td class="cart-item_subtotal text-primary ">
+                                                <span class="">{{ number_format($row['subtotal'], 2, ',', '.') }}&euro;</span>
 
                                             </td>
                                             <td class="cart-item_action">
@@ -150,7 +149,7 @@
                                 <form action="{{ route('carrinho.store') }}" method="POST">
                                     @csrf
                                     <button type="submit" class="btn btn-lg btn-primary btn-block">Finalizar <i
-                                            class="far fa-check ml-1"></i></button>
+                                            class="far fa-arrow-right ml-1"></i></button>
                                 </form>
 
                             </div>
