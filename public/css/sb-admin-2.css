@@ -11000,3 +11000,28 @@ footer.sticky-footer .copyright {
 body.sidebar-toggled footer.sticky-footer {
   width: 100%;
 }
+
+
+/**
+NOSSA AREA
+ */
+
+
+/**
+
+FORMATACAO DA AREA DA ENCOMENDA
+ */
+.layered-image {
+    position: relative;
+}
+
+.image-base{
+    position: relative;
+}
+.image-overlay {
+    width: 40%;
+    height: 40%;
+    position: absolute;
+    top: 120px;
+    left: 160px;
+}

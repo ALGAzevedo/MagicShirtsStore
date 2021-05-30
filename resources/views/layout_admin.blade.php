@@ -82,9 +82,9 @@
                 <i class="fas fa-fw fa-table"></i>
                 <span>Preços</span></a>
         </li>
-        <!-- Nav Item -->
-        <li class="nav-item">
-            <a class="nav-link" href="#">
+            <!-- Nav Item -->
+        <li class="nav-item" {{Route::currentRouteName()=='admin.encomendas'? 'active': ''}}>
+            <a class="nav-link" href="{{route('admin.encomendas')}}">
                 <i class="fas fa-fw fa-table"></i>
                 <span>Encomendas</span></a>
         </li>

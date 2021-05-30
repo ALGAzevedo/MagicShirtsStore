@@ -21,6 +21,33 @@
         </div>
     </div>
 
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Data</th>
+            <th>Estado</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach ($encomendas as $encomenda)
+            <tr>
+
+                <td>{{$encomenda->id}}</td>
+                <td>{{$encomenda->data}}</td>
+                <td>{{$encomenda->estado}}</td>
+                <td>
+                    <a href="{{route('admin.encomendas.edit', ['encomenda' => $encomenda])}}"
+                       class="btn btn-primary btn-sm" role="button" aria-pressed="true">Alterar</a>
+                </td>
+            </tr>
+        @endforeach
+        </tbody>
+    </table>
+
+
 
     {{ $encomendas->withQueryString()->links() }}
 
