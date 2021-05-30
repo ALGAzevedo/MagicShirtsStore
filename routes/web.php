@@ -72,7 +72,7 @@ Route::middleware('auth')->prefix('administracao')->name('admin.')->group(functi
 
 //ADMINISTRACAO FUNCIONARIOS
     Route::get('funcionarios', [UserController::class, 'admin_funcs'])->name('funcionarios')
-    ->middleware('can:viewAnym App\Models\User');
+    ->middleware('can:viewAny App\Models\User');
     Route::get('funcionarios/{funcionario}/edit', [UserController::class, 'edit'])->name('funcionarios.edit')
     ->middleware('can:view, funcionario');
     Route::get('funcionarios/create', [UserController::class, 'create'])->name('funcionarios.create')
@@ -88,14 +88,21 @@ Route::middleware('auth')->prefix('administracao')->name('admin.')->group(functi
 
 //ADMINISTRACAO PARA CLIENTES
 
-    Route::get('clientes', [ClienteController::class, 'show_clientes'])->name('clientes');
-    Route::get('clientes/{cliente}/edit', [ClienteController::class, 'edit'])->name('clientes.edit');
-    Route::get('clientes/create', [ClienteController::class, 'create'])->name('clientes.create');
+    Route::get('clientes', [ClienteController::class, 'show_clientes'])->name('clientes')
+    ->middleware('can:viewAny App\Models\Cliente');
+    Route::get('clientes/{cliente}/edit', [ClienteController::class, 'edit'])->name('clientes.edit')
+        ->middleware('can:view, cliente');
+    Route::get('clientes/create', [ClienteController::class, 'create'])->name('clientes.create')
+        ->middleware('can:create App\Models\Cliente');
 //Route::post('clientes', [ClienteController::class, 'store'])->name('admin.clientes.store');
-    Route::put('clientes/{cliente}', [ClienteController::class, 'update'])->name('clientes.update');
-    Route::delete('clientes/{cliente}', [ClienteController::class, 'destroy'])->name('clientes.destroy');
-    Route::delete('clientes/{cliente}/foto', [ClienteController::class, 'destroy_foto'])->name('clientes.foto.destroy');
-    Route::put('clientes/{cliente}/block', [ClienteController::class, 'block'])->name('clientes.block');
+    Route::put('clientes/{cliente}', [ClienteController::class, 'update'])->name('clientes.update')
+        ->middleware('can:update, cliente');
+    Route::delete('clientes/{cliente}', [ClienteController::class, 'destroy'])->name('clientes.destroy')
+        ->middleware('can:delete, cliente');
+    Route::delete('clientes/{cliente}/foto', [ClienteController::class, 'destroy_foto'])->name('clientes.foto.destroy')
+        ->middleware('can:update, cliente');
+    Route::put('clientes/{cliente}/block', [ClienteController::class, 'block'])->name('clientes.block')
+        ->middleware('can:updateBlock, cliente');
 });
 
 

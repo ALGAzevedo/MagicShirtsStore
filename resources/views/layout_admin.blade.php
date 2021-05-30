@@ -58,13 +58,14 @@
                     <span>Funcionários</span></a>
             </li>
     @endcan
+        @can('viewAny', App\Models\Cliente::class)
     <!-- Nav Item -->
         <li class="nav-item" {{Route::currentRouteName()=='admin.clientes'? 'active': ''}}>
             <a class="nav-link" href="{{route('admin.clientes')}}">
                 <i class="fas fa-fw fa-table"></i>
                 <span>Clientes</span></a>
         </li>
-
+        @endcan
         <!-- Nav Item -->
         <li class="nav-item" {{Route::currentRouteName()=='admin.estampas'? 'active': ''}}>
             <a class="nav-link" href="{{route('admin.estampas')}}">
