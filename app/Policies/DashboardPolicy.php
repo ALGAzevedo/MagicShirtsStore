@@ -37,7 +37,6 @@ class DashboardPolicy
     }
 
     public function viewAny(User $user){
-
         return $user->tipo == 'F';
     }
 }

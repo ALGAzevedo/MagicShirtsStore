@@ -46,7 +46,7 @@ Route::get('cart', [CartController::class, 'index'])->name('cart');
 
 Route::middleware('auth')->prefix('administracao')->name('admin.')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard')
-    ->middleware('can:viewAny, App\Models\User');
+    ->middleware('can:viewAny, App\Models\Dashboard');
 
 
 //ADMINISTRACAO ESTAMPAS
