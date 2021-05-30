@@ -81,7 +81,7 @@ class CartController extends Controller
             'imagem_url' => $estampa->imagem_url,
             'tamanho' => $request->tamanho,
             'quantidade' => intval($quantidade),
-            'preco_un' => floatval($preco_un), /*TODO: get real product price*/
+            'preco_un' => floatval($preco_un),
             'subtotal' => floatval($preco_un * $quantidade),
         ];
 
@@ -150,13 +150,13 @@ class CartController extends Controller
             $carrinho[$uuid] = [
                 'uuid' => $item['uuid'],
                 'nome' => $item['nome'],
-                'cor_codigo' => $item['cor_codigo'],
+                'cor_codigo' => $request->cor_codigo ?? $item['cor_codigo'],
                 'estampa_id' => $item['estampa_id'],
                 'imagem_url' => $estampa->imagem_url,
-                'tamanho' => $item['tamanho'],
+                'tamanho' => $request->tamanho ?? $item['tamanho'],
                 'quantidade' => intval($quantidade),
-                'preco_un' => floatval($preco_un), /*TODO: get real product price*/
-                'subtotal' => floatval($preco_un * $quantidade), /*TODO: get real product price*/
+                'preco_un' => floatval($preco_un),
+                'subtotal' => floatval($preco_un * $quantidade),
             ];
             $msg = 'Quantidade atualizada';
         }
