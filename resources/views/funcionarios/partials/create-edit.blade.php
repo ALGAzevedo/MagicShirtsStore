@@ -57,5 +57,9 @@
     <div class="small text-danger">{{$message}}</div>
     @enderror
 </div>
+@else()
+    <input type="hidden" name="tipo" value="{{$funcionario->tipo}}">
+    <input type="hidden" name="bloqueado" value="{{$funcionario->bloqueado}}">
+
 @endif
 

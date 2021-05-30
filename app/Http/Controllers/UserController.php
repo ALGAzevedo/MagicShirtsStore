@@ -13,8 +13,8 @@ class UserController extends Controller
     {
 
         $qry = User::withoutTrashed();
-        $qry->where('tipo', '=','F')
-            ->orWhere('tipo','=', 'A')
+        $qry->where('tipo', '=', 'F')
+            ->orWhere('tipo', '=', 'A')
             ->orderBy('name');
 
         //$funcionarios = User::pluck('name', 'email', 'tipo')->paginate(10);
@@ -33,21 +33,44 @@ class UserController extends Controller
     {
 
         $validated_data = $request->validated();
-        $funcionario->email = $validated_data['email'];
-        $funcionario->name = $validated_data['name'];
-        $funcionario->tipo = $validated_data['tipo'];
-        $funcionario->bloqueado = $validated_data['bloqueado'];
-        $funcionario->password = $validated_data['password'];
+        if ($request->filled('email')) {
+            $funcionario->email = $validated_data['email'];
+        }
+        if ($request->filled('name')) {
+            $funcionario->name = $validated_data['name'];
+        }
+        if ($request->filled('tipo')) {
+            $funcionario->tipo = $validated_data['tipo'];
+        }
+        if ($request->filled('bloqueado')) {
+            $funcionario->bloqueado = $validated_data['bloqueado'];
+        }
+        if ($request->filled('password')) {
+            $funcionario->password = Hash::make($validated_data['password']);
+        }
         if ($request->hasFile('foto')) {
             Storage::delete('public/fotos/' . $funcionario->foto_url);
             $path = $request->foto->store('public/fotos');
             $funcionario->foto_url = basename($path);
         }
         $funcionario->save();
-        return redirect()->route('admin.funcionarios')
+        return redirect()->route('admin.dashboard')
             ->with('alert-msg', 'Funcionario "' . $funcionario->name . '" foi alterado com sucesso!')
             ->with('alert-type', 'success');
     }
+
+//    public function updatePassword(UserPost $request, User $funcionario)
+//    {
+//
+//        $validated_data = $request->validated();
+//
+//        if ($request->filled('password')) {
+//            $funcionario->password = Hash::make($validated_data['password']);
+//        }
+//        return redirect()->route('admin.dashboard')
+//            ->with('alert-msg', 'Funcionario "' . $funcionario->name . '" foi alterado com sucesso!')
+//            ->with('alert-type', 'success');
+//    }
 
     public function create()
     {

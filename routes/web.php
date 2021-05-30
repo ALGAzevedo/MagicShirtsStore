@@ -81,8 +81,8 @@ Route::middleware('auth')->prefix('administracao')->name('admin.')->group(functi
         ->middleware('can:store, App\Models\User');
     Route::put('funcionarios/{funcionario}', [UserController::class, 'update'])->name('funcionarios.update')
         ->middleware('can:update,funcionario');
-    Route::put('funcionarios/{funcionario}/password', [UserController::class, 'updatePassword'])->name('funcionarios.password.update')
-        ->middleware('can:updatePassword,funcionario');
+//    Route::put('funcionarios/{funcionario}/password', [UserController::class, 'update'])->name('funcionarios.password.update')
+//        ->middleware('can:update,funcionario');
     Route::delete('funcionarios/{funcionario}', [UserController::class, 'destroy'])->name('funcionarios.destroy')
         ->middleware('can:delete, funcionario');
     Route::delete('funcionarios/{funcionario}/foto', [UserController::class, 'destroy_foto'])->name('funcionarios.foto.destroy')
