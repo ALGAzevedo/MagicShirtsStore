@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="container">
+
         <!--Section: Block Content-->
         <section class="mt-5 mb-4">
             <div class="page-title-wrapper mb-4">
@@ -10,7 +11,7 @@
             <!--Grid row-->
             <div class="row">
                 <!--Grid column-->
-                <div class="col-lg-12">
+                <div class="col-lg-8">
                     <div class="alert alert-success mb-3">
                         <p class="icontext"><i class="icon text-success fa fa-truck"></i> Free Delivery within 1-2 weeks</p>
                     </div>
@@ -27,25 +28,25 @@
                                     <th>&nbsp;</th>
                                 </tr>
                                 </thead>
+                                @foreach ($carrinho as $row)
                                 <tbody>
                                 <tr class="cart-item">
                                     <td class="cart-item_product">
-                                        <a href="#"><img class="cart-item_product__thumbnail border" src="./img/4bd7ef.jpg"
+                                        <a href="{{route('tshirts.choose',  $row['estampa_id'])}}/?uuid={{ $row['uuid'] }}"><img class="cart-item_product__thumbnail border" src="{{asset('storage/tshirt_base/' .$row['cor_codigo'] . '.jpg')}}"
                                                          alt=""></a></td>
                                     <td class="cart-item_product">
-                                        <a href="#" class="cart-item_product__title text-dark">Logitec headset for
-                                            gaming</a>
-                                        <p class="small text-muted">Tamanho: L </p>
+                                        <a href="{{ route('carrinho.update_item',$row['uuid']) }}" class="cart-item_product__title text-dark">{{ $row['nome'] }}</a>
+                                        <p class="small text-muted">Tamanho: {{ $row['tamanho'] }} </p>
 
                                     </td>
-                                    <td class="cart-item_price">45.00€</td>
+                                    <td class="cart-item_price">{{ $row['preco_un'] }}</td>
                                     <td>
                                         <div class="number-input number-input-sm">
                                             <button type="button"
                                                     onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
                                                     class="minus font-weight-bold">-
                                             </button>
-                                            <input class="quantity" min="0" max="10" name="quantity" value="1"
+                                            <input class="quantity" min="0" max="100" name="quantity" value="{{ $row['quantidade'] }}"
                                                    type="number">
                                             <button type="button"
                                                     onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
@@ -54,7 +55,7 @@
                                         </div>
                                     </td>
                                     <td class="cart-item_subtotal ">
-                                        <span class="">90.00€</span>
+                                        <span class="">{{ $row['subtotal'] }}</span>
 
                                     </td>
                                     <td class="cart-item_action"><a href="#" class="cart-item_action__remove"><i
@@ -62,147 +63,8 @@
                                 </tr>
 
                                 </tbody>
-                                <tbody>
-                                <tr class="cart-item">
-                                    <td class="cart-item_product">
-                                        <a href="#"><img class="cart-item_product__thumbnail border" src="./img/fd4083.jpg"
-                                                         alt=""></a></td>
-                                    <td class="cart-item_product">
-                                        <a href="#" class="cart-item_product__title text-dark">Logitec headset for
-                                            gaming</a>
-                                        <p class="small text-muted">Tamanho: L </p>
-                                        <span class="discount">Desconto de quantidade</span>
+                                @endforeach
 
-                                    </td>
-                                    <td class="cart-item_price">45.00€</td>
-                                    <td>
-                                        <div class="number-input number-input-sm">
-                                            <button type="button"
-                                                    onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
-                                                    class="minus font-weight-bold">-
-                                            </button>
-                                            <input class="quantity" min="0" max="10" name="quantity" value="1"
-                                                   type="number">
-                                            <button type="button"
-                                                    onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
-                                                    class="plus font-weight-bold">+
-                                            </button>
-                                        </div>
-                                    </td>
-                                    <td class="cart-item_subtotal ">
-                                        <span class="">90.00€</span>
-
-                                    </td>
-                                    <td class="cart-item_action"><a href="#" class="cart-item_action__remove"><i
-                                                class="far fa-times mr-1"></i></a></td>
-                                </tr>
-
-                                </tbody>
-                                <tbody>
-                                <tr class="cart-item">
-                                    <td class="cart-item_product">
-                                        <a href="#"><img class="cart-item_product__thumbnail border" src="./img/00a2f2.jpg"
-                                                         alt=""></a></td>
-                                    <td class="cart-item_product">
-                                        <a href="#" class="cart-item_product__title text-dark">Logitec headset for
-                                            gaming</a>
-                                        <p class="small text-muted">Tamanho: L </p>
-
-                                    </td>
-                                    <td class="cart-item_price">45.00€</td>
-                                    <td>
-                                        <div class="number-input number-input-sm">
-                                            <button type="button"
-                                                    onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
-                                                    class="minus font-weight-bold">-
-                                            </button>
-                                            <input class="quantity" min="0" max="10" name="quantity" value="1"
-                                                   type="number">
-                                            <button type="button"
-                                                    onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
-                                                    class="plus font-weight-bold">+
-                                            </button>
-                                        </div>
-                                    </td>
-                                    <td class="cart-item_subtotal ">
-                                        <span class="text-primary">90.00€</span>
-
-                                    </td>
-                                    <td class="cart-item_action"><a href="#" class="cart-item_action__remove"><i
-                                                class="far fa-times mr-1"></i></a></td>
-                                </tr>
-
-                                </tbody>
-                                <tbody>
-                                <tr class="cart-item">
-                                    <td class="cart-item_product">
-                                        <a href="#"><img class="cart-item_product__thumbnail border" src="./img/73336a.jpg"
-                                                         alt=""></a></td>
-                                    <td class="cart-item_product">
-                                        <a href="#" class="cart-item_product__title text-dark">Logitec headset for
-                                            gaming</a>
-                                        <p class="small text-muted">Tamanho: L </p>
-
-                                    </td>
-                                    <td class="cart-item_price">45.00€</td>
-                                    <td>
-                                        <div class="number-input number-input-sm">
-                                            <button type="button"
-                                                    onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
-                                                    class="minus font-weight-bold">-
-                                            </button>
-                                            <input class="quantity" min="0" max="10" name="quantity" value="1"
-                                                   type="number">
-                                            <button type="button"
-                                                    onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
-                                                    class="plus font-weight-bold">+
-                                            </button>
-                                        </div>
-                                    </td>
-                                    <td class="cart-item_subtotal ">
-                                        <span class="text-primary">90.00€</span>
-
-                                    </td>
-                                    <td class="cart-item_action"><a href="#" class="cart-item_action__remove"><i
-                                                class="far fa-times mr-1"></i></a></td>
-                                </tr>
-
-                                </tbody>
-                                <tbody>
-                                <tr class="cart-item">
-                                    <td class="cart-item_product">
-                                        <a href="#"><img class="cart-item_product__thumbnail border" src="./img/fcfbff.jpg"
-                                                         alt=""></a></td>
-                                    <td class="cart-item_product">
-                                        <a href="#" class="cart-item_product__title text-dark">Logitec headset for
-                                            gaming</a>
-                                        <p class="small text-muted">Tamanho: L </p>
-
-                                    </td>
-                                    <td class="cart-item_price">45.00€</td>
-                                    <td>
-                                        <div class="number-input number-input-sm">
-                                            <button type="button"
-                                                    onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
-                                                    class="minus font-weight-bold">-
-                                            </button>
-                                            <input class="quantity" min="0" max="10" name="quantity" value="1"
-                                                   type="number">
-                                            <button type="button"
-                                                    onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
-                                                    class="plus font-weight-bold">+
-                                            </button>
-                                        </div>
-                                    </td>
-                                    <td class="cart-item_subtotal ">
-                                        <span class="">90.00€</span>
-
-                                    </td>
-                                    <td class="cart-item_action"><a href="#" class="cart-item_action__remove"><i
-                                                class="far fa-times mr-1"></i></a></td>
-                                </tr>
-
-                                </tbody>
                             </table>
 
                             <div class="card-body border-top cart-footer">
