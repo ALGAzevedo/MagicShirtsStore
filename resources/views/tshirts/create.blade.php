@@ -21,7 +21,7 @@
                 <div class="col-md-6">
                     <div class="layered-image p-2 bd-highlight">
                         <img class="image-base img-thumbnail magic-shirt"
-                             src="{{asset('storage/tshirt_base/' . ($current[0] ?? $corSel->codigo) . '.jpg')}}"
+                             src="{{asset('storage/tshirt_base/' . (!empty($current[0]) ? $current[0] : $corSel->codigo) . '.jpg')}}"
                              alt="tshirt base" data-storage="{{asset('storage/tshirt_base/')}}"/>
                         <img class="image-overlay" src="{{asset('storage/estampas/' . $estampa->imagem_url)}}"
                              alt="{{$estampa->nome}}"/>
@@ -39,8 +39,9 @@
                     </div>
                     <p class="lea w-75">{{$estampa->descricao}}</p>
                     {{--form--}}
-                    <form action="{{route('carrinho.add_item')}}" method="POST">
+                    <form action="{{route('carrinho.add')}}" method="POST">
                         @csrf
+                        @me
                         <input type="hidden" name="estampa_id" value="{{$estampa->id}}">
                         <div class="form-row mb-3">
                             <div class="col-md-5 my-1">
@@ -48,7 +49,7 @@
                                 <select class="form-control magic-color" name="cor_codigo" id="idCor">
                                     @foreach ($listaCores as $cor)
                                         <option
-                                            value="{{$cor->codigo}}" {{$current[0] == $cor->codigo ? 'selected' : ''}}>
+                                            value="{{$cor->codigo}}" {{in_array($cor->codigo,$current) ? 'selected' : ''}}>
                                             {{$cor->nome}}
                                         </option>
                                     @endforeach
@@ -60,7 +61,7 @@
                             <div class="btn-groupx btn-group-toggle" data-toggle="buttons">
                                 @foreach ($tamanhos as $tamanho)
                                 <label class="btn btn-size">
-                                    <input type="radio" name="tamanho" value="{{$tamanho}}" {{$current[2] == $tamanho ? 'checked' : ''}} autocomplete="off"> {{$tamanho}}
+                                    <input type="radio" name="tamanho" value="{{$tamanho}}" {{in_array($tamanho,$current) ? 'checked' : ''}} autocomplete="off"> {{$tamanho}}
                                 </label>
                                 @endforeach
                             </div>

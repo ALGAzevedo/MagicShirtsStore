@@ -43,9 +43,16 @@ Route::get('administracao', [DashboardController::class, 'index'])->name('admini
 
 
 //ROTAS DO CARRINHO
-
 //Route::get('tshirts/{estampa}/{codigo}', [TshirtController::class, 'choose'])->name('tshirts.chooseWithColor');
-Route::get('cart', [CartController::class, 'index'])->name('cart');
+Route::get('carrinho', [CartController::class, 'index'])->name('carrinho');
+Route::post('carrinho/add_item', [CartController::class, 'add'])->name('carrinho.add');
+Route::get('carrinho/{uuid}', [CartController::class, 'update_item'])->name('carrinho.update_item');
+Route::put('carrinho/{uuid}', [CartController::class, 'update'])->name('carrinho.update');
+Route::delete('carrinho/{uuid}', [CartController::class, 'destroy_item'])->name('carrinho.destroy_item');
+Route::post('carrinho', [CartController::class, 'store'])->name('carrinho.store');
+Route::delete('carrinho', [CartController::class, 'destroy'])->name('carrinho.destroy');
+
+
 
 
 

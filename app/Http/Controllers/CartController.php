@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CartRequest;
 use App\Models\Estampa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 
@@ -21,7 +22,7 @@ class CartController extends Controller
     {
        return $id;
     }
-    public function add_item(CartRequest $request)
+    public function add(CartRequest $request)
     {
         //Validação
         $request->validated();
@@ -34,18 +35,16 @@ class CartController extends Controller
 
         $quantidade = ($carrinho[$uuid]['quantidade'] ?? 0) + $request->quantidade;
 
-        $cartItem = [
+        $carrinho[$uuid] = [
             'uuid' => $request->cor_codigo.'-'.$estampa_id.'-'.$request->tamanho,
             'nome' => $estampa->nome,
             'cor_codigo' => $request->cor_codigo,
             'estampa_id' => $estampa_id,
             'tamanho' => $request->tamanho,
             'quantidade' => intval($quantidade),
-            'preco_un' => floatval(5),
-            'subtotal' => floatval(10),
+            'preco_un' => floatval(5), /*TODO: get real product price*/
+            'subtotal' => floatval(10)*$quantidade,
         ];
-
-        $carrinho[$uuid] = $cartItem;
 
         // create a new Image instance for inserting
        // $watermark = Image::make(public_path('/storage/estampas/38_60b2933a993c7.png'))->resize(216, 231);
@@ -58,10 +57,104 @@ class CartController extends Controller
        // dd(public_path('/storage/logo.png'));
 
         session()->put('carrinho', $carrinho);
+        session()->put('carrinho_qty', $this->count());
         return back()
-            ->with('alert-msg', "Adicionou '$estampa->nome' ao carrinho de compras.")
+            ->with('alert-msg', "Adicionou '$estampa->nome' ao carrinho de compras.") //TODO: nome com tamanho e cor
             ->with('alert-type', 'success');
 
+    }
+
+    public function update(Request $request, string $uuid)
+    {
+        $carrinho = session()->get('carrinho', []);
+
+        if(!array_key_exists($uuid, $carrinho)) {
+            return back()
+                ->with('alert-msg', 'Este produto não se encontra no carrinho!')
+                ->with('alert-type', 'warning');
+        }
+
+        $item = $carrinho[$uuid];
+        $quantidade = $item['quantidade'] ?? 0;
+
+        //TODO: fazer o find da estampa
+
+        if ($request->quantidade < 0 || intval($request->quantidade) == $quantidade) {
+            return back();
+        } elseif ($request->quantidade > 0) {
+            $msg = 'Foram adicionadas ' . $request->quantidade . ' ao produto';
+            $quantidade = $request->quantidade;
+        }
+        if ($request->quantidade <= 0) {
+            $msg = 'Foram removidas todas as inscrições à disciplina "' . $item['nome'] . '"';
+            unset($carrinho[$uuid]);
+
+        } else {
+            //Atualiza apenas o que é necessário
+            $carrinho[$uuid] = [
+                'uuid' => $item['uuid'],
+                'nome' => $item['nome'],
+                'cor_codigo' => $item['cor_codigo'],
+                'estampa_id' => $item['estampa_id'],
+                'tamanho' => $item['tamanho'],
+                'quantidade' => intval($quantidade),
+                'preco_un' => floatval(5), /*TODO: get real product price*/
+                'subtotal' => floatval(10)*$quantidade, /*TODO: get real product price*/
+            ];
+            $msg = 'Quantidade atualizada';
+        }
+        session()->put('carrinho', $carrinho);
+        session()->put('carrinho_qty', $this->count());
+
+        return back()
+            ->with('alert-msg', $msg)
+            ->with('alert-type', 'success');
+    }
+
+    public function destroy_item(Request $request, string $uuid)
+    {
+        $carrinho = session()->get('carrinho', []);
+        if (array_key_exists($uuid, $carrinho)) {
+            unset($carrinho[$uuid]);
+            session()->put('carrinho', $carrinho);
+            session()->put('carrinho_qty', $this->count());
+            return back()
+                ->with('alert-msg', 'Foram removidas todas as inscrições à disciplina')
+                ->with('alert-type', 'success');
+        }
+        return back()
+            ->with('alert-msg', 'Este produto já não se encontra no carrinho!')
+            ->with('alert-type', 'warning');
+    }
+
+    public function store(Request $request)
+    {
+        dd(
+            'Place code to store the shopping cart / transform the cart into a sale',
+            $request->session()->get('carrinho')
+        );
+    }
+
+    public function destroy(Request $request)
+    {
+        session()->forget('carrinho');
+        session()->forget('carrinho_qty');
+        return back()
+            ->with('alert-msg', 'Carrinho foi limpo!')
+            ->with('alert-type', 'danger');
+    }
+
+    protected function getContent()
+    {
+        return session()->has('carrinho')
+            ? collect(session()->get('carrinho'))
+            : new Collection;
+    }
+
+    public function count()
+    {
+        $content = $this->getContent();
+        return $content->sum('quantidade');
     }
 
 

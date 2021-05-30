@@ -52,8 +52,8 @@
                 <li class="nav-item">
                     <a class="nav-link mx-2"
                     title="Carrinho"
-                       href="{{route('cart')}}">
-                       <i class="fas fa-shopping-bag" aria-hidden="true"></i> <span class="badge badge-pill badge-danger ml-1">3</span>
+                       href="{{route('carrinho')}}">
+                       <i class="fas fa-shopping-bag" aria-hidden="true"></i> @if(session()->has('carrinho_qty') && session('carrinho_qty')>0) <span class="badge badge-pill badge-danger ml-1">{{session('carrinho_qty')}}</span>@endif
                     </a>
                 </li>
 
@@ -106,6 +106,6 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme JS-->
-<script src="js/scripts.js"></script>
+<script src="/js/scripts.js"></script>
 </body>
 </html>

@@ -14,15 +14,20 @@ class TshirtController extends Controller
         $listaCores = Cor::all();
         $cor =$request->query('cor', $listaCores[0]->codigo);
         $corSel = Cor::findOrFail($cor);
+        $current = array_fill(0,4,0);
+        $current = $this->getRefAttribute($request->get('uuid'));
+
+        //Lista de tamanhos
+        $tamanhos = ['XS','S','M','L','XL'];
 
         //$listaEstampas = Estampa::all();
         //$estampaRef =$request->query('estampa', $listaEstampas[0]->id);
 
         $estampa = Estampa::findOrFail($estampa->id);
-       
+
         $preco = $this->getPrice();
 
-        return view('tshirts.create', compact('listaCores', 'estampa', 'corSel', 'preco'));
+        return view('tshirts.create', compact('listaCores', 'estampa', 'corSel', 'preco','tamanhos','current'));
     }
 
     public function chooseWithColor(Estampa $estampa, Cor $cor)
@@ -37,5 +42,10 @@ class TshirtController extends Controller
         $precos = Preco::all();
         //foreach($precos as $preco)
             return $precos[0];
+    }
+
+    public function getRefAttribute($ref)
+    {
+        return explode('-',$ref);
     }
 }
