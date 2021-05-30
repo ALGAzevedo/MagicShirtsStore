@@ -60,12 +60,16 @@
                         class="nav-link {{Route::currentRouteName() == 'estampas.index' ? 'active' : ''}}"
                         href="{{route('estampas.index')}}">Catálogo</a>
                 </li>
+                @if(Auth::check())
+                    @if(Auth::user()->tipo != 'C')
                 <li class="nav-item">
                     <a class="nav-link {{Route::currentRouteName() == 'administracao.dashboard' ? 'active' : ''}}"
                        href="{{route('admin.dashboard')}}">
                         Administração
                     </a>
                 </li>
+                    @endif
+                @endif
 
                 <li class="nav-item">
                     <a class="nav-link mx-2"
@@ -96,7 +100,7 @@
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                              aria-labelledby="userDropdown">
                             @if(Auth::user()->tipo == 'C')
-                            <a class="dropdown-item" href="{{route('clientes.edit', ['cliente'=> Auth::user()->id])}}">
+                            <a class="dropdown-item" href="{{route('admin.clientes.edit', ['cliente'=> Auth::user()->id])}}">
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Perfil
                             </a>
