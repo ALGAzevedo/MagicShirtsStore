@@ -45,7 +45,10 @@ Route::get('cart', [CartController::class, 'index'])->name('cart');
 //MAIN
 
 Route::middleware('auth')->prefix('administracao')->name('admin.')->group(function () {
-    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard')
+    ->middleware('can:viewAny, App\Models\User');
+
+
 //ADMINISTRACAO ESTAMPAS
     Route::get('estampas', [EstampaController::class, 'admin_index'])->name('estampas');
     Route::get('estampas/{estampa}/edit', [EstampaController::class, 'edit'])->name('estampas.edit');
@@ -90,9 +93,9 @@ Route::middleware('auth')->prefix('administracao')->name('admin.')->group(functi
 
 //ADMINISTRACAO PARA CLIENTES
 
-    Route::get('clientes', [ClienteController::class, 'show_clientes'])->name('clientes')
+    Route::get('clientes', [ClienteController::class, 'index'])->name('clientes')
         ->middleware('can:viewAny, App\Models\Cliente');
-    Route::get('clientes/{cliente}/edit', [ClienteController::class, 'edit'])->name('clientes.edit')
+    Route::get('clientes/{cliente}/edit', [ClienteController::class, 'show'])->name('clientes.edit')
         ->middleware('can:view, cliente');
     Route::get('clientes/create', [ClienteController::class, 'create'])->name('clientes.create')
         ->middleware('can:create App\Models\Cliente');
@@ -109,7 +112,7 @@ Route::middleware('auth')->prefix('administracao')->name('admin.')->group(functi
 
 //EDICAO PERFIL DO CLIENTE
 
-Route::get('clientes/{cliente}/edit', [ClienteController::class, 'edit'])->name('clientes.edit');
+Route::get('clientes/{cliente}/edit', [ClienteController::class, 'show'])->name('clientes.edit');
 
 
 Auth::routes(['register' => true]);
