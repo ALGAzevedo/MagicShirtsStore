@@ -21,7 +21,7 @@ class ClientePolicy
      */
     public function before($user, $ability)
     {
-        if ($user->admin) {
+        if ($user->tipo == 'A') {
             return true;
         }
     }

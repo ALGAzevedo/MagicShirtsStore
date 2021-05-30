@@ -5,7 +5,7 @@ namespace App\Policies;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class FuncionarioPolicy
+class UserPolicy
 {
     use HandlesAuthorization;
 
@@ -20,7 +20,7 @@ class FuncionarioPolicy
      */
     public function before($user, $ability)
     {
-        if ($user->admin) {
+        if ($user->tipo == 'A') {
             return true;
         }
     }
@@ -44,7 +44,7 @@ class FuncionarioPolicy
      */
     public function view(User $user, User $model)
     {
-        return $user->id == $model->id;
+        return true;
     }
 
     /**
@@ -68,6 +68,19 @@ class FuncionarioPolicy
     public function update(User $user, User $model)
     {
         return false;
+    }
+
+    /**
+     * FOR PASSWORD
+     * Determine whether the user can update the model.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\User  $model
+     * @return mixed
+     */
+    public function updatePassword(User $user, User $model)
+    {
+        return $user->id == $model->id;
     }
 
     /**

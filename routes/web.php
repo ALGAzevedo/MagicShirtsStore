@@ -72,15 +72,17 @@ Route::middleware('auth')->prefix('administracao')->name('admin.')->group(functi
 
 //ADMINISTRACAO FUNCIONARIOS
     Route::get('funcionarios', [UserController::class, 'admin_funcs'])->name('funcionarios')
-        ->middleware('can:viewAny App\Models\User');
+        ->middleware('can:viewAny, App\Models\User');
     Route::get('funcionarios/{funcionario}/edit', [UserController::class, 'edit'])->name('funcionarios.edit')
-        ->middleware('can:view, funcionario');
+        ->middleware('can:view,funcionario');
     Route::get('funcionarios/create', [UserController::class, 'create'])->name('funcionarios.create')
         ->middleware('can:create, App\Models\User');
     Route::post('funcionarios', [UserController::class, 'store'])->name('funcionarios.store')
         ->middleware('can:store, App\Models\User');
     Route::put('funcionarios/{funcionario}', [UserController::class, 'update'])->name('funcionarios.update')
-        ->middleware('can:update, funcionario');
+        ->middleware('can:update,funcionario');
+    Route::put('funcionarios/{funcionario}/password', [UserController::class, 'updatePassword'])->name('funcionarios.password.update')
+        ->middleware('can:updatePassword,funcionario');
     Route::delete('funcionarios/{funcionario}', [UserController::class, 'destroy'])->name('funcionarios.destroy')
         ->middleware('can:delete, funcionario');
     Route::delete('funcionarios/{funcionario}/foto', [UserController::class, 'destroy_foto'])->name('funcionarios.foto.destroy')
