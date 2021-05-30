@@ -7,6 +7,7 @@ use App\Models\Estampa;
 use App\Models\Preco;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 
@@ -77,18 +78,25 @@ class CartController extends Controller
             'subtotal' => floatval($preco_un * $quantidade),
         ];
 
-        // create a new Image instance for inserting
-        // $watermark = Image::make(public_path('/storage/estampas/38_60b2933a993c7.png'))->resize(216, 231);
+        if(!Storage::disk('public')->exists('product/')){
+            Storage::disk('public')->makeDirectory('product/');
+        }
+
+        //$imagem_tshirt = uniqid('tshirt_').'.jpg';
+        $imagem_tshirt = 'tshirt_'.$uuid.'.jpg';
+
+        $watermark = Image::make(public_path('/storage/estampas/'.$estampa->imagem_url))->resize(216, 231);
 
 
-        /* Image::make(public_path('/storage/tshirt_base/'.$request->cor_codigo.'.jpg'))->resize(520, 560)
+        Image::make(public_path('/storage/tshirt_base/'.$request->cor_codigo.'.jpg'))->resize(520, 560)
              ->insert($watermark, 'center')
-             ->save(public_path('/storage/bbr.jpg'));*/
+             ->save(public_path('/storage/product/'.$imagem_tshirt));
 
-        // dd(public_path('/storage/logo.png'));
+
 
         session()->put('carrinho', $carrinho);
         session()->put('carrinho_qty', $this->count());
+        session()->put('carrinho_subtotal', $this->subtotal());
         return back()
             ->with('alert-msg', "Adicionou '$estampa->nome' ao carrinho de compras.") //TODO: nome com tamanho e cor
             ->with('alert-type', 'success');
@@ -144,6 +152,7 @@ class CartController extends Controller
         }
         session()->put('carrinho', $carrinho);
         session()->put('carrinho_qty', $this->count());
+        session()->put('carrinho_subtotal', $this->subtotal());
 
         return back()
             ->with('alert-msg', $msg)
@@ -157,6 +166,7 @@ class CartController extends Controller
             unset($carrinho[$uuid]);
             session()->put('carrinho', $carrinho);
             session()->put('carrinho_qty', $this->count());
+            session()->put('carrinho_subtotal', $this->subtotal());
             return back()
                 ->with('alert-msg', 'Foram removidas todas as inscrições à disciplina')
                 ->with('alert-type', 'success');
@@ -195,6 +205,13 @@ class CartController extends Controller
         $content = $this->getContent();
         return $content->sum('quantidade');
     }
+    public function subtotal()
+    {
+        $content = $this->getContent();
+        return number_format($content->sum('subtotal'), 2, ',', '.');
+
+    }
+
 
 
 }
