@@ -8,12 +8,13 @@ use App\Http\Requests\ClienteUpdatePost;
 
 use App\Models\Cliente;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class ClienteController extends Controller
 {
-    public function show_clientes()
+    public function index()
     {
         $qry = Cliente::withoutTrashed();
         $clientes = $qry->paginate(10);
@@ -21,9 +22,9 @@ class ClienteController extends Controller
             ->withClientes($clientes);
     }
 
-    public function edit(Cliente $cliente)
+    public function show(Cliente $cliente)
     {
-        return view('clientes.editCliente')
+        return view(Auth::user()->tipo == 'A' ? 'clientes.edit': 'clientes.editCliente')
             ->withCliente($cliente);
     }
 

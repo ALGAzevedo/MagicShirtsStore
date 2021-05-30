@@ -112,7 +112,8 @@ Route::middleware('auth')->prefix('administracao')->name('admin.')->group(functi
 
 //EDICAO PERFIL DO CLIENTE
 
-Route::get('clientes/{cliente}/edit', [ClienteController::class, 'show'])->name('clientes.edit');
+Route::get('clientes/{cliente}/edit', [ClienteController::class, 'show'])->name('clientes.edit')
+->middleware('can:view,cliente');
 
 
 Auth::routes(['register' => true]);
