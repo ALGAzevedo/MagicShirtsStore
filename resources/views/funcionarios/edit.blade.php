@@ -24,7 +24,8 @@
             <button type="submit" class="btn btn-success" name="ok">Save</button>
             <a href="{{route('admin.funcionarios.edit', ['funcionario' => $funcionario]) }}"
                class="btn btn-secondary">Reset</a>
-            <a href="{{Auth::user()->tipo == 'A' ? route('admin.funcionarios') : route('admin.dashboard') }}" class="btn btn-danger">Cancel</a>
+                <!--//TODO: PERGUNTAS  -->
+                <a href="{{Auth::user()->tipo == 'A' ? route('admin.funcionarios') : route('admin.dashboard') }}" class="btn btn-danger">Cancel</a>
         </div>
     </form>
     <form id="form_delete_photo" action="{{route('admin.funcionarios.foto.destroy',['funcionario' => $funcionario])}}"

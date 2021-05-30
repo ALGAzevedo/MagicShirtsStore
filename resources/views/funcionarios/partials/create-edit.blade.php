@@ -1,4 +1,5 @@
 <div class="form-group">
+                                                                                 <!--//TODO: PERGUNTAS  -->
     <label for="inputNome">Nome</label>
     <input type="text" class="form-control" name="name" id="inputNome"
            value="{{old('name', $funcionario->name)}}" {{Auth::user()->tipo == 'F' ? 'readonly' : ''}}>
@@ -58,6 +59,7 @@
     @enderror
 </div>
 @else()
+    <!--//TODO: PERGUNTAS  -->
     <input type="hidden" name="tipo" value="{{$funcionario->tipo}}">
     <input type="hidden" name="bloqueado" value="{{$funcionario->bloqueado}}">
 

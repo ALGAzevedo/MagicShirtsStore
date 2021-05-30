@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserPost;
+use App\Http\Requests\UserUpdatePost;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -29,7 +30,7 @@ class UserController extends Controller
             ->withFuncionario($funcionario);
     }
 
-    public function update(UserPost $request, User $funcionario)
+    public function update(UserUpdatePost $request, User $funcionario)
     {
 
         $validated_data = $request->validated();
