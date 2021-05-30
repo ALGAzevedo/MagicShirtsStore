@@ -62,6 +62,8 @@ Route::put('administracao/precos/{precos}', [PrecosController::class, 'update'])
 
 //ADMINISTRACAO ENCOMENDAS
 Route::get('administracao/encomendas', [EncomendaController::class, 'admin_index'])->name('admin.encomendas');
+Route::get('administracao/encomendas/{encomenda}/edit', [EncomendaController::class, 'admin_edit'])->name('admin.encomendas.edit');
+Route::put('administracao/encomendas/{encomenda}', [EncomendaController::class, 'admin_update'])->name('admin.encomendas.update');
 
 //ADMINISTRACAO FUNCIONARIOS
 Route::get('administracao/funcionarios', [UserController::class, 'admin_funcs'])->name('admin.funcionarios');

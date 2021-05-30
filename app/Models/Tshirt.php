@@ -15,7 +15,7 @@ class Tshirt extends Model
 
     public function estampa()
     {
-        return $this->belongsTo(Estampa::class, 'estampa_id', 'id');
+        return $this->belongsTo(Estampa::class, 'estampa_id', 'id')->withTrashed();
     }
 
     public function cor(): \Illuminate\Database\Eloquent\Relations\BelongsTo

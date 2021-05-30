@@ -39,7 +39,7 @@
                 <td>{{$encomenda->data}}</td>
                 <td>{{$encomenda->estado}}</td>
                 <td>
-                    <a href="#"
+                    <a href="{{route('admin.encomendas.edit', ['encomenda' => $encomenda])}}"
                        class="btn btn-primary btn-sm" role="button" aria-pressed="true">Alterar</a>
                 </td>
             </tr>
