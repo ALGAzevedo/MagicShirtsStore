@@ -1,7 +1,7 @@
 <div class="form-group">
     <label for="inputNome">Nome</label>
     <input type="text" class="form-control" name="name" id="inputNome"
-           value="{{old('name', $funcionario->name)}}" {{$funcionario->tipo == 'F' ? 'readonly' : ''}}>
+           value="{{old('name', $funcionario->name)}}" {{Auth::user()->tipo == 'F' ? 'readonly' : ''}}>
     @error('name')
     <div class="small text-danger">{{$message}}</div>
     @enderror
@@ -9,7 +9,7 @@
 <div class="form-group">
     <label for="inputEmail">Email</label>
     <input type="email" class="form-control" name="email" id="inputEmail"
-           value="{{old('email', $funcionario->email)}}" {{$funcionario->tipo == 'F' ? 'readonly' : ''}}>
+           value="{{old('email', $funcionario->email)}}" {{Auth::user()->tipo == 'F' ? 'readonly' : ''}}>
     @error('email')
     <div class="small text-danger">{{$message}}</div>
     @enderror
