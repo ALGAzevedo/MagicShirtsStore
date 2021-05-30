@@ -84,7 +84,7 @@ Route::middleware('auth')->prefix('administracao')->name('admin.')->group(functi
 //    Route::put('funcionarios/{funcionario}/password', [UserController::class, 'update'])->name('funcionarios.password.update')
 //        ->middleware('can:update,funcionario');
     Route::delete('funcionarios/{funcionario}', [UserController::class, 'destroy'])->name('funcionarios.destroy')
-        ->middleware('can:delete, funcionario');
+        ->middleware('can:delete,funcionario');
     Route::delete('funcionarios/{funcionario}/foto', [UserController::class, 'destroy_foto'])->name('funcionarios.foto.destroy')
         ->middleware('can:update, funcionario');
 

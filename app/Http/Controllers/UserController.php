@@ -55,7 +55,7 @@ class UserController extends Controller
             $funcionario->foto_url = basename($path);
         }
         $funcionario->save();
-        return redirect()->route('admin.dashboard')
+        return redirect()->route('admin.funcionarios')
             ->with('alert-msg', 'Funcionario "' . $funcionario->name . '" foi alterado com sucesso!')
             ->with('alert-type', 'success');
     }
@@ -117,7 +117,7 @@ class UserController extends Controller
         $oldUserID = $funcionario->id;
         $oldUrlFoto = $funcionario->foto_url;
         try {
-            //User::destroy($oldUserID);
+            User::destroy($oldUserID);
             Storage::delete('public/fotos/' . $oldUrlFoto);
             return redirect()->route('admin.funcionarios')
                 ->with('alert-msg', 'Funcionário "' . $oldName . '" foi apagado com sucesso!')
