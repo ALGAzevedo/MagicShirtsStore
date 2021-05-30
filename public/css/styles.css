@@ -10353,6 +10353,14 @@ tr.cart-itemx{
     height: 80px;
 }
 
+select.form{
+    border:1px solid #ced4da;
+    height: calc(1.5em + 0.5rem + 2px);
+    padding: 0.25rem 0.4rem;
+    font-size: 0.775rem;
+    line-height: 1.5;
+    border-radius: 0.2rem;
+}
 
 .cart-item_product__thumbnail{
     max-width: 80px;
