@@ -80,8 +80,8 @@
                                                 <form action="{{route('carrinho.destroy_item', $key)}}" method="POST">
                                                     @csrf
                                                     @method('delete')
-                                                    <button type="submit" class="btn btn-light text-danger"><i
-                                                            class="fas fa-trash"></i></button>
+                                                    <button type="submit" class="btn btn-light"><i
+                                                            class="fas fa-times"></i></button>
                                                 </form>
                                                 </td>
                                         </tr>
@@ -95,7 +95,7 @@
                                     <div class="row no-gutters align-items-center">
 
                                         <div class="col-lg-4 col-md-6 mb-3 mb-md-0">
-                                            <a href="{{route('estampas.index')}}" class="btn btn-light ">
+                                            <a href="{{route('estampas.index')}}" class="btn btn-light">
                                                 <i class="fas fa-arrow-left mr-1"></i>
                                                 Continuar a comprar</a>
                                         </div>
@@ -104,7 +104,7 @@
                                             <form action="{{route('carrinho.destroy')}}" method="POST">
                                                 @csrf
                                                 @method('delete')
-                                                <button type="submit" class="btn btn-link">
+                                                <button type="submit" class="btn btn-link text-danger">
                                                     <i class="fas fa-trash mr-1"></i> Esvaziar carrinho
                                                 </button>
                                             </form>
@@ -132,7 +132,7 @@
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
                                         Subtotal:
-                                        <span>59,95€</span>
+                                        <span>{{session('carrinho_subtotal')}}€</span>
                                     </li>
                                     <li class="list-group-item d-flex justify-content-between align-items-center px-0 text-muted">
                                         Entrega
@@ -142,7 +142,7 @@
                                         <div>
                                             <strong>Valor a pagar </strong>
                                         </div>
-                                        <span><strong>59,95€</strong></span>
+                                        <span><strong>{{session('carrinho_subtotal')}}€</strong></span>
                                     </li>
                                 </ul>
 
