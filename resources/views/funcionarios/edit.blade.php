@@ -12,7 +12,8 @@
                 <img src="{{$funcionario->foto_url ? asset('storage/fotos/' .
                         $funcionario->foto_url) : asset('img/default_img.png') }}"
                      alt="Foto do funcionario" class="img-profile"
-                     style="max-width:100%">
+                     style="max-width:10%"
+                >
             </div>
         @endisset
         <div class="form-group text-right">
