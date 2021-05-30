@@ -22,7 +22,7 @@
     <div class="small text-danger">{{$message}}</div>
     @enderror
 </div>
-@if($funcionario->tipo == 'A')
+@if(Auth::user()->tipo == 'A')
     <div class="form-group">
         <div>Tipo</div>
         <div class="form-check form-check-inline">

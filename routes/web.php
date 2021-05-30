@@ -78,7 +78,7 @@ Route::middleware('auth')->prefix('administracao')->name('admin.')->group(functi
     Route::get('funcionarios/create', [UserController::class, 'create'])->name('funcionarios.create')
         ->middleware('can:create, App\Models\User');
     Route::post('funcionarios', [UserController::class, 'store'])->name('funcionarios.store')
-        ->middleware('can:store, App\Models\User');
+        ->middleware('can:create, App\Models\User');
     Route::put('funcionarios/{funcionario}', [UserController::class, 'update'])->name('funcionarios.update')
         ->middleware('can:update,funcionario');
 //    Route::put('funcionarios/{funcionario}/password', [UserController::class, 'update'])->name('funcionarios.password.update')
