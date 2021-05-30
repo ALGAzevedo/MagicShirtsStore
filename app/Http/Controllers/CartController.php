@@ -17,6 +17,10 @@ class CartController extends Controller
             ->with('carrinho', session('carrinho') ?? []);
     }
 
+    public function update_item(Request $request, String $id)
+    {
+       return $id;
+    }
     public function add_item(CartRequest $request)
     {
         //Validação
@@ -28,10 +32,10 @@ class CartController extends Controller
 
         $carrinho = session()->get('carrinho', []);
 
-        $quantidade = ($carrinho[$uuid]['quantidade'] ?? 0) + 1;
+        $quantidade = ($carrinho[$uuid]['quantidade'] ?? 0) + $request->quantidade;
 
         $cartItem = [
-            'uuid' => $uuid,
+            'uuid' => $request->cor_codigo.'-'.$estampa_id.'-'.$request->tamanho,
             'nome' => $estampa->nome,
             'cor_codigo' => $request->cor_codigo,
             'estampa_id' => $estampa_id,
@@ -55,7 +59,7 @@ class CartController extends Controller
 
         session()->put('carrinho', $carrinho);
         return back()
-            ->with('alert-msg', "Adicionou $estampa->nome ao carrinho de compras.")
+            ->with('alert-msg', "Adicionou '$estampa->nome' ao carrinho de compras.")
             ->with('alert-type', 'success');
 
     }
