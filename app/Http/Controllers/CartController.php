@@ -78,6 +78,7 @@ class CartController extends Controller
             'nome' => $estampa->nome,
             'cor_codigo' => $request->cor_codigo,
             'estampa_id' => $estampa_id,
+            'imagem_url' => $estampa->imagem_url,
             'tamanho' => $request->tamanho,
             'quantidade' => intval($quantidade),
             'preco_un' => floatval($preco_un), /*TODO: get real product price*/
@@ -122,7 +123,7 @@ class CartController extends Controller
         $item = $carrinho[$uuid];
         $quantidade = $item['quantidade'] ?? 0;
 
-        dd($carrinho);
+        //dd($carrinho);
 
         //TODO: fazer o find da estampa
 
@@ -151,6 +152,7 @@ class CartController extends Controller
                 'nome' => $item['nome'],
                 'cor_codigo' => $item['cor_codigo'],
                 'estampa_id' => $item['estampa_id'],
+                'imagem_url' => $estampa->imagem_url,
                 'tamanho' => $item['tamanho'],
                 'quantidade' => intval($quantidade),
                 'preco_un' => floatval($preco_un), /*TODO: get real product price*/
