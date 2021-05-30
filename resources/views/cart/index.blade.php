@@ -42,6 +42,20 @@
                                                 <a href="{{route('tshirts.choose',  $row['estampa_id'])}}/?uuid={{ $row['uuid'] }}"
                                                    class="cart-item_product__title text-dark">{{ $row['nome'] }}</a>
                                                 <p class="small text-muted">Tamanho: {{ $row['tamanho'] }} </p>
+                                                <p class="small text-muted">Cor:
+                                                    <select class="form">
+                                                        <option>XS</option>
+                                                        <option>S</option>
+                                                        <option>M</option>
+                                                    </select>
+                                                </p>
+                                                <p class="small text-muted">Tamanho: {{ $row['tamanho'] }}
+                                                    <select class="form">
+                                                        @foreach ($tamanhos as $tamanho)
+                                                        <option value="{{$tamanho}}" {{$row['tamanho'] == $tamanho ? 'checked' : ''}}>{{$tamanho}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </p>
 
                                             </td>
                                             <td class="cart-item_price">{{ $row['preco_un'] }}&euro;</td>

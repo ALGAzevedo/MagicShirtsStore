@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CartRequest;
+use App\Http\Traits\TshirtTrait;
 use App\Models\Estampa;
 use App\Models\Preco;
 use Illuminate\Http\Request;
@@ -13,11 +14,14 @@ use Intervention\Image\Facades\Image;
 
 class CartController extends Controller
 {
+    use TshirtTrait;
+
     public function index()
     {
         return view('cart.index')
             ->with('pageTitle', 'Carrinho de compras')
-            ->with('carrinho', session('carrinho') ?? []);
+            ->with('carrinho', session('carrinho') ?? [])
+            ->with('tamanhos',$this->tshirtSizes());
     }
 
     private function getPrecoEstampa(Estampa $estampa)

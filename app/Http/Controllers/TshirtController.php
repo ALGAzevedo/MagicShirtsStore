@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Traits\TshirtTrait;
 use App\Models\Cor;
 use App\Models\Estampa;
 use App\Models\Preco;
@@ -9,6 +10,8 @@ use Illuminate\Http\Request;
 
 class TshirtController extends Controller
 {
+    use TshirtTrait;
+
     public function choose(Estampa $estampa, Request $request)
     {
         $listaCores = Cor::all();
@@ -18,7 +21,7 @@ class TshirtController extends Controller
         $current = $this->getRefAttribute($request->get('uuid'));
 
         //Lista de tamanhos
-        $tamanhos = ['XS','S','M','L','XL'];
+        $tamanhos = $this->tshirtSizes();
 
         //$listaEstampas = Estampa::all();
         //$estampaRef =$request->query('estampa', $listaEstampas[0]->id);
@@ -48,4 +51,5 @@ class TshirtController extends Controller
     {
         return explode('-',$ref);
     }
+
 }
