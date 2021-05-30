@@ -10386,7 +10386,7 @@ select.form{
 }
 .shirt_thumb-overlay img{
     width: 100%;
-    max-width: 1.35rem;
+    max-width: 1.85em;
     transform: translateY(-.35rem);
 }
 
