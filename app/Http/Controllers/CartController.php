@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CartRequest;
 use App\Models\Estampa;
+use App\Models\Preco;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
@@ -18,43 +19,73 @@ class CartController extends Controller
             ->with('carrinho', session('carrinho') ?? []);
     }
 
-    public function update_item(Request $request, String $id)
+    private function getPrecoEstampa(Estampa $estampa)
     {
-       return $id;
+        $precos = Preco::all();
+
+        if ($estampa->cliente_id) {
+            return [
+                'normal' => $precos[0]->preco_un_proprio,
+                'desconto' => $precos[0]->preco_un_proprio_desconto
+            ];
+        }
+
+        return [
+            'normal' => $precos[0]->preco_un_catalogo,
+            'desconto' => $precos[0]->preco_un_catalogo_desconto
+        ];
     }
+
+    private function getQuantDesconto()
+    {
+        $precos = Preco::all('quantidade_desconto');
+        return intval($precos[0]->quantidade_desconto ?? 0);
+    }
+
+    public function update_item(Request $request, string $id)
+    {
+        return $id;
+    }
+
     public function add(CartRequest $request)
     {
         //Validação
         $request->validated();
 
         $estampa_id = $request->estampa_id;
-        $uuid = (string) $request->cor_codigo.$estampa_id.$request->tamanho;
+        $uuid = (string)$request->cor_codigo . $estampa_id . $request->tamanho;
         $estampa = Estampa::findOrFail($estampa_id);
 
-        $carrinho = session()->get('carrinho', []);
+        $preco = $this->getPrecoEstampa($estampa);
 
+        $preco_un = $preco['normal'];
+
+        if($request->quantidade >= $this->getQuantDesconto())
+            $preco_un = $preco['desconto'];
+
+        $carrinho = session()->get('carrinho', []);
         $quantidade = ($carrinho[$uuid]['quantidade'] ?? 0) + $request->quantidade;
 
         $carrinho[$uuid] = [
-            'uuid' => $request->cor_codigo.'-'.$estampa_id.'-'.$request->tamanho,
+            'uuid' => $request->cor_codigo . '-' . $estampa_id . '-' . $request->tamanho,
             'nome' => $estampa->nome,
             'cor_codigo' => $request->cor_codigo,
             'estampa_id' => $estampa_id,
             'tamanho' => $request->tamanho,
             'quantidade' => intval($quantidade),
-            'preco_un' => floatval(5), /*TODO: get real product price*/
-            'subtotal' => floatval(10)*$quantidade,
+            'preco_un' => floatval($preco_un), /*TODO: get real product price*/
+            'subtotal' => floatval($preco_un * $quantidade),
         ];
 
         // create a new Image instance for inserting
-       // $watermark = Image::make(public_path('/storage/estampas/38_60b2933a993c7.png'))->resize(216, 231);
+        // $watermark = Image::make(public_path('/storage/estampas/38_60b2933a993c7.png'))->resize(216, 231);
 
 
-       /* Image::make(public_path('/storage/tshirt_base/'.$request->cor_codigo.'.jpg'))->resize(520, 560)
-            ->insert($watermark, 'center')
-            ->save(public_path('/storage/bbr.jpg'));*/
+        /* Image::make(public_path('/storage/tshirt_base/'.$request->cor_codigo.'.jpg'))->resize(520, 560)
+             ->insert($watermark, 'center')
+             ->save(public_path('/storage/bbr.jpg'));*/
 
-       // dd(public_path('/storage/logo.png'));
+        // dd(public_path('/storage/logo.png'));
 
         session()->put('carrinho', $carrinho);
         session()->put('carrinho_qty', $this->count());
@@ -68,7 +99,7 @@ class CartController extends Controller
     {
         $carrinho = session()->get('carrinho', []);
 
-        if(!array_key_exists($uuid, $carrinho)) {
+        if (!array_key_exists($uuid, $carrinho)) {
             return back()
                 ->with('alert-msg', 'Este produto não se encontra no carrinho!')
                 ->with('alert-type', 'warning');
@@ -78,6 +109,14 @@ class CartController extends Controller
         $quantidade = $item['quantidade'] ?? 0;
 
         //TODO: fazer o find da estampa
+
+        $estampa = Estampa::findOrFail($item['estampa_id']);
+        $preco = $this->getPrecoEstampa($estampa);
+        $preco_un = $preco['normal'];
+
+        if($request->quantidade >= $this->getQuantDesconto())
+            $preco_un = $preco['desconto'];
+
 
         if ($request->quantidade < 0 || intval($request->quantidade) == $quantidade) {
             return back();
@@ -98,8 +137,8 @@ class CartController extends Controller
                 'estampa_id' => $item['estampa_id'],
                 'tamanho' => $item['tamanho'],
                 'quantidade' => intval($quantidade),
-                'preco_un' => floatval(5), /*TODO: get real product price*/
-                'subtotal' => floatval(10)*$quantidade, /*TODO: get real product price*/
+                'preco_un' => floatval($preco_un), /*TODO: get real product price*/
+                'subtotal' => floatval($preco_un * $quantidade), /*TODO: get real product price*/
             ];
             $msg = 'Quantidade atualizada';
         }
