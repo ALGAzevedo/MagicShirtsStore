@@ -5,9 +5,7 @@
     <div class="container">
         <!-- Product section-->
         <section class="py-5">
-
             <div class="row">
-
                 <div class="col-md-12">
                     @if (session('alert-msg'))
                         @include('partials.message')
@@ -32,16 +30,15 @@
                     <h1 class="h2 font-weight-bold">{{$estampa->nome}}</h1>
                     <div class="fs-5 my-3">
                         @if($estampa->client_id)
-                            <h4>{{$preco->preco_un_proprio}}</h4>
+                            <h4>{{ number_format($preco->preco_un_proprio, 2, ',', '.')}}&euro;</h4>
                         @else
-                            <h4>{{$preco->preco_un_catalogo}}</h4>
+                            <h4>{{ number_format($preco->preco_un_catalogo, 2, ',', '.')}}&euro;</h4>
                         @endif
                     </div>
                     <p class="lea w-75">{{$estampa->descricao}}</p>
                     {{--form--}}
                     <form action="{{route('carrinho.add')}}" method="POST">
                         @csrf
-                        @me
                         <input type="hidden" name="estampa_id" value="{{$estampa->id}}">
                         <div class="form-row mb-3">
                             <div class="col-md-5 my-1">
