@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserPost;
+use App\Http\Requests\UserUpdatePost;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -13,8 +14,8 @@ class UserController extends Controller
     {
 
         $qry = User::withoutTrashed();
-        $qry->where('tipo', '=','F')
-            ->orWhere('tipo','=', 'A')
+        $qry->where('tipo', '=', 'F')
+            ->orWhere('tipo', '=', 'A')
             ->orderBy('name');
 
         //$funcionarios = User::pluck('name', 'email', 'tipo')->paginate(10);
@@ -29,15 +30,25 @@ class UserController extends Controller
             ->withFuncionario($funcionario);
     }
 
-    public function update(UserPost $request, User $funcionario)
+    public function update(UserUpdatePost $request, User $funcionario)
     {
 
         $validated_data = $request->validated();
-        $funcionario->email = $validated_data['email'];
-        $funcionario->name = $validated_data['name'];
-        $funcionario->tipo = $validated_data['tipo'];
-        $funcionario->bloqueado = $validated_data['bloqueado'];
-        $funcionario->password = $validated_data['password'];
+        if ($request->filled('email')) {
+            $funcionario->email = $validated_data['email'];
+        }
+        if ($request->filled('name')) {
+            $funcionario->name = $validated_data['name'];
+        }
+        if ($request->filled('tipo')) {
+            $funcionario->tipo = $validated_data['tipo'];
+        }
+        if ($request->filled('bloqueado')) {
+            $funcionario->bloqueado = $validated_data['bloqueado'];
+        }
+        if ($request->filled('password')) {
+            $funcionario->password = Hash::make($validated_data['password']);
+        }
         if ($request->hasFile('foto')) {
             Storage::delete('public/fotos/' . $funcionario->foto_url);
             $path = $request->foto->store('public/fotos');
@@ -48,6 +59,19 @@ class UserController extends Controller
             ->with('alert-msg', 'Funcionario "' . $funcionario->name . '" foi alterado com sucesso!')
             ->with('alert-type', 'success');
     }
+
+//    public function updatePassword(UserPost $request, User $funcionario)
+//    {
+//
+//        $validated_data = $request->validated();
+//
+//        if ($request->filled('password')) {
+//            $funcionario->password = Hash::make($validated_data['password']);
+//        }
+//        return redirect()->route('admin.dashboard')
+//            ->with('alert-msg', 'Funcionario "' . $funcionario->name . '" foi alterado com sucesso!')
+//            ->with('alert-type', 'success');
+//    }
 
     public function create()
     {
@@ -93,7 +117,7 @@ class UserController extends Controller
         $oldUserID = $funcionario->id;
         $oldUrlFoto = $funcionario->foto_url;
         try {
-            //User::destroy($oldUserID);
+            User::destroy($oldUserID);
             Storage::delete('public/fotos/' . $oldUrlFoto);
             return redirect()->route('admin.funcionarios')
                 ->with('alert-msg', 'Funcionário "' . $oldName . '" foi apagado com sucesso!')

@@ -30,10 +30,12 @@
 </div>
 <div class="form-group">
     <label for="inputPagamento">Tipo Pagamento</label>
-    <select name="tipo_pagamento" id="inputPagamento">
-        <option value="MC" selected>MC</option>
-        <option value="PAYPAL">PAYPAL</option>
-        <option value="VISA">VISA</option>
+    <select name="tipo_pagamento" id="inputPagamento"
+            value="{{ old('tipo_pagamento', $cliente->tipo_pagamento)}}">
+        <option value=""{{$cliente->tipo_pagamento == "" ? 'selected' : ""}}>Não inserir</option>
+        <option value="MC" {{$cliente->tipo_pagamento == "MC" ? 'selected' : ""}}>MC</option>
+        <option value="PAYPAL" {{$cliente->tipo_pagamento == "PAYPAL" ? 'selected' : ""}}>PAYPAL</option>
+        <option value="VISA" {{$cliente->tipo_pagamento == "VISA" ? 'selected' : ""}}>VISA</option>
     </select>
     @error('tipo_pagamento')
     <div class="error">{{ $message }}</div>
