@@ -17,7 +17,19 @@
                 </div>
 
                 <div class="col-md-6">
-                    <div class="layered-image p-2 bd-highlight">
+                    <div class="shirt_base border p-4 ">
+                        <img
+                            class="shirt_base_thumbnail "
+                            src="{{asset('storage/tshirt_base/'.(old('cor_codigo') ?? $corSel->codigo). '.jpg')}}"
+                            alt="">
+                        <div class="shirt_base-overlay">
+                            <img class="shirt_base-overlay-img" src="{{asset('storage/estampas/' . $estampa->imagem_url)}}"
+                                 alt="{{$estampa->nome}}"/>
+                        </div>
+
+                    </div>
+
+                    <div class="layered-image p-2 bd- d-none">
                         <img class="image-base img-thumbnail magic-shirt"
                              src="{{asset('storage/tshirt_base/' . (old('cor_codigo') ?? $corSel->codigo) . '.jpg')}}"
                              alt="tshirt base" data-storage="{{asset('storage/tshirt_base/')}}"/>
@@ -26,7 +38,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-6 mt-4">
                     <h1 class="h2 font-weight-bold">{{$estampa->nome}}</h1>
                     <div class="fs-5 my-3">
                         @if($estampa->client_id)

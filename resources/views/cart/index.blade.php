@@ -34,10 +34,20 @@
                                         <tbody>
                                         <tr class="cart-item">
                                             <td class="cart-item_product">
-                                                <a href="{{route('tshirts.choose',  $row['estampa_id'])}}"><img
-                                                        class="cart-item_product__thumbnail border"
-                                                        src="{{asset('storage/tshirt_base/' .$row['cor_codigo'] . '.jpg')}}"
-                                                        alt=""></a></td>
+                                                <a href="{{route('tshirts.choose',  $row['estampa_id'])}}">
+                                                    <div class="shirt_thumb border">
+                                                        <img
+                                                            class="cart-item_product__thumbnail "
+                                                            src="{{asset('storage/tshirt_base/' .$row['cor_codigo'] . '.jpg')}}"
+                                                            alt="">
+                                                        <div class="shirt_thumb-overlay">
+                                                        <img class="shirt_thumb-overlay-img" src="{{asset('storage/estampas/' . $row['imagem_url'])}}"
+                                                             alt="{{$row['nome']}}"/>
+                                                        </div>
+
+                                                    </div>
+                                                </a>
+                                               </td>
                                             <td class="cart-item_product px-0">
                                                 <a href="{{route('tshirts.choose',  $row['estampa_id'])}}"
                                                    class="cart-item_product__title text-dark ">{{ $row['nome'] }}</a>

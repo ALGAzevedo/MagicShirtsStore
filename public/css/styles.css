@@ -10362,12 +10362,64 @@ select.form{
     border-radius: 0.2rem;
 }
 
-.cart-item_product__thumbnail{
+.cart-item_product__thumbnailx, .shirt_thumb{
     max-width: 80px;
     width: 80px;
     padding: .3rem;
+    position: relative;
+}
+.shirt_thumb > img{
+    max-width: 80px;
+    width: 100%;
+}
+.shirt_thumb-overlay{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.shirt_thumb-overlay img{
+    width: 100%;
+    max-width: 1.35rem;
+    transform: translateY(-.35rem);
 }
 
+/* product preview*/
+.shirt_base{
+    position: relative;
+    user-select: none;
+    cursor: default;
+}
+.shirt_base > img{
+    width: 100%;
+}
+.shirt_base-overlay{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.shirt_base-overlay img{
+    width: 12rem;
+    height: 12rem;
+    width: 40%;
+    height: 40%;
+
+    /*transform: translateY(-2.8rem);*/
+}
 .cart-item_product__tile{
     display: block;
     margin-bottom: 5px;
