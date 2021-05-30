@@ -2,28 +2,29 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ClientePost;
 use App\Http\Requests\ClienteUpdatePost;
 
-use App\Http\Requests\UserPost;
+
 use App\Models\Cliente;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class ClienteController extends Controller
 {
-    public function show_clientes()
+    public function index()
     {
-        $qry = Cliente::query();
-        $qry = $qry->where('id', '>', '0');
+        $qry = Cliente::withoutTrashed();
         $clientes = $qry->paginate(10);
         return view('clientes.admin')
             ->withClientes($clientes);
     }
 
-    public function edit(Cliente $cliente)
+    public function show(Cliente $cliente)
     {
-        return view('clientes.edit')
+        return view(Auth::user()->tipo == 'A' ? 'clientes.edit': 'clientes.editCliente')
             ->withCliente($cliente);
     }
 
@@ -54,7 +55,7 @@ class ClienteController extends Controller
             ->with('alert-type', 'success');
     }
 
-    public function store(UserPost $request)
+    public function create(ClientePost $request)
     {
         $validated_data = $request->validated();
         $newUser = new User;
@@ -62,19 +63,21 @@ class ClienteController extends Controller
         $newUser->bloqueado = $validated_data['bloqueado'];
         $newUser->email = $validated_data['email'];
         $newUser->password = Hash::make($validated_data['password']);
-        if ($request->hasFile('foto')) {
-            Storage::delete('public/fotos/' . $newUser->foto_url);
-            $path = $request->foto->store('public/fotos');
-            $newUser->foto_url = basename($path);
-        }
         $newUser->save();
 
         $newCliente = new Cliente;
         $newCliente->id = $newUser->id;
-        $newCliente->endereco = $validated_data['endereco'];
-        $newCliente->nif = $validated_data['nif'];
-        $newCliente->tipo_pagamento = $validated_data['tipo_pagamento'];
-        $newCliente->ref_pagamento = $validated_data['ref_pagamento'];
+        if ($request->filled('nif')) {
+            $newCliente->nif = $validated_data['nif'];
+        }
+        if ($request->filled('endereco')) {
+            $newCliente->endereco = $validated_data['endereco'];
+        }
+        if ($request->filled('tipo_pagamento')) {
+            $newCliente->tipo_pagamento = $validated_data['tipo_pagamento'];
+            $newCliente->ref_pagamento = $validated_data['ref_pagamento'];
+        }
+
         $newCliente->save();
 
         return redirect()->route('/')
@@ -82,13 +85,42 @@ class ClienteController extends Controller
             ->with('alert-type', 'success');
     }
 
+//    public function store(UserPost $request)
+//    {
+//        $validated_data = $request->validated();
+//        $newUser = new User;
+//        $newUser->name = $validated_data['name'];
+//        $newUser->bloqueado = $validated_data['bloqueado'];
+//        $newUser->email = $validated_data['email'];
+//        $newUser->password = Hash::make($validated_data['password']);
+//        if ($request->hasFile('foto')) {
+//            Storage::delete('public/fotos/' . $newUser->foto_url);
+//            $path = $request->foto->store('public/fotos');
+//            $newUser->foto_url = basename($path);
+//        }
+//        $newUser->save();
+//
+//        $newCliente = new Cliente;
+//        $newCliente->id = $newUser->id;
+//        $newCliente->endereco = $validated_data['endereco'];
+//        $newCliente->nif = $validated_data['nif'];
+//        $newCliente->tipo_pagamento = $validated_data['tipo_pagamento'];
+//        $newCliente->ref_pagamento = $validated_data['ref_pagamento'];
+//        $newCliente->save();
+//
+//        return redirect()->route('/')
+//            ->with('alert-msg', 'Cliente "' . $validated_data['name'] . '" foi criado com sucesso!')
+//            ->with('alert-type', 'success');
+//    }
+
     public function destroy(Cliente $cliente)
     {
-        $oldName = $cliente->name;
-        $oldUserID = $cliente->id;
-        $oldUrlFoto = $cliente->foto_url;
+        $oldName = $cliente->user->name;
+        $oldUserID = $cliente->user->id;
+        $oldUrlFoto = $cliente->user->foto_url;
         try {
-            //User::destroy($oldUserID);
+            Cliente::destroy($oldUserID);
+            User::destroy($oldUserID);
             Storage::delete('public/fotos/' . $oldUrlFoto);
             return redirect()->route('admin.clientes')
                 ->with('alert-msg', 'Cliente "' . $oldName . '" foi apagado com sucesso!')
@@ -112,9 +144,9 @@ class ClienteController extends Controller
 
     public function block(Cliente $cliente)
     {
-        if( $cliente->user->bloqueado == '0'){
+        if ($cliente->user->bloqueado == '0') {
             $cliente->user->bloqueado = '1';
-        }else{
+        } else {
             $cliente->user->bloqueado = '0';
         }
         $cliente->user->save();

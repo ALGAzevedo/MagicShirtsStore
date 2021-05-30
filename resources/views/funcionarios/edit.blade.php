@@ -12,7 +12,8 @@
                 <img src="{{$funcionario->foto_url ? asset('storage/fotos/' .
                         $funcionario->foto_url) : asset('img/default_img.png') }}"
                      alt="Foto do funcionario" class="img-profile"
-                     style="max-width:100%">
+                     style="max-width:10%"
+                >
             </div>
         @endisset
         <div class="form-group text-right">
@@ -24,7 +25,8 @@
             <button type="submit" class="btn btn-success" name="ok">Save</button>
             <a href="{{route('admin.funcionarios.edit', ['funcionario' => $funcionario]) }}"
                class="btn btn-secondary">Reset</a>
-            <a href="{{route('admin.funcionarios') }}" class="btn btn-danger">Cancel</a>
+                <!--//TODO: PERGUNTAS  -->
+                <a href="{{Auth::user()->tipo == 'A' ? route('admin.funcionarios') : route('admin.dashboard') }}" class="btn btn-danger">Cancel</a>
         </div>
     </form>
     <form id="form_delete_photo" action="{{route('admin.funcionarios.foto.destroy',['funcionario' => $funcionario])}}"

@@ -29,7 +29,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('administracao')}}">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('admin.dashboard')}}">
             <div class="sidebar-brand-icon">
                 <img src="/img/logo.png" alt="Logo" class="logo-img">
             </div>
@@ -41,7 +41,7 @@
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item active">
-            <a class="nav-link" href="index.html">
+            <a class="nav-link" href="{{route('admin.dashboard')}}">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Dashboard</span></a>
         </li>
@@ -51,23 +51,27 @@
 
 
         <!-- Nav Item -->
-        <li class="nav-item" {{Route::currentRouteName()=='admin.funcionarios'? 'active': ''}}>
-            <a class="nav-link" href="{{route('admin.funcionarios')}}">
-                <i class="fas fa-fw fa-table"></i>
-                <span>Funcionários</span></a>
-        </li>
-        <!-- Nav Item -->
+        @can('viewAny', App\Models\User::class)
+            <li class="nav-item" {{Route::currentRouteName()=='admin.funcionarios'? 'active': ''}}>
+                <a class="nav-link" href="{{route('admin.funcionarios')}}">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Funcionários</span></a>
+            </li>
+    @endcan
+        @can('viewAny', App\Models\Cliente::class)
+    <!-- Nav Item -->
         <li class="nav-item" {{Route::currentRouteName()=='admin.clientes'? 'active': ''}}>
             <a class="nav-link" href="{{route('admin.clientes')}}">
                 <i class="fas fa-fw fa-table"></i>
                 <span>Clientes</span></a>
         </li>
+        @endcan
         <!-- Nav Item -->
         <li class="nav-item" {{Route::currentRouteName()=='admin.estampas'? 'active': ''}}>
             <a class="nav-link" href="{{route('admin.estampas')}}">
-              <i class="fas fa-fw fa-table"></i>
-              <span>Estampas</span></a>
-          </li>
+                <i class="fas fa-fw fa-table"></i>
+                <span>Estampas</span></a>
+        </li>
         <li class="nav-item" {{Route::currentRouteName()=='admin.categorias'? 'active': ''}}>
             <a class="nav-link" href="{{route('admin.categorias')}}">
                 <i class="fas fa-fw fa-table"></i>
@@ -137,7 +141,7 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                  aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="{{route('admin.funcionarios.edit', ['funcionario' => Auth::user()->id])}}">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Perfil
                                 </a>
