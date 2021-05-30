@@ -19,22 +19,14 @@
                 <div class="col-md-6">
                     <div class="shirt_base border p-4 ">
                         <img
-                            class="shirt_base_thumbnail "
+                            class="shirt_base_thumbnail magic-shirt"
                             src="{{asset('storage/tshirt_base/'.(old('cor_codigo') ?? $corSel->codigo). '.jpg')}}"
-                            alt="">
+                            alt=""
+                            data-storage="{{asset('storage/tshirt_base/')}}">
                         <div class="shirt_base-overlay">
                             <img class="shirt_base-overlay-img" src="{{asset('storage/estampas/' . $estampa->imagem_url)}}"
                                  alt="{{$estampa->nome}}"/>
                         </div>
-
-                    </div>
-
-                    <div class="layered-image p-2 bd- d-none">
-                        <img class="image-base img-thumbnail magic-shirt"
-                             src="{{asset('storage/tshirt_base/' . (old('cor_codigo') ?? $corSel->codigo) . '.jpg')}}"
-                             alt="tshirt base" data-storage="{{asset('storage/tshirt_base/')}}"/>
-                        <img class="image-overlay" src="{{asset('storage/estampas/' . $estampa->imagem_url)}}"
-                             alt="{{$estampa->nome}}"/>
                     </div>
                 </div>
 
