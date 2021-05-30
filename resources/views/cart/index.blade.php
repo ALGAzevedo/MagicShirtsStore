@@ -37,7 +37,7 @@
                                                 <a href="{{route('tshirts.choose',  $row['estampa_id'])}}">
                                                     <div class="shirt_thumb border">
                                                         <img
-                                                            class="cart-item_product__thumbnail "
+                                                            class="cart-item_product__thumbnail img-{{$key}}"
                                                             src="{{asset('storage/tshirt_base/' .$row['cor_codigo'] . '.jpg')}}"
                                                             alt="">
                                                         <div class="shirt_thumb-overlay">
@@ -55,7 +55,7 @@
                                                     @csrf
                                                     @method('put')
                                                 <p class="small text-muted">
-                                                    <select class="form magic-color" name="cor_codigo" onchange="this.form.submit()">
+                                                    <select class="form color-{{$key}}" name="cor_codigo" onchange="this.form.submit()">
                                                         @foreach ($cores as $cor)
                                                             <option
                                                                 value="{{$cor->codigo}}" {{$row['cor_codigo'] == $cor->codigo ? 'selected' : ''}}>
