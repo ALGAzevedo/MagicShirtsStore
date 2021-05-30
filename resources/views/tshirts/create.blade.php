@@ -19,7 +19,7 @@
                 <div class="col-md-6">
                     <div class="layered-image p-2 bd-highlight">
                         <img class="image-base img-thumbnail magic-shirt"
-                             src="{{asset('storage/tshirt_base/' . (!empty($current[0]) ? $current[0] : $corSel->codigo) . '.jpg')}}"
+                             src="{{asset('storage/tshirt_base/' . (old('cor_codigo') ?? $corSel->codigo) . '.jpg')}}"
                              alt="tshirt base" data-storage="{{asset('storage/tshirt_base/')}}"/>
                         <img class="image-overlay" src="{{asset('storage/estampas/' . $estampa->imagem_url)}}"
                              alt="{{$estampa->nome}}"/>
@@ -46,7 +46,7 @@
                                 <select class="form-control magic-color" name="cor_codigo" id="idCor">
                                     @foreach ($listaCores as $cor)
                                         <option
-                                            value="{{$cor->codigo}}" {{in_array($cor->codigo,$current) ? 'selected' : ''}}>
+                                            value="{{$cor->codigo}}" {{  old('cor_codigo') == $cor->codigo ? 'selected' : ''}}>
                                             {{$cor->nome}}
                                         </option>
                                     @endforeach
@@ -58,7 +58,7 @@
                             <div class="btn-groupx btn-group-toggle" data-toggle="buttons">
                                 @foreach ($tamanhos as $tamanho)
                                 <label class="btn btn-size">
-                                    <input type="radio" name="tamanho" value="{{$tamanho}}" {{in_array($tamanho,$current) ? 'checked' : ''}} autocomplete="off"> {{$tamanho}}
+                                    <input type="radio" name="tamanho" value="{{$tamanho}}" {{old('tamanho') == $tamanho ? 'checked' : ''}} autocomplete="off"> {{$tamanho}}
                                 </label>
                                 @endforeach
                             </div>

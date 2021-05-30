@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CartRequest;
 use App\Http\Traits\TshirtTrait;
+use App\Models\Cor;
 use App\Models\Estampa;
 use App\Models\Preco;
 use Illuminate\Http\Request;
@@ -21,7 +22,8 @@ class CartController extends Controller
         return view('cart.index')
             ->with('pageTitle', 'Carrinho de compras')
             ->with('carrinho', session('carrinho') ?? [])
-            ->with('tamanhos',$this->tshirtSizes());
+            ->with('tamanhos', $this->tshirtSizes())
+            ->with('cores', Cor::all());
     }
 
     private function getPrecoEstampa(Estampa $estampa)
@@ -65,7 +67,7 @@ class CartController extends Controller
 
         $preco_un = $preco['normal'];
 
-        if($request->quantidade >= $this->getQuantDesconto())
+        if ($request->quantidade >= $this->getQuantDesconto())
             $preco_un = $preco['desconto'];
 
         $carrinho = session()->get('carrinho', []);
@@ -82,20 +84,19 @@ class CartController extends Controller
             'subtotal' => floatval($preco_un * $quantidade),
         ];
 
-        if(!Storage::disk('public')->exists('product/')){
+        if (!Storage::disk('public')->exists('product/')) {
             Storage::disk('public')->makeDirectory('product/');
         }
 
         //$imagem_tshirt = uniqid('tshirt_').'.jpg';
-        $imagem_tshirt = 'tshirt_'.$uuid.'.jpg';
+        $imagem_tshirt = 'tshirt_' . $uuid . '.jpg';
 
-        $watermark = Image::make(public_path('/storage/estampas/'.$estampa->imagem_url))->resize(216, 231);
+        $watermark = Image::make(public_path('/storage/estampas/' . $estampa->imagem_url))->resize(216, 231);
 
 
-        Image::make(public_path('/storage/tshirt_base/'.$request->cor_codigo.'.jpg'))->resize(520, 560)
-             ->insert($watermark, 'center')
-             ->save(public_path('/storage/product/'.$imagem_tshirt));
-
+        Image::make(public_path('/storage/tshirt_base/' . $request->cor_codigo . '.jpg'))->resize(520, 560)
+            ->insert($watermark, 'center')
+            ->save(public_path('/storage/product/' . $imagem_tshirt));
 
 
         session()->put('carrinho', $carrinho);
@@ -103,7 +104,8 @@ class CartController extends Controller
         session()->put('carrinho_subtotal', $this->subtotal());
         return back()
             ->with('alert-msg', "Adicionou '$estampa->nome' ao carrinho de compras.") //TODO: nome com tamanho e cor
-            ->with('alert-type', 'success');
+            ->with('alert-type', 'success')
+            ->withInput();
 
     }
 
@@ -120,13 +122,15 @@ class CartController extends Controller
         $item = $carrinho[$uuid];
         $quantidade = $item['quantidade'] ?? 0;
 
+        dd($carrinho);
+
         //TODO: fazer o find da estampa
 
         $estampa = Estampa::findOrFail($item['estampa_id']);
         $preco = $this->getPrecoEstampa($estampa);
         $preco_un = $preco['normal'];
 
-        if($request->quantidade >= $this->getQuantDesconto())
+        if ($request->quantidade >= $this->getQuantDesconto())
             $preco_un = $preco['desconto'];
 
 
@@ -209,13 +213,13 @@ class CartController extends Controller
         $content = $this->getContent();
         return $content->sum('quantidade');
     }
+
     public function subtotal()
     {
         $content = $this->getContent();
         return number_format($content->sum('subtotal'), 2, ',', '.');
 
     }
-
 
 
 }

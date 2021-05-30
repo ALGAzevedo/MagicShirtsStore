@@ -34,28 +34,34 @@
                                         <tbody>
                                         <tr class="cart-item">
                                             <td class="cart-item_product">
-                                                <a href="{{route('tshirts.choose',  $row['estampa_id'])}}/?uuid={{ $row['uuid'] }}"><img
+                                                <a href="{{route('tshirts.choose',  $row['estampa_id'])}}"><img
                                                         class="cart-item_product__thumbnail border"
                                                         src="{{asset('storage/tshirt_base/' .$row['cor_codigo'] . '.jpg')}}"
                                                         alt=""></a></td>
-                                            <td class="cart-item_product">
-                                                <a href="{{route('tshirts.choose',  $row['estampa_id'])}}/?uuid={{ $row['uuid'] }}"
-                                                   class="cart-item_product__title text-dark">{{ $row['nome'] }}</a>
-                                                <p class="small text-muted">Tamanho: {{ $row['tamanho'] }} </p>
-                                                <p class="small text-muted">Cor:
-                                                    <select class="form">
-                                                        <option>XS</option>
-                                                        <option>S</option>
-                                                        <option>M</option>
-                                                    </select>
-                                                </p>
-                                                <p class="small text-muted">Tamanho: {{ $row['tamanho'] }}
-                                                    <select class="form">
-                                                        @foreach ($tamanhos as $tamanho)
-                                                        <option value="{{$tamanho}}" {{$row['tamanho'] == $tamanho ? 'checked' : ''}}>{{$tamanho}}</option>
+                                            <td class="cart-item_product px-0">
+                                                <a href="{{route('tshirts.choose',  $row['estampa_id'])}}"
+                                                   class="cart-item_product__title text-dark ">{{ $row['nome'] }}</a>
+                                                <form action="{{route('carrinho.update', $key)}}" method="POST">
+                                                    @csrf
+                                                    @method('put')
+                                                <p class="small text-muted">
+                                                    <select class="form magic-color" name="cor_codigo" onchange="this.form.submit()">
+                                                        @foreach ($cores as $cor)
+                                                            <option
+                                                                value="{{$cor->codigo}}" {{$row['cor_codigo'] == $cor->codigo ? 'selected' : ''}}>
+                                                                {{$cor->nome}}
+                                                            </option>
                                                         @endforeach
                                                     </select>
                                                 </p>
+                                                <p class="small text-muted">Tamanho:<br>
+                                                    <select class="form" name="tamanho"  onchange="this.form.submit()">
+                                                        @foreach ($tamanhos as $tamanho)
+                                                        <option value="{{$tamanho}}" {{$row['tamanho'] == $tamanho ? 'selected' : ''}}>{{$tamanho}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </p>
+                                                </form>
 
                                             </td>
                                             <td class="cart-item_price">{{ $row['preco_un'] }}&euro;</td>
