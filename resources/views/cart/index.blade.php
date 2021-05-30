@@ -54,6 +54,7 @@
                                                 <form action="{{route('carrinho.update', $key)}}" method="POST">
                                                     @csrf
                                                     @method('put')
+                                                    <input type="hidden" name="quantidade" value="{{ $row['quantidade']+1 }}" >
                                                 <p class="small text-muted">
                                                     <select class="form color-{{$key}}" name="cor_codigo" onchange="this.form.submit()">
                                                         @foreach ($cores as $cor)
