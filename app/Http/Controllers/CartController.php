@@ -6,6 +6,7 @@ use App\Http\Requests\CartRequest;
 use App\Models\Estampa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
 
 class CartController extends Controller
 {
@@ -41,7 +42,17 @@ class CartController extends Controller
         ];
 
         $carrinho[$uuid] = $cartItem;
-        
+
+        // create a new Image instance for inserting
+       // $watermark = Image::make(public_path('/storage/estampas/38_60b2933a993c7.png'))->resize(216, 231);
+
+
+       /* Image::make(public_path('/storage/tshirt_base/'.$request->cor_codigo.'.jpg'))->resize(520, 560)
+            ->insert($watermark, 'center')
+            ->save(public_path('/storage/bbr.jpg'));*/
+
+       // dd(public_path('/storage/logo.png'));
+
         session()->put('carrinho', $carrinho);
         return back()
             ->with('alert-msg', "Adicionou $estampa->nome ao carrinho de compras.")
