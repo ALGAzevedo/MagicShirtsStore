@@ -4,7 +4,7 @@
 
     <div class="container">
         <!-- Product section-->
-        <section class="py-5">
+        <section class="mt-4">
             <div class="row">
                 <div class="col-md-12">
                     @if (session('alert-msg'))
