@@ -69,7 +69,7 @@
 
                         <button type="submit" class="btn btn-success" name="estado" value="{{$estadoSeguinte}}">{{$botao}}</button>
                     @endisset
-                    @if($encomenda->estado != "anulada")
+                    @if($encomenda->estado != "anulada" && Auth::user()->tipo == 'A')
                         <button type="submit" class="btn btn-danger" name="estado" value="anulada">Anular Encomenda</button>
                     @endif
                     <a href="{{route('admin.encomendas.edit', ['encomenda' => $encomenda])}}" class="btn btn-secondary">Cancel</a>

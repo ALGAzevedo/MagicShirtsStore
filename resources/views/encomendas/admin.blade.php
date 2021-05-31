@@ -6,7 +6,6 @@
             <form method="GET" action="#" class="form-group">
                 <div class="input-group">
                     <select class="form-control" name="estado" id="idEstado">
-                        <option value="show_all" {{$estadoSel == 'show_all' ? 'selected' : ''}}>Mostrar Tudo</option>
                         @foreach ($listaEstados as $estado)
                             <option value="{{$estado}}" {{$estadoSel == $estado ? 'selected' : ''}}>
                                 {{$estado}}
