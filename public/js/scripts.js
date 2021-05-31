@@ -1,7 +1,7 @@
 
 
 $(function() {
-  
+
     $(".quantity").on('change paste input', function() {
         console.log($(this).val())
     });
