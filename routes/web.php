@@ -46,7 +46,7 @@ Route::get('cart', [CartController::class, 'index'])->name('cart');
 
 Route::middleware('auth')->prefix('administracao')->name('admin.')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard')
-    ->middleware('can:viewAny, App\Models\Dashboard');
+        ->middleware('can:viewAny, App\Models\Dashboard');
 
 
 //ADMINISTRACAO ESTAMPAS
@@ -71,9 +71,9 @@ Route::middleware('auth')->prefix('administracao')->name('admin.')->group(functi
     Route::put('precos/{precos}', [PrecosController::class, 'update'])->name('precos.update');
 
 //ADMINISTRACAO ENCOMENDAS
-Route::get('encomendas', [EncomendaController::class, 'admin_index'])->name('encomendas');
-Route::get('encomendas/{encomenda}/edit', [EncomendaController::class, 'admin_edit'])->name('encomendas.edit');
-Route::put('encomendas/{encomenda}', [EncomendaController::class, 'admin_update'])->name('encomendas.update');
+    Route::get('encomendas', [EncomendaController::class, 'admin_index'])->name('encomendas');
+    Route::get('encomendas/{encomenda}/edit', [EncomendaController::class, 'admin_edit'])->name('encomendas.edit');
+    Route::put('encomendas/{encomenda}', [EncomendaController::class, 'admin_update'])->name('encomendas.update');
 
 //ADMINISTRACAO FUNCIONARIOS
     Route::get('funcionarios', [UserController::class, 'admin_funcs'])->name('funcionarios')
@@ -96,26 +96,26 @@ Route::put('encomendas/{encomenda}', [EncomendaController::class, 'admin_update'
 //ADMINISTRACAO PARA CLIENTES
 
     Route::get('clientes', [ClienteController::class, 'index'])->name('clientes')
-        ->middleware('can:viewAny, App\Models\Cliente');
+        ->middleware('can:viewAny,App\Models\Cliente');
     Route::get('clientes/{cliente}/edit', [ClienteController::class, 'show'])->name('clientes.edit')
-        ->middleware('can:view, cliente');
+        ->middleware('can:view,cliente');
     Route::get('clientes/create', [ClienteController::class, 'create'])->name('clientes.create')
-        ->middleware('can:create App\Models\Cliente');
+        ->middleware('can:create,App\Models\Cliente');
 //Route::post('clientes', [ClienteController::class, 'store'])->name('admin.clientes.store');
     Route::put('clientes/{cliente}', [ClienteController::class, 'update'])->name('clientes.update')
-        ->middleware('can:update, cliente');
+        ->middleware('can:update,cliente');
     Route::delete('clientes/{cliente}', [ClienteController::class, 'destroy'])->name('clientes.destroy')
-        ->middleware('can:delete, cliente');
+        ->middleware('can:delete,cliente');
     Route::delete('clientes/{cliente}/foto', [ClienteController::class, 'destroy_foto'])->name('clientes.foto.destroy')
-        ->middleware('can:update, cliente');
+        ->middleware('can:update,cliente');
     Route::put('clientes/{cliente}/block', [ClienteController::class, 'block'])->name('clientes.block')
-        ->middleware('can:updateBlock, cliente');
+        ->middleware('can:updateBlock,cliente');
 });
 
 //EDICAO PERFIL DO CLIENTE
 
 Route::get('clientes/{cliente}/edit', [ClienteController::class, 'show'])->name('clientes.edit')
-->middleware('can:view,cliente');
+    ->middleware('can:view,cliente');
 
 
 Auth::routes(['register' => true]);
