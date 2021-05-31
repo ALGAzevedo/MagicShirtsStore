@@ -25,7 +25,6 @@ class EncomendaPolicy
      */
     public function viewAny(User $user)
     {
-
         return false;
     }
 
@@ -53,7 +52,7 @@ class EncomendaPolicy
      */
     public function view(User $user, Encomenda $encomenda)
     {
-        //
+        return $encomenda->estado=='paga' || $encomenda->estado=='pendente';
     }
 
     /**
@@ -76,7 +75,7 @@ class EncomendaPolicy
      */
     public function update(User $user, Encomenda $encomenda)
     {
-        //
+        return $encomenda->estado=='paga' || $encomenda->estado=='pendente';
     }
 
     /**

@@ -49,10 +49,10 @@ class EncomendaController extends Controller
         //se for a primeira vez nas encomendas temos de mostrar apenas as autorizadas para cada user
         //no caso dos funcionarios apenas onde o estado é paga ou pendente
         if(!$estadoSel && !$fullAuthorized) {
-            $qry->where('estado', 'paga')
-                ->where('estado', 'pendente');
-        }
+            $qry->where('estado', 'pendente')
+                ->where('estado', 'paga');
 
+        }
 
         if($estadoSel && $estadoSel != 'Mostrar tudo') {
             $qry->where('estado', $estadoSel);
@@ -76,6 +76,7 @@ class EncomendaController extends Controller
 
     public function admin_edit(Encomenda $encomenda)
     {
+
         $estadoAtual = $encomenda->estado;
         $estadoSeguinte = null;
 
@@ -97,6 +98,12 @@ class EncomendaController extends Controller
 
     public function admin_update(EncomendaUpdatePost $request, Encomenda $encomenda)
     {
+        //Se o request for para alterar o estado para anulada temos ainda de verificar se o user o pode fazer
+        if($request->estado == 'anulada' && Auth::user()->tipo != 'A') {
+            abort(403);
+        }
+
+
         $validated_data = $request->validated();
 
         $encomenda->estado = $validated_data['estado'];
