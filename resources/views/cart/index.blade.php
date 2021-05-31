@@ -4,7 +4,7 @@
     <div class="container">
 
         <!--Section: Block Content-->
-        <section class="mt-5 mb-4">
+        <section class="mt-4 mb-4">
             <div class="page-title-wrapper mb-4">
                 <h1>Carrinho de compras @if(session()->has('carrinho_qty') && session('carrinho_qty')>0)
                         <small>(<span>{{session('carrinho_qty')}}</span>  @choice('artigo|artigos', session('carrinho_qty')))</small> @endif</h1>
