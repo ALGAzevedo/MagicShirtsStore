@@ -2,61 +2,75 @@
 
 @section('content')
     <div class="container">
-        <h2>Estampas</h2>
+        <section class="mt-4 mb-4">
+            <div class="page-title-wrapper mb-4">
+                <h1>Catálogo de Estampas {{$categoria->id}}</h1>
+            </div>
+        </section>
+        <div class="row">
+            <main class="col-md-12">
+                <header class="mb-3">
+                    <form action="#" method="GET">
+                        <div class="input-group w-100">
+                            <select class="custom-select col-3"  name="categoria" onchange="this.form.submit()">
+                                <option value=""  >Todas as Categoria</option>
+                                @foreach ($listaCategorias as $cat)
+                                    <option value="{{$cat->id}}" {{ $categoria->id == $cat->id ? 'selected' : ''}}>
+                                        {{$cat->nome}}
+                                    </option>
+                                @endforeach
+                            </select>
 
-        <form class="estampa-search" action="#" method="GET">
-            <div class="search-item">
-                <label for="idCat">Categoria: </label>
-                <select class="form-control" name="categoria" id="idCat">
-                    @foreach ($listaCategorias as $cat)
-                        <option value="{{$cat->id}}" {{$categoria->id == $cat->id ? 'selected' : ''}}>
-                            {{$cat->nome}}
-                        </option>
+                            <input type="text" name="s" class="form-control" placeholder="Pesquisar estampas por nome ou descrição...">
+
+                            <div class="input-group-append">
+                                <button class="btn btn-light" type="submit">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </header><!-- sect-heading -->
+
+                <div class="row">
+                    @foreach($estampas as $estampa)
+                    <div class="col-md-3">
+                        <div class="card card-product-grid">
+                            <a href="{{route('tshirts.choose',  ['estampa' => $estampa])}}">
+                                <div class="img-wrap mx-auto">
+                                <img src="{{asset('storage/estampas/'.$estampa->imagem_url)}}" alt="">
+                                </div></a> <!-- img-wrap.// -->
+                            <div class="info-wrap">
+                                <div class="fix-height mb-3">
+                                    <small class="text-uppercase font-weight-bolder text-secondary small-xs mb-1">{{$estampa->categoriaRef->nome}}</small>
+                                    <a href="{{route('tshirts.choose',  ['estampa' => $estampa])}}" class="title mb-1">{{$estampa->nome}}</a>
+                                    <small>{{$estampa->descricao}}</small>
+                                </div>
+                                <a href="{{route('tshirts.choose',  ['estampa' => $estampa])}}" class="btn btn-block btn-primary">Ver detalhe </a>
+                            </div>
+                        </div>
+                    </div> <!-- col.// -->
                     @endforeach
-                </select>
-            </div>
-            <br>
-            <div class="search-item">
-                <button type="submit" class="btn btn-secondary">Filtrar</button>
-            </div>
-        </form>
 
-        <h3>Escolha a estampa</h3>
+                </div> <!-- row end.// -->
 
-        <div class="estampa-area">
-            @foreach($estampas as $estampa)
-                <div class="estampa">
-                    <div class="estampa-imagem">
-                        <a class="nav-link" href="{{route('tshirts.choose',  ['estampa' => $estampa])}}">
-                            <img src="storage/estampas/{{$estampa->imagem_url}}" alt="Imagem da estampa"
-                                 class="rounded img-thumbnail">
-                        </a>
-                    </div>
-                    <div class="estampa-info-area">
-                        <div class="estampa-info">
-                            <span class="estampa-label">Categoria</span>
-                            <span class="estampa-info-desc">{{$estampa->categoriaRef->nome}}</span>
-                        </div>
-                        <div class="curso-info">
-                            <span class="estampa-label">Nome</span>
-                            <span class="estampa-info-desc">{{$estampa->nome}}</span>
-                        </div>
-                        <div class="curso-info">
-                            <span class="estampa-label">Descrição</span>
-                            <span class="estampa-info-desc">{{$estampa->descricao}}</span>
-                        </div>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="{{$estampa->id}}"
-                               value="{{$estampa->id}}" checked>
-                        <label class="form-check-label" for="exampleRadios1">
-                            Selecionar
-                        </label>
-                    </div>
-                </div>
-            @endforeach
+
+                <nav class="mt-4" aria-label="Page navigation sample">
+                    <ul class="pagination">
+                        <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                    </ul>
+                </nav>
+
+            </main> <!-- col.// -->
+
         </div>
+
     </div>
+
 
 
 @endsection
