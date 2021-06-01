@@ -10,7 +10,7 @@
         @isset($funcionario->foto_url)
             <div class="form-group">
                 <img src="{{$funcionario->foto_url ? asset('storage/fotos/' .
-                        $funcionario->foto_url) : asset('img/default_img.png') }}"
+                        $funcionario->foto_url) : asset('storage/img/default_img.png') }}"
                      alt="Foto do funcionario" class="img-profile"
                      style="max-width:10%"
                 >

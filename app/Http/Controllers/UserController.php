@@ -60,18 +60,24 @@ class UserController extends Controller
             ->with('alert-type', 'success');
     }
 
-//    public function updatePassword(UserPost $request, User $funcionario)
-//    {
-//
-//        $validated_data = $request->validated();
-//
-//        if ($request->filled('password')) {
-//            $funcionario->password = Hash::make($validated_data['password']);
-//        }
-//        return redirect()->route('admin.dashboard')
-//            ->with('alert-msg', 'Funcionario "' . $funcionario->name . '" foi alterado com sucesso!')
-//            ->with('alert-type', 'success');
-//    }
+    public function viewPassword(User $funcionario){
+
+        return view('funcionarios.password')
+            ->withFuncionario($funcionario);
+    }
+
+    public function updatePassword(UserPost $request, User $funcionario)
+    {
+
+        $validated_data = $request->validated();
+
+        if ($request->filled('password')) {
+            $funcionario->password = Hash::make($validated_data['password']);
+        }
+        return redirect()->route('admin.dashboard')
+            ->with('alert-msg', 'Funcionario "' . $funcionario->name . '" foi alterado com sucesso!')
+            ->with('alert-type', 'success');
+    }
 
     public function create()
     {

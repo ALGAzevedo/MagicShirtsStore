@@ -87,7 +87,7 @@
                                         <option value="" selected>Não inserir</option>
                                         <option value="MC">MC</option>
                                         <option value="PAYPAL">PAYPAL</option>
-                                        <option value="VISA">VISA</option>
+                                        <option value=" ">VISA</option>
                                     </select>
                                     @error('tipo_pagamento')
                                     <span class="invalid-feedback" role="alert">

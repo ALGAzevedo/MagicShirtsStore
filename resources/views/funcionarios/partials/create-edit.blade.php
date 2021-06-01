@@ -2,7 +2,7 @@
     <label for="inputNome">Nome</label>
     <input type="text" class="form-control" name="name" id="inputNome"
            @cannot('update',$funcionario) readonly @endcannot
-           value="{{old('name', $funcionario->name)}}" >
+           value="{{old('name', $funcionario->name)}}">
     @error('name')
     <div class="small text-danger">{{$message}}</div>
     @enderror
@@ -16,15 +16,24 @@
     <div class="small text-danger">{{$message}}</div>
     @enderror
 </div>
-<div class="form-group">
-    <label for="inputPassword">Password</label>
-    <input type="password" class="form-control" name="password" id="password"
-           value="">
-    @error('password')
-    <div class="small text-danger">{{$message}}</div>
-    @enderror
-</div>
-@if(Auth::user()->tipo == 'A')
+@can('update', $funcionario)
+    <div class="form-group">
+        <label for="inputPassword">Password</label>
+        <input type="password" class="form-control" name="password" id="password"
+               value="">
+        @elsecannot('update', $funcionario)
+            <a href="{{route('admin.funcionarios.password.update', ['funcionario' => $funcionario]) }}"
+               class="btn btn-dark">Alterar Password</a>
+        @elsecannot('update', $funcionario)
+            @error('password')
+            <div class="small text-danger">{{$message}}</div>
+            @enderror
+    </div>
+@elsecannot('update', $funcionario)
+    <a href="{{route('admin.funcionarios.edit', ['funcionario' => $funcionario]) }}"
+       class="btn btn-dark">Alterar Password</a>
+@endcan
+@can('update', $funcionario)
     <div class="form-group">
         <div>Tipo</div>
         <div class="form-check form-check-inline">
@@ -39,30 +48,25 @@
         <div class="small text-danger">{{$message}}</div>
         @enderror
     </div>
-<div class="form-group">
-    <div class="form-check form-check-inline">
-        <input type="hidden" name="bloqueado" value="0">
-        <input type="checkbox" class="form-check-input" id="inputBloqueado" name="bloqueado"
-               value="1" {{old('bloqueado', $funcionario->bloqueado) == '1' ? 'checked' : ''}}>
-        <label class="form-check-label" for="inputAdmin">
-            Bloqueado
-        </label>
+    <div class="form-group">
+        <div class="form-check form-check-inline">
+            <input type="hidden" name="bloqueado" value="0">
+            <input type="checkbox" class="form-check-input" id="inputBloqueado" name="bloqueado"
+                   value="1" {{old('bloqueado', $funcionario->bloqueado) == '1' ? 'checked' : ''}}>
+            <label class="form-check-label" for="inputAdmin">
+                Bloqueado
+            </label>
+        </div>
+        @error('bloqueado')
+        <div class="small text-danger">{{$message}}</div>
+        @enderror
     </div>
-    @error('bloqueado')
-    <div class="small text-danger">{{$message}}</div>
-    @enderror
-</div>
-<div class="form-group">
-    <label for="inputFoto">Upload da foto</label>
-    <input type="file" class="form-control" name="foto" id="inputFoto">
-    @error('foto')
-    <div class="small text-danger">{{$message}}</div>
-    @enderror
-</div>
-@else()
-    <!--//TODO: PERGUNTAS  -->
-    <input type="hidden" name="tipo" value="{{$funcionario->tipo}}">
-    <input type="hidden" name="bloqueado" value="{{$funcionario->bloqueado}}">
-
-@endif
+    <div class="form-group">
+        <label for="inputFoto">Upload da foto</label>
+        <input type="file" class="form-control" name="foto" id="inputFoto">
+        @error('foto')
+        <div class="small text-danger">{{$message}}</div>
+        @enderror
+    </div>
+@endcan
 
