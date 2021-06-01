@@ -33,8 +33,10 @@
                 <td>{{$func->email}}</td>
                 @if($func->tipo == 'F')
                     <td>Funcionário</td>
-                @else
+                @elseif($func->tipo == 'A')
                     <td>Administrador</td>
+                @else
+                    <td>ERRO</td>
                 @endif
 
                 @if($func->bloqueado == 1)

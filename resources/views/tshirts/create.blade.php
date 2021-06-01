@@ -95,7 +95,9 @@
                         </div>{{--/form-row--}}
                     </form>{{--/form--}}
                 </div>{{--/col-md-6--}}
+
             </div>
         </section>
     </div>
+
 @endsection

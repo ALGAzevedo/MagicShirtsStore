@@ -94,10 +94,7 @@ class EstampaController extends Controller
 
     public function update(EstampaPost $request, Estampa $estampa)
     {
-
-
         $estampa->fill($request->validated());
-
 
         $estampa->save();
         return redirect()->route('admin.estampas')

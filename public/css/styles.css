@@ -10025,7 +10025,6 @@ NOSSA AREA DE TRABALHO MA MEENNNSSSSS
 
 
 
-
 /**
     FORMATACAO DA AREA DA ESTAMPA
  */
@@ -10068,46 +10067,6 @@ NOSSA AREA DE TRABALHO MA MEENNNSSSSS
     width: 90%;
     height: 200px;
     object-fit: scale-down;
-}
-.estampa-area{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-}
-
-.estampa {
-    margin: 5px;
-    line-height: 1.5;
-    background-color: rgba(0, 0, 0, 0.05);
-}
-
-.estampa {
-    width: calc((100% / 4) - 10px);
-}
-
-.estampa-imagem{
-    text-align: center;
-    padding: 5px;
-    background-color: rgba(0, 0, 0, 0.1);
-}
-
-.estampa-info-area{
-    padding: 5px;
-}
-
-.estampa-label {
-    font-weight: bold;
-}
-
-.estampa-label:after {
-    content: ":";
-}
-
-.estampa img {
-    width: 90%;
-    height: 200px;
-    object-fit: scale-down;
-
 }
 
 
@@ -10428,8 +10387,13 @@ select.form{
     margin-bottom: 5px;
     color: #212529;
 }
+
 .cart-item_product  p {
     margin-bottom: 0;
+
+
+.layered-image {
+    position: relative;
 }
 
 .cart-item_subtotal  {
@@ -10482,6 +10446,7 @@ body{
     right: 0;
     bottom: 0;
     left: 0;
+
 }
 
 
@@ -10794,3 +10759,4 @@ a.list-group-item:hover {
 /*  Header
 -----------------------------------------------------------
  */
+
