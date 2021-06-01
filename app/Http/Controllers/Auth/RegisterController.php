@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class RegisterController extends Controller
 {
@@ -77,6 +78,11 @@ class RegisterController extends Controller
             'tipo' => [
                 'required',
                 'in:C'
+            ],
+            'email' => [
+                'required',
+                'email',
+                    Rule::unique('users', 'email'),
             ],
         ]);
     }

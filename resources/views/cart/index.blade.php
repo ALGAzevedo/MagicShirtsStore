@@ -1,123 +1,209 @@
 @extends('layout2')
 
 @section('content')
-<div class="container">
+    <div class="container">
 
-      <!--Section: Block Content-->
-      <section class="mt-5 mb-4">
-
-        <!--Grid row-->
-        <div class="row">
-
-          <!--Grid column-->
-          <div class="col-lg-8">
-
-            <!-- Card -->
-            <div class="card wish-list mb-4">
-              <div class="card-body">
-
-                <h5 class="mb-4">Meu carrinho <small>(<span>x</span> artigos)</small> </h5>
-
-                <div class="row mb-2">
-                  <div class="col-md-5 col-lg-2 col-xl-2">
-                    <div class="view zoom overlay z-depth-1 rounded mb-3 mb-md-0">
-                      <a href="#!">
-                          <img class="img-fluid w-100" alt="" src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12a.jpg">
-                      </a>
-                    </div>
-                  </div>
-                  <div class="col-md-7 col-lg-10 col-xl-10">
-                    <div>
-                      <div class="d-flex justify-content-between">
-                        <div>
-                          <h5>Blue denim shirt</h5>
-                          <p class="mb-1 text-muted text-uppercase small">Cor: blue</p>
-                          <p class="mb-2 text-muted text-uppercase small">Tamanho: M</p>
-                        </div>
-                        <div>
-                          <div class="def-number-input number-input safari_only mb-0 w-100">
-                            <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"><i class="far fa-minus"></i></button>
-                            <input class="quantity" min="0" name="quantity" value="1" type="number">
-                            <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"><i class="far fa-plus"></i></button>
-                          </div>
-                          <small class="form-text text-muted text-center text-uppercase mt-2">
-                            PREÇO UNIT. <strong>59,95€</strong>
-                          </small>
-                        </div>
-                      </div>
-                      <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                          <a href="#!" type="button" class="card-link-danger small text-uppercase"><i class="fas fa-trash-alt mr-1"></i> Eliminar </a>
-                        </div>
-                        <p class="mb-0"><span><strong>17.99 €</strong></span></p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <hr class="mb-4">
-              
-
-              </div>
+        <!--Section: Block Content-->
+        <section class="mt-4 mb-4">
+            <div class="page-title-wrapper mb-4">
+                <h1>Carrinho de compras @if(session()->has('carrinho_qty') && session('carrinho_qty')>0)
+                        <small>(<span>{{session('carrinho_qty')}}</span>  @choice('artigo|artigos', session('carrinho_qty')))</small> @endif</h1>
             </div>
-            <!-- Card -->
+            <!--Grid row-->
+            <div class="row">
+            @if(count($carrinho) > 0)
+                <!--Grid column-->
+                    <div class="col-lg-8">
+                        @if (session('alert-msg'))
+                            @include('partials.message')
+                        @endif
+                        <div class="card mb-4">
+                            <div class="table-responsive">
+                                <table class="table table-borderless table-cart">
+                                    <thead>
+                                    <tr class="small text-uppercase text-muted">
 
-            <!-- Card -->
-            <div class="card mb-4">
-              <div class="card-body d-flex justify-content-between align-items-center">
-              <button type="button" class="btn btn-outline-dark "><i class="fas fa-arrow-left mr-1"></i> Continuar a comprar</button>
-              <button type="button" class="btn btn-secondary "><i class="fas fa-sync mr-1"></i> Atualizar carrinho</button>
+                                        <th colspan="2">Produto</th>
+                                        <th>Preço</th>
+                                        <th>Quantidade</th>
+                                        <th>Total</th>
+                                        <th>&nbsp;</th>
+                                    </tr>
+                                    </thead>
+                                    @foreach ($carrinho as $key=>$row)
+                                        <tbody>
+                                        <tr class="cart-item">
+                                            <td class="cart-item_product">
+                                                <a href="{{route('tshirts.choose',  $row['estampa_id'])}}">
+                                                    <div class="shirt_thumb border">
+                                                        <img
+                                                            class="cart-item_product__thumbnail img-{{$key}}"
+                                                            src="{{asset('storage/tshirt_base/' .$row['cor_codigo'] . '.jpg')}}"
+                                                            alt="">
+                                                        <div class="shirt_thumb-overlay">
+                                                        <img class="shirt_thumb-overlay-img" src="{{asset('storage/estampas/' . $row['imagem_url'])}}"
+                                                             alt="{{$row['nome']}}"/>
+                                                        </div>
 
-              </div>
-            
-            </div>
-            <!-- Card -->
+                                                    </div>
+                                                </a>
+                                               </td>
+                                            <td class="cart-item_product px-0">
+                                                <a href="{{route('tshirts.choose',  $row['estampa_id'])}}"
+                                                   class="cart-item_product__title text-dark ">{{ $row['nome'] }}</a>
+                                                <form action="{{route('carrinho.update', $key)}}" method="POST">
+                                                    @csrf
+                                                    @method('put')
+                                                    <input type="hidden" name="quantidade" value="{{ $row['quantidade']+1 }}" >
+                                                <p class="small text-muted">
+                                                    <select class="form color-{{$key}}" name="cor_codigo" onchange="this.form.submit()">
+                                                        @foreach ($cores as $cor)
+                                                            <option
+                                                                value="{{$cor->codigo}}" {{$row['cor_codigo'] == $cor->codigo ? 'selected' : ''}}>
+                                                                {{$cor->nome}}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </p>
+                                                <p class="small text-muted">Tamanho:<br>
+                                                    <select class="form" name="tamanho"  onchange="this.form.submit()">
+                                                        @foreach ($tamanhos as $tamanho)
+                                                        <option value="{{$tamanho}}" {{$row['tamanho'] == $tamanho ? 'selected' : ''}}>{{$tamanho}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </p>
+                                                </form>
+
+                                            </td>
+                                            <td class="cart-item_price">{{ $row['preco_un'] }}&euro;</td>
+                                            <td>
+                                                <form action="{{route('carrinho.update', $key)}}" method="POST">
+                                                    @csrf
+                                                    @method('put')
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="number-input number-input-sm">
+                                                            <button type="button"
+                                                                    onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
+                                                                    class="minus font-weight-bold">-
+                                                            </button>
+                                                            <input class="quantity" min="0" max="100"
+                                                                   name="quantidade"
+                                                                   value="{{ $row['quantidade'] }}"
+                                                                   type="number">
+                                                            <button type="button"
+                                                                    onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                                                                    class="plus font-weight-bold">+
+                                                            </button>
+                                                        </div>
+                                                        <div class="form-xw">
+                                                            <button type="submit" class="btn btn-light  ml-2">
+                                                                <i class="fas fa-redo m-1"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </td>
+                                            <td class="cart-item_subtotal text-primary ">
+                                                <span class="">{{ number_format($row['subtotal'], 2, ',', '.') }}&euro;</span>
+
+                                            </td>
+                                            <td class="cart-item_action">
+                                                <form action="{{route('carrinho.destroy_item', $key)}}" method="POST">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="submit" class="btn btn-light"><i
+                                                            class="fas fa-times"></i></button>
+                                                </form>
+                                                </td>
+                                        </tr>
+
+                                        </tbody>
+                                    @endforeach
+
+                                </table>
+
+                                <div class="card-body border-top cart-footer">
+                                    <div class="row no-gutters align-items-center">
+
+                                        <div class="col-lg-4 col-md-6 mb-3 mb-md-0">
+                                            <a href="{{route('estampas.index')}}" class="btn btn-light">
+                                                <i class="fas fa-arrow-left mr-1"></i>
+                                                Continuar a comprar</a>
+                                        </div>
+                                        <div class="col-lg-8 col-md-6 text-left text-md-right">
+
+                                            <form action="{{route('carrinho.destroy')}}" method="POST">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit" class="btn btn-link text-danger">
+                                                    <i class="fas fa-trash mr-1"></i> Esvaziar carrinho
+                                                </button>
+                                            </form>
 
 
+                                        </div>
+                                    </div>
+                                </div>
 
-          </div>
-          <!--Grid column-->
+                            </div>
+                        </div> <!-- /Card -->
 
-          <!--Grid column-->
-          <div class="col-lg-4">
-
-            <!-- Card -->
-            <div class="card mb-4">
-              <div class="card-body">
-
-                <h5 class="mb-3">Resumo do pedido</h5>
-
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-                  Subtotal:	
-                    <span>59,95€</span>
-                  </li>
-                  <li class="list-group-item d-flex justify-content-between align-items-center px-0 text-muted">
-                  Entrega
-                    <span>Gratis</span>
-                  </li>
-                  <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
-                    <div>
-                      <strong>Valor a pagar	</strong>
                     </div>
-                    <span><strong>59,95€</strong></span>
-                  </li>
-                </ul>
+                    <!--Grid column-->
 
-                <button type="button" class="btn btn-lg btn-primary btn-block">Finalizar compra</button>
-               
+                    <!--Grid column-->
+                    <div class="col-lg-4">
 
-              </div>
+                        <!-- Card -->
+                        <div class="card mb-4">
+                            <div class="card-body">
+
+                                <h5 class="mb-3">Resumo do pedido</h5>
+
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                                        Subtotal:
+                                        <span>{{session('carrinho_subtotal')}}€</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center px-0 text-muted">
+                                        Entrega
+                                        <span>Gratis</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                                        <div>
+                                            <strong>Valor a pagar </strong>
+                                        </div>
+                                        <span><strong>{{session('carrinho_subtotal')}}€</strong></span>
+                                    </li>
+                                </ul>
+
+                                <form action="{{ route('carrinho.store') }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="btn btn-lg btn-primary btn-block">Finalizar <i
+                                            class="far fa-arrow-right ml-1"></i></button>
+                                </form>
+
+                            </div>
+                        </div>
+                        <!-- Card -->
+
+                    </div>
+                    <!--Grid column-->
+                @else
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <p>O seu carrinho de compras está vazio. <a href="{{route('estampas.index')}}">Continuar a comprar.</a></p>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
             </div>
-            <!-- Card -->
+            <!--Grid row-->
 
-          </div>
-          <!--Grid column-->
-
-        </div>
-        <!--Grid row-->
-
-      </section>
-      <!--Section: Block Content-->
+        </section>
+        <!--Section: Block Content-->
 
     </div>
 @endsection

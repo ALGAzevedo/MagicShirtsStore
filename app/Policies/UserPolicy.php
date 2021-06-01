@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Barryvdh\Debugbar\Facade as debugbar;
 
 class UserPolicy
 {
@@ -67,6 +68,7 @@ class UserPolicy
      */
     public function update(User $user, User $model)
     {
+
         return $user->id == $model->id;
     }
 
@@ -80,7 +82,7 @@ class UserPolicy
      */
     public function updatePassword(User $user, User $model)
     {
-        return $user->id == $model->id;
+        return false;
     }
 
     /**

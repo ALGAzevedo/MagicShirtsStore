@@ -6,6 +6,8 @@ use App\Models\Cliente;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Support\Facades\Auth;
+use Barryvdh\Debugbar\Facade as debugbar;
+
 
 class ClientePolicy
 {
@@ -47,6 +49,8 @@ class ClientePolicy
      */
     public function view(User $user, Cliente $cliente)
     {
+        debugbar::info($cliente);
+        debugbar::info($user);
         return $user->id == $cliente->id;
     }
 
