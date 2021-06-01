@@ -7,12 +7,17 @@ use App\Models\Cor;
 use App\Models\Encomenda;
 use App\Models\Estampa;
 use App\Models\Tshirt;
+
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
-use function Sodium\add;
+
+use Illuminate\Support\Facades\Gate;
+
+
+
 
 class EncomendaController extends Controller
 {
+
     public function create(Estampa $estampa)
     {
         $listaCores = Cor::all();
@@ -20,21 +25,40 @@ class EncomendaController extends Controller
         return view('encomendas.create', compact('listaCores', 'estampa'));
     }
 
+
     public function admin_index(Request $request)
     {
-        $estadoSel = $request->estado ?? '';
+        $estadoSel = $request->estado ?? 'pendente';
+
+        $this->authorize('viewEstado', [Encomenda::class,  $estadoSel]);
 
         $qry = Encomenda::query();
 
-        if($estadoSel && $estadoSel != 'show_all') {
+        //se for a primeira vez nas encomendas temos de mostrar apenas as autorizadas para cada user
+        //no caso dos funcionarios apenas onde o estado é paga ou pendente
+        if(!$estadoSel && !Gate::allows('viewAllEstados', Encomenda::class)) {
+            $qry->where('estado', '=', 'pendente')
+                ->where('estado', '=', 'paga');
+
+        }
+
+        if($estadoSel && $estadoSel != 'Mostrar tudo') {
             $qry->where('estado', $estadoSel);
         }
 
-        //todos os estados possiveis
-        $listaEstados = array("pendente", "Fechada", "Anulada", "Paga");
 
+        //Estados que users podem selecionar
+        $listaEstados = array();
+
+        //apenas administrador pode ver encomendas anuladas e fechadas
+        if(Gate::allows('viewAllEstados', Encomenda::class)) {
+            array_push($listaEstados, "mostrar tudo", "fechada", "anulada");
+        }
+        //todos podem ver pendentes e pagas
+        array_push($listaEstados, "pendente", "paga");
 
         $encomendas = $qry->paginate(10);
+
 
         return view('encomendas.admin',
             compact('encomendas', 'listaEstados', 'estadoSel'));
@@ -42,6 +66,7 @@ class EncomendaController extends Controller
 
     public function admin_edit(Encomenda $encomenda)
     {
+
         $estadoAtual = $encomenda->estado;
         $estadoSeguinte = null;
 
@@ -53,7 +78,7 @@ class EncomendaController extends Controller
             $estadoSeguinte = "fechada";
         }
 
-        $shirts = Tshirt::where('encomenda_id', $encomenda->id)->get();
+        $shirts = Tshirt::where('encomenda_id', '=', $encomenda->id)->get();
 
 
 
@@ -63,6 +88,10 @@ class EncomendaController extends Controller
 
     public function admin_update(EncomendaUpdatePost $request, Encomenda $encomenda)
     {
+        //Se o request for para alterar o estado para anulada temos ainda de verificar se o user o pode fazer
+        $this->authorize('updateAnular', Encomenda::class);
+
+
         $validated_data = $request->validated();
 
         $encomenda->estado = $validated_data['estado'];
