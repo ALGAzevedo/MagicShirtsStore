@@ -26,9 +26,9 @@
                 </div>
                 {{-- TODO: IMPLEMENTAR PESQUISA DE ESTAMPAS--}}
                 <div class="col-lg-6 col-sm-12">
-                    <form action="#" >
+                    <form action="{{route('estampas.index')}}" method="GET">
                         <div class="input-group w-100">
-                            <input type="text" class="form-control" placeholder="Pesquisar estampas...">
+                            <input type="text" name="s" value="{{old('s')}}" class="form-control" placeholder="Pesquisar estampas...">
                             <div class="input-group-append">
                                 <button class="btn btn-primary" type="submit">
                                     <i class="fa fa-search"></i>

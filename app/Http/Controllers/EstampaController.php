@@ -6,19 +6,54 @@ use App\Models\Categoria;
 use App\Models\Estampa;
 use Illuminate\Http\Request;
 use App\Http\Requests\EstampaPost;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class EstampaController extends Controller
 {
     public function index(Request $request)
     {
+
+        $request->flashOnly('s');
+
+        //$estampas = Estampa::search($request->s)->paginate(5); //TODO: CRIAR MÉTODO SEARCH NO MODEL
+        $search = $request->s;
         $listaCategorias = Categoria::all();
-        $id = $request->query('categoria', $listaCategorias[0]->id);
-        $categoria = Categoria::findOrFail($id);
-        $estampas = Estampa::where('categoria_id', $id)->get();
+        $categoria = '';
+        $view = 'estampas.index';
+
+        //$estampas_user = Estampa::where('cliente_id', Auth::id())->paginate(4);
+
+        // Filtra estampas do catálogo o nome ou descrição:s
+        if($request->filled('s')){
+            $estampas = Estampa::where('nome', 'LIKE', '%' . $search . '%')
+                ->whereNull('cliente_id')
+                ->orWhere('descricao', 'LIKE', '%' . $search . '%')
+                ->paginate(4);
+
+            $view = 'estampas.search';
+            //->orWhere('cliente_id', Auth::id()??'')
+
+        }elseif($request->filled('categoria')){
+            $id = $request->query('categoria', $listaCategorias[0]->id);
+            $categoria = Categoria::findOrFail($id)->id;
+
+            // Filtra estampas do catálogo com categoria:id
+            $estampas = Estampa::where('categoria_id', $id)
+                ->whereNull('cliente_id')
+                ->paginate(4);
+        }else{
+
+            // Apenas as estampas do catálogo
+             $estampas = Estampa::whereNull('cliente_id')->paginate(4);
+
+            // Filtra estampas do catálogo + estampas do cliente
+            //$estampas = Estampa::whereNull('cliente_id')->orWhere('cliente_id', Auth::id()??'')->paginate(4);
+
+        }
 
         return view(
-            'estampas.index',
+            $view,
             compact('listaCategorias', 'estampas', 'categoria'));
     }
 
