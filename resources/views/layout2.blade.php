@@ -119,7 +119,7 @@
                 <li class="nav-item">
                     <a class="nav-link mx-2"
                        title="Carrinho"
-                       href="{{route('cart')}}">
+                       href="{{route('carrinho')}}">
                         <i class="fas fa-shopping-bag" aria-hidden="true"></i> <span
                             class="badge badge-pill badge-danger ml-1">3</span>
                     </a>
