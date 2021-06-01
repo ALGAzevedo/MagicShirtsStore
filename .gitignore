@@ -11,9 +11,8 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
-*.png
 
 database
-
+.png
 storage/debugbar/
 package-lock.json

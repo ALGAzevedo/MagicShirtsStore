@@ -4,11 +4,7 @@
     <div class="container">
         <section class="mt-4 mb-4">
             <div class="page-title-wrapper text-center mb-4">
-                @if ($categoria->nome)
-                    <h1>{{$categoria->nome}} <small>({{$estampas->total()}})</small></h1>
-                @else
-                    <h1>Catálogo de Estampas</h1>
-                @endif
+                <h1>Resultado de pesquisa para "{{old('s')}}"</h1>
             </div>
         </section>
         <div class="row">
