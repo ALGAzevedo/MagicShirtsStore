@@ -10414,9 +10414,11 @@ select.form{
 }
 .shirt_base-overlay img{
     width: 12rem;
-    height: 12rem;
-    width: 40%;
-    height: 40%;
+    width: auto;
+    max-width: 40%;
+    max-height: 40%;
+   /* height: 12rem;
+    height: 40%;*/
 
     /*transform: translateY(-2.8rem);*/
 }
@@ -10786,3 +10788,8 @@ a.list-group-item:hover {
 }
 
 /* ================== /HEADER STYLE=================== */
+
+
+/*  Header
+-----------------------------------------------------------
+ */
