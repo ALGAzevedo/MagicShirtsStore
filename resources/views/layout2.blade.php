@@ -53,7 +53,7 @@
                         <div class="auth-header-item auth-flex ">
                             <a href="#" class="user-avatar"> <img class="img-fluid" src="{{Auth::user()->foto_url ? asset('storage/fotos/' . Auth::user()->foto_url) : asset('img/default_user.jpg') }}" alt=""> </a>
                             <div class="auth-info">
-                                <h6 class="user-name">Olá,{{Auth::user()->name}}</h6>
+                                <h6 class="user-name">Olá, {{Auth::user()->name}}</h6>
                                 <div>
                                     <div class=" dropdown">
                                         <a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">A minha conta</a>
@@ -163,17 +163,7 @@
     </div> <!-- container .// -->
 </nav>
 
-<div class="container-fluid text-center">
-    <!-- Page Content-->
-    @if (session('alert-msg'))
-        @include('partials.message')
-    @endif
-    @if ($errors->any())
-        @include('partials.errors-message')
-    @endif
-
-    @yield('content')
-</div>
+@yield('content')
 
 <!-- Footer-->
 <footer id="footer" class="py-3 bg-dark mt-auto">
