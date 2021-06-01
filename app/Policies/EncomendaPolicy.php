@@ -16,7 +16,6 @@ class EncomendaPolicy
         }
     }
 
-
     /**
      * Determine whether the user can view any models.
      *
@@ -28,19 +27,20 @@ class EncomendaPolicy
         return false;
     }
 
-    public function viewEstado(User $user, $view) {
+    public function viewAllEstados(User $user) {
+        return  false;
+    }
 
-        if($user->tipo == 'A')
-        {
-            return true;
-        }
-        //funcionarios apenas podem ver encomendas pendentes e pagas
-        if($user->tipo == 'F' && ($view == 'anulada' || $view =='fechada' || $view =='Mostrar tudo')) {
+    public function viewEstado(User $user, $estado) {
+        if($estado == 'anulada' || $estado =='fechada') {
             return false;
         }
         else {
             return true;
         }
+    }
+    public function updateAnular(User $user) {
+        return false;
     }
 
     /**

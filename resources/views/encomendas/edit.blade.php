@@ -69,9 +69,9 @@
 
                         <button type="submit" class="btn btn-success" name="estado" value="{{$estadoSeguinte}}">{{$botao}}</button>
                     @endisset
-                    @if($encomenda->estado != "anulada" && Auth::user()->tipo == 'A')
+                    @can('updateAnular', \App\Models\Encomenda::class)
                         <button type="submit" class="btn btn-danger" name="estado" value="anulada">Anular Encomenda</button>
-                    @endif
+                    @endcan
                     <a href="{{route('admin.encomendas.edit', ['encomenda' => $encomenda])}}" class="btn btn-secondary">Cancel</a>
                 </div>
 
