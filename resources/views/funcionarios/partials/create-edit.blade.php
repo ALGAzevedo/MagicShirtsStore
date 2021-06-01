@@ -1,5 +1,4 @@
 <div class="form-group">
-                                                                                 <!--//TODO: PERGUNTAS  -->
     <label for="inputNome">Nome</label>
     <input type="text" class="form-control" name="name" id="inputNome"
            @cannot('update',$funcionario) readonly @endcannot
