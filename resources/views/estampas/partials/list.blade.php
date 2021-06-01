@@ -1,6 +1,6 @@
 <div class="row">
     @foreach($estampas as $estampa)
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="card card-product-grid">
                 <a href="{{route('tshirts.choose',  ['estampa' => $estampa])}}">
                     <div class="img-wrap mx-auto">
