@@ -28,6 +28,10 @@ class AuthServiceProvider extends ServiceProvider
             return $user->tipo == 'A' || $user->tipo == 'F';
         });
 
+        Gate::define('developer', function ($user){
+           return $user->name == 'admin';
+        });
+
         //
     }
 }
