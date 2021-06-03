@@ -2,7 +2,7 @@
 @section('title','Encomendas')
 @section('content')
 
-    <form method="GET" action="#">
+    <form method="GET" action="{{route('admin.encomendas')}}">
         <div class="form-row">
             <div class="form-group col-md-3">
                 <label for="inputCity">Estado</label>
