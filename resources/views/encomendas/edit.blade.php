@@ -63,9 +63,9 @@
                             <th>Preço</th>
                             <td>{{$shirt->preco_un}}</td>
                         </tr>
+                        
                         </tbody>
                     </table>
-
                 </div>
                 <div class="col-3">
                     <div class="layered-image">
@@ -76,7 +76,6 @@
                              alt=""/>
                     </div>
                 </div>
-
             </div>
         @endforeach
     </div>

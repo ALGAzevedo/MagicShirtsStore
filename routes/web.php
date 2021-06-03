@@ -65,17 +65,26 @@ Route::middleware('auth')->prefix('administracao')->name('admin.')->group(functi
     Route::post('estampas', [EstampaController::class, 'store'])->name('estampas.store');
 
 //ADMINISTRACAO CATEGORIAS
-    Route::get('categorias', [CategoriaController::class, 'admin_index'])->name('categorias');
-    Route::get('categorias/create', [CategoriaController::class, 'create'])->name('categorias.create');
-    Route::post('categorias', [CategoriaController::class, 'store'])->name('categorias.store');
-    Route::get('categorias/{categoria}/edit', [CategoriaController::class, 'edit'])->name('categorias.edit');
-    Route::put('categorias/{categoria}', [CategoriaController::class, 'update'])->name('categorias.update');
-    Route::delete('categorias/{categoria}', [CategoriaController::class, 'destroy'])->name('categorias.destroy');
+    Route::get('categorias', [CategoriaController::class, 'admin_index'])->name('categorias')
+        ->middleware('can:viewAny,App\Models\Categoria');
+    Route::get('categorias/create', [CategoriaController::class, 'create'])->name('categorias.create')
+        ->middleware('can:create,App\Models\Categoria');
+    Route::post('categorias', [CategoriaController::class, 'store'])->name('categorias.store')
+        ->middleware('can:create,App\Models\Categoria');
+    Route::get('categorias/{categoria}/edit', [CategoriaController::class, 'edit'])->name('categorias.edit')
+        ->middleware('can:view,categoria');
+    Route::put('categorias/{categoria}', [CategoriaController::class, 'update'])->name('categorias.update')
+        ->middleware('can:update,categoria');
+    Route::delete('categorias/{categoria}', [CategoriaController::class, 'destroy'])->name('categorias.destroy')
+        ->middleware('can:delete,categoria');
 
 //ADMINISTRACAO PRECOS
-    Route::get('precos', [PrecosController::class, 'admin_index'])->name('precos');
-    Route::get('precos/{precos}/edit', [PrecosController::class, 'edit'])->name('precos.edit');
-    Route::put('precos/{precos}', [PrecosController::class, 'update'])->name('precos.update');
+    Route::get('precos', [PrecosController::class, 'admin_index'])->name('precos')
+        ->middleware('can:viewAny,App\Models\Preco');
+    Route::get('precos/{precos}/edit', [PrecosController::class, 'edit'])->name('precos.edit')
+        ->middleware('can:view,precos');
+    Route::put('precos/{precos}', [PrecosController::class, 'update'])->name('precos.update')
+        ->middleware('can:update,precos');
 
 //ADMINISTRACAO ENCOMENDAS
 

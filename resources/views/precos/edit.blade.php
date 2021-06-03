@@ -45,10 +45,10 @@
         </div>
 
 
-
         <div class="form-group text-right">
             <button type="submit" class="btn btn-success" name="ok">Save</button>
-            <a href="{{route('admin.precos.edit', ['precos' =>$precos])}}" class="btn btn-secondary">Cancel</a>
+            <a href="{{route('admin.precos.edit', ['precos' =>$precos])}}" class="btn btn-primary">Reset</a>
+            <a href="{{route('admin.precos')}}" class="btn btn-secondary">Cancel</a>
         </div>
     </form>
 @endsection

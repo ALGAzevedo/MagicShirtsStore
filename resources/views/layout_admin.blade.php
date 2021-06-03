@@ -57,32 +57,36 @@
                     <i class="fas fa-fw fa-table"></i>
                     <span>Funcionários</span></a>
             </li>
-    @endcan
-        @can('viewAny', App\Models\Cliente::class)
-    <!-- Nav Item -->
-        <li class="nav-item" {{Route::currentRouteName()=='admin.clientes'? 'active': ''}}>
-            <a class="nav-link" href="{{route('admin.clientes')}}">
-                <i class="fas fa-fw fa-table"></i>
-                <span>Clientes</span></a>
-        </li>
         @endcan
+        @can('viewAny', App\Models\Cliente::class)
         <!-- Nav Item -->
+            <li class="nav-item" {{Route::currentRouteName()=='admin.clientes'? 'active': ''}}>
+                <a class="nav-link" href="{{route('admin.clientes')}}">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Clientes</span></a>
+            </li>
+        @endcan
+    <!-- Nav Item -->
         <li class="nav-item" {{Route::currentRouteName()=='admin.estampas'? 'active': ''}}>
             <a class="nav-link" href="{{route('admin.estampas')}}">
                 <i class="fas fa-fw fa-table"></i>
                 <span>Estampas</span></a>
         </li>
+        @can('viewAny', \App\Models\Categoria::class)
         <li class="nav-item" {{Route::currentRouteName()=='admin.categorias'? 'active': ''}}>
             <a class="nav-link" href="{{route('admin.categorias')}}">
                 <i class="fas fa-fw fa-table"></i>
                 <span>Categorias</span></a>
         </li>
-        <li class="nav-item" {{Route::currentRouteName()=='admin.precos'? 'active': ''}}>
-            <a class="nav-link" href="{{route('admin.precos')}}">
-                <i class="fas fa-fw fa-table"></i>
-                <span>Preços</span></a>
-        </li>
-            <!-- Nav Item -->
+        @endcan
+        @can('viewAny', \App\Models\Preco::class)
+            <li class="nav-item" {{Route::currentRouteName()=='admin.precos'? 'active': ''}}>
+                <a class="nav-link" href="{{route('admin.precos')}}">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Preços</span></a>
+            </li>
+    @endcan
+    <!-- Nav Item -->
         <li class="nav-item" {{Route::currentRouteName()=='admin.encomendas'? 'active': ''}}>
             <a class="nav-link" href="{{route('admin.encomendas')}}">
                 <i class="fas fa-fw fa-table"></i>
@@ -141,7 +145,8 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                  aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="{{route('admin.funcionarios.edit', ['funcionario' => Auth::user()->id])}}">
+                                <a class="dropdown-item"
+                                   href="{{route('admin.funcionarios.edit', ['funcionario' => Auth::user()->id])}}">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Perfil
                                 </a>
