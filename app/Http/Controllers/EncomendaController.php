@@ -51,7 +51,7 @@ class EncomendaController extends Controller
             $qry->where('estado', '=', $estadoSel);
         }
 
-        if($estadoSel && $estadoSel != 'mostrar tudo') {
+        if($estadoSel) {
             $qry->where('estado', "=", $estadoSel);
         }
 
@@ -65,21 +65,11 @@ class EncomendaController extends Controller
             $qry->where('cliente_id', "=", $cliente_idSel);
         }
 
-        //Estados que users podem selecionar
-        $listaEstados = array();
-
-        //apenas administrador pode ver encomendas anuladas e fechadas
-        if(Gate::allows('viewAllEstados', Encomenda::class)) {
-            array_push($listaEstados, "mostrar tudo", "fechada", "anulada");
-        }
-        //todos podem ver pendentes e pagas
-        array_push($listaEstados, "pendente", "paga");
-
         $encomendas = $qry->paginate(10);
 
 
         return view('encomendas.admin',
-            compact('encomendas', 'listaEstados', 'estadoSel', 'dataSel', 'cliente_idSel'));
+            compact('encomendas', 'estadoSel', 'dataSel', 'cliente_idSel'));
     }
 
     public function admin_edit(Encomenda $encomenda)

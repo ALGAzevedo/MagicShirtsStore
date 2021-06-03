@@ -5,27 +5,31 @@
     <form method="GET" action="#">
         <div class="form-row">
             <div class="form-group col-md-3">
-                <label for="inputCity">City</label>
+                <label for="inputCity">Estado</label>
                 <select class="form-control" name="estado" id="idEstado">
-                    @foreach ($listaEstados as $estado)
-                        <option value="{{$estado}}" {{$estadoSel == $estado ? 'selected' : ''}}>
-                            {{$estado}}
-                        </option>
-                    @endforeach
+                    @can('viewAny', \App\Models\Encomenda::class)
+                        <option value="" {{$estadoSel == "" ? 'selected' : ''}}>Mostrar Tudo</option>
+                        <option value="anulada" {{$estadoSel == "anulada" ? 'selected' : ''}}>Anulada</option>
+                        <option value="fechada" {{$estadoSel == "fechada" ? 'selected' : ''}}>Fechada</option>
+                    @endcan
+                    <option value="paga" {{$estadoSel == "paga" ? 'selected' : ''}}>Paga</option>
+                    <option value="pendente" {{$estadoSel == "pendente" ? 'selected' : ''}}>Pendente</option>
+
                 </select>
             </div>
             @can('viewAny', \App\Models\Encomenda::class)
-            <div class="form-group col-md-3">
-                <label for="inputState">Data</label>
-                <input type="date" class="form-control" name="data" value="{{$dataSel}}">
-            </div>
-            <div class="form-group col-md-3">
-                <label for="inputZip">Cliente ID</label>
-                <input type="text" class="form-control" name="cliente_id" value="{{$cliente_idSel}}">
-            </div>
+                <div class="form-group col-md-3">
+                    <label for="inputState">Data</label>
+                    <input type="date" class="form-control" name="data" value="{{$dataSel}}">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="inputZip">Cliente ID</label>
+                    <input type="text" class="form-control" name="cliente_id" value="{{$cliente_idSel}}">
+                </div>
             @endcan
         </div>
-            <button type="submit" class="btn btn-primary">Filtrar</button>
+        <a href="{{route('admin.encomendas')}}" class="btn btn-secondary">Reset</a>
+        <button type="submit" class="btn btn-primary">Filtrar</button>
     </form>
 
     <table class="table">

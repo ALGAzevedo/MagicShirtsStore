@@ -39,7 +39,7 @@ class EncomendaPolicy
 
     public function viewEstado(User $user, $estado)
     {
-        if ($estado == 'anulada' || $estado == 'fechada' || $estado == 'mostrar tudo') {
+        if ($estado == 'anulada' || $estado == 'fechada') {
             return false;
         } else {
             return true;
