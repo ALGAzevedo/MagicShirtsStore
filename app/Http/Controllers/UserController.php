@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserFuncUpdatePost;
 use App\Http\Requests\UserPost;
 use App\Http\Requests\UserUpdatePost;
 use App\Models\User;
@@ -34,18 +35,12 @@ class UserController extends Controller
     {
 
         $validated_data = $request->validated();
-        if ($request->filled('email')) {
-            $funcionario->email = $validated_data['email'];
-        }
-        if ($request->filled('name')) {
+
+        $funcionario->email = $validated_data['email'];
+
             $funcionario->name = $validated_data['name'];
-        }
-        if ($request->filled('tipo')) {
             $funcionario->tipo = $validated_data['tipo'];
-        }
-        if ($request->filled('bloqueado')) {
             $funcionario->bloqueado = $validated_data['bloqueado'];
-        }
         if ($request->filled('password')) {
             $funcionario->password = Hash::make($validated_data['password']);
         }
@@ -60,23 +55,30 @@ class UserController extends Controller
             ->with('alert-type', 'success');
     }
 
-    public function viewPassword(User $funcionario){
+    public function viewPassword(User $funcionario)
+    {
 
         return view('funcionarios.password')
             ->withFuncionario($funcionario);
     }
 
-    public function updatePassword(UserPost $request, User $funcionario)
+    public function updatePassword(UserFuncUpdatePost $request, User $funcionario)
     {
 
         $validated_data = $request->validated();
 
-        if ($request->filled('password')) {
-            $funcionario->password = Hash::make($validated_data['password']);
+        if (Hash::check($validated_data['oldPassword'], $funcionario->getAuthPassword())) {
+            //Password validada
+            $funcionario->password = Hash::make($validated_data['newPassword']);
+            $funcionario->save();
+            return redirect()->route('admin.dashboard')
+                ->with('alert-msg', 'Funcionario "' . $funcionario->name . '" foi alterado com sucesso!')
+                ->with('alert-type', 'success');
         }
-        return redirect()->route('admin.dashboard')
-            ->with('alert-msg', 'Funcionario "' . $funcionario->name . '" foi alterado com sucesso!')
-            ->with('alert-type', 'success');
+
+        return redirect()->route('admin.funcionarios.password.update', ['funcionario' => $funcionario])
+            ->with('alert-msg', 'Password antiga do funcionário "' . $funcionario->name . '" está incorreta!')
+            ->with('alert-type', 'danger');
     }
 
     public function create()
@@ -143,6 +145,11 @@ class UserController extends Controller
                     ->with('alert-type', 'danger');
             }
         }
+    }
+
+    public function getAuthPassword()
+    {
+        return $this->password;
     }
 
 }
