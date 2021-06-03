@@ -28,24 +28,42 @@ class EncomendaController extends Controller
 
     public function admin_index(Request $request)
     {
-        $estadoSel = $request->estado ?? 'pendente';
+        $estadoSel = $request->estado ?? '';
+        $dataSel = $request->data ?? '';
+        $cliente_idSel = $request->cliente_id ?? '';
 
+        //Pode pesquisar por estado que requisitou?
         $this->authorize('viewEstado', [Encomenda::class,  $estadoSel]);
+
+
+        if ($request->hasAny(['data', 'cliente_id'])) {
+            //utilizador em questão pode consultar por data/cliente?
+            $this->authorize('viewAny', [Encomenda::class,  $estadoSel]);
+
+        }
 
         $qry = Encomenda::query();
 
         //se for a primeira vez nas encomendas temos de mostrar apenas as autorizadas para cada user
-        //no caso dos funcionarios apenas onde o estado é paga ou pendente
+        //no caso dos funcionarios apenas onde o estado é paga ou pendente, vamos pré preencher para pendentes
         if(!$estadoSel && !Gate::allows('viewAllEstados', Encomenda::class)) {
-            $qry->where('estado', '=', 'pendente')
-                ->where('estado', '=', 'paga');
-
+            $estadoSel = "pendente";
+            $qry->where('estado', '=', $estadoSel);
         }
 
-        if($estadoSel && $estadoSel != 'Mostrar tudo') {
-            $qry->where('estado', $estadoSel);
+        if($estadoSel && $estadoSel != 'mostrar tudo') {
+            $qry->where('estado', "=", $estadoSel);
         }
 
+        //Se user pesquisou por data
+        if($dataSel) {
+            $qry->where('data', "=", $dataSel);
+        }
+
+        //Se user pesquisou por cliente ID
+        if($cliente_idSel) {
+            $qry->where('cliente_id', "=", $cliente_idSel);
+        }
 
         //Estados que users podem selecionar
         $listaEstados = array();
@@ -61,7 +79,7 @@ class EncomendaController extends Controller
 
 
         return view('encomendas.admin',
-            compact('encomendas', 'listaEstados', 'estadoSel'));
+            compact('encomendas', 'listaEstados', 'estadoSel', 'dataSel', 'cliente_idSel'));
     }
 
     public function admin_edit(Encomenda $encomenda)
@@ -88,13 +106,20 @@ class EncomendaController extends Controller
 
     public function admin_update(EncomendaUpdatePost $request, Encomenda $encomenda)
     {
-        //Se o request for para alterar o estado para anulada temos ainda de verificar se o user o pode fazer
-        $this->authorize('updateAnular', Encomenda::class);
-
 
         $validated_data = $request->validated();
+        $estado = $validated_data['estado'];
 
-        $encomenda->estado = $validated_data['estado'];
+        //verifica se user pode anular encomenda
+        if($estado == 'anulada') {
+            $this->authorize('updateAnular', Encomenda::class);
+        }
+
+
+
+
+
+        $encomenda->estado = $estado;
 
         $encomenda->save();
         return redirect()->route('admin.encomendas')

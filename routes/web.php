@@ -79,7 +79,8 @@ Route::middleware('auth')->prefix('administracao')->name('admin.')->group(functi
 
 //ADMINISTRACAO ENCOMENDAS
 
-Route::get('encomendas', [EncomendaController::class, 'admin_index'])->name('encomendas');
+Route::get('encomendas', [EncomendaController::class, 'admin_index'])->name('encomendas')
+    ->middleware('can:viewBackEncomenda, \App\Models\Encomenda');
 Route::get('encomendas/{encomenda}/edit', [EncomendaController::class, 'admin_edit'])->name('encomendas.edit')
     ->middleware('can:view,encomenda');
 Route::put('encomendas/{encomenda}', [EncomendaController::class, 'admin_update'])->name('encomendas.update')
