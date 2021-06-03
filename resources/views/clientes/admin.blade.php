@@ -2,7 +2,7 @@
 @section('title','Clientes' )
 @section('content')
 
-    <form method="GET" action="{{route('admin.funcionarios')}}" class="form-group">
+    <form method="GET" action="{{route('admin.clientes')}}" class="form-group">
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
@@ -24,7 +24,7 @@
                     <div class="col-9">
                         <label for="inputTipoPagamento">Tipo Pagamento</label>
                         <div class="input-group">
-                            <select class="form-control" name="tipoPagamento" id="inputTipoPagamento">
+                            <select class="form-control" name="tipo_pagamento" id="inputTipoPagamento">
                                 <option value="">Todos</option>
                                 <option value="MC">MC</option>
                                 <option value="PAYPAL">PAYPAL</option>
@@ -52,7 +52,7 @@
                     <div class="col-9">
                         <label for="inputEmail">Email</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" name="name" id="inputNome" value="">
+                            <input type="text" class="form-control" name="email" id="inputEmail" value="">
                             <div class="input-group-append">
                                 <button class="btn btn-outline-secondary" type="submit">Filtrar</button>
                             </div>

@@ -8,23 +8,49 @@ use App\Http\Requests\ClienteUpdatePost;
 
 use App\Models\Cliente;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class ClienteController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $qry = Cliente::withoutTrashed();
-        $clientes = $qry->paginate(10);
+        $listaClientes = Cliente::withoutTrashed()
+            ->join('users', 'clientes.id', '=', 'users.id');
+
+        if ($request->filled('nif')) {
+            $listaClientes->where('nif', 'LIKE', '%'. $request->input('nif') . '%');
+        }
+        if ($request->filled('endereco')) {
+            $listaClientes->where('endereco', 'LIKE', '%' . $request->input('endereco') . '%');
+        }
+        if ($request->filled('tipo_pagamento')) {
+            $listaClientes->where('tipo_pagamento', '=', $request->input('tipo_pagamento'));
+        }
+        if ($request->filled('ref_pagamento')) {
+            $listaClientes->where('ref_pagamento', 'LIKE', '%' . $request->input('ref_pagamento') . '%');
+        }
+        if ($request->filled('bloqueado')) {
+            $listaClientes->where('bloqueado', '=', $request->input('bloqueado'));
+        }
+        if ($request->filled('name')) {
+            $listaClientes->where('name', 'LIKE', '%' . $request->input('name') . '%');
+        }
+        if ($request->filled('email')) {
+            $listaClientes->where('email', 'LIKE', '%' . $request->input('email') . '%');
+        }
+
+
+        $clientes = $listaClientes->paginate(10);
         return view('clientes.admin')
             ->withClientes($clientes);
     }
 
     public function show(Cliente $cliente)
     {
-        return view(Auth::user()->tipo == 'A' ? 'clientes.edit': 'clientes.editCliente')
+        return view(Auth::user()->tipo == 'A' ? 'clientes.edit' : 'clientes.editCliente')
             ->withCliente($cliente);
     }
 
@@ -85,33 +111,6 @@ class ClienteController extends Controller
             ->with('alert-type', 'success');
     }
 
-//    public function store(UserPost $request)
-//    {
-//        $validated_data = $request->validated();
-//        $newUser = new User;
-//        $newUser->name = $validated_data['name'];
-//        $newUser->bloqueado = $validated_data['bloqueado'];
-//        $newUser->email = $validated_data['email'];
-//        $newUser->password = Hash::make($validated_data['password']);
-//        if ($request->hasFile('foto')) {
-//            Storage::delete('public/fotos/' . $newUser->foto_url);
-//            $path = $request->foto->store('public/fotos');
-//            $newUser->foto_url = basename($path);
-//        }
-//        $newUser->save();
-//
-//        $newCliente = new Cliente;
-//        $newCliente->id = $newUser->id;
-//        $newCliente->endereco = $validated_data['endereco'];
-//        $newCliente->nif = $validated_data['nif'];
-//        $newCliente->tipo_pagamento = $validated_data['tipo_pagamento'];
-//        $newCliente->ref_pagamento = $validated_data['ref_pagamento'];
-//        $newCliente->save();
-//
-//        return redirect()->route('/')
-//            ->with('alert-msg', 'Cliente "' . $validated_data['name'] . '" foi criado com sucesso!')
-//            ->with('alert-type', 'success');
-//    }
 
     public function destroy(Cliente $cliente)
     {
