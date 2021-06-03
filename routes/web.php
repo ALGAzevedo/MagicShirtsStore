@@ -53,7 +53,7 @@ Route::delete('carrinho', [CartController::class, 'destroy'])->name('carrinho.de
 
 Route::middleware('auth')->prefix('administracao')->name('admin.')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard')
-        ->middleware('can:viewAny, App\Models\Dashboard');
+        ->middleware('can:access-administration');
 
 
 //ADMINISTRACAO ESTAMPAS
