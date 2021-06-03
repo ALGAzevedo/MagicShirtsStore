@@ -8,10 +8,10 @@
                 Funcionario</a>
         </div>
     </div>
-    <div class="form-group">
-        <div class="col-9">
-            <label for="inputBloqueado">Bloqueado</label>
-            <form method="GET" action="{{route('admin.funcionarios')}}" class="form-group">
+    <form method="GET" action="{{route('admin.funcionarios')}}" class="form-group">
+        <div class="form-group">
+            <div class="col-9">
+                <label for="inputBloqueado">Bloqueado</label>
                 <div class="input-group">
                     <select class="form-control" name="bloqueado" id="bloqueado">
                         <option value="">Todos</option>
@@ -22,13 +22,11 @@
                         <button class="btn btn-outline-secondary" type="submit">Filtrar</button>
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <div class="col-9">
-            <label for="inputTipo">Tipo</label>
-            <form method="GET" action="{{route('admin.funcionarios')}}" class="form-group">
+        <div class="form-group">
+            <div class="col-9">
+                <label for="inputTipo">Tipo</label>
                 <div class="input-group">
                     <select class="form-control" name="tipo" id="tipo">
                         <option value="">Todos</option>
@@ -39,37 +37,33 @@
                         <button class="btn btn-outline-secondary" type="submit">Filtrar</button>
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <div class="col-9">
-            <label for="inputNome">Nome</label>
-            <form method="GET" action="{{route('admin.funcionarios')}}" class="form-group">
+        <div class="form-group">
+            <div class="col-9">
+                <label for="inputNome">Nome</label>
                 <div class="input-group">
                     <input type="text" class="form-control" name="name" id="inputNome" value="">
                     <div class="input-group-append">
                         <button class="btn btn-outline-secondary" type="submit">Filtrar</button>
                     </div>
                 </div>
-            </form>
-
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <div class="col-9">
-            <label for="inputEmail">Email</label>
-            <form method="GET" action="{{route('admin.funcionarios')}}" class="form-group">
+        <div class="form-group">
+            <div class="col-9">
+                <label for="inputEmail">Email</label>
                 <div class="input-group">
                     <input type="text" class="form-control" name="name" id="inputNome" value="">
                     <div class="input-group-append">
                         <button class="btn btn-outline-secondary" type="submit">Filtrar</button>
                     </div>
                 </div>
-            </form>
 
+            </div>
         </div>
-    </div>
+    </form>
+
 
     <table class="table">
         <thead>
