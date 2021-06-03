@@ -6,18 +6,33 @@ use App\Http\Requests\UserFuncUpdatePost;
 use App\Http\Requests\UserPost;
 use App\Http\Requests\UserUpdatePost;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
-    public function admin_funcs()
+    public function admin_funcs(Request $request)
     {
-
         $qry = User::withoutTrashed();
-        $qry->where('tipo', '=', 'F')
-            ->orWhere('tipo', '=', 'A')
+        if ($request->filled('bloqueado')) {
+            $qry->where('bloqueado', '=', $request->input('bloqueado'));
+        }
+        if ($request->filled('tipo')) {
+            $qry->where('tipo', '=', $request->input('tipo'));
+
+        }
+        if ($request->filled('name')) {
+            $qry->where('name', 'LIKE', '%' . $request->input('name') . '%');
+
+        }
+        if ($request->filled('email')) {
+            $qry->where('email', 'LIKE', '%' . $request->input('email') . '%');
+
+        }
+        $qry->where('tipo', '!=', 'C')
             ->orderBy('name');
+
 
         //$funcionarios = User::pluck('name', 'email', 'tipo')->paginate(10);
         $funcs = $qry->paginate(10);
@@ -37,10 +52,10 @@ class UserController extends Controller
         $validated_data = $request->validated();
 
         $funcionario->email = $validated_data['email'];
+        $funcionario->name = $validated_data['name'];
+        $funcionario->tipo = $validated_data['tipo'];
+        $funcionario->bloqueado = $validated_data['bloqueado'];
 
-            $funcionario->name = $validated_data['name'];
-            $funcionario->tipo = $validated_data['tipo'];
-            $funcionario->bloqueado = $validated_data['bloqueado'];
         if ($request->filled('password')) {
             $funcionario->password = Hash::make($validated_data['password']);
         }
