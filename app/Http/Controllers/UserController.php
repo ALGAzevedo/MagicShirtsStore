@@ -20,15 +20,12 @@ class UserController extends Controller
         }
         if ($request->filled('tipo')) {
             $qry->where('tipo', '=', $request->input('tipo'));
-
         }
         if ($request->filled('name')) {
             $qry->where('name', 'LIKE', '%' . $request->input('name') . '%');
-
         }
         if ($request->filled('email')) {
             $qry->where('email', 'LIKE', '%' . $request->input('email') . '%');
-
         }
         $qry->where('tipo', '!=', 'C')
             ->orderBy('name');
