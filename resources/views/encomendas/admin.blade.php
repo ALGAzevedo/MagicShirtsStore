@@ -4,7 +4,7 @@
 
     <form method="GET" action="{{route('admin.encomendas')}}">
         <div class="form-row">
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-2">
                 <label for="inputCity">Estado</label>
                 <select class="form-control" name="estado" id="idEstado">
                     @can('viewAny', \App\Models\Encomenda::class)
@@ -18,13 +18,17 @@
                 </select>
             </div>
             @can('viewAny', \App\Models\Encomenda::class)
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-2">
                     <label for="inputState">Data</label>
                     <input type="date" class="form-control" name="data" value="{{$dataSel}}">
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-2">
                     <label for="inputZip">Cliente ID</label>
                     <input type="text" class="form-control" name="cliente_id" value="{{$cliente_idSel}}">
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="inputZip">Referencia Pagamento</label>
+                    <input type="text" class="form-control" name="referencia_pagamento" value="{{$referencia_pagamentoSel}}">
                 </div>
             @endcan
         </div>

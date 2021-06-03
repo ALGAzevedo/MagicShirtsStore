@@ -31,12 +31,15 @@ class EncomendaController extends Controller
         $estadoSel = $request->estado ?? '';
         $dataSel = $request->data ?? '';
         $cliente_idSel = $request->cliente_id ?? '';
+        $referencia_pagamentoSel = $request->referencia_pagamento ?? '';
+
+
 
         //Pode pesquisar por estado que requisitou?
         $this->authorize('viewEstado', [Encomenda::class,  $estadoSel]);
 
 
-        if ($request->hasAny(['data', 'cliente_id'])) {
+        if ($request->hasAny(['data', 'cliente_id', 'referencia_pagamento'])) {
             //utilizador em questão pode consultar por data/cliente?
             $this->authorize('viewAny', [Encomenda::class,  $estadoSel]);
 
@@ -65,11 +68,19 @@ class EncomendaController extends Controller
             $qry->where('cliente_id', "=", $cliente_idSel);
         }
 
+        //se user pesquisoupor ref de pagamento
+        if($referencia_pagamentoSel) {
+            $qry->where('ref_pagamento', "=", $referencia_pagamentoSel);
+        }
+
+
+
+
         $encomendas = $qry->paginate(10);
 
 
         return view('encomendas.admin',
-            compact('encomendas', 'estadoSel', 'dataSel', 'cliente_idSel'));
+            compact('encomendas', 'estadoSel', 'dataSel', 'cliente_idSel', 'referencia_pagamentoSel'));
     }
 
     public function admin_edit(Encomenda $encomenda)
