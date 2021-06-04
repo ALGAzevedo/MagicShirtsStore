@@ -10,6 +10,7 @@ use App\Models\Tshirt;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 
@@ -23,6 +24,35 @@ class EncomendaController extends Controller
         $listaCores = Cor::all();
         $estampa = Estampa::findOrFail($estampa->id);
         return view('encomendas.create', compact('listaCores', 'estampa'));
+    }
+
+    public function index(Request $request) {
+        //pesquisar por data/estado encomenda
+
+
+        $estadoSel = $request->estado ?? '';
+        $dataSel = $request->data ?? '';
+
+        $encomendas = Encomenda::where('cliente_id', Auth::user()->id);
+
+
+        if($estadoSel) {
+            $encomendas->where('estado', '=', $estadoSel);
+        }
+        if($dataSel) {
+            $encomendas->where('data', '=', $dataSel);
+        }
+
+        $encomendas = $encomendas->get();
+
+        return view('encomendas.index', compact('encomendas','estadoSel', 'dataSel'));
+    }
+
+    public function view_encomenda(Encomenda $encomenda) {
+        $shirts = Tshirt::where('encomenda_id', '=', $encomenda->id)->get();
+
+        return view('encomendas.viewEncomenda', compact('encomenda', 'shirts'));
+
     }
 
 

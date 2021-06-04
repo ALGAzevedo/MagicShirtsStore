@@ -47,6 +47,12 @@ Route::delete('carrinho', [CartController::class, 'destroy'])->name('carrinho.de
 
 
 
+//HISTORICO ENCOMENDA CLIENTES
+Route::get('encomendas', [EncomendaController::class, 'index'])->name('cliente.encomendas');
+Route::get('encomendas/{encomenda}', [EncomendaController::class, 'view_encomenda'])->name('cliente.encomenda.view')
+    ->middleware('can:viewClientEncomenda,encomenda');
+
+
 //ADMINISTRAÇÃO
 
 //MAIN

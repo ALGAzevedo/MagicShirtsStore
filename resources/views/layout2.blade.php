@@ -58,7 +58,7 @@
                                     <div class=" dropdown">
                                         <a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">A minha conta</a>
                                         <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="#">Encomendas</a>
+                                            <a class="dropdown-item" href="{{route('cliente.encomendas')}}">Encomendas</a>
                                             <a class="dropdown-item" href="#">Perfil</a>
                                             <a class="dropdown-item" href="#">Estampas</a>
                                             <div class="dropdown-divider"></div>

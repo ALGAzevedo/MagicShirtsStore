@@ -5,7 +5,7 @@
     <form method="GET" action="{{route('admin.encomendas')}}">
         <div class="form-row">
             <div class="form-group col-md-2">
-                <label for="inputCity">Estado</label>
+                <label for="inputEstado">Estado</label>
                 <select class="form-control" name="estado" id="idEstado">
                     @can('viewAny', \App\Models\Encomenda::class)
                         <option value="" {{$estadoSel == "" ? 'selected' : ''}}>Mostrar Tudo</option>

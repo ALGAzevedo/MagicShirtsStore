@@ -32,6 +32,10 @@ class EncomendaPolicy
         return $user->tipo == 'F';
     }
 
+    public function viewClientEncomenda(User $user, Encomenda $encomenda) {
+        return $user->tipo == 'C' && $user->id == $encomenda->cliente_id;
+    }
+
     public function viewAllEstados(User $user)
     {
         return false;
