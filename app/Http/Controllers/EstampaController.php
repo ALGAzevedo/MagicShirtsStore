@@ -63,23 +63,36 @@ class EstampaController extends Controller
     public function admin_index(Request $request)
     {
         $categoriaSel = $request->categoria ?? '';
+        $nomeSel = null;
+        $descricaoSel = null;
 
         $qry = Estampa::query();
 
         if ($categoriaSel == 'Sem Categoria') {
             $qry->whereNULL('categoria_id');
         } else if ($categoriaSel && $categoriaSel != 'show_all') {
-            $qry->where('categoria_id', $categoriaSel);
+            $qry->where('categoria_id', '=', $categoriaSel);
         }
 
+        //se nome especificado
+        if ($request->has('nome')) {
+            $nomeSel = $request->nome;
+            $qry->where('nome', 'LIKE', '%' . $nomeSel . '%');
+        }
+
+        //se descricao especificada
+        if ($request->has('descricao')) {
+            $descricaoSel = $request->descricao;
+            $qry->where('descricao', 'LIKE', '%' . $descricaoSel . '%');
+        }
 
         //todas as categorias
-        $listaCategorias = Categoria::all();
-        $estampas = $qry->where('cliente_id', null);
+        $listaCategorias = Categoria::pluck('nome', 'id');
+        $estampas = $qry->where('cliente_id', "=", null);
         $estampas = $qry->paginate(10);
 
         return view('estampas.admin',
-            compact('estampas', 'listaCategorias', 'categoriaSel'));
+            compact('estampas', 'listaCategorias', 'categoriaSel', 'nomeSel', 'descricaoSel'));
     }
 
 
