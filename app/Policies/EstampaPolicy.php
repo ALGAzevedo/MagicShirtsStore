@@ -10,6 +10,7 @@ class EstampaPolicy
 {
     use HandlesAuthorization;
 
+
     /**
      * Determine whether the user can view any models.
      *
@@ -18,8 +19,15 @@ class EstampaPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return false;
     }
+
+    public function viewAny_Admin(User $user)
+    {
+        return $user->tipo == 'A';
+    }
+
+
 
     /**
      * Determine whether the user can view the model.
@@ -30,7 +38,13 @@ class EstampaPolicy
      */
     public function view(User $user, Estampa $estampa)
     {
-        //
+        return false;
+    }
+
+
+    public function view_Admin(User $user, Estampa $estampa)
+    {
+        return $user->tipo == 'A' && $estampa->cliente_id == null;
     }
 
     /**
@@ -41,7 +55,12 @@ class EstampaPolicy
      */
     public function create(User $user)
     {
-        //
+        return false;
+    }
+
+    public function create_Admin(User $user)
+    {
+        return $user->tipo == 'A';
     }
 
     /**
@@ -50,10 +69,17 @@ class EstampaPolicy
      * @param  \App\Models\User  $user
      * @param  \App\Models\Estampa  $estampa
      * @return mixed
+     *
      */
+
     public function update(User $user, Estampa $estampa)
     {
-        //
+        return false;
+    }
+
+    public function update_Admin(User $user, Estampa $estampa)
+    {
+        return $user->tipo == 'A' && $estampa->cliente_id == null;
     }
 
     /**
@@ -65,7 +91,12 @@ class EstampaPolicy
      */
     public function delete(User $user, Estampa $estampa)
     {
-        //
+        return false;
+    }
+
+    public function delete_Admin(User $user, Estampa $estampa)
+    {
+        return $user->tipo == 'A' && $estampa->cliente_id == null;
     }
 
     /**

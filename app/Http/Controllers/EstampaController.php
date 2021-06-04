@@ -152,6 +152,9 @@ class EstampaController extends Controller
     public function store(EstampaPost $request)
     {
 
+        //Não é necessário garantir que cliente_id venha a null, já que estamos a preencher de forma individual os atributos
+        //é garantido que o cliente_id nunca é preenchido!
+
         $validated_data = $request->validated();
 
         $newEstampa = new Estampa;

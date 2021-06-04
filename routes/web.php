@@ -57,12 +57,18 @@ Route::middleware('auth')->prefix('administracao')->name('admin.')->group(functi
 
 
 //ADMINISTRACAO ESTAMPAS
-    Route::get('estampas', [EstampaController::class, 'admin_index'])->name('estampas');
-    Route::get('estampas/{estampa}/edit', [EstampaController::class, 'edit'])->name('estampas.edit');
-    Route::put('estampas/{estampa}', [EstampaController::class, 'update'])->name('estampas.update');
-    Route::delete('estampas/{estampa}', [EstampaController::class, 'destroy'])->name('estampas.destroy');
-    Route::get('estampas/create', [EstampaController::class, 'create'])->name('estampas.create');
-    Route::post('estampas', [EstampaController::class, 'store'])->name('estampas.store');
+    Route::get('estampas', [EstampaController::class, 'admin_index'])->name('estampas')
+        ->middleware('can:viewAny_Admin,App\Models\Estampa');
+    Route::get('estampas/{estampa}/edit', [EstampaController::class, 'edit'])->name('estampas.edit')
+        ->middleware('can:view_Admin,estampa');
+    Route::put('estampas/{estampa}', [EstampaController::class, 'update'])->name('estampas.update')
+        ->middleware('can:update_Admin,estampa');
+    Route::delete('estampas/{estampa}', [EstampaController::class, 'destroy'])->name('estampas.destroy')
+        ->middleware('can:delete_Admin,estampa');
+    Route::get('estampas/create', [EstampaController::class, 'create'])->name('estampas.create')
+        ->middleware('can:create_Admin,App\Models\Estampa');
+    Route::post('estampas', [EstampaController::class, 'store'])->name('estampas.store')
+        ->middleware('can:create_Admin,App\Models\Estampa');
 
 //ADMINISTRACAO CATEGORIAS
     Route::get('categorias', [CategoriaController::class, 'admin_index'])->name('categorias')

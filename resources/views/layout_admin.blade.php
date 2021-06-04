@@ -67,11 +67,13 @@
             </li>
         @endcan
     <!-- Nav Item -->
+        @can('viewAny_Admin', App\Models\Estampa::class)
         <li class="nav-item" {{Route::currentRouteName()=='admin.estampas'? 'active': ''}}>
             <a class="nav-link" href="{{route('admin.estampas')}}">
                 <i class="fas fa-fw fa-table"></i>
                 <span>Estampas</span></a>
         </li>
+        @endcan
         @can('viewAny', \App\Models\Categoria::class)
         <li class="nav-item" {{Route::currentRouteName()=='admin.categorias'? 'active': ''}}>
             <a class="nav-link" href="{{route('admin.categorias')}}">
