@@ -33,7 +33,7 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('viewCharts', function($user){
-            return $user->tipo == 'A';;
+            return $user->tipo == 'A';
         });
 
         //
