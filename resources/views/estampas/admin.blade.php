@@ -1,29 +1,45 @@
 @extends('layout_admin')
 @section('title','Estampas')
 @section('content')
-    <div class="row mb-3">
-        <div class="col-3">
-            <a href="{{route('admin.estampas.create')}}" class="btn btn-success" role="button" aria-pressed="true">Nova Estampa</a>
+    <form method="GET" action="#" class="form-group">
+        <div class="row mb-3">
+            <div class="col-2">
+                <a href="{{route('admin.estampas.create')}}" class="btn btn-success" role="button" aria-pressed="true">Nova
+                    Estampa</a>
+            </div>
         </div>
-        <div class="col-9">
-            <form method="GET" action="#" class="form-group">
+        <div class="row mb-3">
+            <div class="col-2">
+                <label for="inputState">Categoria</label>
                 <div class="input-group">
                     <select class="form-control" name="categoria" id="idCat">
                         <option value="show_all" {{$categoriaSel == 'show_all' ? 'selected' : ''}}>Mostrar Tudo</option>
-                        <option value="Sem Categoria" {{$categoriaSel == 'Sem Categoria' ? 'selected' : ''}}>Sem categoria</option>
-                        @foreach ($listaCategorias as $cat)
-                            <option value="{{$cat->id}}" {{$categoriaSel == $cat->id ? 'selected' : ''}}>
-                                {{$cat->nome}}
+                        <option value="Sem Categoria" {{$categoriaSel == 'Sem Categoria' ? 'selected' : ''}}>Sem
+                            categoria
+                        </option>
+                        @foreach ($listaCategorias as $id => $nome)
+                            <option value="{{$id}}" {{$categoriaSel == $id ? 'selected' : ''}}>
+                                {{$nome}}
                             </option>
                         @endforeach
                     </select>
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="submit">Filtrar</button>
-                    </div>
                 </div>
-            </form>
+            </div>
+            <div class="col-2">
+                <label for="inputState">Nome</label>
+                <input type="text" class="form-control" name="nome" value="{{$nomeSel}}">
+            </div>
+            <div class="col-6">
+                <label for="inputState">Descricao</label>
+                <input type="text" class="form-control" name="descricao" value="{{$descricaoSel}}">
+            </div>
+
         </div>
-    </div>
+        <a href="{{route('admin.estampas')}}" class="btn btn-secondary">Reset</a>
+        <button class="btn btn-primary" type="submit">Filtrar</button>
+
+    </form>
+
 
     <table class="table">
         <thead>
@@ -39,7 +55,9 @@
         @foreach ($estampas as $estampa)
             <tr>
                 <td>
-                    <img src="{{$estampa->imagem_url ? asset('storage/estampas/' . $estampa->imagem_url) : asset('img/plain_white.png') }}" alt="Foto da estampa"  class="img-profile rounded-circle" style="width:40px;height:40px">
+                    <img
+                        src="{{$estampa->imagem_url ? asset('storage/estampas/' . $estampa->imagem_url) : asset('img/plain_white.png') }}"
+                        alt="Foto da estampa" class="img-profile rounded-circle" style="width:40px;height:40px">
                 </td>
                 <td>{{$estampa->nome}}</td>
                 <td>{{$estampa->descricao}}</td>

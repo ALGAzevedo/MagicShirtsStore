@@ -29,7 +29,6 @@ class EstampaPost extends FormRequest
             'categoria_id' => 'nullable|exists:categorias,id',
             'estampa_update' => 'nullable',
             'estampa_img' => 'required_if:estampa_update,true|image|max:8192',
-
             'descricao' => 'nullable|string',
         ];
     }
