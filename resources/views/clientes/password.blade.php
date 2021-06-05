@@ -2,7 +2,7 @@
 @section('title', 'Alterar Password')
 @section('content')
     <div class="container">
-        <form method="POST" action="{{route('clientes.updatePassword', ['cliente' => $cliente]) }}"
+        <form method="POST" action="{{route('cliente.updatePassword', ['cliente' => $cliente]) }}"
               class="form-group">
             @csrf
             @method('PUT')
@@ -33,7 +33,7 @@
             </div>
             <input type="hidden" name="user_id" value="{{$cliente->id}}">
             <button type="submit" class="btn btn-success" name="ok">Save</button>
-            <a href="{{route('clientes.edit', ['cliente'=> $cliente])}}" class="btn btn-danger">Cancel</a>
+            <a href="{{route('cliente.edit', ['cliente'=> $cliente])}}" class="btn btn-danger">Cancel</a>
         </form>
     </div>
 

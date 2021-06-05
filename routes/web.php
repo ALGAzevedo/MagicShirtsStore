@@ -132,13 +132,8 @@ Route::put('encomendas/{encomenda}', [EncomendaController::class, 'admin_update'
 
     Route::get('clientes', [ClienteController::class, 'index'])->name('clientes')
         ->middleware('can:viewAny,App\Models\Cliente');
-    Route::get('clientes/{cliente}/edit', [ClienteController::class, 'show'])->name('clientes.edit')
-        ->middleware('can:view,cliente');
     Route::get('clientes/create', [ClienteController::class, 'create'])->name('clientes.create')
         ->middleware('can:create,App\Models\Cliente');
-//Route::post('clientes', [ClienteController::class, 'store'])->name('admin.clientes.store');
-    Route::put('clientes/{cliente}', [ClienteController::class, 'update'])->name('clientes.update')
-        ->middleware('can:update,cliente');
     Route::delete('clientes/{cliente}', [ClienteController::class, 'destroy'])->name('clientes.destroy')
         ->middleware('can:delete,cliente');
     Route::delete('clientes/{cliente}/foto', [ClienteController::class, 'destroy_foto'])->name('clientes.foto.destroy')
@@ -149,12 +144,17 @@ Route::put('encomendas/{encomenda}', [EncomendaController::class, 'admin_update'
 
 //EDICAO PERFIL DO CLIENTE
 
-Route::get('cliente/{cliente}/edit', [ClienteController::class, 'show'])->name('clientes.edit')
+Route::get('cliente/{cliente}/edit', [ClienteController::class, 'show'])->name('cliente.edit')
     ->middleware('can:view,cliente');
-Route::get('cliente/{cliente}/password', [ClienteController::class, 'viewPassword'])->name('clientes.password.update')
+
+Route::get('cliente/{cliente}/password', [ClienteController::class, 'viewPassword'])->name('cliente.password.update')
     ->middleware('can:update,cliente');
-Route::put('cliente/password/{cliente}', [ClienteController::class, 'updatePassword'])->name('clientes.updatePassword')
+
+Route::put('cliente/password/{cliente}', [ClienteController::class, 'updatePassword'])->name('cliente.updatePassword')
     ->middleware('can:updatePassword,cliente');
+
+Route::put('cliente/{cliente}', [ClienteController::class, 'update'])->name('cliente.update')
+    ->middleware('can:update,cliente');
 
 Auth::routes(['register' => true]);
 

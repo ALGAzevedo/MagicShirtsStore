@@ -138,12 +138,6 @@
                 @else
                     <td>Não</td>
                 @endif
-                @can('developer')
-                    <td>
-                        <a href="{{route('admin.clientes.edit', ['cliente'=> $cliente])}}"
-                           class="btn btn-primary btn-sm" role="button" aria-pressed="true">Alterar</a>
-                    </td>
-                @endcan
                 <td>
                     <form method="POST" action="{{route('admin.clientes.block', ['cliente' => $cliente]) }}"
                           class="form-group" enctype="multipart/form-data">

@@ -33,8 +33,6 @@ class ClientePolicy
      */
     public function view(User $user, Cliente $cliente)
     {
-        debugbar::info($cliente);
-        debugbar::info($user);
         return $user->id == $cliente->id;
     }
 
@@ -71,8 +69,6 @@ class ClientePolicy
      */
     public function updatePassword(User $user, Cliente $cliente)
     {
-        debugbar::info($user);
-        debugbar::info($cliente);
         return $user->id == $cliente->id;
     }
 

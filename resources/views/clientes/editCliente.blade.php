@@ -2,7 +2,7 @@
 @section('title', 'Alterar Cliente')
 @section('content')
     <div class="container">
-        <form method="POST" action="{{route('admin.clientes.update', ['cliente' => $cliente]) }}"
+        <form method="POST" action="{{route('cliente.update', ['cliente' => $cliente]) }}"
               class="form-group" enctype="multipart/form-data">
             @csrf
             @method('PUT')
@@ -23,7 +23,7 @@
                     </button>
                 @endisset
                 <button type="submit" class="btn btn-success" name="ok">Save</button>
-                <a href="{{route('clientes.edit', ['cliente' => $cliente]) }}"
+                <a href="{{route('cliente.edit', ['cliente' => $cliente]) }}"
                    class="btn btn-secondary">Reset</a>
                 <a href="{{route('home') }}" class="btn btn-danger">Cancel</a>
             </div>

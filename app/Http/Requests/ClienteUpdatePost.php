@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
@@ -17,7 +17,7 @@ class ClienteUpdatePost extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return Auth::check();
     }
 
     /**
@@ -30,12 +30,6 @@ class ClienteUpdatePost extends FormRequest
 
         $validation_array = [
             'name' => 'required',
-            'bloqueado' => 'required|in:1,0',
-            'tipo' => 'required|in:C',
-            'password' => [
-                'required',
-                'min:4'
-            ],
             'nif' => [
                 'nullable',
                 'string',
@@ -71,13 +65,13 @@ class ClienteUpdatePost extends FormRequest
         return $validation_array;
     }
 
-    public function messages()
-    {
-        return [
-            'ref_pagamento.required' => 'O campo referência de pagamento é obrigatório.',
-            'ref_pagamento.email' => 'A referência de pagamento deve ser o seu email do PayPal.',
-            'ref_pagamento.numeric' => 'A referência de pagamento deve ser o seu número do cartão de crédito',
-            'ref_pagamento.digits' => 'O número do seu cartão deve ter 16 digitos',
-        ];
-    }
+//    public function messages()
+//    {
+//        return [
+//            'ref_pagamento.required' => 'O campo referência de pagamento é obrigatório.',
+//            'ref_pagamento.email' => 'A referência de pagamento deve ser o seu email do PayPal.',
+//            'ref_pagamento.numeric' => 'A referência de pagamento deve ser o seu número do cartão de crédito',
+//            'ref_pagamento.digits' => 'O número do seu cartão deve ter 16 digitos',
+//        ];
+//    }
 }

@@ -59,11 +59,7 @@ class ClienteController extends Controller
     {
         $validated_data = $request->validated();
         $cliente->user->name = $validated_data['name'];
-        $cliente->user->bloqueado = $validated_data['bloqueado'];
         $cliente->user->email = $validated_data['email'];
-        if ($request->filled('password')) {
-            $cliente->user->password = $validated_data['password'];
-        }
         if ($request->hasFile('foto')) {
             Storage::delete('public/fotos/' . $cliente->user->foto_url);
             $path = $request->foto->store('public/fotos');
@@ -77,40 +73,40 @@ class ClienteController extends Controller
         $cliente->ref_pagamento = $validated_data['ref_pagamento'];
         $cliente->save();
 
-        return redirect()->route('home')
+        return redirect()->route('cliente.edit', ['cliente' => $cliente])
             ->with('alert-msg', 'Cliente "' . $cliente->user->name . '" foi alterado com sucesso!')
             ->with('alert-type', 'success');
     }
 
-    public function create(ClientePost $request)
-    {
-        $validated_data = $request->validated();
-        $newUser = new User;
-        $newUser->name = $validated_data['name'];
-        $newUser->bloqueado = $validated_data['bloqueado'];
-        $newUser->email = $validated_data['email'];
-        $newUser->password = Hash::make($validated_data['password']);
-        $newUser->save();
-
-        $newCliente = new Cliente;
-        $newCliente->id = $newUser->id;
-        if ($request->filled('nif')) {
-            $newCliente->nif = $validated_data['nif'];
-        }
-        if ($request->filled('endereco')) {
-            $newCliente->endereco = $validated_data['endereco'];
-        }
-        if ($request->filled('tipo_pagamento')) {
-            $newCliente->tipo_pagamento = $validated_data['tipo_pagamento'];
-            $newCliente->ref_pagamento = $validated_data['ref_pagamento'];
-        }
-
-        $newCliente->save();
-
-        return redirect()->route('/')
-            ->with('alert-msg', 'Cliente "' . $validated_data['name'] . '" foi criado com sucesso!')
-            ->with('alert-type', 'success');
-    }
+//    public function create(ClientePost $request)
+//    {
+//        $validated_data = $request->validated();
+//        $newUser = new User;
+//        $newUser->name = $validated_data['name'];
+//        $newUser->bloqueado = $validated_data['bloqueado'];
+//        $newUser->email = $validated_data['email'];
+//        $newUser->password = Hash::make($validated_data['password']);
+//        $newUser->save();
+//
+//        $newCliente = new Cliente;
+//        $newCliente->id = $newUser->id;
+//        if ($request->filled('nif')) {
+//            $newCliente->nif = $validated_data['nif'];
+//        }
+//        if ($request->filled('endereco')) {
+//            $newCliente->endereco = $validated_data['endereco'];
+//        }
+//        if ($request->filled('tipo_pagamento')) {
+//            $newCliente->tipo_pagamento = $validated_data['tipo_pagamento'];
+//            $newCliente->ref_pagamento = $validated_data['ref_pagamento'];
+//        }
+//
+//        $newCliente->save();
+//
+//        return redirect()->route('/')
+//            ->with('alert-msg', 'Cliente "' . $validated_data['name'] . '" foi criado com sucesso!')
+//            ->with('alert-type', 'success');
+//    }
 
 
     public function destroy(Cliente $cliente)
@@ -164,18 +160,19 @@ class ClienteController extends Controller
 
     public function updatePassword(ClientePasswordUpdatePost $request, Cliente $cliente)
     {
+
         $validated_data = $request->validated();
         if (Hash::check($validated_data['oldPassword'], $cliente->user->getAuthPassword())) {
             //Password validada
 
             $cliente->user->password = Hash::make($validated_data['newPassword']);
             $cliente->user->save();
-            return redirect()->route('clientes.edit', ['cliente' => $cliente])
+            return redirect()->route('cliente.edit', ['cliente' => $cliente])
                 ->with('alert-msg', 'Cliente "' . $cliente->user->name . '" foi alterado com sucesso!')
                 ->with('alert-type', 'success');
         }
 
-        return redirect()->route('clientes.password.update', ['cliente' => $cliente])
+        return redirect()->route('cliente.password.update', ['cliente' => $cliente])
             ->with('alert-msg', 'Password antiga do cliente "' . $cliente->user->name . '" está incorreta!')
             ->with('alert-type', 'danger');
     }
