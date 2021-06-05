@@ -16,14 +16,11 @@
     <div class="small text-danger">{{$message}}</div>
     @enderror
 </div>
-@can('update', $funcionario)
+@can('updatePassword', $funcionario)
     <div class="form-group">
             <a href="{{route('admin.funcionarios.password.update', ['funcionario' => $funcionario]) }}"
                class="btn btn-dark">Alterar Password</a>
     </div>
-@elsecannot('update', $funcionario)
-    <a href="{{route('admin.funcionarios.edit', ['funcionario' => $funcionario]) }}"
-       class="btn btn-dark">Alterar Password</a>
 @endcan
 @can('update', $funcionario)
     <div class="form-group">
