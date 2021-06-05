@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ClientePasswordUpdatePost;
 use App\Http\Requests\ClientePost;
 use App\Http\Requests\ClienteUpdatePost;
 
@@ -21,7 +22,7 @@ class ClienteController extends Controller
             ->join('users', 'clientes.id', '=', 'users.id');
 
         if ($request->filled('nif')) {
-            $listaClientes->where('nif', 'LIKE', '%'. $request->input('nif') . '%');
+            $listaClientes->where('nif', 'LIKE', '%' . $request->input('nif') . '%');
         }
         if ($request->filled('endereco')) {
             $listaClientes->where('endereco', 'LIKE', '%' . $request->input('endereco') . '%');
@@ -153,6 +154,30 @@ class ClienteController extends Controller
         return redirect()->route('admin.clientes')
             ->with('alert-msg', 'Cliente "' . $cliente->user->name . '" foi alterado com sucesso!')
             ->with('alert-type', 'success');
+    }
+
+    public function viewPassword(Cliente $cliente)
+    {
+        return view('clientes.password')
+            ->withCliente($cliente);
+    }
+
+    public function updatePassword(ClientePasswordUpdatePost $request, Cliente $cliente)
+    {
+        $validated_data = $request->validated();
+        if (Hash::check($validated_data['oldPassword'], $cliente->user->getAuthPassword())) {
+            //Password validada
+
+            $cliente->user->password = Hash::make($validated_data['newPassword']);
+            $cliente->user->save();
+            return redirect()->route('clientes.edit', ['cliente' => $cliente])
+                ->with('alert-msg', 'Cliente "' . $cliente->user->name . '" foi alterado com sucesso!')
+                ->with('alert-type', 'success');
+        }
+
+        return redirect()->route('clientes.password.update', ['cliente' => $cliente])
+            ->with('alert-msg', 'Password antiga do cliente "' . $cliente->user->name . '" está incorreta!')
+            ->with('alert-type', 'danger');
     }
 
 }
