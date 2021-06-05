@@ -9,7 +9,8 @@
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="/public/assets/favicon.ico"/>
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+          integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="/css/styles.css" rel="stylesheet"/>
 
@@ -28,7 +29,8 @@
                 <div class="col-lg-6 col-sm-12">
                     <form action="{{route('estampas.index')}}" method="GET">
                         <div class="input-group w-100">
-                            <input type="text" name="s" value="{{old('s')}}" class="form-control" placeholder="Pesquisar estampas...">
+                            <input type="text" name="s" value="{{old('s')}}" class="form-control"
+                                   placeholder="Pesquisar estampas...">
                             <div class="input-group-append">
                                 <button class="btn btn-primary" type="submit">
                                     <i class="fa fa-search"></i>
@@ -40,41 +42,49 @@
                 <div class="col-lg-3 col-sm-6 col-12">
                     <div class="auth-wrap float-md-right">
                         @guest
-                        <div class="auth-header-item auth-flex ">
-                            <a href="#" class="user-avatar"> <img class="img-fluid" src="{{asset('img/default_user.jpg')}}" alt=""> </a>
-                            <div class="auth-info">
-                                <h6 class="user-name">A minha conta</h6>
-                                <div>
-                                    <a href="{{ route('login') }}">Iniciar Sessão</a>
+                            <div class="auth-header-item auth-flex ">
+                                <a href="#" class="user-avatar"> <img class="img-fluid"
+                                                                      src="{{asset('img/default_user.jpg')}}" alt="">
+                                </a>
+                                <div class="auth-info">
+                                    <h6 class="user-name">A minha conta</h6>
+                                    <div>
+                                        <a href="{{ route('login') }}">Iniciar Sessão</a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                         @else
-                        <div class="auth-header-item auth-flex ">
-                            <a href="#" class="user-avatar"> <img class="img-fluid" src="{{Auth::user()->foto_url ? asset('storage/fotos/' . Auth::user()->foto_url) : asset('img/default_user.jpg') }}" alt=""> </a>
-                            <div class="auth-info">
-                                <h6 class="user-name">Olá, {{Auth::user()->name}}</h6>
-                                <div>
-                                    <div class=" dropdown">
-                                        <a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">A minha conta</a>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="#">Encomendas</a>
-                                            <a class="dropdown-item" href="#">Perfil</a>
-                                            <a class="dropdown-item" href="#">Estampas</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Terminar Sessão</a>
+                            <div class="auth-header-item auth-flex ">
+                                <a href="#" class="user-avatar"> <img class="img-fluid"
+                                                                      src="{{Auth::user()->foto_url ? asset('storage/fotos/' . Auth::user()->foto_url) : asset('img/default_user.jpg') }}"
+                                                                      alt=""> </a>
+                                <div class="auth-info">
+                                    <h6 class="user-name">Olá,{{Auth::user()->name}}</h6>
+                                    <div>
+                                        <div class=" dropdown">
+                                            <a class="dropdown-toggle" href="#" data-toggle="dropdown"
+                                               aria-haspopup="true" aria-expanded="false">A minha conta</a>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="#">Encomendas</a>
+                                                <a class="dropdown-item" href="#">Perfil</a>
+                                                <a class="dropdown-item" href="#">Estampas</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="#">Terminar Sessão</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         @endguest
 
                         <div class="auth-header-item">
                             <a class="header-cart nav-link mx-2"
                                title="Carrinho"
                                href="{{route('carrinho')}}">
-                                <i class="fas fa-shopping-bag" aria-hidden="true"></i> @if(session()->has('carrinho_qty') && session('carrinho_qty')>0) <span class="badge badge-pill badge-danger ml-1">{{session('carrinho_qty')}}</span>@endif
+                                <i class="fas fa-shopping-bag"
+                                   aria-hidden="true"></i> @if(session()->has('carrinho_qty') && session('carrinho_qty')>0)
+                                    <span
+                                        class="badge badge-pill badge-danger ml-1">{{session('carrinho_qty')}}</span>@endif
                             </a>
                         </div>
 
@@ -87,7 +97,8 @@
 <nav class="navbar navbar-main navbar-expand-lg navbar-light border-bottom bg-light">
     <div class="container">
 
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main_nav" aria-controls="main_nav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main_nav"
+                aria-controls="main_nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -104,18 +115,14 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">About</a>
                 </li>
-
-                @if(Auth::check())
-                    @if(Auth::user()->tipo != 'C')
-                <li class="nav-item">
-                    <a class="nav-link {{Route::currentRouteName() == 'administracao.dashboard' ? 'active' : ''}}"
-                       href="{{route('admin.dashboard')}}">
-                        Administração
-                    </a>
-                </li>
-                    @endif
-                @endif
-
+                @can('access-administration')
+                    <li class="nav-item">
+                        <a class="nav-link {{Route::currentRouteName() == 'administracao.dashboard' ? 'active' : ''}}"
+                           href="{{route('admin.dashboard')}}">
+                            Administração
+                        </a>
+                    </li>
+                @endcan
                 <li class="nav-item">
                     <a class="nav-link mx-2"
                        title="Carrinho"
@@ -144,12 +151,13 @@
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                              aria-labelledby="userDropdown">
-                            @if(Auth::user()->tipo == 'C')
-                            <a class="dropdown-item" href="{{route('clientes.edit', ['cliente'=> Auth::user()->id])}}">
-                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Perfil
-                            </a>
-                            @endif
+                            @can('view', Auth::user()->cliente)
+                                <a class="dropdown-item"
+                                   href="{{route('cliente.edit', ['cliente'=> Auth::user()->id])}}">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Perfil
+                                </a>
+                            @endcan
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>

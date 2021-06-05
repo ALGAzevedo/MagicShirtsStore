@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
-class CategoriaPost extends FormRequest
+class ClientePasswordUpdatePost extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +14,7 @@ class CategoriaPost extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return Auth::check();
     }
 
     /**
@@ -21,10 +22,13 @@ class CategoriaPost extends FormRequest
      *
      * @return array
      */
+
     public function rules()
     {
         return [
-            'nome' => 'required|string|max:255|unique:Categorias',
+            'oldPassword' => 'required',
+            'newPassword' => ['required', 'string', 'min:8', 'confirmed'],
+            'newPassword_confirmation' => ['required', 'string', 'min:8'],
         ];
     }
 }

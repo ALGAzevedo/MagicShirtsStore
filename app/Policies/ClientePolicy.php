@@ -5,7 +5,6 @@ namespace App\Policies;
 use App\Models\Cliente;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
-use Illuminate\Support\Facades\Auth;
 use Barryvdh\Debugbar\Facade as debugbar;
 
 
@@ -13,21 +12,6 @@ class ClientePolicy
 {
     use HandlesAuthorization;
 
-    /**
-     * Determine if the user has Super User privileges (ADMIN)
-     * Admin user is granted all previleges over "Cliente" entity
-     *
-     *
-     * @param \App\Models\User $user
-     * @param $ability
-     * @return bool
-     */
-    public function before($user, $ability)
-    {
-        if ($user->tipo == 'A') {
-            return true;
-        }
-    }
 
     /**
      * Determine whether the user can view any models.
@@ -37,7 +21,7 @@ class ClientePolicy
      */
     public function viewAny(User $user)
     {
-        return false;
+        return $user->tipo == 'A';
     }
 
     /**
@@ -49,8 +33,6 @@ class ClientePolicy
      */
     public function view(User $user, Cliente $cliente)
     {
-        debugbar::info($cliente);
-        debugbar::info($user);
         return $user->id == $cliente->id;
     }
 
@@ -78,7 +60,21 @@ class ClientePolicy
     }
 
     /**
-     * Determine whether the admin can BLOCK the model.
+     * FOR PASSWORD
+     * Determine whether the user can update the model.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\User  $model
+     * @return mixed
+     */
+    public function updatePassword(User $user, Cliente $cliente)
+    {
+        return $user->id == $cliente->id;
+    }
+
+
+    /**
+     * Determine only cliente can update password
      *
      * @param \App\Models\User $user
      * @param \App\Models\Cliente $cliente

@@ -25,7 +25,6 @@ class CategoriaController extends Controller
 
     public function store(CategoriaPost $request)
     {
-
         $newCategoria = Categoria::create($request->validated());
         return redirect()->route('admin.categorias')
             ->with('alert-msg', 'Categoria "' . $newCategoria->nome . '" foi criada com sucesso!')

@@ -61,5 +61,9 @@ class LoginController extends Controller
                 ->with('alert-msg', 'Não foi possível iniciar sessão com o utilizador "' . $oldName . '". contacte o administrador!')
                 ->with('alert-type', 'danger');
         }
+
+        if ($user->email_verified_at == ""){
+            return redirect('/email/verify');
+        }
     }
 }

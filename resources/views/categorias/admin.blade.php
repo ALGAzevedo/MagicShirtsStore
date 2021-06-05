@@ -12,7 +12,6 @@
     <table class="table">
         <thead>
         <tr>
-
             <th>Nome</th>
             <th></th>
             <th></th>
@@ -34,7 +33,6 @@
                         <input type="submit" class="btn btn-danger btn-sm" value="Apagar">
                     </form>
                 </td>
-
             </tr>
         @endforeach
         </tbody>

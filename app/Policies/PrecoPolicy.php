@@ -2,30 +2,20 @@
 
 namespace App\Policies;
 
+use App\Models\Preco;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
-use Barryvdh\Debugbar\Facade as debugbar;
 
-class UserPolicy
+class PrecoPolicy
 {
     use HandlesAuthorization;
 
-
-    /**
-     * Determine if the user has Super User privileges (ADMIN)
-     * Admin user is granted all previleges over "Funcionario(User)" entity
-     *
-     *
-     * @param \App\Models\User $user
-     * @param $ability
-     * @return bool
-     */
-    public function before($user, $ability)
-    {
-        if ($user->tipo == 'A') {
+    public function before(User $user) {
+        if($user->tipo == 'A') {
             return true;
         }
     }
+
     /**
      * Determine whether the user can view any models.
      *
@@ -41,13 +31,12 @@ class UserPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
+     * @param  \App\Models\Preco  $preco
      * @return mixed
      */
-    public function view(User $user, User $model)
+    public function view(User $user, Preco $preco)
     {
-
-        return true;
+        return false;
     }
 
     /**
@@ -65,48 +54,34 @@ class UserPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
+     * @param  \App\Models\Preco  $preco
      * @return mixed
      */
-    public function update(User $user, User $model)
+    public function update(User $user, Preco $preco)
     {
-
         return false;
-    }
-
-    /**
-     * FOR PASSWORD
-     * Determine whether the user can update the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
-     * @return mixed
-     */
-    public function updatePassword(User $user, User $model)
-    {
-        return $user->id == $model->id;
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
+     * @param  \App\Models\Preco  $preco
      * @return mixed
      */
-    public function delete(User $user, User $model)
+    public function delete(User $user, Preco $preco)
     {
-        return false;
+        //
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
+     * @param  \App\Models\Preco  $preco
      * @return mixed
      */
-    public function restore(User $user, User $model)
+    public function restore(User $user, Preco $preco)
     {
         //
     }
@@ -115,10 +90,10 @@ class UserPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
+     * @param  \App\Models\Preco  $preco
      * @return mixed
      */
-    public function forceDelete(User $user, User $model)
+    public function forceDelete(User $user, Preco $preco)
     {
         //
     }

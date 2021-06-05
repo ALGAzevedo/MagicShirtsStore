@@ -2,30 +2,15 @@
 
 namespace App\Policies;
 
+use App\Models\Estampa;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
-use Barryvdh\Debugbar\Facade as debugbar;
 
-class UserPolicy
+class EstampaPolicy
 {
     use HandlesAuthorization;
 
 
-    /**
-     * Determine if the user has Super User privileges (ADMIN)
-     * Admin user is granted all previleges over "Funcionario(User)" entity
-     *
-     *
-     * @param \App\Models\User $user
-     * @param $ability
-     * @return bool
-     */
-    public function before($user, $ability)
-    {
-        if ($user->tipo == 'A') {
-            return true;
-        }
-    }
     /**
      * Determine whether the user can view any models.
      *
@@ -37,17 +22,29 @@ class UserPolicy
         return false;
     }
 
+    public function viewAny_Admin(User $user)
+    {
+        return $user->tipo == 'A';
+    }
+
+
+
     /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
+     * @param  \App\Models\Estampa  $estampa
      * @return mixed
      */
-    public function view(User $user, User $model)
+    public function view(User $user, Estampa $estampa)
     {
+        return false;
+    }
 
-        return true;
+
+    public function view_Admin(User $user, Estampa $estampa)
+    {
+        return $user->tipo == 'A' && $estampa->cliente_id == null;
     }
 
     /**
@@ -61,52 +58,55 @@ class UserPolicy
         return false;
     }
 
-    /**
-     * Determine whether the user can update the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
-     * @return mixed
-     */
-    public function update(User $user, User $model)
+    public function create_Admin(User $user)
     {
-
-        return false;
+        return $user->tipo == 'A';
     }
 
     /**
-     * FOR PASSWORD
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
+     * @param  \App\Models\Estampa  $estampa
      * @return mixed
+     *
      */
-    public function updatePassword(User $user, User $model)
+
+    public function update(User $user, Estampa $estampa)
     {
-        return $user->id == $model->id;
+        return false;
+    }
+
+    public function update_Admin(User $user, Estampa $estampa)
+    {
+        return $user->tipo == 'A' && $estampa->cliente_id == null;
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
+     * @param  \App\Models\Estampa  $estampa
      * @return mixed
      */
-    public function delete(User $user, User $model)
+    public function delete(User $user, Estampa $estampa)
     {
         return false;
+    }
+
+    public function delete_Admin(User $user, Estampa $estampa)
+    {
+        return $user->tipo == 'A' && $estampa->cliente_id == null;
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
+     * @param  \App\Models\Estampa  $estampa
      * @return mixed
      */
-    public function restore(User $user, User $model)
+    public function restore(User $user, Estampa $estampa)
     {
         //
     }
@@ -115,10 +115,10 @@ class UserPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
+     * @param  \App\Models\Estampa  $estampa
      * @return mixed
      */
-    public function forceDelete(User $user, User $model)
+    public function forceDelete(User $user, Estampa $estampa)
     {
         //
     }

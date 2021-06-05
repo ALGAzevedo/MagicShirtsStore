@@ -8,7 +8,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
-class UserUpdatePost extends FormRequest
+class UserFuncUpdatePost extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,19 +27,10 @@ class UserUpdatePost extends FormRequest
      */
     public function rules()
     {
-
         return [
-            'name' =>         'required',
-            'tipo' =>        'required|in:A,F',
-            'bloqueado' =>     'required|in:1,0',
-            'password' =>     'nullable',
-            'email' => [
-                'required',
-                'email',
-                Rule::unique('users', 'email')->ignore($this->user_id),
-            ],
-            'foto' => 'nullable|image|max:8192', // Máximum size = 8Mb
+            'oldPassword' =>     'required',
+            'newPassword' =>     ['required', 'string', 'min:8', 'confirmed'],
+            'newPassword_confirmation' =>     ['required', 'string', 'min:8'],
         ];
     }
-
 }

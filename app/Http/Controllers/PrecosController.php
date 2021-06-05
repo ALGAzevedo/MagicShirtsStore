@@ -10,18 +10,13 @@ class PrecosController extends Controller
 {
     public function admin_index()
     {
-        $precos = Preco::all();
-        $precos = $precos->first();
+        $precos = Preco::all()->first();
 
         return view('precos.admin', compact('precos'));
     }
 
     public function edit(Preco $precos)
     {
-        /*
-        $precos = Preco::all();
-        $precos = $precos->first();
-        */
         return view('precos.edit', compact('precos'));
     }
 
