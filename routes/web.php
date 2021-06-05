@@ -10,6 +10,8 @@ use App\Http\Controllers\EncomendaController;
 
 use App\Http\Controllers\TshirtController;
 use App\Http\Controllers\UserController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\PageController;
@@ -44,7 +46,6 @@ Route::put('carrinho/{uuid}', [CartController::class, 'update'])->name('carrinho
 Route::delete('carrinho/{uuid}', [CartController::class, 'destroy_item'])->name('carrinho.destroy_item');
 Route::post('carrinho', [CartController::class, 'store'])->name('carrinho.store');
 Route::delete('carrinho', [CartController::class, 'destroy'])->name('carrinho.destroy');
-
 
 
 //HISTORICO ENCOMENDA CLIENTES
@@ -100,12 +101,12 @@ Route::middleware('auth')->prefix('administracao')->name('admin.')->group(functi
 //ADMINISTRACAO ENCOMENDAS
 
 
-Route::get('encomendas', [EncomendaController::class, 'admin_index'])->name('encomendas')
-    ->middleware('can:viewBackEncomenda, \App\Models\Encomenda');
-Route::get('encomendas/{encomenda}/edit', [EncomendaController::class, 'admin_edit'])->name('encomendas.edit')
-    ->middleware('can:view,encomenda');
-Route::put('encomendas/{encomenda}', [EncomendaController::class, 'admin_update'])->name('encomendas.update')
-    ->middleware('can:update,encomenda');
+    Route::get('encomendas', [EncomendaController::class, 'admin_index'])->name('encomendas')
+        ->middleware('can:viewBackEncomenda, \App\Models\Encomenda');
+    Route::get('encomendas/{encomenda}/edit', [EncomendaController::class, 'admin_edit'])->name('encomendas.edit')
+        ->middleware('can:view,encomenda');
+    Route::put('encomendas/{encomenda}', [EncomendaController::class, 'admin_update'])->name('encomendas.update')
+        ->middleware('can:update,encomenda');
 
 
 //ADMINISTRACAO FUNCIONARIOS
@@ -158,4 +159,25 @@ Route::put('cliente/{cliente}', [ClienteController::class, 'update'])->name('cli
 
 Auth::routes(['register' => true]);
 
+//EMAIL VERIFICATION
+
+Auth::routes(['verify' => true]);
+
+Route::get('/email/verify', function () {
+    return view('auth.verify');
+})->middleware('auth')->name('verification.notice');
+
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+
+    return redirect('/')
+        ->with('alert-msg', 'O seu email foi verificado!')
+        ->with('alert-type', 'success');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+
+    return back()->with('message', 'Verification link sent!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
