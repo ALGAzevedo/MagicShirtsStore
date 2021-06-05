@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Cliente;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -55,7 +54,6 @@ class RegisterController extends Controller
 
         $validation_array = [
             'name' => 'required',
-            'endereco' => 'nullable',
             'bloqueado' => 'required|in:1,0',
             'tipo' => 'required|in:C',
             'password' => [
