@@ -1,5 +1,6 @@
 @extends('layout_admin')
 @section('content')
+    @can('viewCharts')
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -42,3 +43,4 @@
     {!! $chart3->renderJs() !!}
     {!! $chart4->renderJs() !!}
 @endsection
+@endcan

@@ -32,6 +32,10 @@ class AuthServiceProvider extends ServiceProvider
            return $user->name == 'admin';
         });
 
+        Gate::define('viewCharts', function($user){
+            return $user->tipo == 'A';;
+        });
+
         //
     }
 }
