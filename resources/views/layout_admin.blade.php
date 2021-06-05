@@ -185,6 +185,7 @@
                 <div class="row">
                     <div class="col">
                         @yield('content')
+                        @yield('javascript')
                     </div>
 
                 </div>
