@@ -83,7 +83,7 @@ class UserController extends Controller
             //Password validada
             $funcionario->password = Hash::make($validated_data['newPassword']);
             $funcionario->save();
-            return redirect()->route('admin.dashboard')
+            return redirect()->route('admin.funcionarios.edit', ['funcionario' => $funcionario])
                 ->with('alert-msg', 'Funcionario "' . $funcionario->name . '" foi alterado com sucesso!')
                 ->with('alert-type', 'success');
         }

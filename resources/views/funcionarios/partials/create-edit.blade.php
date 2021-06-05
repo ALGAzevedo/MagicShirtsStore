@@ -18,16 +18,8 @@
 </div>
 @can('update', $funcionario)
     <div class="form-group">
-        <label for="inputPassword">Password</label>
-        <input type="password" class="form-control" name="password" id="password"
-               value="">
-        @elsecannot('update', $funcionario)
             <a href="{{route('admin.funcionarios.password.update', ['funcionario' => $funcionario]) }}"
                class="btn btn-dark">Alterar Password</a>
-        @elsecannot('update', $funcionario)
-            @error('password')
-            <div class="small text-danger">{{$message}}</div>
-            @enderror
     </div>
 @elsecannot('update', $funcionario)
     <a href="{{route('admin.funcionarios.edit', ['funcionario' => $funcionario]) }}"

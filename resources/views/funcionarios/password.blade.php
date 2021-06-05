@@ -32,7 +32,7 @@
             @enderror
         </div>
         <div class="form-group">
-            <label for="inputPassword">Nova Password/label>
+            <label for="inputPassword">Nova Password</label>
             <input type="password" class="form-control" name="newPassword" id="newPassword"
                    value="">
             @error('newPassword')
