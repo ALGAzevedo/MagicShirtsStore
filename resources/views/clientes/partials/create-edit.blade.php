@@ -50,14 +50,12 @@
     <div class="small text-danger">{{$message}}</div>
     @enderror
 </div>
-<div class="form-group">
-    <label for="inputPassword">Password</label>
-    <input type="password" class="form-control" name="password" id="password"
-           value="">
-    @error('password')
-    <div class="small text-danger">{{$message}}</div>
-    @enderror
-</div>
+@can('updatePassword', $cliente)
+    <div class="form-group">
+        <a href="{{route('clientes.password.update', ['cliente' => $cliente]) }}"
+           class="btn btn-dark">Alterar Password</a>
+    </div>
+@endcan
 
 <div class="form-group">
     <div class="form-check form-check-inline">
