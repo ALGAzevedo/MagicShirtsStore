@@ -59,8 +59,6 @@ class DashboardController extends Controller
             'group_by_field' => 'tipo_pagamento',
             'aggregate_function' => 'count',
             'chart_type' => 'bar',
-            'filter_field' => 'created_at',
-            'filter_days' => 30,
         ];
 
         $chart4 = new LaravelChart($chart_options);
