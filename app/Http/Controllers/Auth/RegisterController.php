@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Cliente;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -52,39 +51,64 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        $data['tipo_ref'] = 'true';
-        if($data['tipo_pagamento'] == ""){
-            $data['tipo_ref'] = 'false';
-        }
 
-        return Validator::make($data, [
-
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        $validation_array = [
+            'name' => 'required',
+            'bloqueado' => 'required|in:1,0',
+            'tipo' => 'required|in:C',
+            'password' => [
+                'required',
+                'min:4'
+            ],
             'nif' => [
                 'nullable',
                 'numeric',
-                'digits:9',
+                'size:9'
             ],
-            'endereco' => 'nullable',
-            'tipo_pagamento' => [
+            'endereco' => [
                 'nullable',
-                'in:MC,PAYPAL,VISA',
+                'string',
+                'max:255',
             ],
-            'ref_pagamento' => 'required_if:tipo_ref, true',
-            'bloqueado' => [
-                'required',
-                'in:0'
-            ],
-            'tipo' => [
-                'required',
-                'in:C'
-            ],
+            'tipo_pagamento' => 'nullable|in:MC,PAYPAL,VISA',
             'email' => [
                 'required',
                 'email',
-                    Rule::unique('users', 'email'),
+                Rule::unique('users', 'email'),
             ],
-        ]);
+
+            'foto' => 'nullable|image|max:8192', // Máximum size = 8Mb
+        ];
+
+
+        if ($data['tipo_pagamento'] == 'MC' || $data['tipo_pagamento'] == 'VISA') {
+            $validation_array += [
+                'ref_pagamento' => ['required', 'numeric', 'digits:16'],
+            ];
+        }
+        if ($data['tipo_pagamento'] == 'PAYPAL') {
+            $validation_array += [
+                'ref_pagamento' => ['required', 'email'],
+            ];
+        }
+
+        $messages = [
+            'ref_pagamento.required' => 'O campo referência de pagamento é obrigatório.',
+            'ref_pagamento.email' => 'A referência de pagamento deve ser o seu email do PayPal.',
+            'ref_pagamento.numeric' => 'A referência de pagamento deve ser o seu número do cartão de crédito',
+            'ref_pagamento.digits' => 'O número do seu cartão deve ter 16 digitos',
+        ];
+        return Validator::make($data, $validation_array, $messages);
+
+    }
+
+
+    public function messages()
+    {
+        return [
+            'title.required' => 'A title is required',
+            'body.required' => 'A message is required',
+        ];
     }
 
     /**
@@ -107,13 +131,13 @@ class RegisterController extends Controller
 
         $newCliente = new Cliente;
         $newCliente->id = $newUser->id;
-        if($data['nif'] != ""){
+        if ($data['nif'] != "") {
             $newCliente->nif = $data['nif'];
         }
-        if($data['endereco'] != ""){
+        if ($data['endereco'] != "") {
             $newCliente->endereco = $data['endereco'];
         }
-        if($data['tipo_pagamento'] != ""){
+        if ($data['tipo_pagamento'] != "") {
             $newCliente->tipo_pagamento = $data['tipo_pagamento'];
             $newCliente->ref_pagamento = $data['ref_pagamento'];
         }
@@ -122,4 +146,5 @@ class RegisterController extends Controller
 
         return $newUser;
     }
+
 }

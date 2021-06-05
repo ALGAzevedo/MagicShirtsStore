@@ -50,7 +50,7 @@
                                 <div class="col-md-6">
                                     <input id="nif" type="text"
                                            class="form-control @error('nif') is-invalid @enderror" name="nif"
-                                           value="{{ old('nif') }}" autocomplete="name" autofocus placeholder="123456789">
+                                           value="{{ old('nif') }}" autocomplete="nif" autofocus placeholder="123456789">
 
                                     @error('nif')
                                     <span class="invalid-feedback" role="alert">
@@ -66,7 +66,7 @@
                                 <div class="col-md-6">
                                     <input id="endereco" type="text"
                                            class="form-control @error('endereco') is-invalid @enderror" name="endereco"
-                                           value="{{ old('endereco') }}" autocomplete="name" autofocus placeholder="Never Land Street 15">
+                                           value="{{ old('endereco') }}" autocomplete="endereco" autofocus placeholder="Never Land Street 15">
 
                                     @error('name')
                                     <span class="invalid-feedback" role="alert">
@@ -85,9 +85,9 @@
                                             value="{{ old('tipo_pagamento') }}" autocomplete="tipo_pagamento"
                                             autofocus>
                                         <option value="" selected>Não inserir</option>
-                                        <option value="MC">MC</option>
-                                        <option value="PAYPAL">PAYPAL</option>
-                                        <option value="VISA">VISA</option>
+                                        <option value="MC"{{ old('tipo_pagamento') == 'MC' ? 'selected' : '' }}>MC</option>
+                                        <option value="PAYPAL" {{ old('tipo_pagamento') == 'PAYPAL' ? 'selected' : '' }}>PAYPAL</option>
+                                        <option value="VISA" {{ old('tipo_pagamento') == 'VISA' ? 'selected' : '' }}>VISA</option>
                                     </select>
                                     @error('tipo_pagamento')
                                     <span class="invalid-feedback" role="alert">
@@ -104,9 +104,9 @@
                                     <input id="ref_pagamento" type="text"
                                            class="form-control @error('ref_pagamento') is-invalid @enderror"
                                            name="ref_pagamento"
-                                           value="{{ old('ref_pagamento') }}" autocomplete="name" autofocus>
+                                           value="{{ old('ref_pagamento') }}" autocomplete="ref_pagamento">
 
-                                    @error('tipo_pagamento')
+                                    @error('ref_pagamento')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -119,7 +119,8 @@
 
                                 <div class="col-md-6">
                                     <input id="password" type="password"
-                                           class="form-control @error('password') is-invalid @enderror" name="password"
+                                           class="form-control @error('password') is-invalid @enderror"
+                                           name="password"
                                            required autocomplete="new-password">
 
                                     @error('password')

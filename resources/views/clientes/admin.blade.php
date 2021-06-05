@@ -2,6 +2,104 @@
 @section('title','Clientes' )
 @section('content')
 
+    <form method="GET" action="{{route('admin.clientes')}}" class="form-group">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="col-9">
+                        <label for="inputBloqueado">Bloqueado</label>
+                        <div class="input-group">
+                            <select class="form-control" name="bloqueado" id="inputBloqueado">
+                                <option value="">Todos</option>
+                                <option value="1">Bloqueados</option>
+                                <option value="0">Não Bloqueados</option>
+                            </select>
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="submit">Filtrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-9">
+                        <label for="inputTipoPagamento">Tipo Pagamento</label>
+                        <div class="input-group">
+                            <select class="form-control" name="tipo_pagamento" id="inputTipoPagamento">
+                                <option value="">Todos</option>
+                                <option value="MC">MC</option>
+                                <option value="PAYPAL">PAYPAL</option>
+                                <option value="VISA">VISA</option>
+                            </select>
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="submit">Filtrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-9">
+                        <label for="inputNome">Nome</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="name" id="inputNome" value="">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="submit">Filtrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-9">
+                        <label for="inputEmail">Email</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="email" id="inputEmail" value="">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="submit">Filtrar</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="col-9">
+                        <label for="inputNif">NIF</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="nif" id="inputNif" value="">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="submit">Filtrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-9">
+                        <label for="inputEndereco">Endereço</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="endereco" id="inputEndereco" value="">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="submit">Filtrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-9">
+                        <label for="inputReferencia">Referência Pagamento</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="ref_pagamento" id="inputReferencia" value="">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="submit">Filtrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </form>
     <table class="table">
         <thead>
         <tr>
@@ -40,11 +138,12 @@
                 @else
                     <td>Não</td>
                 @endif
-
-                <td>
-                    <a href="{{route('admin.clientes.edit', ['cliente'=> $cliente])}}"
-                       class="btn btn-primary btn-sm" role="button" aria-pressed="true">Alterar</a>
-                </td>
+                @can('developer')
+                    <td>
+                        <a href="{{route('admin.clientes.edit', ['cliente'=> $cliente])}}"
+                           class="btn btn-primary btn-sm" role="button" aria-pressed="true">Alterar</a>
+                    </td>
+                @endcan
                 <td>
                     <form method="POST" action="{{route('admin.clientes.block', ['cliente' => $cliente]) }}"
                           class="form-group" enctype="multipart/form-data">
@@ -74,4 +173,6 @@
         </tbody>
     </table>
     {{ $clientes->withQueryString()->links()}}
+
+
 @endsection

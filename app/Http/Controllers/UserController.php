@@ -2,21 +2,34 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserFuncUpdatePost;
 use App\Http\Requests\UserPost;
 use App\Http\Requests\UserUpdatePost;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
-    public function admin_funcs()
+    public function admin_funcs(Request $request)
     {
-
         $qry = User::withoutTrashed();
-        $qry->where('tipo', '=', 'F')
-            ->orWhere('tipo', '=', 'A')
+        if ($request->filled('bloqueado')) {
+            $qry->where('bloqueado', '=', $request->input('bloqueado'));
+        }
+        if ($request->filled('tipo')) {
+            $qry->where('tipo', '=', $request->input('tipo'));
+        }
+        if ($request->filled('name')) {
+            $qry->where('name', 'LIKE', '%' . $request->input('name') . '%');
+        }
+        if ($request->filled('email')) {
+            $qry->where('email', 'LIKE', '%' . $request->input('email') . '%');
+        }
+        $qry->where('tipo', '!=', 'C')
             ->orderBy('name');
+
 
         //$funcionarios = User::pluck('name', 'email', 'tipo')->paginate(10);
         $funcs = $qry->paginate(10);
@@ -34,18 +47,12 @@ class UserController extends Controller
     {
 
         $validated_data = $request->validated();
-        if ($request->filled('email')) {
-            $funcionario->email = $validated_data['email'];
-        }
-        if ($request->filled('name')) {
-            $funcionario->name = $validated_data['name'];
-        }
-        if ($request->filled('tipo')) {
-            $funcionario->tipo = $validated_data['tipo'];
-        }
-        if ($request->filled('bloqueado')) {
-            $funcionario->bloqueado = $validated_data['bloqueado'];
-        }
+
+        $funcionario->email = $validated_data['email'];
+        $funcionario->name = $validated_data['name'];
+        $funcionario->tipo = $validated_data['tipo'];
+        $funcionario->bloqueado = $validated_data['bloqueado'];
+
         if ($request->filled('password')) {
             $funcionario->password = Hash::make($validated_data['password']);
         }
@@ -60,18 +67,31 @@ class UserController extends Controller
             ->with('alert-type', 'success');
     }
 
-//    public function updatePassword(UserPost $request, User $funcionario)
-//    {
-//
-//        $validated_data = $request->validated();
-//
-//        if ($request->filled('password')) {
-//            $funcionario->password = Hash::make($validated_data['password']);
-//        }
-//        return redirect()->route('admin.dashboard')
-//            ->with('alert-msg', 'Funcionario "' . $funcionario->name . '" foi alterado com sucesso!')
-//            ->with('alert-type', 'success');
-//    }
+    public function viewPassword(User $funcionario)
+    {
+
+        return view('funcionarios.password')
+            ->withFuncionario($funcionario);
+    }
+
+    public function updatePassword(UserFuncUpdatePost $request, User $funcionario)
+    {
+
+        $validated_data = $request->validated();
+
+        if (Hash::check($validated_data['oldPassword'], $funcionario->getAuthPassword())) {
+            //Password validada
+            $funcionario->password = Hash::make($validated_data['newPassword']);
+            $funcionario->save();
+            return redirect()->route('admin.funcionarios.edit', ['funcionario' => $funcionario])
+                ->with('alert-msg', 'Funcionario "' . $funcionario->name . '" foi alterado com sucesso!')
+                ->with('alert-type', 'success');
+        }
+
+        return redirect()->route('admin.funcionarios.password.update', ['funcionario' => $funcionario])
+            ->with('alert-msg', 'Password antiga do funcionário "' . $funcionario->name . '" está incorreta!')
+            ->with('alert-type', 'danger');
+    }
 
     public function create()
     {
@@ -137,6 +157,11 @@ class UserController extends Controller
                     ->with('alert-type', 'danger');
             }
         }
+    }
+
+    public function getAuthPassword()
+    {
+        return $this->password;
     }
 
 }

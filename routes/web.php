@@ -52,14 +52,13 @@ Route::get('encomendas', [EncomendaController::class, 'index'])->name('cliente.e
 Route::get('encomendas/{encomenda}', [EncomendaController::class, 'view_encomenda'])->name('cliente.encomenda.view')
     ->middleware('can:viewClientEncomenda,encomenda');
 
-
 //ADMINISTRAÇÃO
 
 //MAIN
 
 Route::middleware('auth')->prefix('administracao')->name('admin.')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard')
-        ->middleware('can:viewAny, App\Models\Dashboard');
+        ->middleware('can:access-administration');
 
 
 //ADMINISTRACAO ESTAMPAS
@@ -100,6 +99,7 @@ Route::middleware('auth')->prefix('administracao')->name('admin.')->group(functi
 
 //ADMINISTRACAO ENCOMENDAS
 
+
 Route::get('encomendas', [EncomendaController::class, 'admin_index'])->name('encomendas')
     ->middleware('can:viewBackEncomenda, \App\Models\Encomenda');
 Route::get('encomendas/{encomenda}/edit', [EncomendaController::class, 'admin_edit'])->name('encomendas.edit')
@@ -119,8 +119,10 @@ Route::put('encomendas/{encomenda}', [EncomendaController::class, 'admin_update'
         ->middleware('can:create, App\Models\User');
     Route::put('funcionarios/{funcionario}', [UserController::class, 'update'])->name('funcionarios.update')
         ->middleware('can:update,funcionario');
-//    Route::put('funcionarios/{funcionario}/password', [UserController::class, 'update'])->name('funcionarios.password.update')
-//        ->middleware('can:update,funcionario');
+    Route::get('funcionarios/{funcionario}/password', [UserController::class, 'viewPassword'])->name('funcionarios.password.update')
+        ->middleware('can:updatePassword,funcionario');
+    Route::put('funcionarios/password/{funcionario}', [UserController::class, 'updatePassword'])->name('funcionarios.updatePassword')
+        ->middleware('can:updatePassword,funcionario');
     Route::delete('funcionarios/{funcionario}', [UserController::class, 'destroy'])->name('funcionarios.destroy')
         ->middleware('can:delete,funcionario');
     Route::delete('funcionarios/{funcionario}/foto', [UserController::class, 'destroy_foto'])->name('funcionarios.foto.destroy')
@@ -147,9 +149,12 @@ Route::put('encomendas/{encomenda}', [EncomendaController::class, 'admin_update'
 
 //EDICAO PERFIL DO CLIENTE
 
-Route::get('clientes/{cliente}/edit', [ClienteController::class, 'show'])->name('clientes.edit')
+Route::get('cliente/{cliente}/edit', [ClienteController::class, 'show'])->name('clientes.edit')
     ->middleware('can:view,cliente');
-
+Route::get('cliente/{cliente}/password', [ClienteController::class, 'viewPassword'])->name('clientes.password.update')
+    ->middleware('can:update,cliente');
+Route::put('cliente/password/{cliente}', [ClienteController::class, 'updatePassword'])->name('clientes.updatePassword')
+    ->middleware('can:updatePassword,cliente');
 
 Auth::routes(['register' => true]);
 

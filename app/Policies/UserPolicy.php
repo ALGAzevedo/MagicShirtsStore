@@ -10,6 +10,7 @@ class UserPolicy
 {
     use HandlesAuthorization;
 
+
     /**
      * Determine if the user has Super User privileges (ADMIN)
      * Admin user is granted all previleges over "Funcionario(User)" entity
@@ -45,6 +46,7 @@ class UserPolicy
      */
     public function view(User $user, User $model)
     {
+
         return true;
     }
 
@@ -69,7 +71,7 @@ class UserPolicy
     public function update(User $user, User $model)
     {
 
-        return $user->id == $model->id;
+        return false;
     }
 
     /**
@@ -82,7 +84,7 @@ class UserPolicy
      */
     public function updatePassword(User $user, User $model)
     {
-        return false;
+        return $user->id == $model->id;
     }
 
     /**

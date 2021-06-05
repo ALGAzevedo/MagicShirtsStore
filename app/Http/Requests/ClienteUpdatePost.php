@@ -2,8 +2,11 @@
 
 namespace App\Http\Requests;
 
+
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Http\Request;
 
 class ClienteUpdatePost extends FormRequest
 {
@@ -20,22 +23,30 @@ class ClienteUpdatePost extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array
+     * @return \Illuminate\Contracts\Validation\Validator
      */
-    public function rules()
+    public function rules(Request $request)
     {
-        return [
+
+        $validation_array = [
             'name' => 'required',
-            'endereco' => 'required',
             'bloqueado' => 'required|in:1,0',
-            'nif' => [
+            'tipo' => 'required|in:C',
+            'password' => [
                 'required',
-                'numeric',
-                'digits:9',
+                'min:4'
             ],
-            'password' => 'nullable',
-            'tipo_pagamento' => 'required|in:MC,PAYPAL,VISA',
-            'ref_pagamento' => 'required',
+            'nif' => [
+                'nullable',
+                'string',
+                'size:9'
+            ],
+            'endereco' => [
+                'nullable',
+                'string',
+                'max:255',
+            ],
+            'tipo_pagamento' => 'nullable|in:MC,PAYPAL,VISA',
             'email' => [
                 'required',
                 'email',
@@ -43,6 +54,30 @@ class ClienteUpdatePost extends FormRequest
             ],
 
             'foto' => 'nullable|image|max:8192', // Máximum size = 8Mb
+        ];
+
+        if ($request['tipo_pagamento'] == 'MC' || $request['tipo_pagamento'] == 'VISA') {
+            $validation_array += [
+                'ref_pagamento' => ['required', 'numeric', 'digits:16'],
+            ];
+        }
+        if ($request['tipo_pagamento'] == 'PAYPAL') {
+            $validation_array += [
+                'ref_pagamento' => ['required', 'email'],
+            ];
+        }
+
+
+        return $validation_array;
+    }
+
+    public function messages()
+    {
+        return [
+            'ref_pagamento.required' => 'O campo referência de pagamento é obrigatório.',
+            'ref_pagamento.email' => 'A referência de pagamento deve ser o seu email do PayPal.',
+            'ref_pagamento.numeric' => 'A referência de pagamento deve ser o seu número do cartão de crédito',
+            'ref_pagamento.digits' => 'O número do seu cartão deve ter 16 digitos',
         ];
     }
 }
