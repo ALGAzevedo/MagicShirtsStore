@@ -31,7 +31,7 @@ class ClienteEstampaController extends Controller
 
 
         //TODO: CÓDIGO DUPLICADO COM O ADMIN
-        $validated_data = $request->validated();
+        $request->validated();
 
         $newEstampa = new Estampa;
         $newEstampa->cliente_id = Auth::id();

@@ -54,12 +54,14 @@ class CartController extends Controller
         return $id;
     }
 
-    public function add(CartRequest $request)
+    public function add(CartRequest $request, Estampa $estampa)
     {
+
+
         //Validação
         $request->validated();
 
-        $estampa_id = $request->estampa_id;
+        $estampa_id = $estampa->id;
         $uuid = (string)$request->cor_codigo . $estampa_id . $request->tamanho;
         $estampa = Estampa::findOrFail($estampa_id);
 
@@ -85,7 +87,7 @@ class CartController extends Controller
             'subtotal' => floatval($preco_un * $quantidade),
         ];
 
-        if (!Storage::disk('public')->exists('product/')) {
+      /*  if (!Storage::disk('public')->exists('product/')) {
             Storage::disk('public')->makeDirectory('product/');
         }
 
@@ -99,7 +101,7 @@ class CartController extends Controller
             ->insert($watermark, 'center')
             ->save(public_path('/storage/product/' . $imagem_tshirt));
 
-
+*/
         session()->put('carrinho', $carrinho);
         session()->put('carrinho_qty', $this->count());
         session()->put('carrinho_subtotal', $this->subtotal());
@@ -112,6 +114,8 @@ class CartController extends Controller
 
     public function update(Request $request, string $uuid)
     {
+        //$request->validated();
+
         $carrinho = session()->get('carrinho', []);
 
         if (!array_key_exists($uuid, $carrinho)) {

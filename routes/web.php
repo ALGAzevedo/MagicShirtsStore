@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\ClienteEstampaController;
 use App\Http\Controllers\DashboardController;
@@ -35,18 +36,20 @@ Route::get('estampas', [EstampaController::class, 'index'])->name('estampas.inde
 
 Route::get('about', [PageController::class, 'about'])->name('about');
 
-Route::get('tshirts/{estampa}', [TshirtController::class, 'choose'])->name('tshirts.choose');
+Route::get('tshirts/{estampa}', [TshirtController::class, 'choose'])
+    ->middleware('can:viewAnyPrivate,estampa')
+    ->name('tshirts.choose');
 
 
 //ROTAS DO CARRINHO
 //Route::get('tshirts/{estampa}/{codigo}', [TshirtController::class, 'choose'])->name('tshirts.chooseWithColor');
 Route::get('carrinho', [CartController::class, 'index'])->name('carrinho');
-Route::post('carrinho/add_item', [CartController::class, 'add'])->name('carrinho.add');
+Route::post('carrinho/{estampa}', [CartController::class, 'add'])->name('carrinho.add');
 Route::get('carrinho/{uuid}', [CartController::class, 'update_item'])->name('carrinho.update_item');
 Route::put('carrinho/{uuid}', [CartController::class, 'update'])->name('carrinho.update');
-Route::delete('carrinho/{uuid}', [CartController::class, 'destroy_item'])->name('carrinho.destroy_item');
+Route::delete('carrinho/{uuid}/remove', [CartController::class, 'destroy_item'])->name('carrinho.destroy_item');
 Route::post('carrinho', [CartController::class, 'store'])->name('carrinho.store');
-Route::delete('carrinho', [CartController::class, 'destroy'])->name('carrinho.destroy');
+Route::delete('carrinho/empty', [CartController::class, 'destroy'])->name('carrinho.destroy');
 
 
 //HISTORICO ENCOMENDA CLIENTES
@@ -171,7 +174,7 @@ Route::put('cliente/{cliente}', [ClienteController::class, 'update'])->name('cli
 Route::middleware( 'auth')->prefix('cliente')->group(function () {
 
 Route::get('/estampas', [ClienteEstampaController::class, 'index'])->name('estampas.cliente')
-    ->middleware('can:create_private,App\Models\Estampa');
+    ->middleware('can:viewPrivate,App\Models\Estampa');
 
 Route::get('/estampas/create', [ClienteEstampaController::class, 'create'])->name('cliente.estampas.create')
     ->middleware('can:create_private,App\Models\Estampa');
@@ -183,6 +186,13 @@ Route::put('/estampas/{estampa}', [ClienteEstampaController::class, 'update'])->
     ->middleware('can:update_private,estampa');
 Route::delete('/estampas/{estampa}', [ClienteEstampaController::class, 'destroy'])->name('cliente.estampas.destroy')
     ->middleware('can:delete_private,estampa');
+});
+
+
+Route::middleware( 'auth')->group(function () {
+    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+    Route::post('/checkout/order', [CheckoutController::class, 'create'])->name('checkout.order');
+    // Route::get('account/orders', [AccountControllerController::class, 'orders'])->name('account.orders');
 });
 
 Auth::routes(['register' => true]);
