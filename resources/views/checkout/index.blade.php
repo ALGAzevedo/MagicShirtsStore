@@ -7,57 +7,76 @@
                 <h1>Checkout</h1>
             </div>
         </section>
+        <form action="{{ route('checkout.order') }}" method="POST" role="form">
         <div class="row">
 
             <!--Grid column-->
             <div class="col-lg-7">
-
-
+                @if (session('alert-msg'))
+                    @include('partials.message')
+                @endif
+                @if ($errors->any())
+                    @include('partials.errors')
+                @endif
                 <div class="card mb-4">
                     <div class="card-body">
-                        <h5 class="card-title mb-4">Informação de Faturação</h5>
-                        <form action="">
+                        <h5 class="card-title mb-4">Dados de Cliente</h5>
 
+                            @csrf
+                            @method('POST')
                             <div class="form-row">
                                 <div class="form-group col-sm-6">
                                     <label>Nome</label>
-                                    <input type="text" placeholder="Nome" class="form-control">
+                                    <input type="text" placeholder="Nome" name="name"
+                                           value="{{old('name', $cliente->user->name)}}" class="form-control">
+                                    @error('name')
+                                    <div class="invalid-feedback d-block">{{$message}}</div>
+                                    @enderror
                                 </div>
                                 <div class="form-group col-sm-6">
                                     <label>NIF <small>(opcional)</small></label>
-                                    <input type="text" placeholder="NIF" class="form-control">
+                                    <input type="text" placeholder="NIF" name="nif" value="{{old('nif', $cliente->nif)}}"
+                                           class="form-control">
+                                    @error('nif')
+                                    <div class="invalid-feedback d-block">{{$message}}</div>
+                                    @enderror
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group col mb-0">
                                     <label>Endereço</label>
-                                    <input type="text" name="endereco" placeholder="Rua e número de casa/apartamento" class="form-control">
+                                    <input type="text" name="endereco"
+                                           value="{{old('endereco', $cliente->endereco)}}"
+                                           placeholder="Rua e número de casa/apartamento" class="form-control">
+                                    @error('endereco')
+                                    <div class="invalid-feedback d-block">{{$message}}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <hr>
                             <div class="form-row">
-                                <div class="form-group col mb-0">
-                                    <label>Métodos de pagamento</label>
-                                    <div class="mt-2">
+                                <div class="col-md-6 mb-3">
+                                    <label for="inputPagamento">Tipo Pagamento</label>
+                                    <select name="tipo_pagamento" id="inputPagamento" class="custom-select"
+                                            value="{{ old('tipo_pagamento', $cliente->tipo_pagamento)}}">
+                                        <option value=""{{old('tipo_pagamento', $cliente->tipo_pagamento) == "" ? 'selected' : ""}}>Não inserir</option>
+                                        <option value="MC" {{old('tipo_pagamento', $cliente->tipo_pagamento) == "MC" ? 'selected' : ""}}>MC</option>
+                                        <option value="PAYPAL" {{old('tipo_pagamento', $cliente->tipo_pagamento) == "PAYPAL" ? 'selected' : ""}}>PAYPAL</option>
+                                        <option value="VISA" {{old('tipo_pagamento', $cliente->tipo_pagamento) == "VISA" ? 'selected' : ""}}>VISA</option>
+                                    </select>
+                                    @error('tipo_pagamento')
+                                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                </div>
 
-                                        <div class="custom-control custom-radio custom-control-inline">
-                                            <input type="radio" id="payment-visa" name="payment-type" value="VISA" class="custom-control-input">
-                                            <label class="custom-control-label" for="payment-visa">VISA</label>
-                                        </div>
-
-                                        <div class="custom-control custom-radio custom-control-inline">
-                                            <input type="radio" id="payment-mc" name="payment-type" value="MC" class="custom-control-input">
-                                            <label class="custom-control-label" for="payment-mc">MC</label>
-                                        </div>
-
-                                        <div class="custom-control custom-radio custom-control-inline">
-                                            <input type="radio" id="payment-paypal" name="payment-type" value="PAYPAL" class="custom-control-input">
-                                            <label class="custom-control-label" for="payment-paypal">PAYPAL</label>
-                                        </div>
-
-                                    </div>
-
+                                <div class="col-md-6 mb-3">
+                                    <label for="inputReferencia">Referência de pagamento</label>
+                                    <input type="text" class="form-control" name="ref_pagamento" id="inputReferencia"
+                                           value="{{old('ref_pagamento', $cliente->ref_pagamento)}}">
+                                    @error('ref_pagamento')
+                                    <div class="invalid-feedback d-block">{{$message}}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <hr>
@@ -65,12 +84,13 @@
                             <div class="form-row">
                                 <div class="form-group col">
                                     <label>Notas da encomenda (opcional)</label>
-                                    <textarea class="form-control" rows="2" placeholder="Notas sobre a sua encomenda"></textarea>
-                                    <small class="text-muted">Utilize este campo para "Observações" (por exemplo, informações pertinentes sobre a encomenda).</small>
+                                    <textarea class="form-control" rows="2" name="notas"
+                                              placeholder="Notas sobre a sua encomenda">{{old('notas')}}</textarea>
+                                    <small class="text-muted">Utilize este campo para "Observações" (por exemplo,
+                                        informações pertinentes sobre a encomenda).</small>
                                 </div>
                             </div>
 
-                        </form>
                     </div> <!-- card-body.// -->
                 </div> <!-- /Card -->
 
@@ -87,46 +107,36 @@
 
                         <div class="d-flex justify-content-between mb-3">
                             <h5 class="">A sua encomenda</h5>
-                            <a href="#" class="btn btn-light text-primary btn-sm"> Voltar ao carrinho </a>
+                            <a href="{{route('carrinho')}}" class="btn btn-light text-primary btn-sm"> <i class="fas fa-shopping-bag" aria-hidden="true"></i> carrinho </a>
                         </div>
 
                         <ul class="list-group list-group-flush ">
+                            @foreach ($carrinho as $key=>$row)
+
                             <li class="list-group-item d-flex checkout-item justify-content-between align-items-center px-0 ">
-                                <div class="image p-1 border">
-                                    <img class="img-xs" src="./img/4bd7ef.jpg" alt="">
+                                <div class="checkout-thumb">
+                                    <div class="shirt_thumb border image">
+                                        <img
+                                            class="cart-item_product__thumbnail img-{{$key}}"
+                                            src="{{asset('storage/tshirt_base/' .$row['cor_codigo'] . '.jpg')}}"
+                                            alt="">
+                                        <div class="shirt_thumb-overlay">
+                                            <img class="shirt_thumb-overlay-img" src="{{asset('storage/estampas/' . $row['imagem_url'])}}"
+                                                 alt="{{$row['nome']}}"/>
+                                        </div>
+
+                                    </div>
                                 </div>
                                 <div class="data px-3 flex-fill">
-                                    <p class="name">Logitec headset for gaming </p>
-                                    <p class="small text-muted">Cor: Azul noite &amp; Branco </p>
-                                    <p class="small text-muted">Tamanho: L </p>
+                                    <p class="name">{{ $row['nome'] }} </p>
+                                    <p class="small text-muted">Cor: {{ $row['cor_codigo'] }} </p>
+                                    <p class="small text-muted">Tamanho: {{ $row['tamanho'] }} </p>
                                 </div>
-                                <p class="text-right d-flex flex-column"><span>x5</span> <br> <strong>4,30€</strong> </p>
+                                <p class="text-right d-flex flex-column"><span>&times;{{ $row['quantidade'] }}</span> <br> <strong>{{ $row['subtotal'] }}€</strong></p>
 
                             </li>
-                            <li class="list-group-item d-flex checkout-item justify-content-between align-items-center px-0 ">
-                                <div class="image p-1 border">
-                                    <img class="img-xs" src="./img/fd4083.jpg" alt="">
-                                </div>
-                                <div class="data px-3 flex-fill">
-                                    <p class="name">Logitec headset for gaming </p>
-                                    <p class="small text-muted">Cor: Azul noite &amp; Branco </p>
-                                    <p class="small text-muted">Tamanho: L </p>
-                                </div>
-                                <p class="text-right d-flex flex-column"><span>x5</span> <br> <strong>4,30€</strong> </p>
+                            @endforeach
 
-                            </li>
-                            <li class="list-group-item d-flex checkout-item justify-content-between align-items-center px-0">
-                                <div class="image p-1 border">
-                                    <img class="img-xs" src="./img/00a2f2.jpg" alt="">
-                                </div>
-                                <div class="data px-3 flex-fill">
-                                    <p class="name">Logitec headset for gaming </p>
-                                    <p class="small text-muted">Cor: Azul noite &amp; Branco </p>
-                                    <p class="small text-muted">Tamanho: L </p>
-                                </div>
-                                <p class="text-right d-flex flex-column"><span>x5</span> <br> <strong>4,30€</strong> </p>
-
-                            </li>
                         </ul>
 
                     </div>
@@ -134,30 +144,30 @@
                     <div class="card-body pt-0">
 
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 p-0 ">
                                 Subtotal:
-                                <span>59,95€</span>
+                                <span>{{session('carrinho_subtotal')}}€</span>
                             </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 pb-0 px-0 text-muted">
+                            <li class="list-group-item d-flex justify-content-between align-items-center border-0  p-0 text-muted">
                                 Entrega
                                 <span>Gratis</span>
                             </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center font-weight-bold px-0 text-warning">
-                                Descontos
-                                <span>-12,59€</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 mb-3">
                                 <div>
-                                    <strong>Valor total	</strong>
+                                    <strong>Valor total </strong>
                                 </div>
-                                <span><strong>59,95€</strong></span>
+                                <span><strong>{{session('carrinho_subtotal')}}€</strong></span>
                             </li>
                         </ul>
 
-                        <button type="button" class="btn btn-lxg text-uppercase btn-primary btn-block">Finalizar Encomenda</button>
+                        <button type="submit" class="btn btn-lg  btn-primary btn-block">
+                            Confirmar <i
+                                class="far fa-check ml-2"></i>
+                        </button>
 
 
                     </div>
+
                 </div>
                 <!-- Card -->
 
@@ -165,7 +175,7 @@
             <!--Grid column-->
 
         </div>
-
+        </form>
     </div>
 
 

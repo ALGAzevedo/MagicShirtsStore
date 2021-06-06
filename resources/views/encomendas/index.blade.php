@@ -58,11 +58,11 @@
 
                         @else
 
-                            <div class=" table-responsive">
-                    <table class="table table-striped table-encomendas">
+                            <div class=" table-responsive mt-3">
+                    <table class="table table-hover table-encomendas">
                         <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>ID#</th>
                             <th>Data</th>
                             <th>Estado</th>
                             <th>FATURA-RECIBO</th>
@@ -71,13 +71,12 @@
                         <tbody>
                         @foreach ($encomendas as $encomenda)
                             <tr>
-
                                 <td>
                                     <a href="{{route('cliente.encomenda.view', ['encomenda' => $encomenda])}}">{{$encomenda->id}}</a>
                                 </td>
                                 <td>{{$encomenda->data}}</td>
-                                <td> <span class="badge bg-{{$encomenda->estado}}"> {{$encomenda->estado}}</span></td>
-                                <td width="250"> <a href="#" class="btn btn-outline-primary btn-sm">Download</a> <a href="{{route('cliente.encomenda.view', ['encomenda' => $encomenda])}}" class="btn btn-light btn-sm"> Details </a> </td>
+                                <td> <span class="encomenda-status text-{{$encomenda->estado}}"> {{$encomenda->estado}}</span></td>
+                                <td width="250"> <a href="#" class="btn btn-outline-primary btn-xs">Download</a> <a href="{{route('cliente.encomenda.view', ['encomenda' => $encomenda])}}" class="btn btn-light btn-xs"> Details </a> </td>
                             </tr>
                         @endforeach
                         </tbody>

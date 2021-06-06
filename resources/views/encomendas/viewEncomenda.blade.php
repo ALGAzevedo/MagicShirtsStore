@@ -24,23 +24,24 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <h6>Facturação</h6>
-                                <ul class="list-unstyled mt-2 text-muted">
-                                    <li><strong>[{{$encomenda->cliente_id}}] {{$encomenda->Cliente->User->name}}</strong>
+                                <ul class="list-unstyled mt-2">
+                                    <li><strong class="small font-weight-bold text-muted">Cliente:<br> </strong>[{{$encomenda->cliente_id}}] {{$encomenda->Cliente->User->name}}
                                     </li>
-                                    <li>{{$encomenda->endereco}}</li>
-                                    @isset($encomenda->notas) <li> Notas:<br> {{$encomenda->notas}} </li>@endisset
+                                    <li><strong class="small font-weight-bold text-muted">Endereço:<br></strong>{{$encomenda->endereco}}</li>
+                                    @isset($encomenda->notas) <li><strong class="small font-weight-bold text-muted"> Notas:</strong><br> {{$encomenda->notas}} </li>@endisset
                                 </ul>
                             </div>
                             <div class="col-sm-6">
                                 <h6>Modo de pagamento:</h6>
-                                <ul class="list-unstyled mt-2  text-muted">
+                                <ul class="list-unstyled mt-2 ">
                                     <li><strong class="text-dark">{{$encomenda->tipo_pagamento}}:&nbsp; </strong>{{$encomenda->ref_pagamento}}</li>
-                                    <li>Total da encomenda: <strong>{{$encomenda->preco_total}}€</strong></li>
+                                    <li><strong class="font-weight-bold text-muted">Total da encomenda: </strong><br> <strong class="h4 text-dark font-weight-bold">{{$encomenda->preco_total}}€</strong></li>
                                 </ul>
                             </div>
                         </div>
-
-                        <a href="#" class="btn btn-outline-primary">Fatura recibo</a>
+                        @unless($encomenda->recibo_url == null)
+                        <a href="{{$encomenda->recibo_url}}" class="btn btn-outline-primary">Fatura recibo</a>
+                        @endunless
 
                         <div class="table-responsive mt-3">
                             <table class="table table-hover table-view">

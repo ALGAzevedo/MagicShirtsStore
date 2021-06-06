@@ -191,9 +191,10 @@ Route::get('tshirts/{estampa}', [TshirtController::class, 'choose'])
     ->name('tshirts.choose');
 
 //CHECKOUT
-Route::middleware( 'auth')->group(function () {
+Route::middleware( ['auth', 'can:create,App\Models\Cliente'])->group(function () {
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
-    Route::post('/checkout/order', [CheckoutController::class, 'create'])->name('checkout.order');
+    Route::post('/checkout/order', [CheckoutController::class, 'store'])->name('checkout.order');
+
     // Route::get('account/orders', [AccountControllerController::class, 'orders'])->name('account.orders');
 });
 

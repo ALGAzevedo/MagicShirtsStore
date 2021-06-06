@@ -180,13 +180,8 @@
                                     </li>
                                 </ul>
 
-                                {{-- TODO --}}
-
-                                <form action="{{ route('carrinho.store') }}" method="POST">
-                                    @csrf
-                                    <a href="{{ route('checkout.index') }}"  class="btn btn-lg btn-primary btn-block">Finalizar <i
-                                            class="far fa-arrow-right ml-1"></i></a>
-                                </form>
+                                <a href="{{ route('checkout.index') }}"  class="btn btn-lg btn-primary btn-block">Checkout<i
+                                            class="far fa-arrow-right ml-2"></i></a>
 
                             </div>
                         </div>
@@ -198,7 +193,8 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-body">
-                                <p>O seu carrinho de compras está vazio. <a href="{{route('estampas.index')}}">Continuar a comprar.</a></p>
+                                <h5> O seu carrinho de compras está vazio.</h5>
+                                <p>Descubra o nosso  <a href="{{route('estampas.index')}}">catálogo de estampas </a> ou veja as nossas promoções.</p>
                             </div>
                         </div>
                     </div>
