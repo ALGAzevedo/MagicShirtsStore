@@ -41,7 +41,7 @@
                     </div>
                     <p class="lea w-75">{{$estampa->descricao}}</p>
                     {{--form--}}
-                    <form action="{{route('carrinho.add')}}" method="POST">
+                    <form action="{{route('carrinho.add', ['estampa' => $estampa])}}" method="POST">
                         @csrf
                         <input type="hidden" name="estampa_id" value="{{$estampa->id}}">
                         <div class="form-row mb-3">

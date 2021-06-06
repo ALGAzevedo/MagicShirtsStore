@@ -10459,6 +10459,7 @@ body{
     height: 180px;
     text-align: center;
     padding: 18px 20px 0 20px;
+    background-color: rgba(0, 0, 0, 0.05);
 }
 .card-product-grid .info-wrap {
     overflow: hidden;
@@ -10755,10 +10756,75 @@ a.list-group-item:hover {
     padding: 0.1rem 1rem;
 }
 
+
 /* ================== /HEADER STYLE=================== */
 
 
-/*  Header
+/*  Estampa Cliente
 -----------------------------------------------------------
  */
+.estampa-preview{
+    width: 260px;
+    height: 260px;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.estampa-preview-img{
+    max-width: 260px;
+}
+.estampa-preview .img-thumbnail{
+    background-color: rgba(0, 0, 0, 0.05);
+}
+/*  Perfil Cliente
+-----------------------------------------------------------
+ */
+.u-profile-img {
+    position: relative;
+}
+.u-profile-remove-img {
+    position: absolute;
+    top: -4px;
+    left: 0;
+    display: inline-block;
+    padding: 0.4em 0.6em;
+    font-size: 12px;
+    line-height: 1;
+    text-align: center;
+    border-radius: 3rem;
+    color: #fff;
+    background-color: #fa3434;
+}
+/*  Encomendas Cliente
+-----------------------------------------------------------
+ */
+
+.table-encomendas th{
+    text-transform: uppercase;
+    font-size: 0.85rem;
+}
+
+.table-encomendas .badge {
+    padding: 0.3em 0.4em;
+    font-weight: 700;
+    border-radius: 0;
+    color: #fff;
+}
+
+.bg-anulada {
+    background-color: #f34770 !important;
+}
+.bg-pendente {
+    background-color: #fea569 !important;
+}
+.bg-paga {
+    background-color: #42d697 !important;
+}
+.bg-fechada {
+    background-color: #69b3fe !important;
+}
+
+.table-view th, .table-view td {
+    vertical-align: middle;
+}
 

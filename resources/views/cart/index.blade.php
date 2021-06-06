@@ -17,6 +17,9 @@
                         @if (session('alert-msg'))
                             @include('partials.message')
                         @endif
+                            @if ($errors->any())
+                                @include('partials.errors')
+                            @endif
                         <div class="card mb-4">
                             <div class="table-responsive">
                                 <table class="table table-borderless table-cart">
@@ -177,10 +180,12 @@
                                     </li>
                                 </ul>
 
+                                {{-- TODO --}}
+
                                 <form action="{{ route('carrinho.store') }}" method="POST">
                                     @csrf
-                                    <button type="submit" class="btn btn-lg btn-primary btn-block">Finalizar <i
-                                            class="far fa-arrow-right ml-1"></i></button>
+                                    <a href="{{ route('checkout.index') }}"  class="btn btn-lg btn-primary btn-block">Finalizar <i
+                                            class="far fa-arrow-right ml-1"></i></a>
                                 </form>
 
                             </div>

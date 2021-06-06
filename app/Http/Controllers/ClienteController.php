@@ -57,6 +57,8 @@ class ClienteController extends Controller
 
     public function update(ClienteUpdatePost $request, Cliente $cliente)
     {
+
+
         $validated_data = $request->validated();
         $cliente->user->name = $validated_data['name'];
         $cliente->user->email = $validated_data['email'];

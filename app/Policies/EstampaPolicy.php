@@ -26,9 +26,9 @@ class EstampaPolicy
     {
         return $user->tipo == 'A';
     }
-    public function viewAnyPrivate(User $user, Estampa $estampa)
+    public function viewAnyPrivate(?User $user, Estampa $estampa)
     {
-        return $estampa->cliente_id == $user->id || $estampa->cliente_id == null;
+        return  optional($user)->id === $estampa->cliente_id || $estampa->cliente_id == null;
     }
 
 

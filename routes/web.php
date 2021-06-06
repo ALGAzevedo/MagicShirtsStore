@@ -32,13 +32,9 @@ use \App\Http\Controllers\CartController;
 
 Route::get('/', [PageController::class, 'index'])->name('home');
 
-Route::get('estampas', [EstampaController::class, 'index'])->name('estampas.index');
 
 Route::get('about', [PageController::class, 'about'])->name('about');
 
-Route::get('tshirts/{estampa}', [TshirtController::class, 'choose'])
-    ->middleware('can:viewAnyPrivate,estampa')
-    ->name('tshirts.choose');
 
 
 //ROTAS DO CARRINHO
@@ -188,7 +184,13 @@ Route::delete('/estampas/{estampa}', [ClienteEstampaController::class, 'destroy'
     ->middleware('can:delete_private,estampa');
 });
 
+//Tshirts
+Route::get('estampas', [EstampaController::class, 'index'])->name('estampas.index');
+Route::get('tshirts/{estampa}', [TshirtController::class, 'choose'])
+    ->middleware('can:viewAnyPrivate,estampa')
+    ->name('tshirts.choose');
 
+//CHECKOUT
 Route::middleware( 'auth')->group(function () {
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
     Route::post('/checkout/order', [CheckoutController::class, 'create'])->name('checkout.order');

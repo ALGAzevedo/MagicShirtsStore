@@ -14,6 +14,8 @@ class TshirtController extends Controller
 
     public function choose(Estampa $estampa, Request $request)
     {
+
+
         $listaCores = Cor::all();
         $cor =$request->query('cor', $listaCores[0]->codigo);
         $corSel = Cor::findOrFail($cor);
