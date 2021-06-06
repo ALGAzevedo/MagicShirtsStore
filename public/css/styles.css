@@ -10700,11 +10700,11 @@ a.list-group-item:hover {
 .user-avatar {
     width: 2.75rem;
     height: 2.75rem;
-
 }
 .user-avatar> img{
     display: block;
     width: 2.75rem;
+    height: 2.75rem;
     padding: 3px;
     border: 1px solid #e1e7ec;
     border-radius: 50%;
@@ -10716,10 +10716,12 @@ a.list-group-item:hover {
 .user-name {
     margin-bottom: 0;
     font-size: 0.9rem;
-    white-space: nowrap;
     overflow: hidden;
+    white-space: nowrap;
     text-overflow: ellipsis;
+    max-width: 100px;
 }
+
 .header-cart{
     border: 1px solid #e1e7ec;
     background-color: #f3f5f9;

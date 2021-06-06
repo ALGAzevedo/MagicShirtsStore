@@ -2,6 +2,7 @@
 
 
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\ClienteEstampaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EstampaController;
 use App\Http\Controllers\CategoriaController;
@@ -49,7 +50,13 @@ Route::delete('carrinho', [CartController::class, 'destroy'])->name('carrinho.de
 
 
 //HISTORICO ENCOMENDA CLIENTES
-Route::get('encomendas', [EncomendaController::class, 'index'])->name('cliente.encomendas');
+//TODO : Acrescentei o auth poque dava erro
+/*Route::middleware(['auth','can:viewClientEncomenda,encomenda'])->group(function () {
+    Route::get('encomendas', [EncomendaController::class, 'index'])->name('cliente.encomendas');
+    Route::get('encomendas/{encomenda}', [EncomendaController::class, 'view_encomenda'])->name('cliente.encomenda.view');
+});*/
+
+Route::get('encomendas', [EncomendaController::class, 'index'])->middleware('auth')->name('cliente.encomendas');
 Route::get('encomendas/{encomenda}', [EncomendaController::class, 'view_encomenda'])->name('cliente.encomenda.view')
     ->middleware('can:viewClientEncomenda,encomenda');
 
@@ -157,7 +164,31 @@ Route::put('cliente/password/{cliente}', [ClienteController::class, 'updatePassw
 Route::put('cliente/{cliente}', [ClienteController::class, 'update'])->name('cliente.update')
     ->middleware('can:update,cliente');
 
+
+//Estampas DO CLIENTE
+//TODO: Ver possibilidade de utilizar policies
+
+Route::middleware( 'auth')->prefix('cliente')->group(function () {
+
+Route::get('/estampas', [ClienteEstampaController::class, 'index'])->name('estampas.cliente')
+    ->middleware('can:create_private,App\Models\Estampa');
+
+Route::get('/estampas/create', [ClienteEstampaController::class, 'create'])->name('cliente.estampas.create')
+    ->middleware('can:create_private,App\Models\Estampa');
+Route::post('/estampas', [ClienteEstampaController::class, 'store'])->name('cliente.estampas.store')
+    ->middleware('can:create_private,App\Models\Estampa');;
+Route::get('/estampas/{estampa}/edit', [ClienteEstampaController::class, 'edit'])->name('cliente.estampas.edit')
+    ->middleware('can:update_private,estampa');
+Route::put('/estampas/{estampa}', [ClienteEstampaController::class, 'update'])->name('cliente.estampas.update')
+    ->middleware('can:update_private,estampa');
+Route::delete('/estampas/{estampa}', [ClienteEstampaController::class, 'destroy'])->name('cliente.estampas.destroy')
+    ->middleware('can:delete_private,estampa');
+});
+
 Auth::routes(['register' => true]);
+
+
+
 
 //EMAIL VERIFICATION
 

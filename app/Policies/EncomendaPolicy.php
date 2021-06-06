@@ -12,6 +12,7 @@ class EncomendaPolicy
 
     public function before(User $user)
     {
+        //TODO: O ADMIN tem acesso as encomendas no front??
         if ($user->tipo == 'A') {
             return true;
         }

@@ -10,7 +10,7 @@ $(function() {
         $(this).attr("src", "url");
     });*/
 });
-
+//div.classList.contains('class');
 const magic_color = document.querySelector('.magic-color')
 const magic_shirt = document.querySelector('.magic-shirt')
 const STORAGE_URL = magic_shirt.getAttribute('data-storage')
