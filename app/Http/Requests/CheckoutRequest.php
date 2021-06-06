@@ -26,7 +26,6 @@ class CheckoutRequest extends FormRequest
     public function rules(Request $request){
 
         $validation_array = [
-            'name' => 'required|string|min:3',
             'nif' => 'nullable|numeric|digits:9',
             'endereco' => 'required|string|max:255',
             'tipo_pagamento' => 'required|in:MC,PAYPAL,VISA',

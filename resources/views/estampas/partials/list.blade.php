@@ -1,4 +1,15 @@
 <div class="row">
+    @unless($estampas->total()>0)
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5>Infelizmente, a tua pesquisa por "{{old('s')}}" não deu nenhum resultado.</h5>
+                    <p>Tenta novamente com um termo diferente
+                    </p>
+                </div>
+            </div>
+        </div>
+    @endunless
     @foreach($estampas as $estampa)
         <div class="col-md-4">
             <div class="card card-product-grid">

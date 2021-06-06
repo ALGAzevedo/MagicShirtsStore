@@ -27,11 +27,8 @@
                             <div class="form-row">
                                 <div class="form-group col-sm-6">
                                     <label>Nome</label>
-                                    <input type="text" placeholder="Nome" name="name"
-                                           value="{{old('name', $cliente->user->name)}}" class="form-control">
-                                    @error('name')
-                                    <div class="invalid-feedback d-block">{{$message}}</div>
-                                    @enderror
+                                    <input type="text" placeholder="Nome" name="name" readonly
+                                           value="{{$cliente->user->name}}" class="form-control">
                                 </div>
                                 <div class="form-group col-sm-6">
                                     <label>NIF <small>(opcional)</small></label>
