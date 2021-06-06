@@ -143,6 +143,7 @@
                           class="form-group" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
+                        @can('updateBlock', App\Models\Cliente::class)
                         @if($cliente->user->bloqueado == 0)
                             <button type="submit" class="btn btn-warning btn-sm" role="button" aria-pressed="true">
                                 Bloquear
@@ -152,6 +153,7 @@
                                 Desbloquear
                             </button>
                         @endif
+                        @endcan
                     </form>
                 </td>
 

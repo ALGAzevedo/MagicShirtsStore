@@ -86,6 +86,18 @@ class ClientePolicy
         return $user->tipo == 'A';
     }
 
+    /**
+     * Determine only cliente can view profile in frontpage
+     *
+     * @param \App\Models\User $user
+vl     * @return mixed
+     */
+
+    public function viewProfile(User $user)
+    {
+        return $user->tipo == 'C';
+    }
+
 
     /**
      * Determine whether the user can delete the model.
