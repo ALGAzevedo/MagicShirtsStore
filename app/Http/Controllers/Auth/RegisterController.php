@@ -58,12 +58,12 @@ class RegisterController extends Controller
             'tipo' => 'required|in:C',
             'password' => [
                 'required',
-                'min:4'
+                'min:8'
             ],
             'nif' => [
                 'nullable',
                 'numeric',
-                'size:9'
+                'digits:9'
             ],
             'endereco' => [
                 'nullable',

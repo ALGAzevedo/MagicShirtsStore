@@ -51,7 +51,7 @@ class ClienteController extends Controller
 
     public function show(Cliente $cliente)
     {
-        return view(Auth::user()->tipo == 'A' ? 'clientes.edit' : 'clientes.editCliente')
+        return view('clientes.editCliente')
             ->withCliente($cliente);
     }
 
