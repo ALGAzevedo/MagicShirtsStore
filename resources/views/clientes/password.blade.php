@@ -1,7 +1,23 @@
 @extends('layout2')
-@section('title', 'Alterar Password')
 @section('content')
     <div class="container">
+        @include('myaccount.partials.title')
+        <div class="row">
+
+            @include('myaccount.partials.sidebar')
+
+            <div class="col-md-9">
+                @if (session('alert-msg'))
+                    @include('partials.message')
+                @endif
+                @if ($errors->any())
+                    @include('partials.errors')
+                @endif
+                <div class="card">
+                    <header class="card-header border-bottom mb-0">
+                        <b class="d-inline-block mr-3">Alterar password</b>
+                    </header>
+                    <div class="card-body">
         <form method="POST" action="{{route('cliente.updatePassword', ['cliente' => $cliente]) }}"
               class="form-group">
             @csrf
@@ -35,6 +51,12 @@
             <button type="submit" class="btn btn-success" name="ok">Save</button>
             <a href="{{route('cliente.edit', ['cliente'=> $cliente])}}" class="btn btn-danger">Cancel</a>
         </form>
-    </div>
+                    </div>
+                </div>
 
+            </div> <!-- col.// -->
+
+        </div>
+
+    </div>
 @endsection

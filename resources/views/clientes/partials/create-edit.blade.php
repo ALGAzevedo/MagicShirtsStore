@@ -1,17 +1,19 @@
-<div class="form-group">
+<div class="form-row">
+<div class="col-md-6 mb-3">
     <label for="inputNome">Nome</label>
     <input type="text" class="form-control" name="name" id="inputNome" value="{{old('name', $cliente->user->name)}}">
     @error('name')
     <div class="small text-danger">{{$message}}</div>
     @enderror
 </div>
-<div class="form-group">
+<div class="col-md-6 mb-3">
     <label for="inputEmail">Email</label>
     <input type="email" class="form-control" name="email" id="inputEmail"
            value="{{old('email', $cliente->user->email)}}">
     @error('email')
     <div class="small text-danger">{{$message}}</div>
     @enderror
+</div>
 </div>
 <div class="form-group">
     <label for="inputNif">NIF</label>
@@ -28,9 +30,10 @@
     <div class="small text-danger">{{$message}}</div>
     @enderror
 </div>
-<div class="form-group">
+<div class="form-row">
+    <div class="col-md-6 mb-3">
     <label for="inputPagamento">Tipo Pagamento</label>
-    <select name="tipo_pagamento" id="inputPagamento"
+    <select name="tipo_pagamento" id="inputPagamento" class="custom-select"
             value="{{ old('tipo_pagamento', $cliente->tipo_pagamento)}}">
         <option value=""{{$cliente->tipo_pagamento == "" ? 'selected' : ""}}>Não inserir</option>
         <option value="MC" {{$cliente->tipo_pagamento == "MC" ? 'selected' : ""}}>MC</option>
@@ -42,7 +45,7 @@
     @enderror
 </div>
 
-<div class="form-group">
+<div class="col-md-6 mb-3">
     <label for="inputReferencia">Referência de pagamento</label>
     <input type="text" class="form-control" name="ref_pagamento" id="inputReferencia"
            value="{{old('ref_pagamento', $cliente->ref_pagamento)}}">
@@ -50,12 +53,7 @@
     <div class="small text-danger">{{$message}}</div>
     @enderror
 </div>
-@can('updatePassword', $cliente)
-    <div class="form-group">
-        <a href="{{route('cliente.password.update', ['cliente' => $cliente]) }}"
-           class="btn btn-dark">Alterar Password</a>
-    </div>
-@endcan
+</div>
 
 @can('updateBlock', $cliente)
     <div class="form-group">
@@ -74,6 +72,14 @@
 @endcan
 
 <div class="form-group">
+    <label for="inputFoto">Upload da foto</label>
+    <input type="file" class="form-control-file" name="foto" id="inputFoto">
+    @error('foto')
+    <div class="small text-danger">{{$message}}</div>
+    @enderror
+</div>
+
+<div class="form-group mb-0">
     <div class="form-check form-check-inline">
         <input type="hidden" name="tipo" value="C">
     </div>
@@ -81,11 +87,14 @@
     <div class="small text-danger">{{$message}}</div>
     @enderror
 </div>
-<div class="form-group">
-    <label for="inputFoto">Upload da foto</label>
-    <input type="file" class="form-control" name="foto" id="inputFoto">
-    @error('foto')
-    <div class="small text-danger">{{$message}}</div>
-    @enderror
-</div>
 
+
+@can('updatePassword', $cliente)
+    <span class="h5">Alterar Password</span>
+    <div class="form-group mt-2">
+        <a href="{{route('cliente.password.update', ['cliente' => $cliente]) }}"
+           class="btn btn-dark">Alterar Password</a>
+    </div>
+@endcan
+
+<hr>

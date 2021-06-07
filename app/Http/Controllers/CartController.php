@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Classes\Cart;
 use App\Http\Requests\CartRequest;
 use App\Http\Traits\TshirtTrait;
 use App\Models\Cor;
@@ -54,12 +55,14 @@ class CartController extends Controller
         return $id;
     }
 
-    public function add(CartRequest $request)
+    public function add(CartRequest $request, Estampa $estampa)
     {
+
+
         //Validação
         $request->validated();
 
-        $estampa_id = $request->estampa_id;
+        $estampa_id = $estampa->id;
         $uuid = (string)$request->cor_codigo . $estampa_id . $request->tamanho;
         $estampa = Estampa::findOrFail($estampa_id);
 
@@ -85,7 +88,7 @@ class CartController extends Controller
             'subtotal' => floatval($preco_un * $quantidade),
         ];
 
-        if (!Storage::disk('public')->exists('product/')) {
+      /*  if (!Storage::disk('public')->exists('product/')) {
             Storage::disk('public')->makeDirectory('product/');
         }
 
@@ -99,7 +102,7 @@ class CartController extends Controller
             ->insert($watermark, 'center')
             ->save(public_path('/storage/product/' . $imagem_tshirt));
 
-
+*/
         session()->put('carrinho', $carrinho);
         session()->put('carrinho_qty', $this->count());
         session()->put('carrinho_subtotal', $this->subtotal());
@@ -112,6 +115,28 @@ class CartController extends Controller
 
     public function update(Request $request, string $uuid)
     {
+
+       /* dd(session('carrinho'));
+        $validated = $request->validate([
+            'cor_codigo' => 'required|exists:cores,codigo',
+            'tamanho' => 'required|in:XS,S,M,L,XL',
+            'quantidade' => 'required|integer|min:0'
+        ], [  // Custom Error Messages
+            'cor_codigo.required' => 'Código de cor é um campo obrigatório',
+            'cor_codigo.exists' => 'Código de cor inválido',
+            'estampa_id.required' => 'estampa_id é um campo obrigatório',
+            'estampa_id.exists' => 'estampa_id inválida',
+            'tamanho.required' => 'tamanho é um campo obrigatório',
+            'tamanho.in' => 'Não é um tamanho válido',
+            'quantidade.required' => 'quantidade  é um campo obrigatório',
+            'quantidade.min' => 'quantidade  mínima é 1'
+        ]);
+
+        dd($validated);*/
+
+        dd("Não funciona");
+
+
         $carrinho = session()->get('carrinho', []);
 
         if (!array_key_exists($uuid, $carrinho)) {
@@ -121,6 +146,7 @@ class CartController extends Controller
         }
 
         $item = $carrinho[$uuid];
+        $olduuid = $uuid;
         $quantidade = $item['quantidade'] ?? 0;
 
         //dd($carrinho);
@@ -142,13 +168,16 @@ class CartController extends Controller
             $quantidade = $request->quantidade;
         }
         if ($request->quantidade <= 0) {
-            $msg = 'Foram removidas todas as inscrições à disciplina "' . $item['nome'] . '"';
+            $msg = 'O produto "' . $item['nome'] . '" foi removido';
             unset($carrinho[$uuid]);
 
         } else {
-            //Atualiza apenas o que é necessário
+
+            $uuid = (string)$request->cor_codigo . $item['estampa_id'] . $request->tamanho;
+
+
             $carrinho[$uuid] = [
-                'uuid' => $item['uuid'],
+                'uuid' => $request->cor_codigo . '-' . $item['estampa_id'] . '-' . $request->tamanho,
                 'nome' => $item['nome'],
                 'cor_codigo' => $request->cor_codigo ?? $item['cor_codigo'],
                 'estampa_id' => $item['estampa_id'],
@@ -160,6 +189,8 @@ class CartController extends Controller
             ];
             $msg = 'Quantidade atualizada';
         }
+
+        unset($carrinho[$olduuid]);
         session()->put('carrinho', $carrinho);
         session()->put('carrinho_qty', $this->count());
         session()->put('carrinho_subtotal', $this->subtotal());
@@ -198,6 +229,7 @@ class CartController extends Controller
     {
         session()->forget('carrinho');
         session()->forget('carrinho_qty');
+        session()->forget('carrinho_subtotal');
         return back()
             ->with('alert-msg', 'Carrinho foi limpo!')
             ->with('alert-type', 'danger');
@@ -205,21 +237,17 @@ class CartController extends Controller
 
     protected function getContent()
     {
-        return session()->has('carrinho')
-            ? collect(session()->get('carrinho'))
-            : new Collection;
+        return Cart::getContent();
     }
 
     public function count()
     {
-        $content = $this->getContent();
-        return $content->sum('quantidade');
+        return Cart::total();
     }
 
     public function subtotal()
     {
-        $content = $this->getContent();
-        return number_format($content->sum('subtotal'), 2, ',', '.');
+        return number_format(Cart::subtotal(), 2, ',', '.');
 
     }
 

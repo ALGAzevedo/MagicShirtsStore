@@ -12,6 +12,7 @@ class EncomendaPolicy
 
     public function before(User $user)
     {
+        //TODO: O ADMIN tem acesso as encomendas no front??
         if ($user->tipo == 'A') {
             return true;
         }
@@ -67,6 +68,10 @@ class EncomendaPolicy
         return $user->tipo == 'F' && ($encomenda->estado == 'paga' || $encomenda->estado == 'pendente');
     }
 
+    public function checkout(User $user)
+    {
+        return $user->tipo == 'C';
+    }
     /**
      * Determine whether the user can create models.
      *

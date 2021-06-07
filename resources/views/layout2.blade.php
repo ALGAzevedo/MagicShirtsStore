@@ -59,17 +59,21 @@
                                                                       src="{{Auth::user()->foto_url ? asset('storage/fotos/' . Auth::user()->foto_url) : asset('img/default_user.jpg') }}"
                                                                       alt=""> </a>
                                 <div class="auth-info">
-                                    <h6 class="user-name">Olá,{{Auth::user()->name}}</h6>
+                                    <h6 class="user-name"><span>Olá, {{Auth::user()->name}}</span></h6>
                                     <div>
                                         <div class=" dropdown">
                                             <a class="dropdown-toggle" href="#" data-toggle="dropdown"
                                                aria-haspopup="true" aria-expanded="false">A minha conta</a>
                                             <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="#">Encomendas</a>
-                                                <a class="dropdown-item" href="#">Perfil</a>
-                                                <a class="dropdown-item" href="#">Estampas</a>
+                                                @can('view', Auth::user()->cliente)
+                                                <a class="dropdown-item" href="{{ route('cliente.encomendas') }}">Encomendas</a>
+                                                    <a class="dropdown-item"
+                                                       href="{{route('cliente.edit', ['cliente'=> Auth::user()->id])}}">Perfil
+                                                    </a>
+                                                <a class="dropdown-item" href="{{ route('estampas.cliente') }}">Estampas</a>
+                                                @endcan
                                                 <div class="dropdown-divider"></div>
-                                                <a class="dropdown-item" href="#">Terminar Sessão</a>
+                                                <a class="dropdown-item" href="{{ route('logout') }}"  data-toggle="modal" data-target="#logoutModal">Terminar Sessão</a>
                                             </div>
                                         </div>
                                     </div>
@@ -105,7 +109,7 @@
         <div class="collapse navbar-collapse" id="main_nav">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Home</a>
+                    <a class="nav-link" href="{{url('/')}}">Home</a>
                 </li>
             </ul>
             <ul class="navbar-nav">

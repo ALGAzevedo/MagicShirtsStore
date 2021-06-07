@@ -1,7 +1,9 @@
 <?php
 
 
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\ClienteEstampaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EstampaController;
 use App\Http\Controllers\CategoriaController;
@@ -30,26 +32,30 @@ use \App\Http\Controllers\CartController;
 
 Route::get('/', [PageController::class, 'index'])->name('home');
 
-Route::get('estampas', [EstampaController::class, 'index'])->name('estampas.index');
 
 Route::get('about', [PageController::class, 'about'])->name('about');
 
-Route::get('tshirts/{estampa}', [TshirtController::class, 'choose'])->name('tshirts.choose');
 
 
 //ROTAS DO CARRINHO
 //Route::get('tshirts/{estampa}/{codigo}', [TshirtController::class, 'choose'])->name('tshirts.chooseWithColor');
 Route::get('carrinho', [CartController::class, 'index'])->name('carrinho');
-Route::post('carrinho/add_item', [CartController::class, 'add'])->name('carrinho.add');
+Route::post('carrinho/{estampa}', [CartController::class, 'add'])->name('carrinho.add');
 Route::get('carrinho/{uuid}', [CartController::class, 'update_item'])->name('carrinho.update_item');
 Route::put('carrinho/{uuid}', [CartController::class, 'update'])->name('carrinho.update');
-Route::delete('carrinho/{uuid}', [CartController::class, 'destroy_item'])->name('carrinho.destroy_item');
+Route::delete('carrinho/{uuid}/remove', [CartController::class, 'destroy_item'])->name('carrinho.destroy_item');
 Route::post('carrinho', [CartController::class, 'store'])->name('carrinho.store');
-Route::delete('carrinho', [CartController::class, 'destroy'])->name('carrinho.destroy');
+Route::delete('carrinho/empty', [CartController::class, 'destroy'])->name('carrinho.destroy');
 
 
 //HISTORICO ENCOMENDA CLIENTES
-Route::get('encomendas', [EncomendaController::class, 'index'])->name('cliente.encomendas');
+//TODO : Acrescentei o auth poque dava erro
+/*Route::middleware(['auth','can:viewClientEncomenda,encomenda'])->group(function () {
+    Route::get('encomendas', [EncomendaController::class, 'index'])->name('cliente.encomendas');
+    Route::get('encomendas/{encomenda}', [EncomendaController::class, 'view_encomenda'])->name('cliente.encomenda.view');
+});*/
+
+Route::get('encomendas', [EncomendaController::class, 'index'])->middleware('auth')->name('cliente.encomendas');
 Route::get('encomendas/{encomenda}', [EncomendaController::class, 'view_encomenda'])->name('cliente.encomenda.view')
     ->middleware('can:viewClientEncomenda,encomenda');
 
@@ -157,7 +163,47 @@ Route::put('cliente/password/{cliente}', [ClienteController::class, 'updatePassw
 Route::put('cliente/{cliente}', [ClienteController::class, 'update'])->name('cliente.update')
     ->middleware('can:update,cliente');
 
+
+//Estampas DO CLIENTE
+//TODO: Ver possibilidade de utilizar policies
+
+Route::middleware( 'auth')->prefix('cliente')->group(function () {
+
+Route::get('/estampas', [ClienteEstampaController::class, 'index'])->name('estampas.cliente')
+    ->middleware('can:viewPrivate,App\Models\Estampa');
+
+Route::get('/estampas/create', [ClienteEstampaController::class, 'create'])->name('cliente.estampas.create')
+    ->middleware('can:create_private,App\Models\Estampa');
+Route::post('/estampas', [ClienteEstampaController::class, 'store'])->name('cliente.estampas.store')
+    ->middleware('can:create_private,App\Models\Estampa');;
+Route::get('/estampas/{estampa}/edit', [ClienteEstampaController::class, 'edit'])->name('cliente.estampas.edit')
+    ->middleware('can:update_private,estampa');
+Route::put('/estampas/{estampa}', [ClienteEstampaController::class, 'update'])->name('cliente.estampas.update')
+    ->middleware('can:update_private,estampa');
+Route::delete('/estampas/{estampa}', [ClienteEstampaController::class, 'destroy'])->name('cliente.estampas.destroy')
+    ->middleware('can:delete_private,estampa');
+});
+
+
+//Tshirts
+Route::get('estampas', [EstampaController::class, 'index'])->name('estampas.index');
+Route::get('tshirts/{estampa}', [TshirtController::class, 'choose'])
+    ->middleware('can:viewAnyPrivate,estampa')
+    ->name('tshirts.choose');
+
+//CHECKOUT
+//TODO: Fix to use can:checkout,App\Models\Encomenda | O problema está no método before
+Route::middleware( ['auth', 'can:checkout,App\Models\Encomenda'])->group(function () {
+    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+    Route::post('/checkout/order', [CheckoutController::class, 'store'])->name('checkout.order');
+
+    // Route::get('account/orders', [AccountControllerController::class, 'orders'])->name('account.orders');
+});
+
 Auth::routes(['register' => true]);
+
+
+
 
 //EMAIL VERIFICATION
 

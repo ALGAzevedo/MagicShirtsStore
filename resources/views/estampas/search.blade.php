@@ -4,7 +4,7 @@
     <div class="container">
         <section class="mt-4 mb-4">
             <div class="page-title-wrapper text-center mb-4">
-                <h1>Resultado de pesquisa para "{{old('s')}}"</h1>
+                <h1>Pesquisou por "<strong>{{old('s')}}</strong>"</h1>
             </div>
         </section>
         <div class="row">

@@ -17,6 +17,9 @@
                         @if (session('alert-msg'))
                             @include('partials.message')
                         @endif
+                            @if ($errors->any())
+                                @include('partials.errors')
+                            @endif
                         <div class="card mb-4">
                             <div class="table-responsive">
                                 <table class="table table-borderless table-cart">
@@ -54,7 +57,7 @@
                                                 <form action="{{route('carrinho.update', $key)}}" method="POST">
                                                     @csrf
                                                     @method('put')
-                                                    <input type="hidden" name="quantidade" value="{{ $row['quantidade']+1 }}" >
+                                                    <input type="hidden" id="tqty" name="quantidade" value="{{$row['quantidade']}}" >
                                                 <p class="small text-muted">
                                                     <select class="form color-{{$key}}" name="cor_codigo" onchange="this.form.submit()">
                                                         @foreach ($cores as $cor)
@@ -83,7 +86,7 @@
                                                     <div class="d-flex align-items-center">
                                                         <div class="number-input number-input-sm">
                                                             <button type="button"
-                                                                    onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
+                                                                    id="btnDown"
                                                                     class="minus font-weight-bold">-
                                                             </button>
                                                             <input class="quantity" min="0" max="100"
@@ -91,7 +94,7 @@
                                                                    value="{{ $row['quantidade'] }}"
                                                                    type="number">
                                                             <button type="button"
-                                                                    onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                                                                    id="btnUp"
                                                                     class="plus font-weight-bold">+
                                                             </button>
                                                         </div>
@@ -104,7 +107,7 @@
                                                 </form>
                                             </td>
                                             <td class="cart-item_subtotal text-primary ">
-                                                <span class="">{{ number_format($row['subtotal'], 2, ',', '.') }}&euro;</span>
+                                                <span class="">{{$row['subtotal'] }}&euro;</span>
 
                                             </td>
                                             <td class="cart-item_action">
@@ -177,11 +180,8 @@
                                     </li>
                                 </ul>
 
-                                <form action="{{ route('carrinho.store') }}" method="POST">
-                                    @csrf
-                                    <button type="submit" class="btn btn-lg btn-primary btn-block">Finalizar <i
-                                            class="far fa-arrow-right ml-1"></i></button>
-                                </form>
+                                <a href="{{ route('checkout.index') }}"  class="btn btn-lg btn-primary btn-block">Checkout<i
+                                            class="far fa-arrow-right ml-2"></i></a>
 
                             </div>
                         </div>
@@ -193,7 +193,8 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-body">
-                                <p>O seu carrinho de compras está vazio. <a href="{{route('estampas.index')}}">Continuar a comprar.</a></p>
+                                <h5> O seu carrinho de compras está vazio.</h5>
+                                <p>Descubra o nosso  <a href="{{route('estampas.index')}}">catálogo de estampas </a> ou veja as nossas promoções.</p>
                             </div>
                         </div>
                     </div>
