@@ -68,6 +68,10 @@ class EncomendaPolicy
         return $user->tipo == 'F' && ($encomenda->estado == 'paga' || $encomenda->estado == 'pendente');
     }
 
+    public function checkout(User $user)
+    {
+        return $user->tipo == 'C';
+    }
     /**
      * Determine whether the user can create models.
      *

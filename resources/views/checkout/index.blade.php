@@ -2,11 +2,14 @@
 
 @section('content')
     <div class="container">
+        @can('create',App\Models\Cliente::class)
         <section class="mt-4 mb-4">
             <div class="page-title-wrapper mb-4">
                 <h1>Checkout</h1>
             </div>
         </section>
+
+
         <form action="{{ route('checkout.order') }}" method="POST" role="form">
         <div class="row">
 
@@ -173,6 +176,17 @@
 
         </div>
         </form>
+        @else
+            <div class="row">
+                <div class="col-lg-12">
+
+                    <div class="alert alert-warning">
+
+                    </div>
+
+                </div>
+            </div>
+        @endcan
     </div>
 
 

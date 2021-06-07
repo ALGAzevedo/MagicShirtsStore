@@ -38,7 +38,6 @@ class CheckoutController extends Controller
 
         //$encomenda->fill($validated_data);
 
-        $carrinho = new Cart();
 
         $encomenda->cliente_id = Auth::id();
         $encomenda->estado = "pendente";
@@ -57,7 +56,7 @@ class CheckoutController extends Controller
 
         if ($encomenda->id){
 
-            $items = $carrinho->getContent();
+            $items = Cart::getContent();
 
             foreach ($items as $key=>$item){
                 $tshirt = new Tshirt;
@@ -75,7 +74,7 @@ class CheckoutController extends Controller
             }
         }
 
-        $carrinho->destroy();
+        Cart::destroy();
 
         return redirect()->route('cliente.encomenda.view', ['encomenda' => $encomenda])
             ->with('alert-msg', 'Encomenda "#' . $encomenda->id . '" foi registada com sucesso!')

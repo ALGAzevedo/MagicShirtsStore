@@ -57,7 +57,7 @@
                                                 <form action="{{route('carrinho.update', $key)}}" method="POST">
                                                     @csrf
                                                     @method('put')
-                                                    <input type="hidden" name="quantidade" value="{{ $row['quantidade']+1 }}" >
+                                                    <input type="hidden" id="tqty" name="quantidade" value="{{$row['quantidade']}}" >
                                                 <p class="small text-muted">
                                                     <select class="form color-{{$key}}" name="cor_codigo" onchange="this.form.submit()">
                                                         @foreach ($cores as $cor)
@@ -86,7 +86,7 @@
                                                     <div class="d-flex align-items-center">
                                                         <div class="number-input number-input-sm">
                                                             <button type="button"
-                                                                    onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
+                                                                    id="btnDown"
                                                                     class="minus font-weight-bold">-
                                                             </button>
                                                             <input class="quantity" min="0" max="100"
@@ -94,7 +94,7 @@
                                                                    value="{{ $row['quantidade'] }}"
                                                                    type="number">
                                                             <button type="button"
-                                                                    onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                                                                    id="btnUp"
                                                                     class="plus font-weight-bold">+
                                                             </button>
                                                         </div>
@@ -107,7 +107,7 @@
                                                 </form>
                                             </td>
                                             <td class="cart-item_subtotal text-primary ">
-                                                <span class="">{{ number_format($row['subtotal'], 2, ',', '.') }}&euro;</span>
+                                                <span class="">{{$row['subtotal'] }}&euro;</span>
 
                                             </td>
                                             <td class="cart-item_action">

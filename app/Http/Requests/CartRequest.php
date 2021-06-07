@@ -19,15 +19,10 @@ class CartRequest extends FormRequest
     public function rules()
     {
         return [
-            //'uuid' => 'required|string|max:255',
-            //'nome' => 'required|string|max:255',
             'cor_codigo' => 'required|exists:cores,codigo',
             'estampa_id' => 'required|exists:estampas,id',
             'tamanho' => 'required|in:XS,S,M,L,XL',
-            'quantidade' => 'required|integer|min:1',
-            //'preco_un' => 'required|numeric',
-            //'subtotal' => 'required|numeric',
-            //'foto' => 'nullable|string',
+            'quantidade' => 'required|integer|min:1'
         ];
     }
     public function messages()

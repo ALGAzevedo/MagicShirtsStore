@@ -39,9 +39,10 @@
                                 </ul>
                             </div>
                         </div>
-                        @unless($encomenda->recibo_url == null)
-                        <a href="{{$encomenda->recibo_url}}" class="btn btn-outline-primary">Fatura recibo</a>
-                        @endunless
+
+                        @if($encomenda->recibo_url != null && $encomenda->estado == "fechada" )
+                            <a href="{{$encomenda->recibo_url}}" class="btn btn-info text-uppercase "><i class="fas fa-file-alt mr-2"></i> Fatura recibo</a>
+                        @endif
 
                         <div class="table-responsive mt-3">
                             <table class="table table-hover table-view">

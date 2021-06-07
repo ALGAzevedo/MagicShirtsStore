@@ -184,6 +184,7 @@ Route::delete('/estampas/{estampa}', [ClienteEstampaController::class, 'destroy'
     ->middleware('can:delete_private,estampa');
 });
 
+
 //Tshirts
 Route::get('estampas', [EstampaController::class, 'index'])->name('estampas.index');
 Route::get('tshirts/{estampa}', [TshirtController::class, 'choose'])
@@ -191,7 +192,8 @@ Route::get('tshirts/{estampa}', [TshirtController::class, 'choose'])
     ->name('tshirts.choose');
 
 //CHECKOUT
-Route::middleware( ['auth', 'can:create,App\Models\Cliente'])->group(function () {
+//TODO: Fix to use can:checkout,App\Models\Encomenda | O problema está no método before
+Route::middleware( ['auth', 'can:checkout,App\Models\Encomenda'])->group(function () {
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
     Route::post('/checkout/order', [CheckoutController::class, 'store'])->name('checkout.order');
 
