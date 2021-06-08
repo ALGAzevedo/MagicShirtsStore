@@ -41,7 +41,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="inputEstampa">Upload da estampa</label>
-                                    <input type="file" class="form-control-file estampa-file" name="estampa_img" id="inputIMG">
+                                    <input type="file" class="form-control-file estampa-file" name="estampa_img" id="inputIMG" accept="image/*">
                                     @error('inputIMG')
                                     <div class="small text-danger">{{$message}}</div>
                                     @enderror

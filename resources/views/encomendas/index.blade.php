@@ -84,6 +84,11 @@
                         </tbody>
                     </table>
                             </div>
+
+                            <div class="" >
+                                {{$encomendas->withQueryString()->links()}}
+                            </div>
+
                         @endif
 
                     </div>

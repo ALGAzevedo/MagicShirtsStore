@@ -7,7 +7,8 @@
         <section class="mt-4 mb-4">
             <div class="page-title-wrapper mb-4">
                 <h1>Carrinho de compras @if(session()->has('carrinho_qty') && session('carrinho_qty')>0)
-                        <small>(<span>{{session('carrinho_qty')}}</span>  @choice('artigo|artigos', session('carrinho_qty')))</small> @endif</h1>
+                        <small>(<span>{{session('carrinho_qty')}}</span> @choice('artigo|artigos', session('carrinho_qty'))
+                            )</small> @endif</h1>
             </div>
             <!--Grid row-->
             <div class="row">
@@ -17,9 +18,9 @@
                         @if (session('alert-msg'))
                             @include('partials.message')
                         @endif
-                            @if ($errors->any())
-                                @include('partials.errors')
-                            @endif
+                        @if ($errors->any())
+                            @include('partials.errors')
+                        @endif
                         <div class="card mb-4">
                             <div class="table-responsive">
                                 <table class="table table-borderless table-cart">
@@ -44,37 +45,42 @@
                                                             src="{{asset('storage/tshirt_base/' .$row['cor_codigo'] . '.jpg')}}"
                                                             alt="">
                                                         <div class="shirt_thumb-overlay">
-                                                        <img class="shirt_thumb-overlay-img" src="{{asset('storage/estampas/' . $row['imagem_url'])}}"
-                                                             alt="{{$row['nome']}}"/>
+                                                            <img class="shirt_thumb-overlay-img"
+                                                                 src="{{static_asset($row['categoria_id'],$row['imagem_url'])}}"
+                                                                 alt="{{$row['nome']}}"/>
                                                         </div>
 
                                                     </div>
                                                 </a>
-                                               </td>
+                                            </td>
                                             <td class="cart-item_product px-0">
                                                 <a href="{{route('tshirts.choose',  $row['estampa_id'])}}"
                                                    class="cart-item_product__title text-dark ">{{ $row['nome'] }}</a>
                                                 <form action="{{route('carrinho.update', $key)}}" method="POST">
                                                     @csrf
                                                     @method('put')
-                                                    <input type="hidden" id="tqty" name="quantidade" value="{{$row['quantidade']}}" >
-                                                <p class="small text-muted">
-                                                    <select class="form color-{{$key}}" name="cor_codigo" onchange="this.form.submit()">
-                                                        @foreach ($cores as $cor)
-                                                            <option
-                                                                value="{{$cor->codigo}}" {{$row['cor_codigo'] == $cor->codigo ? 'selected' : ''}}>
-                                                                {{$cor->nome}}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                </p>
-                                                <p class="small text-muted">Tamanho:<br>
-                                                    <select class="form" name="tamanho"  onchange="this.form.submit()">
-                                                        @foreach ($tamanhos as $tamanho)
-                                                        <option value="{{$tamanho}}" {{$row['tamanho'] == $tamanho ? 'selected' : ''}}>{{$tamanho}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </p>
+                                                    <input type="hidden" name="quantidadev"
+                                                           value="{{$row['quantidade']}}">
+                                                    <p class="small text-muted">
+                                                        <select class="form color-{{$key}}" name="cor_codigo"
+                                                                onchange="this.form.submit()">
+                                                            @foreach ($cores as $cor)
+                                                                <option
+                                                                    value="{{$cor->codigo}}" {{$row['cor_codigo'] == $cor->codigo ? 'selected' : ''}}>
+                                                                    {{$cor->nome}}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </p>
+                                                    <p class="small text-muted">Tamanho:<br>
+                                                        <select class="form" name="tamanho"
+                                                                onchange="this.form.submit()">
+                                                            @foreach ($tamanhos as $tamanho)
+                                                                <option
+                                                                    value="{{$tamanho}}" {{$row['tamanho'] == $tamanho ? 'selected' : ''}}>{{$tamanho}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </p>
                                                 </form>
 
                                             </td>
@@ -86,7 +92,7 @@
                                                     <div class="d-flex align-items-center">
                                                         <div class="number-input number-input-sm">
                                                             <button type="button"
-                                                                    id="btnDown"
+                                                                    onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
                                                                     class="minus font-weight-bold">-
                                                             </button>
                                                             <input class="quantity" min="0" max="100"
@@ -94,7 +100,7 @@
                                                                    value="{{ $row['quantidade'] }}"
                                                                    type="number">
                                                             <button type="button"
-                                                                    id="btnUp"
+                                                                    onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
                                                                     class="plus font-weight-bold">+
                                                             </button>
                                                         </div>
@@ -107,7 +113,8 @@
                                                 </form>
                                             </td>
                                             <td class="cart-item_subtotal text-primary ">
-                                                <span class="">{{$row['subtotal'] }}&euro;</span>
+                                                <span
+                                                    class="">{{ number_format($row['subtotal'], 2, ',', '.') }}&euro;</span>
 
                                             </td>
                                             <td class="cart-item_action">
@@ -117,7 +124,7 @@
                                                     <button type="submit" class="btn btn-light"><i
                                                             class="fas fa-times"></i></button>
                                                 </form>
-                                                </td>
+                                            </td>
                                         </tr>
 
                                         </tbody>
@@ -180,8 +187,8 @@
                                     </li>
                                 </ul>
 
-                                <a href="{{ route('checkout.index') }}"  class="btn btn-lg btn-primary btn-block">Checkout<i
-                                            class="far fa-arrow-right ml-2"></i></a>
+                                <a href="{{ route('checkout.index') }}" class="btn btn-lg btn-primary btn-block">Checkout<i
+                                        class="far fa-arrow-right ml-2"></i></a>
 
                             </div>
                         </div>
@@ -194,7 +201,8 @@
                         <div class="card">
                             <div class="card-body">
                                 <h5> O seu carrinho de compras está vazio.</h5>
-                                <p>Descubra o nosso  <a href="{{route('estampas.index')}}">catálogo de estampas </a> ou veja as nossas promoções.</p>
+                                <p>Descubra o nosso <a href="{{route('estampas.index')}}">catálogo de estampas </a> ou
+                                    veja as nossas promoções.</p>
                             </div>
                         </div>
                     </div>

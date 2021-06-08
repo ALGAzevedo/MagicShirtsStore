@@ -49,6 +49,7 @@ class EstampaPolicy
         return $user->tipo == 'C';
     }
 
+
     public function view_Admin(User $user, Estampa $estampa)
     {
         return $user->tipo == 'A' && $estampa->cliente_id == null;

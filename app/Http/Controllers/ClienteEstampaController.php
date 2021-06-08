@@ -8,6 +8,7 @@ use App\Models\Estampa;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class ClienteEstampaController extends Controller
@@ -15,7 +16,7 @@ class ClienteEstampaController extends Controller
 
     public function index()
     {
-        $estampas = Estampa::where('cliente_id', Auth::id())->whereNull('categoria_id') ->orderBy('id', 'desc')->paginate(6);
+        $estampas = Estampa::where('cliente_id', Auth::id())->whereNull('categoria_id')->orderBy('id', 'desc')->paginate(6);
         return view('estampas.cliente.index',compact('estampas'))->with('pageTitle', 'Minhas Estampas');
     }
 
@@ -30,7 +31,10 @@ class ClienteEstampaController extends Controller
     {
 
 
-        //TODO: CÓDIGO DUPLICADO COM O ADMIN
+        /* TODO: CÓDIGO DUPLICADO COM O ADMIN
+         * Basicamentte é passar  $type e verificar se é uma estampa privada ou não
+         * e depois é só definir a parsta e o redirect consoante o tipo
+         * */
         $request->validated();
 
         $newEstampa = new Estampa;
@@ -38,7 +42,7 @@ class ClienteEstampaController extends Controller
         $newEstampa->nome = $request->nome;
         $newEstampa->descricao = $request->descricao;
         if ($request->hasFile('estampa_img')) {
-            $path = $request->estampa_img->store('public/estampas');
+            $path = $request->estampa_img->store('estampas_privadas');
             $newEstampa->imagem_url = basename($path);
         }
 
@@ -61,6 +65,17 @@ class ClienteEstampaController extends Controller
         //TODO : Cuidado com o fill
         $request->validated();
         $estampa->fill($request->only(['nome', 'descricao']));
+
+        $old_url = 'estampas_privadas/'.$estampa->imagem_url;
+
+        if (($request->hasFile('estampa_img'))) {
+            $path = $request->estampa_img->store('estampas_privadas');
+            $estampa->imagem_url = basename($path);
+
+            if (Storage::exists( $old_url))
+                Storage::delete( $old_url);
+        }
+
 
         $estampa->save();
         return redirect()->route('estampas.cliente')
@@ -95,5 +110,19 @@ class ClienteEstampaController extends Controller
         }
     }
 
+
+    public function serve_asset($file) {
+        $path = 'estampas_privadas/' . $file;
+        if (!Storage::exists($path)) {
+            abort('404');
+        }
+        //Se a estampa existe, verifica se o cliente é o dono
+       $cliente_id = DB::table('estampas')->where('imagem_url', $file)->value('cliente_id');
+
+       // $data = Estampa::where('imagem_url', $file)->firstOrFail();
+
+        return $cliente_id == Auth::id() ? response()->file(storage_path('app/'.$path)) : abort(403, 'Estampa privada.');
+
+    }
 
 }
