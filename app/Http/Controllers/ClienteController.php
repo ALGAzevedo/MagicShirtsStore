@@ -179,4 +179,16 @@ class ClienteController extends Controller
             ->with('alert-type', 'danger');
     }
 
+    public function destroy_foto(Cliente $cliente)
+    {
+        dd($cliente);
+        Storage::delete('public/fotos/' . $cliente->user->foto_url);
+        $cliente->user->foto_url = null;
+        $cliente->user->save();
+        return redirect()->route('cliente.edit', ['cliente' => $cliente])
+            ->with('alert-msg', 'Foto do cliente "' . $cliente->user->name .
+                '" foi removida!')
+            ->with('alert-type', 'success');
+    }
+
 }

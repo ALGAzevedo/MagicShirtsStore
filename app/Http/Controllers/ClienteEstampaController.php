@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ClienteEstampaRequest;
 use App\Http\Requests\EstampaPost;
 use App\Models\Categoria;
 use App\Models\Estampa;
@@ -17,7 +18,7 @@ class ClienteEstampaController extends Controller
     public function index()
     {
         $estampas = Estampa::where('cliente_id', Auth::id())->whereNull('categoria_id')->orderBy('id', 'desc')->paginate(6);
-        return view('estampas.cliente.index',compact('estampas'))->with('pageTitle', 'Minhas Estampas');
+        return view('estampas.cliente.index', compact('estampas'))->with('pageTitle', 'Minhas Estampas');
     }
 
     public function create()
@@ -59,21 +60,21 @@ class ClienteEstampaController extends Controller
     }
 
 
-    public function update(EstampaPost $request, Estampa $estampa)
+    public function update(ClienteEstampaRequest $request, Estampa $estampa)
     {
         //$estampa->fill($request->validated());
         //TODO : Cuidado com o fill
         $request->validated();
         $estampa->fill($request->only(['nome', 'descricao']));
 
-        $old_url = 'estampas_privadas/'.$estampa->imagem_url;
+        $old_url = 'estampas_privadas/' . $estampa->imagem_url;
 
         if (($request->hasFile('estampa_img'))) {
             $path = $request->estampa_img->store('estampas_privadas');
             $estampa->imagem_url = basename($path);
 
-            if (Storage::exists( $old_url))
-                Storage::delete( $old_url);
+            if (Storage::exists($old_url))
+                Storage::delete($old_url);
         }
 
 
@@ -111,17 +112,17 @@ class ClienteEstampaController extends Controller
     }
 
 
-    public function serve_asset($file) {
+    public function serve_asset($file)
+    {
         $path = 'estampas_privadas/' . $file;
-        if (!Storage::exists($path)) {
-            abort('404');
-        }
-        //Se a estampa existe, verifica se o cliente é o dono
-       $cliente_id = DB::table('estampas')->where('imagem_url', $file)->value('cliente_id');
 
-       // $data = Estampa::where('imagem_url', $file)->firstOrFail();
 
-        return $cliente_id == Auth::id() ? response()->file(storage_path('app/'.$path)) : abort(403, 'Estampa privada.');
+        $estampa = Estampa::where('imagem_url', $file)->withTrashed()->firstOrFail();
+        //where('imagem_url', $file)->get();
+        // $data = Estampa::where('imagem_url', $file)->firstOrFail();
+        $this->authorize('viewEstampaBack', [Estampa::class, $estampa]);
+
+        return response()->file(storage_path('app/' . $path));
 
     }
 

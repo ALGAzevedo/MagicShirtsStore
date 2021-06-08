@@ -10,14 +10,6 @@ class EncomendaPolicy
 {
     use HandlesAuthorization;
 
-    public function before(User $user)
-    {
-        //TODO: O ADMIN tem acesso as encomendas no front??
-        if ($user->tipo == 'A') {
-            return true;
-        }
-    }
-
     /**
      * Determine whether the user can view any models.
      *
@@ -26,11 +18,11 @@ class EncomendaPolicy
      */
     public function viewAny(User $user)
     {
-        return false;
+        return $user->tipo == 'A';
     }
 
     public function viewBackEncomenda(User $user) {
-        return $user->tipo == 'F';
+        return $user->tipo == 'F' || $user->tipo == 'A';
     }
 
     public function viewClientEncomenda(User $user, Encomenda $encomenda) {
@@ -39,7 +31,7 @@ class EncomendaPolicy
 
     public function viewAllEstados(User $user)
     {
-        return false;
+        return $user->tipo == 'A';
     }
 
     public function viewEstado(User $user, $estado)
@@ -53,7 +45,7 @@ class EncomendaPolicy
 
     public function updateAnular(User $user)
     {
-        return false;
+        return $user->tipo == 'A';
     }
 
     /**
@@ -65,7 +57,7 @@ class EncomendaPolicy
      */
     public function view(User $user, Encomenda $encomenda)
     {
-        return $user->tipo == 'F' && ($encomenda->estado == 'paga' || $encomenda->estado == 'pendente');
+        return ($user->tipo == 'F' && ($encomenda->estado == 'paga' || $encomenda->estado == 'pendente')) || $user->tipo == 'A';
     }
 
     public function checkout(User $user)
@@ -92,7 +84,7 @@ class EncomendaPolicy
      */
     public function update(User $user, Encomenda $encomenda)
     {
-        return $user->tipo == 'F' && ($encomenda->estado == 'paga' || $encomenda->estado == 'pendente');
+        return ($user->tipo == 'F' && ($encomenda->estado == 'paga' || $encomenda->estado == 'pendente')) || $user->tipo == 'A';
     }
 
     /**

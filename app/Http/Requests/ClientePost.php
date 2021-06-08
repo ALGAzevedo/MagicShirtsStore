@@ -44,7 +44,7 @@ class ClientePost extends FormRequest
             'nif' => [
                 'nullable',
                 'numeric',
-                'size:9'
+                'digits:9'
             ],
             'endereco' => [
                 'nullable',

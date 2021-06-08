@@ -49,7 +49,7 @@
                             </div>
                         </form>
                         <form id="form_delete_photo"
-                              action="{{route('admin.clientes.foto.destroy',['cliente' => $cliente])}}"
+                              action="{{route('cliente.foto.destroy',['cliente' => $cliente])}}"
                               method="POST">
                             @csrf
                             @method('DELETE')

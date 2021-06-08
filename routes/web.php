@@ -133,7 +133,7 @@ Route::middleware('auth')->prefix('administracao')->name('admin.')->group(functi
     Route::delete('funcionarios/{funcionario}', [UserController::class, 'destroy'])->name('funcionarios.destroy')
         ->middleware('can:delete,funcionario');
     Route::delete('funcionarios/{funcionario}/foto', [UserController::class, 'destroy_foto'])->name('funcionarios.foto.destroy')
-        ->middleware('can:update, funcionario');
+        ->middleware('can:update,funcionario');
 
 //ADMINISTRACAO PARA CLIENTES
 
@@ -161,6 +161,9 @@ Route::put('cliente/password/{cliente}', [ClienteController::class, 'updatePassw
     ->middleware('can:updatePassword,cliente');
 
 Route::put('cliente/{cliente}', [ClienteController::class, 'update'])->name('cliente.update')
+    ->middleware('can:update,cliente');
+
+Route::delete('cliente/{cliente}/foto', [ClienteController::class, 'destroy_foto'])->name('cliente.foto.destroy')
     ->middleware('can:update,cliente');
 
 

@@ -100,74 +100,78 @@
         </div>
 
     </form>
-    <table class="table">
-        <thead>
-        <tr>
-            <th></th>
-            <th>Nome</th>
-            <th>Email</th>
-            <th>NIF</th>
-            <th>Endereço</th>
-            <th>Tipo Pagamento</th>
-            <th>Referência de pagamento</th>
-            <th>Tipo</th>
-            <th>Bloqueado</th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach ($clientes as $cliente)
-            <tr class=table-success'>
-                <td>
-                    <img
-                        src="{{$cliente->user->foto_url ? asset('storage/fotos/' . $cliente->user->foto_url) : asset('img/default_img.png') }}"
-                        alt="Foto do utilizador" class="img-profile rounded-circle" style="width:40px;height:40px">
-                </td>
-                <td>{{$cliente->user->name}}</td>
-                <td>{{$cliente->user->email}}</td>
-                <td>{{$cliente->nif}}</td>
-                <td>{{$cliente->endereco}}</td>
-                <td>{{$cliente->tipo_pagamento}}</td>
-                <td>{{$cliente->ref_pagamento}}</td>
-                <td>Cliente</td>
-                @if($cliente->user->bloqueado == 1)
-                    <td>Sim</td>
-                @else
-                    <td>Não</td>
-                @endif
-                <td>
-                    <form method="POST" action="{{route('admin.clientes.block', ['cliente' => $cliente]) }}"
-                          class="form-group" enctype="multipart/form-data">
-                        @csrf
-                        @method('PUT')
-                        @can('updateBlock', App\Models\Cliente::class)
-                        @if($cliente->user->bloqueado == 0)
-                            <button type="submit" class="btn btn-warning btn-sm" role="button" aria-pressed="true">
-                                Bloquear
-                            </button>
-                        @else
-                            <button type="submit" class="btn btn-warning btn-sm" role="button" aria-pressed="true">
-                                Desbloquear
-                            </button>
-                        @endif
-                        @endcan
-                    </form>
-                </td>
-
-                <td>
-                    <form action="{{route('admin.clientes.destroy', ['cliente' =>$cliente])}}" method="POST">
-                        @csrf
-                        @method("DELETE")
-                        <input type="submit" class="btn btn-danger btn-sm" value="Apagar">
-                    </form>
-                </td>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+            <tr>
+                <th></th>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>NIF</th>
+                <th>Endereço</th>
+                <th>Tipo Pagamento</th>
+                <th>Referência de pagamento</th>
+                <th>Tipo</th>
+                <th>Bloqueado</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
             </tr>
-        @endforeach
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            @foreach ($clientes as $cliente)
+                <tr class=table-success'>
+                    <td>
+                        <img
+                            src="{{$cliente->user->foto_url ? asset('storage/fotos/' . $cliente->user->foto_url) : asset('img/default_img.png') }}"
+                            alt="Foto do utilizador" class="img-profile rounded-circle" style="width:40px;height:40px">
+                    </td>
+                    <td>{{$cliente->user->name}}</td>
+                    <td>{{$cliente->user->email}}</td>
+                    <td>{{$cliente->nif}}</td>
+                    <td>{{$cliente->endereco}}</td>
+                    <td>{{$cliente->tipo_pagamento}}</td>
+                    <td>{{$cliente->ref_pagamento}}</td>
+                    <td>Cliente</td>
+                    @if($cliente->user->bloqueado == 1)
+                        <td>Sim</td>
+                    @else
+                        <td>Não</td>
+                    @endif
+                    <td>
+                        <form method="POST" action="{{route('admin.clientes.block', ['cliente' => $cliente]) }}"
+                              class="form-group" enctype="multipart/form-data">
+                            @csrf
+                            @method('PUT')
+                            @can('updateBlock', App\Models\Cliente::class)
+                                @if($cliente->user->bloqueado == 0)
+                                    <button type="submit" class="btn btn-warning btn-sm" role="button"
+                                            aria-pressed="true">
+                                        Bloquear
+                                    </button>
+                                @else
+                                    <button type="submit" class="btn btn-warning btn-sm" role="button"
+                                            aria-pressed="true">
+                                        Desbloquear
+                                    </button>
+                                @endif
+                            @endcan
+                        </form>
+                    </td>
+
+                    <td>
+                        <form action="{{route('admin.clientes.destroy', ['cliente' =>$cliente])}}" method="POST">
+                            @csrf
+                            @method("DELETE")
+                            <input type="submit" class="btn btn-danger btn-sm" value="Apagar">
+                        </form>
+                    </td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+    </div>
     {{ $clientes->withQueryString()->links()}}
 
 

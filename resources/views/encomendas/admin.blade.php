@@ -36,25 +36,25 @@
         <button type="submit" class="btn btn-primary">Filtrar</button>
     </form>
 
-    <table class="table">
+    <table class="table mt-4">
         <thead>
         <tr>
             <th>ID</th>
             <th>Data</th>
             <th>Estado</th>
-            <th>Cliente</th>
+            <th colspan="2">Cliente</th>
+
         </tr>
         </thead>
         <tbody>
         @foreach ($encomendas as $encomenda)
             <tr>
 
-                <td>
-                    <a href="{{route('admin.encomendas.edit', ['encomenda' => $encomenda])}}">{{$encomenda->id}}</a>
-                </td>
+                <td>{{$encomenda->id}}</td>
                 <td>{{$encomenda->data}}</td>
                 <td>{{$encomenda->estado}}</td>
                 <td>{{$encomenda->cliente_id}}</td>
+                <td><a class="btn btn-primary btn-sm" href="{{route('admin.encomendas.edit', ['encomenda' => $encomenda])}}">Detalhes</a></td>
             </tr>
         @endforeach
         </tbody>

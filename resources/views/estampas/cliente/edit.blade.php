@@ -44,13 +44,6 @@
                                         <div class="small text-danger">{{$message}}</div>
                                         @enderror
                                     </div>
-                                    <div class="form-group">
-                                        <label for="inputEstampa">Upload da estampa</label>
-                                        <input type="file" class="form-control-file estampa-file" name="estampa_img" id="inputIMG" accept="image/*">
-                                        @error('estampa_img')
-                                        <div class="small text-danger">{{$message}}</div>
-                                        @enderror
-                                    </div>
                                     <input type="hidden" name="estampa_update" value="false"/>
 
                                 </div><!--/col-->

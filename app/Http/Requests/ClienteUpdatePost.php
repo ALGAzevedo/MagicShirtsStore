@@ -33,7 +33,7 @@ class ClienteUpdatePost extends FormRequest
             'nif' => [
                 'nullable',
                 'string',
-                'size:9'
+                'digits:9'
             ],
             'endereco' => [
                 'nullable',

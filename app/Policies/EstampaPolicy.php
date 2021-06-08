@@ -146,4 +146,8 @@ class EstampaPolicy
     {
         //
     }
+
+    public function viewEstampaBack(User $user, Estampa $estampa){
+        return $user->tipo == 'A' || $user->tipo == 'F' || ($user->tipo == 'C' && $estampa->cliente_id == $user->id);
+    }
 }

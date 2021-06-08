@@ -71,8 +71,9 @@
                                                        href="{{route('cliente.edit', ['cliente'=> Auth::user()->id])}}">Perfil
                                                     </a>
                                                 <a class="dropdown-item" href="{{ route('estampas.cliente') }}">Estampas</a>
+                                                    <div class="dropdown-divider"></div>
                                                 @endcan
-                                                <div class="dropdown-divider"></div>
+
                                                 <a class="dropdown-item" href="{{ route('logout') }}"  data-toggle="modal" data-target="#logoutModal">Terminar Sessão</a>
                                             </div>
                                         </div>
