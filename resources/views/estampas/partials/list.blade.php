@@ -15,7 +15,7 @@
             <div class="card card-product-grid">
                 <a href="{{route('tshirts.choose',  ['estampa' => $estampa])}}">
                     <div class="img-wrap mx-auto">
-                        <img src="{{asset('storage/estampas/'.$estampa->imagem_url)}}" alt="">
+                        <img src="{{asset('storage/estampas/'.$estampa->imagem_url)}}" alt="{{$estampa->nome}}">
                     </div></a> <!-- img-wrap.// -->
                 <div class="info-wrap">
                     <div class="fix-height mb-3">
@@ -23,7 +23,7 @@
                         <a href="{{route('tshirts.choose',  ['estampa' => $estampa])}}" class="title mb-1">{{$estampa->nome}}</a>
                         <small>{{$estampa->descricao}}</small>
                     </div>
-                    <a href="{{route('tshirts.choose',  ['estampa' => $estampa])}}" class="btn btn-block btn-primary">Ver detalhe </a>
+                    <a href="{{route('tshirts.choose',  ['estampa' => $estampa])}}" class="btn btn-block btn-primary">Ver opções </a>
                 </div>
             </div>
         </div> <!-- col.// -->

@@ -43,7 +43,7 @@ class CheckoutController extends Controller
         $encomenda->estado = "pendente";
         $encomenda->data = Carbon::now()->isoFormat('YYYY-MM-DD');
 
-        $encomenda->preco_total = $carrinho->subtotal();
+        $encomenda->preco_total = Cart::subtotal();
         $encomenda->notas = $validated_data['notas'];
         $encomenda->nif = $validated_data['nif'];
         $encomenda->endereco = $validated_data['endereco'];

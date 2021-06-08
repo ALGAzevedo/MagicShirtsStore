@@ -81,6 +81,7 @@ class CartController extends Controller
             'nome' => $estampa->nome,
             'cor_codigo' => $request->cor_codigo,
             'estampa_id' => $estampa_id,
+            'categoria_id' => $estampa->categoria_id,
             'imagem_url' => $estampa->imagem_url,
             'tamanho' => $request->tamanho,
             'quantidade' => intval($quantidade),
@@ -88,21 +89,6 @@ class CartController extends Controller
             'subtotal' => floatval($preco_un * $quantidade),
         ];
 
-      /*  if (!Storage::disk('public')->exists('product/')) {
-            Storage::disk('public')->makeDirectory('product/');
-        }
-
-        //$imagem_tshirt = uniqid('tshirt_').'.jpg';
-        $imagem_tshirt = 'tshirt_' . $uuid . '.jpg';
-
-        $watermark = Image::make(public_path('/storage/estampas/' . $estampa->imagem_url))->resize(216, 231);
-
-
-        Image::make(public_path('/storage/tshirt_base/' . $request->cor_codigo . '.jpg'))->resize(520, 560)
-            ->insert($watermark, 'center')
-            ->save(public_path('/storage/product/' . $imagem_tshirt));
-
-*/
         session()->put('carrinho', $carrinho);
         session()->put('carrinho_qty', $this->count());
         session()->put('carrinho_subtotal', $this->subtotal());
@@ -115,27 +101,18 @@ class CartController extends Controller
 
     public function update(Request $request, string $uuid)
     {
+        //TODO: NÃO É PRECISO FAZER O VALIDATED()???
 
-       /* dd(session('carrinho'));
-        $validated = $request->validate([
-            'cor_codigo' => 'required|exists:cores,codigo',
-            'tamanho' => 'required|in:XS,S,M,L,XL',
-            'quantidade' => 'required|integer|min:0'
-        ], [  // Custom Error Messages
-            'cor_codigo.required' => 'Código de cor é um campo obrigatório',
+        $request->validate([
+            'cor_codigo' => 'nullable|exists:cores,codigo',
+            'tamanho' => 'nullable|in:XS,S,M,L,XL',
+            'quantidade' => 'nullable|integer|min:0'
+        ], [
             'cor_codigo.exists' => 'Código de cor inválido',
-            'estampa_id.required' => 'estampa_id é um campo obrigatório',
-            'estampa_id.exists' => 'estampa_id inválida',
-            'tamanho.required' => 'tamanho é um campo obrigatório',
-            'tamanho.in' => 'Não é um tamanho válido',
-            'quantidade.required' => 'quantidade  é um campo obrigatório',
-            'quantidade.min' => 'quantidade  mínima é 1'
+            'tamanho.in' => 'Tamanho inválido.',
+            'quantidade.integer' => 'Quantidade inválida.',
+            'quantidade.min' => 'Quantidade inválida para atualização.'
         ]);
-
-        dd($validated);*/
-
-        dd("Não funciona");
-
 
         $carrinho = session()->get('carrinho', []);
 
@@ -146,60 +123,71 @@ class CartController extends Controller
         }
 
         $item = $carrinho[$uuid];
-        $olduuid = $uuid;
-        $quantidade = $item['quantidade'] ?? 0;
+        $nova_quantidade = $request->quantidade;
 
-        //dd($carrinho);
+        //Atualiza apenas a quantidade
+        if ($request->filled('quantidade') && $nova_quantidade <= 0) {
+            $this->destroy_item($request, $uuid);
+            return back(); // TODO: Estranho o código continuar uma vez que no destroy já tem back()
+        }
 
-        //TODO: fazer o find da estampa
+        //Não atualiza se a quantidade for igual
+        if ($nova_quantidade == $item['quantidade']) {
+            return back();
+        }
 
+        /*
+         * Significa que está tudo ok e validado
+         * */
         $estampa = Estampa::findOrFail($item['estampa_id']);
         $preco = $this->getPrecoEstampa($estampa);
         $preco_un = $preco['normal'];
 
-        if ($request->quantidade >= $this->getQuantDesconto())
+        $quantidade = intval($nova_quantidade ?? $item['quantidade']);
+
+        $tamanho = $request->tamanho ?? $item['tamanho'];
+        $cor_codigo = $request->cor_codigo ?? $item['cor_codigo'];
+
+        $new_uuid = (string)$cor_codigo . $item['estampa_id'] . $tamanho;
+
+        //Se houver a mesma estampa soma as quantidades
+        if ($uuid != $new_uuid) {
+            $quantidade += $carrinho[$new_uuid]['quantidade'] ?? 0;
+            unset($carrinho[$uuid]); // Elimina a anterior, pois vai ser criada uma nova
+        }
+
+        //Aplica o preço com desconto de quantidades
+        if ($quantidade >= $this->getQuantDesconto())
             $preco_un = $preco['desconto'];
 
+        //Atualiza dados do carrinho na sessão
+        $carrinho[$new_uuid] = [
+            'uuid' => $new_uuid,
+            'nome' => $item['nome'],
+            'cor_codigo' => $cor_codigo,
+            'estampa_id' => $item['estampa_id'],
+            'categoria_id' => $item['categoria_id'],
+            'imagem_url' => $estampa->imagem_url,
+            'tamanho' => $tamanho,
+            'quantidade' => $quantidade,
+            'preco_un' => floatval($preco_un),
+            'subtotal' => floatval($preco_un * $quantidade),
+        ];
 
-        if ($request->quantidade < 0 || intval($request->quantidade) == $quantidade) {
-            return back();
-        } elseif ($request->quantidade > 0) {
-            $msg = 'Foram adicionadas ' . $request->quantidade . ' ao produto';
-            $quantidade = $request->quantidade;
-        }
-        if ($request->quantidade <= 0) {
-            $msg = 'O produto "' . $item['nome'] . '" foi removido';
-            unset($carrinho[$uuid]);
+        /*if ($uuid != $new_uuid)
+            unset($carrinho[$uuid]);*/
 
-        } else {
-
-            $uuid = (string)$request->cor_codigo . $item['estampa_id'] . $request->tamanho;
-
-
-            $carrinho[$uuid] = [
-                'uuid' => $request->cor_codigo . '-' . $item['estampa_id'] . '-' . $request->tamanho,
-                'nome' => $item['nome'],
-                'cor_codigo' => $request->cor_codigo ?? $item['cor_codigo'],
-                'estampa_id' => $item['estampa_id'],
-                'imagem_url' => $estampa->imagem_url,
-                'tamanho' => $request->tamanho ?? $item['tamanho'],
-                'quantidade' => intval($quantidade),
-                'preco_un' => floatval($preco_un),
-                'subtotal' => floatval($preco_un * $quantidade),
-            ];
-            $msg = 'Quantidade atualizada';
-        }
-
-        unset($carrinho[$olduuid]);
         session()->put('carrinho', $carrinho);
         session()->put('carrinho_qty', $this->count());
         session()->put('carrinho_subtotal', $this->subtotal());
 
         return back()
-            ->with('alert-msg', $msg)
+            ->with('alert-msg', 'O carrinho de compras foi atualizado')
             ->with('alert-type', 'success');
     }
 
+
+//TODO: Rename this method to remove()
     public function destroy_item(Request $request, string $uuid)
     {
         $carrinho = session()->get('carrinho', []);
@@ -209,7 +197,7 @@ class CartController extends Controller
             session()->put('carrinho_qty', $this->count());
             session()->put('carrinho_subtotal', $this->subtotal());
             return back()
-                ->with('alert-msg', 'Foram removidas todas as inscrições à disciplina')
+                ->with('alert-msg', 'O produto foi removido do carrinho.')
                 ->with('alert-type', 'success');
         }
         return back()

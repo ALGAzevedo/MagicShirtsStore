@@ -21,7 +21,7 @@
                     <div class="card-body">
 
                         <form method="POST" action="{{route('cliente.estampas.update', ['estampa' => $estampa]) }}"
-                              class="form-group">
+                              class="form-group" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
 
@@ -45,8 +45,11 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label for="inputEstampa">Alterar imagem da estampa</label>
-                                        <div class="alert alert-danger"> Feature: Atualizar imagem da estapa</div>
+                                        <label for="inputEstampa">Upload da estampa</label>
+                                        <input type="file" class="form-control-file estampa-file" name="estampa_img" id="inputIMG" accept="image/*">
+                                        @error('estampa_img')
+                                        <div class="small text-danger">{{$message}}</div>
+                                        @enderror
                                     </div>
                                     <input type="hidden" name="estampa_update" value="false"/>
 
@@ -55,7 +58,7 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <div class="d-flex justify-content-center estampa-preview mx-auto">
-                                            <img src="{{asset('storage/estampas/'.$estampa->imagem_url)}}"
+                                            <img src="{{  route('storage.asset', ['path' => $estampa->imagem_url])}}"
                                                  class="img-fluid estampa-preview-img img-thumbnail rounded" alt=""/>
                                         </div>
 

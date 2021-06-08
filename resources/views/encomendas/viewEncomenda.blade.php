@@ -16,12 +16,16 @@
                 <div class="card">
 
                     <header class="card-header border-bottom d-flex justify-content-between align-items-center">
-                        <b class="d-inline-block mr-3">Detalhes da Encomenda #{{$encomenda->id}} </b>
-                        <span class="badge bg-{{$encomenda->estado}}"> {{$encomenda->estado}}</span>
+                        <span class="d-inline-block mr-3"><strong>Detalhes da Encomenda #{{$encomenda->id}}</strong></span>
+                        <small class="text-muted">Data: {{$encomenda->data}}</small>
+
                     </header>
                     <div class="card-body">
 
                         <div class="row">
+                            <div class="col-12 mb-2">
+                                <span class="order-status status-{{$encomenda->estado}}"> {{$encomenda->estado}}</span>
+                            </div>
                             <div class="col-sm-6">
                                 <h6>Facturação</h6>
                                 <ul class="list-unstyled mt-2">
@@ -65,7 +69,7 @@
                                                     src="{{asset('storage/tshirt_base/' . $shirt->cor_codigo . '.jpg')}}"
                                                     alt="">
                                                 <div class="shirt_thumb-overlay">
-                                                    <img class="shirt_thumb-overlay-img" src="{{asset('storage/estampas/' . $shirt->Estampa->imagem_url)}}"
+                                                    <img class="shirt_thumb-overlay-img" src="{{ static_asset($shirt->estampa->categoria_id,$shirt->estampa->imagem_url)}}"
                                                          alt="{{$shirt->estampa->nome}}"/>
                                                 </div>
 
@@ -74,7 +78,7 @@
 
                                     <td>
                                         <p class="title mb-0">[{{$shirt->estampa->id}}] {{$shirt->estampa->nome}} </p>
-                                        <span class="small text-muted">Tamanho: {{$shirt->tamanho}} | Cor: {{$shirt->cor_codigo}}</span>
+                                        <span class="small text-muted">Tamanho: {{$shirt->tamanho}} | Código cor: {{$shirt->cor_codigo}}</span>
                                     </td>
                                     <td class="text-lg-right"> {{$shirt->preco_un}}€ </td>
                                     <td class="text-lg-right"> &times;{{$shirt->quantidade}} </td>

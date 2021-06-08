@@ -121,7 +121,7 @@
                                             src="{{asset('storage/tshirt_base/' .$row['cor_codigo'] . '.jpg')}}"
                                             alt="">
                                         <div class="shirt_thumb-overlay">
-                                            <img class="shirt_thumb-overlay-img" src="{{asset('storage/estampas/' . $row['imagem_url'])}}"
+                                            <img class="shirt_thumb-overlay-img" src="{{static_asset($row['categoria_id'],$row['imagem_url'])}}"
                                                  alt="{{$row['nome']}}"/>
                                         </div>
 

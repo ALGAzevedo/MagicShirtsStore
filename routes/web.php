@@ -184,6 +184,13 @@ Route::delete('/estampas/{estampa}', [ClienteEstampaController::class, 'destroy'
     ->middleware('can:delete_private,estampa');
 });
 
+// EXIBIÇÃO E DOWNLOAD DE FICHEIRO
+Route::middleware( 'auth')->group(function () {
+    Route::get('static/{path}', [ClienteEstampaController::class, 'serve_asset'])
+        ->name('storage.asset');
+});
+
+
 
 //Tshirts
 Route::get('estampas', [EstampaController::class, 'index'])->name('estampas.index');

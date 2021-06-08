@@ -24,7 +24,7 @@
                             alt=""
                             data-storage="{{asset('storage/tshirt_base/')}}">
                         <div class="shirt_base-overlay">
-                            <img class="shirt_base-overlay-img" src="{{asset('storage/estampas/' . $estampa->imagem_url)}}"
+                            <img class="shirt_base-overlay-img" src="{{ static_asset($estampa->categoria_id,$estampa->imagem_url)}}"
                                  alt="{{$estampa->nome}}"/>
                         </div>
                     </div>

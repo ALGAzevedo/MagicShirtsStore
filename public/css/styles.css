@@ -10841,6 +10841,35 @@ a.list-group-item:hover {
 .table-view th, .table-view td {
     vertical-align: middle;
 }
+.order-status {
+    display: inline-block;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    font-size: 12px;
+    height: 22px;
+    line-height: 22px;
+    font-weight: 700;
+    padding: 0 10px 0 10px;
+    text-transform: uppercase;
+}
+.status-pendente {
+    color: #e28a4f;
+    background-color: rgba(254,165,105,0.2);
+}
+.status-fechada {
+    color: #717070;
+    background-color: rgba(153,153,153,0.1);
+}
+.status-anulada {
+    color: #f44336;
+    background-color: rgba(244,67,54,0.1);
+}
+.status-paga {
+    color: #00a65a;
+    background-color: rgba(0,166,90,0.1);
+}
+
 
 
 .btn-xs, .btn-group-xs > .btn {

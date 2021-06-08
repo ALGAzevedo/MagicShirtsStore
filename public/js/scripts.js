@@ -2,13 +2,20 @@
 
 $(function() {
 
-    $(".quantity").on('change paste input', function() {
-        $("#tqty").val($(this).val())
+    const shirt = $('.magic-shirt');
+    const STORAGE_URL = shirt.attr('data-storage')
+
+    //Preview da t-shirt com a cor selecionada
+    $(".magic-color").on('change', function() {
+       shirt.attr("src", STORAGE_URL+'/'+$(this).val()+'.jpg');
     });
 
-   /* $("select").on('change', function() {
-        $(this).attr("src", "url");
-    });*/
+    //Preview imagem da estampa antes do upload
+    $(".estampa-file").change(function(){
+        readURL(this);
+    });
+
+
 });
 
 function readURL(input) {
@@ -22,32 +29,6 @@ function readURL(input) {
     }
 }
 
-$(".estampa-file").change(function(){
-    readURL(this);
-});
 
-//div.classList.contains('class');
-/*
-const magic_color = document.querySelector('.magic-color')
-const magic_shirt = document.querySelector('.magic-shirt')
-const STORAGE_URL = magic_shirt.getAttribute('data-storage')
 
-magic_color.addEventListener('change', (e)=>{
-    magic_shirt.setAttribute('src', STORAGE_URL+'/'+e.target.value+'.jpg');
-})
-*/
-const up_btn = document.getElementById('btnUp')
-const down_btn = document.getElementById('btnDown')
-
-up_btn.addEventListener('click', function() {
-    const target = this.parentNode.querySelector('input[type=number]');
-    target.stepUp()
-    document.getElementById('tqty').value = target.value
-}, false);
-
-down_btn.addEventListener('click', function() {
-    const target = this.parentNode.querySelector('input[type=number]');
-    target.stepDown()
-    document.getElementById('tqty').value = target.value
-}, false);
 

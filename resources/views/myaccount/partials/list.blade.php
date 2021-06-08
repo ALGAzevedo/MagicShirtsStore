@@ -5,7 +5,7 @@
 
                 <a href="{{route('tshirts.choose',  ['estampa' => $estampa])}}">
                     <div class="img-wrap mx-auto">
-                        <img src="{{asset('storage/estampas/'.$estampa->imagem_url)}}" alt="">
+                        <img src="{{ static_asset($estampa->categoria_id,$estampa->imagem_url)}}" alt="">
                     </div></a> <!-- img-wrap.// -->
                 <div class="info-wrap">
                     <div class="fix-height mb-3">

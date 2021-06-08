@@ -43,7 +43,7 @@ class EncomendaController extends Controller
             $encomendas->where('data', '=', $dataSel);
         }
 
-        $encomendas = $encomendas->get();
+        $encomendas = $encomendas->orderBy('id', 'desc')->paginate(6);;
 
         return view('encomendas.index', compact('encomendas','estadoSel', 'dataSel'));
     }
