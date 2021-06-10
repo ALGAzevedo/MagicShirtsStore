@@ -8,6 +8,7 @@ use App\Models\Encomenda;
 use App\Models\Estampa;
 use App\Models\Tshirt;
 
+use App\Notifications\EncomendaAnulada;
 use App\Notifications\EncomendaPaga;
 use Illuminate\Http\Request;
 
@@ -145,6 +146,8 @@ class EncomendaController extends Controller
         //verifica se user pode anular encomenda
         if($estado == 'anulada') {
             $this->authorize('updateAnular', Encomenda::class);
+            Auth::user()->notify(new EncomendaAnulada($encomenda, $encomenda->cliente_id));
+
         }
         if($estado == 'paga'){
             Auth::user()->notify(new EncomendaPaga($encomenda, $encomenda->cliente_id));
