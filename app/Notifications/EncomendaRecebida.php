@@ -13,15 +13,17 @@ class EncomendaRecebida extends Notification
 {
     use Queueable;
     private $encomenda;
+    private $user;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($value)
+    public function __construct($encomendaRecebida, $utilizador)
     {
-        $this->encomenda = $value;
+        $this->encomenda = $encomendaRecebida;
+        $this->user = $utilizador;
     }
 
     /**
@@ -46,7 +48,7 @@ class EncomendaRecebida extends Notification
 
         $url = url('encomendas/'.$this->encomenda->id);
         return (new MailMessage)
-            ->greeting("Olá!")
+            ->greeting("Olá, ". $this->user->name."!")
             ->line('A sua encomenda foi recebida com sucesso.')
             ->line('Pode ver a sua encomenda no link abaixo.')
             ->action('Ver Encomenda', $url )
