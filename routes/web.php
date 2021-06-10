@@ -242,3 +242,7 @@ Route::post('/email/verification-notification', function (Request $request) {
 
 
 
+//RECIBOS ENCOMENDA
+
+//Route::get('invoices/{id}', [InvoiceController::class, 'show'])->name('invoices.show');
+

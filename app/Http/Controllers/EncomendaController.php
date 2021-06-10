@@ -3,21 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\EncomendaUpdatePost;
+use App\Mail\EncomendaEnviada;
 use App\Models\Cor;
 use App\Models\Encomenda;
 use App\Models\Estampa;
 use App\Models\Tshirt;
-
 use Exception;
+use App\Notifications\EncomendaAnulada;
+use App\Notifications\EncomendaPaga;
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use PDF;
-
 use Illuminate\Http\File;
 use Illuminate\Support\Facades\Storage;
-
+use Illuminate\Support\Facades\Mail;
 
 
 
@@ -111,7 +111,7 @@ class EncomendaController extends Controller
 
 
 
-        $encomendas = $qry->paginate(10);
+        $encomendas = $qry->orderBy('id', 'DESC')->paginate(10);
 
 
         return view('encomendas.admin',
@@ -147,8 +147,10 @@ class EncomendaController extends Controller
         $estado = $validated_data['estado'];
 
         //verifica se user pode anular encomenda
+
         if($estado == 'anulada') {
             $this->authorize('updateAnular', Encomenda::class);
+            Auth::user()->notify((new EncomendaAnulada($encomenda, $encomenda->cliente_id))->delay(now()->addSeconds(10)));
         }
 
 
@@ -156,7 +158,15 @@ class EncomendaController extends Controller
 
         if($estado == 'fechada') {
             $pdf = $this->createPdf($encomenda);
-
+            Auth::user()->notify((new EncomendaAnulada($encomenda, $encomenda->cliente_id))->delay(now()->addSeconds(10)));
+        }
+        if($estado == 'paga'){
+            Auth::user()->notify((new EncomendaPaga($encomenda, $encomenda->cliente_id))->delay(now()->addSeconds(10)));
+        }
+        if($estado == 'fechada'){
+            Mail::to(Auth::user())
+                ->queue(new EncomendaEnviada($encomenda, Auth::id()));
+        }
 
 
             $output = $pdf->output();

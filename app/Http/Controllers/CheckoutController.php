@@ -7,6 +7,7 @@ use App\Http\Requests\CheckoutRequest;
 use App\Models\Cliente;
 use App\Models\Encomenda;
 use App\Models\Tshirt;
+use App\Notifications\EncomendaRecebida;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -74,6 +75,8 @@ class CheckoutController extends Controller
             }
         }
 
+
+        Auth::user()->notify((new EncomendaRecebida($encomenda, Auth::user()))->delay(now()->addSeconds(10)));
         Cart::destroy();
 
         return redirect()->route('cliente.encomenda.view', ['encomenda' => $encomenda])
