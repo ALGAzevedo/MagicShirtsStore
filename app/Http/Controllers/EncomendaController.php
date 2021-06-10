@@ -108,7 +108,7 @@ class EncomendaController extends Controller
 
 
 
-        $encomendas = $qry->paginate(10);
+        $encomendas = $qry->orderBy('id', 'DESC')->paginate(10);
 
 
         return view('encomendas.admin',
