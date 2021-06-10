@@ -170,7 +170,7 @@ class EncomendaController extends Controller
             $encomenda->save();
 
             Mail::to(Auth::user())
-                ->send(new EncomendaEnviada($encomenda, Auth::id()));
+                ->queue(new EncomendaEnviada($encomenda, Auth::id()));
         }
 
         $encomenda->save();
