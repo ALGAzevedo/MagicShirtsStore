@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\EncomendaUpdatePost;
+use App\Mail\EncomendaEnviada;
 use App\Models\Cor;
 use App\Models\Encomenda;
 use App\Models\Estampa;
@@ -14,8 +15,7 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-
-
+use Illuminate\Support\Facades\Mail;
 
 
 class EncomendaController extends Controller
@@ -151,6 +151,10 @@ class EncomendaController extends Controller
         }
         if($estado == 'paga'){
             Auth::user()->notify(new EncomendaPaga($encomenda, $encomenda->cliente_id));
+        }
+        if($estado == 'fechada'){
+            Mail::to(Auth::user())
+                ->send(new EncomendaEnviada($encomenda, Auth::id()));
         }
 
         $encomenda->estado = $estado;
