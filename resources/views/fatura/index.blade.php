@@ -25,7 +25,7 @@
                         <div class="row">
                             <div class="col-xs-12">
                                 <h2>Fatura<br>
-                                    <span class="small">Encomenda # {{$encomenda->id}}</span></h2>
+                                    <span class="small">FTMS/{{$encomenda->id}}</span></h2>
                             </div>
                         </div>
                     </div>
@@ -36,6 +36,8 @@
                                 <strong>Emitido a:</strong><br>
                                 {{$encomenda->cliente->user->name}}<br>
                                 {{$encomenda->cliente->endereco}}<br>
+                                <strong>NIF </strong>
+                                {{$encomenda->nif}}<br>
                             </address>
                         </div>
                         <div class="col-xs-6 text-right">
@@ -78,17 +80,16 @@
 
                                 @foreach ($shirts as $shirt)
                                     <tr class="line">
-                                        <td>{{$shirt->estampa->nome}}</td>
-                                        <td>{{$shirt->preco_un}}</td>
-                                        <td class="text-center">{{$shirt->quantidade}}</td>
-                                        <td class="text-center">{{$shirt->subtotal}}</td>
+                                        <td class="text-center">{{$shirt->estampa->nome}}</td>
+                                        <td class="text-right">{{$shirt->preco_un}}</td>
+                                        <td class="text-right">{{$shirt->quantidade}}</td>
+                                        <td class="text-right">{{$shirt->subtotal}}€</td>
                                     </tr>
                                 @endforeach
                                 <tr>
-                                    <td colspan="2">
-                                    </td>
+                                    <td colspan="2"></td>
                                     <td class="text-right"><strong>Total</strong></td>
-                                    <td class="text-right"><strong>{{$encomenda->preco_total}}</strong></td>
+                                    <td class="text-right"><strong>{{$encomenda->preco_total}}€</strong></td>
                                 </tr>
                                 </tbody>
                             </table>
