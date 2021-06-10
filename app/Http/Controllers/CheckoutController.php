@@ -74,7 +74,7 @@ class CheckoutController extends Controller
 
             }
         }
-        Auth::user()->notify(new EncomendaRecebida($encomenda));
+        Auth::user()->notify(new EncomendaRecebida($encomenda, Auth::user()));
         Cart::destroy();
 
         return redirect()->route('cliente.encomenda.view', ['encomenda' => $encomenda])

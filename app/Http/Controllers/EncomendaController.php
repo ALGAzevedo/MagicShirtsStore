@@ -8,6 +8,7 @@ use App\Models\Encomenda;
 use App\Models\Estampa;
 use App\Models\Tshirt;
 
+use App\Notifications\EncomendaPaga;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
@@ -145,10 +146,9 @@ class EncomendaController extends Controller
         if($estado == 'anulada') {
             $this->authorize('updateAnular', Encomenda::class);
         }
-
-
-
-
+        if($estado == 'paga'){
+            Auth::user()->notify(new EncomendaPaga($encomenda, $encomenda->cliente_id));
+        }
 
         $encomenda->estado = $estado;
 
