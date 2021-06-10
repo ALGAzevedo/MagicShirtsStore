@@ -74,7 +74,9 @@ class CheckoutController extends Controller
 
             }
         }
-        Auth::user()->notify(new EncomendaRecebida($encomenda, Auth::user()));
+
+        $delay = now()->addMinute();
+        Auth::user()->notify(new EncomendaRecebida($encomenda, Auth::user()))->delay($delay);
         Cart::destroy();
 
         return redirect()->route('cliente.encomenda.view', ['encomenda' => $encomenda])

@@ -144,17 +144,19 @@ class EncomendaController extends Controller
         $estado = $validated_data['estado'];
 
         //verifica se user pode anular encomenda
+
+        $delay = now()->addMinute();
         if($estado == 'anulada') {
             $this->authorize('updateAnular', Encomenda::class);
-            Auth::user()->notify(new EncomendaAnulada($encomenda, $encomenda->cliente_id));
+            Auth::user()->notify(new EncomendaAnulada($encomenda, $encomenda->cliente_id))->delay($delay);
 
         }
         if($estado == 'paga'){
-            Auth::user()->notify(new EncomendaPaga($encomenda, $encomenda->cliente_id));
+            Auth::user()->notify(new EncomendaPaga($encomenda, $encomenda->cliente_id))->delay($delay);
         }
         if($estado == 'fechada'){
             Mail::to(Auth::user())
-                ->send(new EncomendaEnviada($encomenda, Auth::id()));
+                ->queue(new EncomendaEnviada($encomenda, Auth::id()));
         }
 
         $encomenda->estado = $estado;
