@@ -7,6 +7,7 @@ use App\Http\Controllers\ClienteEstampaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EstampaController;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\FaturaController;
 use App\Http\Controllers\PrecosController;
 use App\Http\Controllers\EncomendaController;
 
@@ -236,4 +237,10 @@ Route::post('/email/verification-notification', function (Request $request) {
 
     return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+
+
+
+//FATURA TESTE
+Route::get('/faturas/{encomenda}', [FaturaController::class, 'index'])->name('fatura.index');
 
