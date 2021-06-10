@@ -174,7 +174,6 @@ class EncomendaController extends Controller
             file_put_contents('storage/recibos/'.$name, $output);
 
             $encomenda->recibo_url = basename($name);
-        }
 
 
         $encomenda->save();
