@@ -114,8 +114,10 @@ Route::middleware('auth')->prefix('administracao')->name('admin.')->group(functi
         ->middleware('can:view,encomenda');
     Route::put('encomendas/{encomenda}', [EncomendaController::class, 'admin_update'])->name('encomendas.update')
         ->middleware('can:update,encomenda');
-    Route::get('/encomedas/{encomenda}/fatura', [EncomendaController::class, 'openPdf'])->name('encomendas.viewPdf');
-    Route::get('/encomedas/{encomenda}/fatura/download', [EncomendaController::class, 'downloadPdf'])->name('encomendas.downloadPdf');
+    
+    //TODO: Remover da administracao
+    Route::get('encomedas/{encomenda}/fatura', [EncomendaController::class, 'openPdf'])->name('encomendas.viewPdf');
+    Route::get('encomedas/{encomenda}/fatura/download', [EncomendaController::class, 'downloadPdf'])->name('encomendas.downloadPdf');
 
 
 //ADMINISTRACAO FUNCIONARIOS
@@ -244,5 +246,5 @@ Route::post('/email/verification-notification', function (Request $request) {
 
 //RECIBOS ENCOMENDA
 
-//Route::get('invoices/{id}', [InvoiceController::class, 'show'])->name('invoices.show');
+
 

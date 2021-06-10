@@ -156,25 +156,21 @@ class EncomendaController extends Controller
 
         $encomenda->estado = $estado;
 
-        if($estado == 'fechada') {
-            $pdf = $this->createPdf($encomenda);
-            Auth::user()->notify((new EncomendaAnulada($encomenda, $encomenda->cliente_id))->delay(now()->addSeconds(10)));
-        }
         if($estado == 'paga'){
             Auth::user()->notify((new EncomendaPaga($encomenda, $encomenda->cliente_id))->delay(now()->addSeconds(10)));
         }
+
         if($estado == 'fechada'){
-            Mail::to(Auth::user())
-                ->queue(new EncomendaEnviada($encomenda, Auth::id()));
-        }
-
-
+            $pdf = $this->createPdf($encomenda);
             $output = $pdf->output();
             $name = 'FTMS'.$encomenda->id.'.pdf';
             file_put_contents('storage/recibos/'.$name, $output);
 
             $encomenda->recibo_url = basename($name);
 
+            Mail::to(Auth::user())
+                ->queue(new EncomendaEnviada($encomenda, Auth::id()));
+        }
 
         $encomenda->save();
         return redirect()->route('admin.encomendas')
