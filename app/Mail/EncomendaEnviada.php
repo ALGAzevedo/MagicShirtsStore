@@ -13,6 +13,7 @@ class EncomendaEnviada extends Mailable
     use Queueable, SerializesModels;
 
     private $userID, $encomenda;
+
     /**
      * Create a new message instance.
      *
@@ -36,11 +37,11 @@ class EncomendaEnviada extends Mailable
         return $this->from('noreply@magicshirtstore.com')
             ->subject('A sua encomenda for enviada.')
             ->view('emails.orders.enviada')
+            ->withEncomenda($this->encomenda)
             ->with([
                 'orderId' => $this->encomenda->id,
                 'orderName' => $user->name,
                 'orderPrice' => $this->encomenda->preco_total,
             ]);
-            //TODO: FALTA ISTO ->       ->attachFromStorage('invoices/doc00001.jpeg');
     }
 }

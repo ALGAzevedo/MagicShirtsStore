@@ -167,9 +167,10 @@ class EncomendaController extends Controller
             file_put_contents('storage/recibos/'.$name, $output);
 
             $encomenda->recibo_url = basename($name);
+            $encomenda->save();
 
             Mail::to(Auth::user())
-                ->queue(new EncomendaEnviada($encomenda, Auth::id()));
+                ->send(new EncomendaEnviada($encomenda, Auth::id()));
         }
 
         $encomenda->save();
