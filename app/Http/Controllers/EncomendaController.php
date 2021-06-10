@@ -8,14 +8,17 @@ use App\Models\Cor;
 use App\Models\Encomenda;
 use App\Models\Estampa;
 use App\Models\Tshirt;
-
+use Exception;
 use App\Notifications\EncomendaAnulada;
 use App\Notifications\EncomendaPaga;
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use PDF;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Mail;
+
 
 
 class EncomendaController extends Controller
@@ -148,7 +151,14 @@ class EncomendaController extends Controller
         if($estado == 'anulada') {
             $this->authorize('updateAnular', Encomenda::class);
             Auth::user()->notify((new EncomendaAnulada($encomenda, $encomenda->cliente_id))->delay(now()->addSeconds(10)));
+        }
 
+
+        $encomenda->estado = $estado;
+
+        if($estado == 'fechada') {
+            $pdf = $this->createPdf($encomenda);
+            Auth::user()->notify((new EncomendaAnulada($encomenda, $encomenda->cliente_id))->delay(now()->addSeconds(10)));
         }
         if($estado == 'paga'){
             Auth::user()->notify((new EncomendaPaga($encomenda, $encomenda->cliente_id))->delay(now()->addSeconds(10)));
@@ -158,7 +168,14 @@ class EncomendaController extends Controller
                 ->queue(new EncomendaEnviada($encomenda, Auth::id()));
         }
 
-        $encomenda->estado = $estado;
+
+            $output = $pdf->output();
+            $name = 'FTMS'.$encomenda->id.'.pdf';
+            file_put_contents('storage/recibos/'.$name, $output);
+
+            $encomenda->recibo_url = basename($name);
+        }
+
 
         $encomenda->save();
         return redirect()->route('admin.encomendas')
@@ -166,6 +183,41 @@ class EncomendaController extends Controller
             ->with('alert-type', 'success');
     }
 
+    private function createPdf(Encomenda $encomenda){
+        $shirts = Tshirt::where('encomenda_id', '=', $encomenda->id)->get();
+        $pdf = PDF::loadView('fatura.index', compact('encomenda', 'shirts'));
 
+        //return $pdf->download('FT MS' . $encomenda->id . '.pdf');
 
+        return $pdf;
+
+    }
+
+    public function openPdf(Encomenda $encomenda) {
+
+        $filename = 'storage/recibos/FTMS'.$encomenda->id.'.pdf';
+
+        try {
+            $data = file_get_contents($filename);
+            return response()->make($data, 200, [
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => 'inline; filename="'.$filename.'"'
+            ]);
+        }
+        catch (Exception $ex) {
+            abort(404);
+        }
+    }
+
+    public function downloadPdf(Encomenda $encomenda) {
+
+        $filename = 'storage/recibos/FTMS'.$encomenda->id.'.pdf';
+
+        try {
+            return response()->download($filename);
+        }
+        catch (Exception $ex) {
+            abort(404);
+        }
+    }
 }
