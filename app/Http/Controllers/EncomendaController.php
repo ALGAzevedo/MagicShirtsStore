@@ -191,7 +191,7 @@ class EncomendaController extends Controller
 
     public function openPdf(Encomenda $encomenda) {
 
-        $filename = 'storage/recibos/FTMS'.$encomenda->id.'.pdf';
+        $filename = 'storage/recibos/'.$encomenda->recibo_url;
 
         try {
             $data = file_get_contents($filename);
@@ -207,7 +207,7 @@ class EncomendaController extends Controller
 
     public function downloadPdf(Encomenda $encomenda) {
 
-        $filename = 'storage/recibos/FTMS'.$encomenda->id.'.pdf';
+        $filename = 'storage/recibos/'.$encomenda->recibo_url;
 
         try {
             return response()->download($filename);
