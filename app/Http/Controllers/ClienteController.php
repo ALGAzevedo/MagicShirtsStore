@@ -69,10 +69,17 @@ class ClienteController extends Controller
         }
         $cliente->user->save();
 
-        $cliente->endereco = $validated_data['endereco'];
-        $cliente->nif = $validated_data['nif'];
-        $cliente->tipo_pagamento = $validated_data['tipo_pagamento'];
-        $cliente->ref_pagamento = $validated_data['ref_pagamento'];
+        if ($request->has('endereco')) {
+            $cliente->endereco = $validated_data['endereco'];
+        }
+        if ($request->has('nif')) {
+            $cliente->nif = $validated_data['nif'];
+        }
+        if ($request->has('tipo_pagamento')) {
+            $cliente->tipo_pagamento = $validated_data['tipo_pagamento'];
+            $cliente->ref_pagamento = $validated_data['ref_pagamento'];
+        }
+
         $cliente->save();
 
         return redirect()->route('cliente.edit', ['cliente' => $cliente])
