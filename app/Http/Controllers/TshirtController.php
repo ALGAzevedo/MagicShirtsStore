@@ -16,7 +16,8 @@ class TshirtController extends Controller
     {
 
 
-        $listaCores = Cor::all();
+        $listaCores = Cor::query();
+        $listaCores = $listaCores->whereNotNull('nome')->orderBy('nome')->get();
         $cor =$request->query('cor', $listaCores[0]->codigo);
         $corSel = Cor::findOrFail($cor);
 
