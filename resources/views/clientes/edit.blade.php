@@ -21,10 +21,10 @@
                         form="form_delete_photo">Apagar Foto
                 </button>
             @endisset
-            <button type="submit" class="btn btn-success" name="ok">Save</button>
+            <button type="submit" class="btn btn-success" name="ok">Guardar</button>
             <a href="{{route('admin.clientes.edit', ['cliente' => $cliente]) }}"
                class="btn btn-secondary">Reset</a>
-            <a href="{{route('admin.clientes') }}" class="btn btn-danger">Cancel</a>
+            <a href="{{route('admin.clientes') }}" class="btn btn-danger">Cancelar</a>
         </div>
     </form>
     <form id="form_delete_photo" action="{{route('admin.clientes.foto.destroy',['cliente' => $cliente])}}"

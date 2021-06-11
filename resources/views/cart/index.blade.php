@@ -46,7 +46,7 @@
                                                             alt="">
                                                         <div class="shirt_thumb-overlay">
                                                             <img class="shirt_thumb-overlay-img"
-                                                                 src="{{static_asset($row['categoria_id'],$row['imagem_url'])}}"
+                                                                 src="{{static_asset($row['cliente_id'],$row['imagem_url'])}}"
                                                                  alt="{{$row['nome']}}"/>
                                                         </div>
 
@@ -198,8 +198,9 @@
                     <!--Grid column-->
                 @else
                     <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-body">
+                        <div class="card border-0">
+                            <div class="card-body  text-center">
+                                <div class="empty-state empty-cart mx-auto"></div>
                                 <h5> O seu carrinho de compras está vazio.</h5>
                                 <p>Descubra o nosso <a href="{{route('estampas.index')}}">catálogo de estampas </a> ou
                                     veja as nossas promoções.</p>

@@ -181,7 +181,6 @@ class ClienteController extends Controller
 
     public function destroy_foto(Cliente $cliente)
     {
-        dd($cliente);
         Storage::delete('public/fotos/' . $cliente->user->foto_url);
         $cliente->user->foto_url = null;
         $cliente->user->save();

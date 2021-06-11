@@ -13,13 +13,23 @@
                 @if ($errors->any())
                     @include('partials.errors')
                 @endif
-                <div class="card">
 
+                    @if($encomendas->count() <= 0)
+
+                        <div class="card border-0">
+                            <div class="card-body p-0 text-center">
+                                <div class="empty-state empty-order mx-auto"></div>
+                                <h5>Não existem encomendas</h5>
+                                <p>Descobre os nossos produtos e começa a comprar
+                                </p>
+                            </div>
+                        </div>
+                    @else
+                <div class="card">
                     <header class="card-header border-bottom d-flex justify-content-between align-items-center">
                         <b class="d-inline-block mr-3">Encomendas</b>
                     </header>
                     <div class="card-body">
-
                         <form method="GET" action="{{route('cliente.encomendas')}}" >
                             <div class="form-row align-items-end">
                                 <div class="form-group col-md-4 ">
@@ -43,8 +53,9 @@
                                 </div>
                             <div class="form-group col-md-4">
                                 <div class="btn-group btn-toolbar">
-                                    <a href="{{route('cliente.encomendas')}}" class="btn btn-secondary">Reset</a>
+
                                     <button type="submit" class="btn btn-primary">Filtrar</button>
+                                    <a href="{{route('cliente.encomendas')}}" class="btn btn-secondary">Limpar</a>
                                 </div>
 
                             </div>
@@ -74,10 +85,10 @@
                                 <td>
                                     <a href="{{route('cliente.encomenda.view', ['encomenda' => $encomenda])}}">{{$encomenda->id}}</a>
                                 </td>
-                                <td>{{$encomenda->data}}</td>
-                                <td> <span class="encomenda-status text-{{$encomenda->estado}}"> {{$encomenda->estado}}</span></td>
-                                <td width="250"> @if($encomenda->recibo_url != null && $encomenda->estado == "fechada" )
-                                        <a href="{{$encomenda->recibo_url}}" class="btn btn-outline-primary btn-xs"><i class="fas fa-file-alt mr-2"></i> Fatura recibo</a>
+                                <td >{{$encomenda->data}}</td>
+                                <td> <span class="order-status status-{{$encomenda->estado}}"> {{$encomenda->estado}}</span></td>
+                                <td> @if($encomenda->recibo_url != null &&  $encomenda->estado == "fechada" )
+                                        <a href="{{$encomenda->recibo_url}}" class="btn btn-outline-primary btn-xs"><i class="fas fa-download mr-1"></i> Fatura recibo</a>
                                     @endif  <a href="{{route('cliente.encomenda.view', ['encomenda' => $encomenda])}}" class="btn btn-light btn-xs">Detalhe </a> </td>
                             </tr>
                         @endforeach
@@ -93,6 +104,7 @@
 
                     </div>
                 </div>
+                    @endif
 
             </div> <!-- col.// -->
 

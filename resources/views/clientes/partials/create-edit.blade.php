@@ -90,7 +90,7 @@
 
 
 @can('updatePassword', $cliente)
-    <span class="h5">Alterar Password</span>
+    <span class="h6">Alterar Password</span>
     <div class="form-group mt-2">
         <a href="{{route('cliente.password.update', ['cliente' => $cliente]) }}"
            class="btn btn-dark">Alterar Password</a>

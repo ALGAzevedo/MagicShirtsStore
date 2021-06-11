@@ -7,26 +7,33 @@
     <meta name="author" content=""/>
     <title> @isset($pageTitle){{$pageTitle}} | @endisset MagicShirts Store</title>
     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="/public/assets/favicon.ico"/>
+    <link rel="icon" type="image/x-icon" href="{{asset('assets/favicon.ico')}}"/>
+    <link rel="icon" type="image/png" sizes="32x32" href="{{asset('assets/favicon-32x32.png')}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{asset('assets/favicon-16x16.png')}}">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-          integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link href="{{asset('fonts/fontawesome/all.css')}}" rel="stylesheet"/>
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="/css/styles.css" rel="stylesheet"/>
+    <link href="{{asset('css/styles.css')}}" rel="stylesheet"/>
 
 </head>
-<body class="pb-5">
+<body>
+<noscript>
+    <div class="alert alert-warning border-0 text-center">
+        <p><i class="fa fa-exclamation-triangle mr-2 "></i>Para o bom funcionamento da loja, é preciso que o JavaScript esteja ativado no navegador.</p>
+    </div>
+</noscript>
+
 <header class="section-header">
     <section class="header-main border-bottom">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-lg-3 col-4">
+                <div class="col-lg-3 col-12 text-center text-lg-left">
                     <a href="{{url('/')}}" class="brand-wrap">
-                        <img class="logo" alt="" src="{{asset('img/logo-tshirt.png')}}">
+                        <img class="logo img-fluid" alt="" src="{{asset('img/logo-tshirt.png')}}">
                     </a>
                 </div>
                 {{-- TODO: IMPLEMENTAR PESQUISA DE ESTAMPAS--}}
-                <div class="col-lg-6 col-sm-12">
+                <div class="col-lg-6 col-sm-6 my-3 my-lg-0">
                     <form action="{{route('estampas.index')}}" method="GET">
                         <div class="input-group w-100">
                             <input type="text" name="s" value="{{old('s')}}" class="form-control"
@@ -40,7 +47,7 @@
                     </form>
                 </div> <!-- /col. -->
                 <div class="col-lg-3 col-sm-6 col-12">
-                    <div class="auth-wrap float-md-right">
+                    <div class="auth-wrap flex-wrap flex-md-nowrap d-flex justify-content-between">
                         @guest
                             <div class="auth-header-item auth-flex ">
                                 <a href="#" class="user-avatar"> <img class="img-fluid"
@@ -65,7 +72,7 @@
                                             <a class="dropdown-toggle" href="#" data-toggle="dropdown"
                                                aria-haspopup="true" aria-expanded="false">A minha conta</a>
                                             <div class="dropdown-menu">
-                                                @can('view', Auth::user()->cliente)
+                                                @can('viewProfile', App\Models\Cliente::class)
                                                 <a class="dropdown-item" href="{{ route('cliente.encomendas') }}">Encomendas</a>
                                                     <a class="dropdown-item"
                                                        href="{{route('cliente.edit', ['cliente'=> Auth::user()->id])}}">Perfil
@@ -99,7 +106,7 @@
         </div> <!-- /container -->
     </section> <!-- /header-main -->
 </header>
-<nav class="navbar navbar-main navbar-expand-lg navbar-light border-bottom bg-light">
+<nav class="navbar navbar-main navbar-expand-lg navbar-light border-bottom bg-light wrapper-menu-bar">
     <div class="container">
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main_nav"
@@ -118,7 +125,7 @@
                     <a class="nav-link" href="{{route('estampas.index')}}">Catálogo</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
+                    <a class="nav-link" href="{{route('about')}}">Quem Somos</a>
                 </li>
                 @can('access-administration')
                     <li class="nav-item">
@@ -178,10 +185,22 @@
 
 @yield('content')
 
-<!-- Footer-->
-<footer id="footer" class="py-3 bg-dark mt-auto">
 
-    <div class="container">
+
+<!-- Footer-->
+<footer id="footer" class="mt-auto">
+
+    <section class="payment-footer mt-5  py-4">
+        <div class="container">
+            <div class="row mx-auto justify-content-center text-center">
+                <div class="col-md-3"><img src="{{asset('assets/paypal.svg')}}" class="img-fluid"></div>
+                <div class="col-md-3"><img src="{{asset('assets/visa.svg')}}" class="img-fluid"></div>
+                <div class="col-md-3"><img src="{{asset('assets/mastercard.svg')}}" class="img-fluid"></div>
+            </div>
+        </div> <!-- container //  -->
+    </section>
+
+    <div class="container-fluid py-3 bg-dark ">
         <p class="m-0 text-center small text-white">Copyright &copy; MagicShirtsStore {{date('Y')}}</p>
     </div>
 </footer>
@@ -211,9 +230,10 @@
 </div>
 
 <!-- Bootstrap core JS-->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{{asset('js/jquery-3.5.1.slim.min.js')}}"></script>
+<script src="{{asset('js/bootstrap.bundle.min.js')}}"></script>
+<script src="{{asset('js/jquery.lazy.min.js')}}"></script>
 <!-- Core theme JS-->
-<script src="/js/scripts.js"></script>
+<script src="{{asset('js/scripts.js')}}"></script>
 </body>
 </html>

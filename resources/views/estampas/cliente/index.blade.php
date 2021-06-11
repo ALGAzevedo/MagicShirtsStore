@@ -18,7 +18,20 @@
                     <a href="{{route('cliente.estampas.create')}}" class="btn btn-info btn-sm"> <i class="fas fa-plus pr-1"></i> Nova estampa</a>
                 </div>
 
-                @include('myaccount.partials.list')
+                    @if($estampas->total()>0 )
+
+                        @include('myaccount.partials.list')
+
+                    @else
+                        <div class="card border-0">
+                            <div class="card-body p-0 text-center">
+                                <div class="empty-state empty-image mx-auto"></div>
+                                <h5>As estampas ainda não foram adicionadas</h5>
+                            </div>
+                        </div>
+                    @endif
+
+
 
             </div> <!-- col.// -->
 
