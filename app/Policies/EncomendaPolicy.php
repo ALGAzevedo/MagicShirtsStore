@@ -36,6 +36,9 @@ class EncomendaPolicy
 
     public function viewEstado(User $user, $estado)
     {
+        if($user->tipo == 'A') {
+            return true;
+        }
         if ($estado == 'anulada' || $estado == 'fechada') {
             return false;
         } else {

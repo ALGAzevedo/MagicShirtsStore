@@ -85,10 +85,10 @@
                                 <td>
                                     <a href="{{route('cliente.encomenda.view', ['encomenda' => $encomenda])}}">{{$encomenda->id}}</a>
                                 </td>
-                                <td >{{$encomenda->data}}</td>
-                                <td> <span class="order-status status-{{$encomenda->estado}}"> {{$encomenda->estado}}</span></td>
-                                <td> @if($encomenda->recibo_url != null &&  $encomenda->estado == "fechada" )
-                                        <a href="{{$encomenda->recibo_url}}" class="btn btn-outline-primary btn-xs"><i class="fas fa-download mr-1"></i> Fatura recibo</a>
+                                <td>{{$encomenda->data}}</td>
+                                <td> <span class="encomenda-status text-{{$encomenda->estado}}"> {{$encomenda->estado}}</span></td>
+                                <td width="250"> @if($encomenda->recibo_url != null && $encomenda->estado == "fechada" )
+                                        <a href="{{route('encomendas.downloadPdf', ['encomenda' => $encomenda])}}" class="btn btn-outline-primary btn-xs"><i class="fas fa-download mr-2"></i> Fatura recibo</a>
                                     @endif  <a href="{{route('cliente.encomenda.view', ['encomenda' => $encomenda])}}" class="btn btn-light btn-xs">Detalhe </a> </td>
                             </tr>
                         @endforeach
