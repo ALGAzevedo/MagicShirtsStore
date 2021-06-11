@@ -69,7 +69,7 @@
                                                     src="{{asset('storage/tshirt_base/' . $shirt->cor_codigo . '.jpg')}}"
                                                     alt="">
                                                 <div class="shirt_thumb-overlay">
-                                                    <img class="shirt_thumb-overlay-img" src="{{ static_asset($shirt->estampa->categoria_id,$shirt->estampa->imagem_url)}}"
+                                                    <img class="shirt_thumb-overlay-img" src="{{ static_asset($shirt->estampa->cliente_id,$shirt->estampa->imagem_url)}}"
                                                          alt="{{$shirt->estampa->nome}}"/>
                                                 </div>
 

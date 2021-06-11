@@ -1,8 +1,8 @@
 <?php
 
 if (! function_exists('static_asset')) {
-    function static_asset($key,$url) {
-        return $key ? asset('storage/estampas/'.$url) : route('storage.asset', ['path' => $url]);
+    function static_asset($cliente_id,$url) {
+        return $cliente_id ?  route('storage.asset', ['path' => $url]) : asset('storage/estampas/'.$url);
     }
 }
 /*

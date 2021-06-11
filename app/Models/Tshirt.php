@@ -22,7 +22,7 @@ class Tshirt extends Model
 
     public function cor(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(Cor::class);
+        return $this->belongsTo(Cor::class)->withoutTrashed();
     }
 
     public function encomenda(): \Illuminate\Database\Eloquent\Relations\BelongsTo

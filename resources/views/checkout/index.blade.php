@@ -114,11 +114,28 @@
 
                     <!--Grid column-->
                     <div class="col-lg-5">
+                        <div class="d-flex justify-content-between mb-3">
+                            <h5 class="">A sua encomenda</h5>
+                            <a href="{{route('carrinho')}}" class="btn btn-light text-primary btn-sm"> <i class="fas fa-shopping-bag" aria-hidden="true"></i> carrinho </a>
+                        </div>
 
+                        <ul class="list-group list-group-flush ">
+                            @foreach ($carrinho as $key=>$row)
+
+                            <li class="list-group-item d-flex checkout-item justify-content-between align-items-center px-0 ">
+                                <div class="checkout-thumb">
+                                    <div class="shirt_thumb border image">
+                                        <img
+                                            class="cart-item_product__thumbnail img-{{$key}}"
+                                            src="{{asset('storage/tshirt_base/' .$row['cor_codigo'] . '.jpg')}}"
+                                            alt="">
+                                        <div class="shirt_thumb-overlay">
+                                            <img class="shirt_thumb-overlay-img" src="{{static_asset($row['cliente_id'],$row['imagem_url'])}}"
+                                                 alt="{{$row['nome']}}"/>
+                                        </div>
                         <!-- Card -->
                         <div class="card mb-4">
                             <div class="card-body pb-0">
-
                                 <div class="d-flex justify-content-between mb-3">
                                     <h5 class="">A sua encomenda</h5>
                                     <a href="{{route('carrinho')}}" class="btn btn-light text-primary btn-sm"> <i

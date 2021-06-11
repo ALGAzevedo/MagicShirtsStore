@@ -144,6 +144,7 @@ class ClienteController extends Controller
     {
         if ($cliente->user->bloqueado == '0') {
             $cliente->user->bloqueado = '1';
+
         } else {
             $cliente->user->bloqueado = '0';
         }
@@ -181,7 +182,6 @@ class ClienteController extends Controller
 
     public function destroy_foto(Cliente $cliente)
     {
-        dd($cliente);
         Storage::delete('public/fotos/' . $cliente->user->foto_url);
         $cliente->user->foto_url = null;
         $cliente->user->save();

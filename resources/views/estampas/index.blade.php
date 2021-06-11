@@ -17,7 +17,18 @@
 
             <div class="col-md-9">
 
-                @include('estampas.partials.list')
+                @if($estampas->total()>0 )
+
+                    @include('estampas.partials.list')
+
+                @else
+                        <div class="card border-0">
+                            <div class="card-body p-0 text-center">
+                                <div class="empty-state empty-image mx-auto"></div>
+                                <h5>As estampas ainda não foram adicionadas</h5>
+                            </div>
+                        </div>
+                @endif
 
             </div> <!-- col.// -->
 

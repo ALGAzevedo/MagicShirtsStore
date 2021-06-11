@@ -34,7 +34,7 @@ use \App\Http\Controllers\CartController;
 Route::get('/', [PageController::class, 'index'])->name('home');
 
 
-Route::get('about', [PageController::class, 'about'])->name('about');
+Route::get('quem-somos', [PageController::class, 'about'])->name('about');
 
 
 
@@ -56,7 +56,8 @@ Route::delete('carrinho/empty', [CartController::class, 'destroy'])->name('carri
     Route::get('encomendas/{encomenda}', [EncomendaController::class, 'view_encomenda'])->name('cliente.encomenda.view');
 });*/
 
-Route::get('encomendas', [EncomendaController::class, 'index'])->middleware('auth')->name('cliente.encomendas');
+Route::get('encomendas', [EncomendaController::class, 'index'])->name('cliente.encomendas')
+    ->middleware('auth');
 Route::get('encomendas/{encomenda}', [EncomendaController::class, 'view_encomenda'])->name('cliente.encomenda.view')
     ->middleware('can:viewClientEncomenda,encomenda');
 
@@ -154,45 +155,45 @@ Route::middleware('auth')->prefix('administracao')->name('admin.')->group(functi
 //EDICAO PERFIL DO CLIENTE
 
 Route::get('cliente/{cliente}/edit', [ClienteController::class, 'show'])->name('cliente.edit')
-    ->middleware('can:view,cliente');
+->middleware('can:view,cliente');
 
 Route::get('cliente/{cliente}/password', [ClienteController::class, 'viewPassword'])->name('cliente.password.update')
-    ->middleware('can:update,cliente');
+->middleware('can:update,cliente');
 
 Route::put('cliente/password/{cliente}', [ClienteController::class, 'updatePassword'])->name('cliente.updatePassword')
-    ->middleware('can:updatePassword,cliente');
+->middleware('can:updatePassword,cliente');
 
 Route::put('cliente/{cliente}', [ClienteController::class, 'update'])->name('cliente.update')
-    ->middleware('can:update,cliente');
+->middleware('can:update,cliente');
 
 Route::delete('cliente/{cliente}/foto', [ClienteController::class, 'destroy_foto'])->name('cliente.foto.destroy')
-    ->middleware('can:update,cliente');
+->middleware('can:update,cliente');
 
 
 //Estampas DO CLIENTE
 //TODO: Ver possibilidade de utilizar policies
 
-Route::middleware( 'auth')->prefix('cliente')->group(function () {
+Route::middleware( ['auth', 'verifyBlocked'])->prefix('cliente')->group(function () {
 
 Route::get('/estampas', [ClienteEstampaController::class, 'index'])->name('estampas.cliente')
-    ->middleware('can:viewPrivate,App\Models\Estampa');
+->middleware('can:viewPrivate,App\Models\Estampa');
 
 Route::get('/estampas/create', [ClienteEstampaController::class, 'create'])->name('cliente.estampas.create')
-    ->middleware('can:create_private,App\Models\Estampa');
+->middleware('can:create_private,App\Models\Estampa');
 Route::post('/estampas', [ClienteEstampaController::class, 'store'])->name('cliente.estampas.store')
-    ->middleware('can:create_private,App\Models\Estampa');;
+->middleware('can:create_private,App\Models\Estampa');;
 Route::get('/estampas/{estampa}/edit', [ClienteEstampaController::class, 'edit'])->name('cliente.estampas.edit')
-    ->middleware('can:update_private,estampa');
+->middleware('can:update_private,estampa');
 Route::put('/estampas/{estampa}', [ClienteEstampaController::class, 'update'])->name('cliente.estampas.update')
-    ->middleware('can:update_private,estampa');
+->middleware('can:update_private,estampa');
 Route::delete('/estampas/{estampa}', [ClienteEstampaController::class, 'destroy'])->name('cliente.estampas.destroy')
-    ->middleware('can:delete_private,estampa');
+->middleware('can:delete_private,estampa');
 });
 
 // EXIBIÇÃO E DOWNLOAD DE FICHEIRO
 Route::middleware( 'auth')->group(function () {
-    Route::get('static/{path}', [ClienteEstampaController::class, 'serve_asset'])
-        ->name('storage.asset');
+Route::get('static/{path}', [ClienteEstampaController::class, 'serve_asset'])
+    ->name('storage.asset');
 });
 
 
@@ -200,16 +201,16 @@ Route::middleware( 'auth')->group(function () {
 //Tshirts
 Route::get('estampas', [EstampaController::class, 'index'])->name('estampas.index');
 Route::get('tshirts/{estampa}', [TshirtController::class, 'choose'])
-    ->middleware('can:viewAnyPrivate,estampa')
-    ->name('tshirts.choose');
+->middleware('can:viewAnyPrivate,estampa')
+->name('tshirts.choose');
 
 //CHECKOUT
 //TODO: Fix to use can:checkout,App\Models\Encomenda | O problema está no método before
 Route::middleware( ['auth', 'can:checkout,App\Models\Encomenda'])->group(function () {
-    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
-    Route::post('/checkout/order', [CheckoutController::class, 'store'])->name('checkout.order');
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+Route::post('/checkout/order', [CheckoutController::class, 'store'])->name('checkout.order');
 
-    // Route::get('account/orders', [AccountControllerController::class, 'orders'])->name('account.orders');
+// Route::get('account/orders', [AccountControllerController::class, 'orders'])->name('account.orders');
 });
 
 Auth::routes(['register' => true]);
@@ -222,21 +223,21 @@ Auth::routes(['register' => true]);
 Auth::routes(['verify' => true]);
 
 Route::get('/email/verify', function () {
-    return view('auth.verify');
+return view('auth.verify');
 })->middleware('auth')->name('verification.notice');
 
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-    $request->fulfill();
+$request->fulfill();
 
-    return redirect('/')
-        ->with('alert-msg', 'O seu email foi verificado!')
-        ->with('alert-type', 'success');
+return redirect('/')
+    ->with('alert-msg', 'O seu email foi verificado!')
+    ->with('alert-type', 'success');
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
 Route::post('/email/verification-notification', function (Request $request) {
-    $request->user()->sendEmailVerificationNotification();
+$request->user()->sendEmailVerificationNotification();
 
-    return back()->with('message', 'Verification link sent!');
+return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
 

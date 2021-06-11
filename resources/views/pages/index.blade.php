@@ -1,119 +1,115 @@
 @extends('layout2')
 
 @section('content')
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-3">
-                <h1 class="my-4">Magic Shirt</h1>
-                <div class="list-group">
-                    <a class="list-group-item" href="#!">Category 1</a>
-                    <a class="list-group-item" href="#!">Category 2</a>
-                    <a class="list-group-item" href="#!">Category 3</a>
-                </div>
+
+
+    <section class="my-4">
+        <div class="container">
+
+            <div class="category-badges-list mb-3">
+
+                <a class="category-badges-item is-current" href="" >Ver tudo</a>
+
+                <a class="category-badges-item" href="" data-category-id="1030004028">Básicas</a>
+
+                <a class="category-badges-item" href="" data-category-id="1030328504">Packs</a>
+
+                <a class="category-badges-item" href="">Cropped</a>
+
+                <a class="category-badges-item" href="">Oversize</a>
+
+                <a class="category-badges-item" href="">Pólos</a>
+
+                <a class="category-badges-item" href="">Licensed</a>
+
+                <a class="category-badges-item" href="">Estampadas</a>
+
+
             </div>
 
-            <div class="col-lg-9">
-                <div class="carousel slide my-4" id="carouselExampleIndicators" data-ride="carousel">
-                    <ol class="carousel-indicators">
-                        <li class="active" data-target="#carouselExampleIndicators" data-slide-to="0"></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                    </ol>
-                    <div class="carousel-inner" role="listbox">
-                        <div class="carousel-item active"><img class="d-block img-fluid"
-                                                               src="https://via.placeholder.com/900x350"
-                                                               alt="First slide"/></div>
-                        <div class="carousel-item"><img class="d-block img-fluid"
-                                                        src="https://via.placeholder.com/900x350" alt="Second slide"/>
-                        </div>
-                        <div class="carousel-item"><img class="d-block img-fluid"
-                                                        src="https://via.placeholder.com/900x350" alt="Third slide"/>
-                        </div>
-                    </div>
-                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
-                </div>
-                <div class="row">
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="card h-100">
-                            <a href="#!"><img class="card-img-top" src="https://via.placeholder.com/700x400" alt="..."/></a>
-                            <div class="card-body">
-                                <h4 class="card-title"><a href="#!">Item One</a></h4>
-                                <h5>$24.99</h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet
-                                    numquam aspernatur!</p>
-                            </div>
-                            <div class="card-footer"><small class="text-muted">★ ★ ★ ★ ☆</small></div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="card h-100">
-                            <a href="#!"><img class="card-img-top" src="https://via.placeholder.com/700x400" alt="..."/></a>
-                            <div class="card-body">
-                                <h4 class="card-title"><a href="#!">Item Two</a></h4>
-                                <h5>$24.99</h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet
-                                    numquam aspernatur! Lorem ipsum dolor sit amet.</p>
-                            </div>
-                            <div class="card-footer"><small class="text-muted">★ ★ ★ ★ ☆</small></div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="card h-100">
-                            <a href="#!"><img class="card-img-top" src="https://via.placeholder.com/700x400" alt="..."/></a>
-                            <div class="card-body">
-                                <h4 class="card-title"><a href="#!">Item Three</a></h4>
-                                <h5>$24.99</h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet
-                                    numquam aspernatur!</p>
-                            </div>
-                            <div class="card-footer"><small class="text-muted">★ ★ ★ ★ ☆</small></div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="card h-100">
-                            <a href="#!"><img class="card-img-top" src="https://via.placeholder.com/700x400" alt="..."/></a>
-                            <div class="card-body">
-                                <h4 class="card-title"><a href="#!">Item Four</a></h4>
-                                <h5>$24.99</h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet
-                                    numquam aspernatur!</p>
-                            </div>
-                            <div class="card-footer"><small class="text-muted">★ ★ ★ ★ ☆</small></div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="card h-100">
-                            <a href="#!"><img class="card-img-top" src="https://via.placeholder.com/700x400" alt="..."/></a>
-                            <div class="card-body">
-                                <h4 class="card-title"><a href="#!">Item Five</a></h4>
-                                <h5>$24.99</h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet
-                                    numquam aspernatur! Lorem ipsum dolor sit amet.</p>
-                            </div>
-                            <div class="card-footer"><small class="text-muted">★ ★ ★ ★ ☆</small></div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="card h-100">
-                            <a href="#!"><img class="card-img-top" src="https://via.placeholder.com/700x400" alt="..."/></a>
-                            <div class="card-body">
-                                <h4 class="card-title"><a href="#!">Item Six</a></h4>
-                                <h5>$24.99</h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet
-                                    numquam aspernatur!</p>
-                            </div>
-                            <div class="card-footer"><small class="text-muted">★ ★ ★ ★ ☆</small></div>
-                        </div>
-                    </div>
-                </div>
+            <div class="intro-banner-wrap">
+                <a href="{{route('estampas.index')}}"><img class="lazy img-fluid rounded" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="{{asset('img/banner-loja.jpg')}}"
+                                                           ></a>
             </div>
-        </div>
-    </div>
+
+        </div> <!-- container //  -->
+    </section>
+    <section class="store-cards my-4">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card card-body border-0 store-card">
+                        <span class="text-primary mr-4"><i class="fa-2x fal fa-truck"></i></span>
+                        <div class="store-card-info">
+                            <h5 class="title">Entregas Rápidas</h5>
+                            <p>Entregas em 24h para Portugal Continental e 48h para toda a Europa</p>
+                        </div>
+
+                    </div>
+                </div><!-- /col -->
+                <div class="col-md-4">
+                    <div class="card card-body border-0 store-card">
+                        <span class="text-primary mr-4"><i class="fal fa-2x fa-box-check"></i></span>
+                        <div class="store-card-info">
+                            <h5 class="title">Sem mínimos</h5>
+                            <p>Não temos mínimos de compra.<br>
+                                Temos descontos para quantidades</p>
+                        </div>
+
+                    </div>
+                </div><!-- /col -->
+                <div class="col-md-4">
+                    <div class="card card-body border-0 store-card">
+                        <span class="text-primary mr-4"><i class="fa-2x fal fa-lock-alt"></i></span>
+                        <div class="store-card-info">
+                            <h5 class="title">Pagamentos Seguros</h5>
+                            <p>Diversos métodos disponíveis.
+                                Pagamentos seguros e garantidos
+                            </p>
+                        </div>
+
+                    </div>
+                </div><!-- /col -->
+
+            </div>
+        </div> <!-- container .//  -->
+    </section>
+    <!-- ========================= Popular products ========================= -->
+    <section class="my-4">
+        <div class="container">
+
+            <header class="section-heading d-flex justify-content-between flex-column flex-lg-row align-items-center mb-3 mt-0">
+                <h3 class="section-title">Mais Vendidos </h3>
+                <a href="{{route('estampas.index')}}" class="btn btn-link text-black-50 btn-sm">Explorar catálogo <i class="fal fa-arrow-right ml-2"></i></a>
+            </header><!-- sect-heading -->
+
+            <div class="row">
+                @foreach($estampas as $estampa)
+                    <div class="col-md-3">
+                        <div class="card card-product-grid">
+                            <a href="{{route('tshirts.choose',  ['estampa' => $estampa])}}">
+                                <div class="img-wrap mx-auto">
+                                    <img class="lazy" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="{{asset('storage/estampas/'.$estampa->imagem_url)}}" alt="{{$estampa->nome}}">
+                                </div></a> <!-- img-wrap.// -->
+                            <div class="info-wrap">
+                                <div class="fix-height mb-3">
+                                   <strong class="text-danger"> {{$estampa->quantity_sold}}</strong>
+                                    @unless(is_null($estampa->categoria_id) ) <small class="text-uppercase font-weight-bolder text-secondary small-xs mb-1">{{$estampa->categoriaRef->nome}}</small> @endunless
+                                    <a href="{{route('tshirts.choose',  ['estampa' => $estampa])}}" class="title mb-1">{{$estampa->nome}}</a>
+                                    <small>{{$estampa->descricao}}</small>
+                                </div>
+                                <a href="{{route('tshirts.choose',  ['estampa' => $estampa])}}" class="btn btn-block btn-primary">Ver opções </a>
+                            </div>
+                        </div>
+                    </div> <!-- col.// -->
+                @endforeach
+            </div> <!-- row end.// -->
+
+
+        </div> <!-- container .//  -->
+    </section>
+    <!-- ========================= /Popular products ========================= -->
+
+
 @endsection
