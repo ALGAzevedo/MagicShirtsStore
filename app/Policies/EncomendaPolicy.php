@@ -122,4 +122,16 @@ class EncomendaPolicy
     {
         //
     }
+
+    /**
+     * Verifica se o user pode ver a fatura da encomenda
+     *
+     * @param \App\Models\User $user
+     * @param \App\Models\Encomenda $encomenda
+     * @return mixed
+     */
+    public function viewFatura(User $user, Encomenda $encomenda)
+    {
+        return $user->id == $encomenda->cliente_id || $user->tipo == 'A';
+    }
 }

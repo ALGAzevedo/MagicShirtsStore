@@ -7,6 +7,7 @@ use App\Http\Controllers\ClienteEstampaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EstampaController;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\FaturaController;
 use App\Http\Controllers\PrecosController;
 use App\Http\Controllers\EncomendaController;
 
@@ -54,10 +55,11 @@ Route::delete('carrinho/empty', [CartController::class, 'destroy'])->name('carri
     Route::get('encomendas', [EncomendaController::class, 'index'])->name('cliente.encomendas');
     Route::get('encomendas/{encomenda}', [EncomendaController::class, 'view_encomenda'])->name('cliente.encomenda.view');
 });*/
-/*
-Route::get('encomendas', [EncomendaController::class, 'index'])->middleware('auth')->name('cliente.encomendas');
+
+Route::get('encomendas', [EncomendaController::class, 'index'])->name('cliente.encomendas')
+    ->middleware('auth');
 Route::get('encomendas/{encomenda}', [EncomendaController::class, 'view_encomenda'])->name('cliente.encomenda.view')
-    ->middleware('can:viewClientEncomenda,encomenda');*/
+    ->middleware('can:viewClientEncomenda,encomenda');
 
 //ADMINISTRAÇÃO
 
@@ -115,6 +117,7 @@ Route::middleware('auth')->prefix('administracao')->name('admin.')->group(functi
         ->middleware('can:update,encomenda');
 
 
+
 //ADMINISTRACAO FUNCIONARIOS
     Route::get('funcionarios', [UserController::class, 'admin_funcs'])->name('funcionarios')
         ->middleware('can:viewAny, App\Models\User');
@@ -149,19 +152,6 @@ Route::middleware('auth')->prefix('administracao')->name('admin.')->group(functi
         ->middleware('can:updateBlock,cliente');
 });
 
-/*
-|--------------------------------------------------------------------------
-| Conta do cliente | Perfil
-|--------------------------------------------------------------------------
-*/
-Route::middleware(['auth', 'can:access-account'])->prefix('account')->group(function () {
-    Route::get('/', [EncomendaController::class, 'index'])->name('cliente.encomendas');
-    Route::get('encomendas', [EncomendaController::class, 'index'])->name('cliente.encomendas');
-    Route::get('encomendas/{encomenda}', [EncomendaController::class, 'view_encomenda'])->name('cliente.encomenda.view')
-        ->middleware('can:viewClientEncomenda,encomenda');
-
-});
-
 //EDICAO PERFIL DO CLIENTE
 
 Route::get('cliente/{cliente}/edit', [ClienteController::class, 'show'])->name('cliente.edit')
@@ -183,7 +173,7 @@ Route::delete('cliente/{cliente}/foto', [ClienteController::class, 'destroy_foto
 //Estampas DO CLIENTE
 //TODO: Ver possibilidade de utilizar policies
 
-Route::middleware( 'auth')->prefix('cliente')->group(function () {
+Route::middleware( ['auth', 'verifyBlocked'])->prefix('cliente')->group(function () {
 
 Route::get('/estampas', [ClienteEstampaController::class, 'index'])->name('estampas.cliente')
 ->middleware('can:viewPrivate,App\Models\Estampa');
@@ -249,4 +239,14 @@ $request->user()->sendEmailVerificationNotification();
 
 return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+
+
+//RECIBOS ENCOMENDA
+
+//TODO: Remover da administracao
+Route::get('encomendas/{encomenda}/fatura', [EncomendaController::class, 'openPdf'])->name('encomendas.viewPdf')
+->middleware('can:viewFatura,encomenda');
+Route::get('encomendas/{encomenda}/fatura/download', [EncomendaController::class, 'downloadPdf'])->name('encomendas.downloadPdf')
+->middleware('can:viewFatura,encomenda');
 

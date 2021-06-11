@@ -144,6 +144,7 @@ class ClienteController extends Controller
     {
         if ($cliente->user->bloqueado == '0') {
             $cliente->user->bloqueado = '1';
+
         } else {
             $cliente->user->bloqueado = '0';
         }
