@@ -51,6 +51,7 @@ class CheckoutController extends Controller
         $encomenda->tipo_pagamento = $validated_data['tipo_pagamento'];
         $encomenda->ref_pagamento = $validated_data['ref_pagamento'];
 
+
         $encomenda->save();
 
         //TODO: RECIBO_URL
@@ -59,7 +60,7 @@ class CheckoutController extends Controller
 
             $items = Cart::getContent();
 
-            foreach ($items as $key=>$item){
+            foreach ($items as $item){
                 $tshirt = new Tshirt;
                 $tshirt->encomenda_id = $encomenda->id;
                 $tshirt->estampa_id = $item['estampa_id'];

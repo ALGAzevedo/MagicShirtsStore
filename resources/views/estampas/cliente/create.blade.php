@@ -23,7 +23,7 @@
                             @method('POST')
 
                             <div class="form-row">
-                            <div class="col-6">
+                            <div class="col-md-6 order-2 order-md-1">
                                 <div class="form-group">
                                     <label for="inputNome">Nome</label>
                                     <input type="text" class="form-control" name="nome" id="inputNome" value="{{old('nome', $estampa->nome)}}" />
@@ -51,18 +51,17 @@
 
                             </div>
 
-                            <div class="col-6">
+                            <div class="col-md-6 order-1 order-md-2">
                                 <div class="form-group">
                                     <div class="d-flex justify-content-center estampa-preview mx-auto">
                                         <img src="{{asset('img/default_user.jpg')}}" class="img-fluid estampa-preview-img img-thumbnail rounded" alt=""/>
                                     </div>
-
                                 </div>
                             </div><!--/col-->
 
-                            <div class="form-group mb-0 mt-4 col-12">
-                                <button type="submit" class="btn btn-success" name="ok">Guardar</button>
-                                <a href="{{route('estampas.cliente')}}" class="btn btn-secondary">Cancelar</a>
+                            <div class="form-group mb-0 mt-4 col-12 order-3">
+                                <button type="submit" class="btn btn-success btn-block-sm" name="ok">Guardar</button>
+                                <a href="{{route('estampas.cliente')}}" class="btn btn-secondary btn-block-sm">Cancelar</a>
                             </div>
 
                             </div><!--/form-row-->

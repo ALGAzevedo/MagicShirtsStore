@@ -19,12 +19,13 @@
                 <div class="col-md-6">
                     <div class="shirt_base border p-4 ">
                         <img
-                            class="shirt_base_thumbnail magic-shirt"
-                            src="{{asset('storage/tshirt_base/'.(old('cor_codigo') ?? $corSel->codigo). '.jpg')}}"
+                            class="shirt_base_thumbnail magic-shirt lazy"
+                            src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                            data-src="{{asset('storage/tshirt_base/'.(old('cor_codigo') ?? $corSel->codigo). '.jpg')}}"
                             alt=""
                             data-storage="{{asset('storage/tshirt_base/')}}">
                         <div class="shirt_base-overlay">
-                            <img class="shirt_base-overlay-img" src="{{ static_asset($estampa->categoria_id,$estampa->imagem_url)}}"
+                            <img class="shirt_base-overlay-img lazy" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="{{ static_asset($estampa->cliente_id,$estampa->imagem_url)}}"
                                  alt="{{$estampa->nome}}"/>
                         </div>
                     </div>

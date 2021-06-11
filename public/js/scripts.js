@@ -1,6 +1,9 @@
 
 
+
 $(function() {
+
+    $('.lazy').Lazy();
 
     const shirt = $('.magic-shirt');
     const STORAGE_URL = shirt.attr('data-storage')
@@ -16,6 +19,16 @@ $(function() {
     });
 
 
+});
+$('body').css('padding-bottom',$('#footer').height()+'px')
+$(window).resize(function() {
+
+    $('body').css('padding-bottom',$('#footer').height()+'px')
+    if (window.matchMedia('(max-width: 767.98px)').matches) {
+       $('.filter-content').removeClass('show')
+    }else {
+        $('.filter-content').addClass('show')
+    }
 });
 
 function readURL(input) {

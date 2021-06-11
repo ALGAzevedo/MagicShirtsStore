@@ -10118,6 +10118,11 @@ FORMATACAO NAV IMAGEM PERFIL FRONTPAGE
     margin-bottom: 0;
     line-height: 1.5;
 }
+
+
+.card-header a {
+    text-decoration: none;
+}
 .list-menu {
     list-style: none;
     margin: 0;
@@ -10178,11 +10183,12 @@ FORMATACAO NAV IMAGEM PERFIL FRONTPAGE
     color: #212529;
     background-color: #ffffff;
     border-color: #000;
+
 }
 
 .btn-size:not(:disabled):not(.disabled):active:focus, .btn-size:not(:disabled):not(.disabled).active:focus,
 .show > .btn-size.dropdown-toggle:focus {
-    box-shadow: 0 0 0 0.2rem rgba(216, 217, 219, 0.5);
+    box-shadow: 0 0 0 0.2rem rgba(82, 88, 93, 0.5);
 }
 
 .btn-size + .btn-size{
@@ -10441,6 +10447,7 @@ body{
     min-height: 100%;
     position: relative;
 }
+
 #footer{
     position: absolute;
     right: 0;
@@ -10530,6 +10537,7 @@ body{
 .small-xs{
     font-size: 70%;
 }
+.pagination{flex-wrap: wrap}
 /* ================== /GRID STYLE PRODUCT ITEM  =================== */
 /* ================== PROFILE  =================== */
 
@@ -10758,7 +10766,94 @@ a.list-group-item:hover {
 
 
 /* ================== /HEADER STYLE=================== */
+/*  Header
+-----------------------------------------------------------
+ */
+.wrapper-menu-bar {
+    background: #001e3a;
+}
 
+/*  Home
+-----------------------------------------------------------
+ */
+
+.store-card{
+    flex-direction: row;
+    align-items: center;
+}
+.store-card-info{
+    font-size: .875rem;
+}
+.store-card-info p{
+    margin-bottom: 0;
+    line-height: normal;
+}
+.store-card-info .title{
+    font-size: 1rem;
+}
+.section-heading h3 {
+    font-size: 22px;
+    font-size: 1.38rem;
+
+}
+.category-badges-list {
+    max-height: 400px;
+    transition: max-height .4s .3s ease;
+    text-align: center;
+    overflow: hidden;
+}
+.category-badges-list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.category-badges-button, .category-badges-item {
+    display: inline-block;
+    border: 1px solid #eee;
+    color: #ababab;
+    font-size: .9rem;
+    margin: 10px 5px;
+    margin-bottom: 0;
+    border-radius: 25px;
+    background-color: #f4f4f5;
+    transition: background-color .2s ease;
+}
+
+.category-badges-item {
+    padding: 0 15px;
+    line-height: 38px;
+    color: #000;
+    opacity: 1;
+}
+.category-badges-item:hover {
+    background-color: #dbdbdc;
+    text-decoration: none;
+    color: #000;;
+}
+
+/*  Empty State
+-----------------------------------------------------------
+ */
+.empty-state {
+    width: 250px;
+    height: 200px;
+    background: url(../assets/NoItemsCart.png) no-repeat center;
+    background-size: contain;
+}
+
+.empty-cart {
+    background: url(../assets/NoItemsCart.png) no-repeat center;
+    background-size: contain;
+}
+.empty-search {
+    background: url(../assets/NoSearchResult.png) no-repeat center;
+}
+.empty-image{
+    background: url(../assets/NoImages.png) no-repeat center;
+}
+.empty-order{
+    background: url(../assets/EmptyInbox.png) no-repeat center;
+}
 
 /*  Estampa Cliente
 -----------------------------------------------------------
@@ -10853,6 +10948,9 @@ a.list-group-item:hover {
     padding: 0 10px 0 10px;
     text-transform: uppercase;
 }
+.table-encomendas .order-status{
+    font-size: 11px;
+}
 .status-pendente {
     color: #e28a4f;
     background-color: rgba(254,165,105,0.2);
@@ -10886,4 +10984,41 @@ a.list-group-item:hover {
 .checkout-thumb .shirt_thumb-overlay img {
     max-width: 1.35em;
     transform: none;
+}
+/*  Footer
+-----------------------------------------------------------
+ */
+
+
+.payment-footer{
+    background: #ebebeb;
+}
+
+/*  Media Queries
+-----------------------------------------------------------
+ */
+@media (max-width: 575.98px) {
+
+}
+@media (max-width: 767.98px) {
+    .page-title-wrapper h1 {
+        font-size: 1.3rem;
+    }
+
+    .btn-block-sm {
+        display: block;
+        width: 100%;
+    }
+    .btn-block-sm + .btn-block-sm {
+        margin-top: 0.5rem;
+    }
+
+    input[type=submit].btn-block-sm,
+    input[type=reset].btn-block-sm,
+    input[type=button].btn-block-sm {
+        width: 100%;
+    }
+}
+@media (max-width: 991.98px) {
+
 }

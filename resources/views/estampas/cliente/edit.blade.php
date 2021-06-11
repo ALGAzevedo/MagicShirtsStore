@@ -25,8 +25,8 @@
                             @csrf
                             @method('PUT')
 
-                            <div class="form-row">
-                                <div class="col-6">
+                            <div class="form-row ">
+                                <div class="col-md-6 order-2 order-md-1">
                                     <div class="form-group">
                                         <label for="inputNome">Nome</label>
                                         <input type="text" class="form-control" name="nome" id="inputNome"
@@ -48,7 +48,7 @@
 
                                 </div><!--/col-->
 
-                                <div class="col-6">
+                                <div class="col-md-6 order-1 order-md-2">
                                     <div class="form-group">
                                         <div class="d-flex justify-content-center estampa-preview mx-auto">
                                             <img src="{{  route('storage.asset', ['path' => $estampa->imagem_url])}}"
@@ -59,9 +59,9 @@
                                 </div><!--/col-->
 
 
-                                <div class="form-group mb-0 mt-4 col-12">
-                                    <button type="submit" class="btn btn-success" name="ok">Atualizar</button>
-                                    <a href="{{route('estampas.cliente')}}" class="btn btn-secondary">Cancelar</a>
+                                <div class="form-group mb-0 mt-4 col-12 order-3">
+                                    <button type="submit" class="btn btn-success btn-block-sm" name="ok">Atualizar</button>
+                                    <a href="{{route('estampas.cliente')}}" class="btn btn-secondary btn-block-sm">Cancelar</a>
                                 </div>
 
                             </div><!--/form-row-->
