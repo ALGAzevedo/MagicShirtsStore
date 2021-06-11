@@ -245,7 +245,7 @@ Route::post('/email/verification-notification', function (Request $request) {
 
 //TODO: Remover da administracao
 Route::get('encomendas/{encomenda}/fatura', [EncomendaController::class, 'openPdf'])->name('encomendas.viewPdf')
-->middleware('can:viewClientEncomenda,encomenda');
+->middleware('can:viewFatura,encomenda');
 Route::get('encomendas/{encomenda}/fatura/download', [EncomendaController::class, 'downloadPdf'])->name('encomendas.downloadPdf')
-->middleware('can:viewClientEncomenda,encomenda');
+->middleware('can:viewFatura,encomenda');
 
