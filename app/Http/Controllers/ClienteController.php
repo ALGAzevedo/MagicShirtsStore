@@ -144,7 +144,7 @@ class ClienteController extends Controller
     {
         if ($cliente->user->bloqueado == '0') {
             $cliente->user->bloqueado = '1';
-            Auth::user()->logout();
+
         } else {
             $cliente->user->bloqueado = '0';
         }

@@ -56,7 +56,8 @@ Route::delete('carrinho/empty', [CartController::class, 'destroy'])->name('carri
     Route::get('encomendas/{encomenda}', [EncomendaController::class, 'view_encomenda'])->name('cliente.encomenda.view');
 });*/
 
-Route::get('encomendas', [EncomendaController::class, 'index'])->middleware('auth')->name('cliente.encomendas');
+Route::get('encomendas', [EncomendaController::class, 'index'])->name('cliente.encomendas')
+    ->middleware('auth');
 Route::get('encomendas/{encomenda}', [EncomendaController::class, 'view_encomenda'])->name('cliente.encomenda.view')
     ->middleware('can:viewClientEncomenda,encomenda');
 
@@ -172,7 +173,7 @@ Route::delete('cliente/{cliente}/foto', [ClienteController::class, 'destroy_foto
 //Estampas DO CLIENTE
 //TODO: Ver possibilidade de utilizar policies
 
-Route::middleware( 'auth')->prefix('cliente')->group(function () {
+Route::middleware( ['auth', 'verifyBlocked'])->prefix('cliente')->group(function () {
 
 Route::get('/estampas', [ClienteEstampaController::class, 'index'])->name('estampas.cliente')
     ->middleware('can:viewPrivate,App\Models\Estampa');
