@@ -2,30 +2,16 @@
 
 @section('content')
 
-
     <section class="my-4">
         <div class="container">
+            @unless(is_null($categorias))
 
             <div class="category-badges-list mb-3">
-
-                <a class="category-badges-item is-current" href="" >Ver tudo</a>
-
-                <a class="category-badges-item" href="" data-category-id="1030004028">Básicas</a>
-
-                <a class="category-badges-item" href="" data-category-id="1030328504">Packs</a>
-
-                <a class="category-badges-item" href="">Cropped</a>
-
-                <a class="category-badges-item" href="">Oversize</a>
-
-                <a class="category-badges-item" href="">Pólos</a>
-
-                <a class="category-badges-item" href="">Licensed</a>
-
-                <a class="category-badges-item" href="">Estampadas</a>
-
-
+                @foreach($categorias as $categoria)
+                <a class="category-badges-item" href="{{route('estampas.index').'?categoria='.$categoria->id}}">{{$categoria->nome}}</a>
+                @endforeach
             </div>
+            @endunless
 
             <div class="intro-banner-wrap">
                 <a href="{{route('estampas.index')}}"><img class="lazy img-fluid rounded" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="{{asset('img/banner-loja.jpg')}}"
@@ -76,6 +62,9 @@
         </div> <!-- container .//  -->
     </section>
     <!-- ========================= Popular products ========================= -->
+
+    @unless(is_null($estampas))
+
     <section class="my-4">
         <div class="container">
 
@@ -109,7 +98,6 @@
 
         </div> <!-- container .//  -->
     </section>
+    @endunless
     <!-- ========================= /Popular products ========================= -->
-
-
 @endsection
