@@ -164,7 +164,8 @@ class EncomendaController extends Controller
             $pdf = $this->createPdf($encomenda);
             $output = $pdf->output();
             $name = 'FTMS'.$encomenda->id.'.pdf';
-            file_put_contents('storage/recibos/'.$name, $output);
+
+            file_put_contents( storage_path('app/pdf_recibos/'.$name), $output);
 
             $encomenda->recibo_url = basename($name);
             $encomenda->save();
@@ -191,14 +192,9 @@ class EncomendaController extends Controller
 
     public function openPdf(Encomenda $encomenda) {
 
-        $filename = 'storage/recibos/'.$encomenda->recibo_url;
-
+        $filename = storage_path('app/pdf_recibos/'.$encomenda->recibo_url);
         try {
-            $data = file_get_contents($filename);
-            return response()->make($data, 200, [
-                'Content-Type' => 'application/pdf',
-                'Content-Disposition' => 'inline; filename="'.$filename.'"'
-            ]);
+            return response()->file($filename);
         }
         catch (Exception $ex) {
             abort(404);
@@ -207,7 +203,7 @@ class EncomendaController extends Controller
 
     public function downloadPdf(Encomenda $encomenda) {
 
-        $filename = 'storage/recibos/'.$encomenda->recibo_url;
+        $filename = storage_path('app/pdf_recibos/'.$encomenda->recibo_url);
 
         try {
             return response()->download($filename);
