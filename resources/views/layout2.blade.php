@@ -77,7 +77,7 @@
                                                     <a class="dropdown-item"
                                                        href="{{route('cliente.edit', ['cliente'=> Auth::user()->id])}}">Perfil
                                                     </a>
-                                                <a class="dropdown-item" href="{{ route('estampas.cliente') }}">Estampas</a>
+                                                <a class="dropdown-item" href="{{ route('cliente.estampas') }}">Estampas</a>
                                                     <div class="dropdown-divider"></div>
                                                 @endcan
 

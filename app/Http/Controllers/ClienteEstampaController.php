@@ -48,7 +48,7 @@ class ClienteEstampaController extends Controller
         }
 
         $newEstampa->save();
-        return redirect()->route('estampas.cliente')
+        return redirect()->route('cliente.estampas')
             ->with('alert-msg', 'Estampa "' . $newEstampa->nome . '" foi criada com sucesso!')
             ->with('alert-type', 'success');
 
@@ -79,7 +79,7 @@ class ClienteEstampaController extends Controller
 
 
         $estampa->save();
-        return redirect()->route('estampas.cliente')
+        return redirect()->route('cliente.estampas')
             ->with('alert-msg', 'Estampa "' . $estampa->nome . '" foi alterada com sucesso!')
             ->with('alert-type', 'success');
     }
@@ -93,18 +93,18 @@ class ClienteEstampaController extends Controller
         try {
             $estampa->delete();
             Storage::delete('public/estampas/' . $oldEstampaUrl);
-            return redirect()->route('estampas.cliente')
+            return redirect()->route('cliente.estampas')
                 ->with('alert-msg', 'Estampa "' . $oldName . '" foi apagada com sucesso!')
                 ->with('alert-type', 'success');
         } catch (\Throwable $th) {
 
 
             if ($th->errorInfo[1] == 1451) {   // 1451 - MySQL Error number for "Cannot delete or update a parent row: a foreign key constraint fails (%s)"
-                return redirect()->route('estampas.cliente')
+                return redirect()->route('cliente.estampas')
                     ->with('alert-msg', 'Não foi possível apagar a Estampa "' . $oldName . '", porque esta estampa já está em uso!')
                     ->with('alert-type', 'danger');
             } else {
-                return redirect()->route('estampas.cliente')
+                return redirect()->route('cliente.estampas')
                     ->with('alert-msg', 'Não foi possível apagar a Estampa "' . $oldName . '". Erro: ' . $th->errorInfo[2])
                     ->with('alert-type', 'danger');
             }

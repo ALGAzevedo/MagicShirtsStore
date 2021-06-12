@@ -61,7 +61,7 @@
 
                                 <div class="form-group mb-0 mt-4 col-12 order-3">
                                     <button type="submit" class="btn btn-success btn-block-sm" name="ok">Atualizar</button>
-                                    <a href="{{route('estampas.cliente')}}" class="btn btn-secondary btn-block-sm">Cancelar</a>
+                                    <a href="{{route('cliente.estampas')}}" class="btn btn-secondary btn-block-sm">Cancelar</a>
                                 </div>
 
                             </div><!--/form-row-->

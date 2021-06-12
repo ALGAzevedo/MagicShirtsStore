@@ -37,7 +37,6 @@ Route::get('/', [PageController::class, 'index'])->name('home');
 Route::get('quem-somos', [PageController::class, 'about'])->name('about');
 
 
-
 //ROTAS DO CARRINHO
 //Route::get('tshirts/{estampa}/{codigo}', [TshirtController::class, 'choose'])->name('tshirts.chooseWithColor');
 Route::get('carrinho', [CartController::class, 'index'])->name('carrinho');
@@ -48,18 +47,6 @@ Route::delete('carrinho/{uuid}/remove', [CartController::class, 'destroy_item'])
 Route::post('carrinho', [CartController::class, 'store'])->name('carrinho.store');
 Route::delete('carrinho/empty', [CartController::class, 'destroy'])->name('carrinho.destroy');
 
-
-//HISTORICO ENCOMENDA CLIENTES
-//TODO : Acrescentei o auth poque dava erro
-/*Route::middleware(['auth','can:viewClientEncomenda,encomenda'])->group(function () {
-    Route::get('encomendas', [EncomendaController::class, 'index'])->name('cliente.encomendas');
-    Route::get('encomendas/{encomenda}', [EncomendaController::class, 'view_encomenda'])->name('cliente.encomenda.view');
-});*/
-
-Route::get('encomendas', [EncomendaController::class, 'index'])->name('cliente.encomendas')
-    ->middleware('auth');
-Route::get('encomendas/{encomenda}', [EncomendaController::class, 'view_encomenda'])->name('cliente.encomenda.view')
-    ->middleware('can:viewClientEncomenda,encomenda');
 
 //ADMINISTRAÇÃO
 
@@ -117,7 +104,6 @@ Route::middleware('auth')->prefix('administracao')->name('admin.')->group(functi
         ->middleware('can:update,encomenda');
 
 
-
 //ADMINISTRACAO FUNCIONARIOS
     Route::get('funcionarios', [UserController::class, 'admin_funcs'])->name('funcionarios')
         ->middleware('can:viewAny, App\Models\User');
@@ -153,62 +139,66 @@ Route::middleware('auth')->prefix('administracao')->name('admin.')->group(functi
 });
 
 //EDICAO PERFIL DO CLIENTE
+Route::middleware(['auth', 'verifyBlocked'])->prefix('cliente')->name('cliente.')->group(function () {
 
-Route::get('cliente/{cliente}/edit', [ClienteController::class, 'show'])->name('cliente.edit')
-->middleware('can:view,cliente');
+    //PERFIL
+    Route::get('{cliente}/edit', [ClienteController::class, 'show'])->name('edit')
+        ->middleware('can:view,cliente');
 
-Route::get('cliente/{cliente}/password', [ClienteController::class, 'viewPassword'])->name('cliente.password.update')
-->middleware('can:update,cliente');
+    Route::get('{cliente}/password', [ClienteController::class, 'viewPassword'])->name('password.update')
+        ->middleware('can:update,cliente');
 
-Route::put('cliente/password/{cliente}', [ClienteController::class, 'updatePassword'])->name('cliente.updatePassword')
-->middleware('can:updatePassword,cliente');
+    Route::put('password/{cliente}', [ClienteController::class, 'updatePassword'])->name('updatePassword')
+        ->middleware('can:updatePassword,cliente');
 
-Route::put('cliente/{cliente}', [ClienteController::class, 'update'])->name('cliente.update')
-->middleware('can:update,cliente');
+    Route::put('{cliente}', [ClienteController::class, 'update'])->name('update')
+        ->middleware('can:update,cliente');
 
-Route::delete('cliente/{cliente}/foto', [ClienteController::class, 'destroy_foto'])->name('cliente.foto.destroy')
-->middleware('can:update,cliente');
+    Route::delete('{cliente}/foto', [ClienteController::class, 'destroy_foto'])->name('foto.destroy')
+        ->middleware('can:update,cliente');
 
+//ESTAMPAS DO CLIENTE
+    Route::get('/estampas', [ClienteEstampaController::class, 'index'])->name('estampas')
+        ->middleware('can:viewPrivate,App\Models\Estampa');
 
-//Estampas DO CLIENTE
-//TODO: Ver possibilidade de utilizar policies
+    Route::get('/estampas/create', [ClienteEstampaController::class, 'create'])->name('estampas.create')
+        ->middleware('can:create_private,App\Models\Estampa');
+    Route::post('/estampas', [ClienteEstampaController::class, 'store'])->name('estampas.store')
+        ->middleware('can:create_private,App\Models\Estampa');;
+    Route::get('/estampas/{estampa}/edit', [ClienteEstampaController::class, 'edit'])->name('estampas.edit')
+        ->middleware('can:update_private,estampa');
+    Route::put('/estampas/{estampa}', [ClienteEstampaController::class, 'update'])->name('estampas.update')
+        ->middleware('can:update_private,estampa');
+    Route::delete('/estampas/{estampa}', [ClienteEstampaController::class, 'destroy'])->name('estampas.destroy')
+        ->middleware('can:delete_private,estampa');
 
-Route::middleware( ['auth', 'verifyBlocked'])->prefix('cliente')->group(function () {
+    //HISTORICO ENCOMENDA CLIENTES
 
-Route::get('/estampas', [ClienteEstampaController::class, 'index'])->name('estampas.cliente')
-->middleware('can:viewPrivate,App\Models\Estampa');
-
-Route::get('/estampas/create', [ClienteEstampaController::class, 'create'])->name('cliente.estampas.create')
-->middleware('can:create_private,App\Models\Estampa');
-Route::post('/estampas', [ClienteEstampaController::class, 'store'])->name('cliente.estampas.store')
-->middleware('can:create_private,App\Models\Estampa');;
-Route::get('/estampas/{estampa}/edit', [ClienteEstampaController::class, 'edit'])->name('cliente.estampas.edit')
-->middleware('can:update_private,estampa');
-Route::put('/estampas/{estampa}', [ClienteEstampaController::class, 'update'])->name('cliente.estampas.update')
-->middleware('can:update_private,estampa');
-Route::delete('/estampas/{estampa}', [ClienteEstampaController::class, 'destroy'])->name('cliente.estampas.destroy')
-->middleware('can:delete_private,estampa');
+    Route::get('encomendas', [EncomendaController::class, 'index'])->name('encomendas')
+        ->middleware('auth');
+    Route::get('encomendas/{encomenda}', [EncomendaController::class, 'view_encomenda'])->name('encomenda.view')
+        ->middleware('can:viewClientEncomenda,encomenda');
 });
+
 
 // EXIBIÇÃO E DOWNLOAD DE FICHEIRO
-Route::middleware( 'auth')->group(function () {
-Route::get('static/{path}', [ClienteEstampaController::class, 'serve_asset'])
-    ->name('storage.asset');
+Route::middleware('auth')->group(function () {
+    Route::get('static/{path}', [ClienteEstampaController::class, 'serve_asset'])
+        ->name('storage.asset');
 });
-
 
 
 //Tshirts
 Route::get('estampas', [EstampaController::class, 'index'])->name('estampas.index');
 Route::get('tshirts/{estampa}', [TshirtController::class, 'choose'])
-->middleware('can:viewAnyPrivate,estampa')
-->name('tshirts.choose');
+    ->middleware('can:viewAnyPrivate,estampa')
+    ->name('tshirts.choose');
 
 //CHECKOUT
 //TODO: Fix to use can:checkout,App\Models\Encomenda | O problema está no método before
-Route::middleware( ['auth', 'can:checkout,App\Models\Encomenda'])->group(function () {
-Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
-Route::post('/checkout/order', [CheckoutController::class, 'store'])->name('checkout.order');
+Route::middleware(['auth', 'can:checkout,App\Models\Encomenda'])->group(function () {
+    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+    Route::post('/checkout/order', [CheckoutController::class, 'store'])->name('checkout.order');
 
 // Route::get('account/orders', [AccountControllerController::class, 'orders'])->name('account.orders');
 });
@@ -216,37 +206,34 @@ Route::post('/checkout/order', [CheckoutController::class, 'store'])->name('chec
 Auth::routes(['register' => true]);
 
 
-
-
 //EMAIL VERIFICATION
 
 Auth::routes(['verify' => true]);
 
 Route::get('/email/verify', function () {
-return view('auth.verify');
+    return view('auth.verify');
 })->middleware('auth')->name('verification.notice');
 
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-$request->fulfill();
+    $request->fulfill();
 
-return redirect('/')
-    ->with('alert-msg', 'O seu email foi verificado!')
-    ->with('alert-type', 'success');
+    return redirect('/')
+        ->with('alert-msg', 'O seu email foi verificado!')
+        ->with('alert-type', 'success');
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
 Route::post('/email/verification-notification', function (Request $request) {
-$request->user()->sendEmailVerificationNotification();
+    $request->user()->sendEmailVerificationNotification();
 
-return back()->with('message', 'Verification link sent!');
+    return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
-
 
 
 //RECIBOS ENCOMENDA
 
 //TODO: Remover da administracao
 Route::get('encomendas/{encomenda}/fatura', [EncomendaController::class, 'openPdf'])->name('encomendas.viewPdf')
-->middleware('can:viewFatura,encomenda');
+    ->middleware('can:viewFatura,encomenda');
 Route::get('encomendas/{encomenda}/fatura/download', [EncomendaController::class, 'downloadPdf'])->name('encomendas.downloadPdf')
-->middleware('can:viewFatura,encomenda');
+    ->middleware('can:viewFatura,encomenda');
 
