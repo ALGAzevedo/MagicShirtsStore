@@ -10180,9 +10180,9 @@ FORMATACAO NAV IMAGEM PERFIL FRONTPAGE
 
 .btn-size:not(:disabled):not(.disabled):active, .btn-size:not(:disabled):not(.disabled).active,
 .show > .btn-size.dropdown-toggle {
-    color: #212529;
-    background-color: #ffffff;
-    border-color: #000;
+    color: #fff;
+    background-color: #1d2124;
+    border-color: #171a1d;
 
 }
 
