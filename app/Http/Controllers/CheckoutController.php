@@ -36,7 +36,7 @@ class CheckoutController extends Controller
         $validated_data = $request->validated();
 
         $encomenda = new Encomenda;
-
+        
         $encomenda->cliente_id = Auth::id();
         $encomenda->estado = "pendente";
         $encomenda->data = Carbon::now()->isoFormat('YYYY-MM-DD');
