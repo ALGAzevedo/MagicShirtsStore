@@ -22,6 +22,7 @@
                class="btn btn-dark">Alterar Password</a>
     </div>
 @endcan
+
 @can('update', $funcionario)
     <div class="form-group">
         <div>Tipo</div>
@@ -42,7 +43,7 @@
             <input type="hidden" name="bloqueado" value="0">
             <input type="checkbox" class="form-check-input" id="inputBloqueado" name="bloqueado"
                    value="1" {{old('bloqueado', $funcionario->bloqueado) == '1' ? 'checked' : ''}}>
-            <label class="form-check-label" for="inputAdmin">
+            <label class="form-check-label" for="inputBloqueado">
                 Bloqueado
             </label>
         </div>
@@ -52,7 +53,7 @@
     </div>
     <div class="form-group">
         <label for="inputFoto">Upload da foto</label>
-        <input type="file" class="form-control" name="foto" id="inputFoto">
+        <input type="file" class="form-control-file" name="foto" id="inputFoto">
         @error('foto')
         <div class="small text-danger">{{$message}}</div>
         @enderror

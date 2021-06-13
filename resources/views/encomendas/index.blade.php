@@ -1,10 +1,10 @@
 @extends('layout2')
 @section('content')
     <div class="container">
-        @include('myaccount.partials.title')
+        @include('perfil.partials.title')
         <div class="row">
 
-            @include('myaccount.partials.sidebar')
+            @include('perfil.partials.sidebar')
 
             <div class="col-md-9">
                 @if (session('alert-msg'))
@@ -86,7 +86,7 @@
                                     <a href="{{route('cliente.encomenda.view', ['encomenda' => $encomenda])}}">{{$encomenda->id}}</a>
                                 </td>
                                 <td>{{$encomenda->data}}</td>
-                                <td> <span class="encomenda-status text-{{$encomenda->estado}}"> {{$encomenda->estado}}</span></td>
+                                <td> <span class="encomenda-status order-status status-{{$encomenda->estado}}"> {{$encomenda->estado}}</span></td>
                                 <td width="250"> @if($encomenda->recibo_url != null && $encomenda->estado == "fechada" )
                                         <a href="{{route('encomendas.downloadPdf', ['encomenda' => $encomenda])}}" class="btn btn-outline-primary btn-xs"><i class="fas fa-download mr-2"></i> Fatura recibo</a>
                                     @endif  <a href="{{route('cliente.encomenda.view', ['encomenda' => $encomenda])}}" class="btn btn-light btn-xs">Detalhe </a> </td>

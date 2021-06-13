@@ -1,10 +1,10 @@
 @extends('layout2')
 @section('content')
     <div class="container">
-        @include('myaccount.partials.title')
+        @include('perfil.partials.title')
         <div class="row">
 
-            @include('myaccount.partials.sidebar')
+            @include('perfil.partials.sidebar')
 
             <div class="col-md-9">
 

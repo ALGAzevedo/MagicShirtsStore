@@ -37,9 +37,6 @@ class CheckoutController extends Controller
 
         $encomenda = new Encomenda;
 
-        //$encomenda->fill($validated_data);
-
-
         $encomenda->cliente_id = Auth::id();
         $encomenda->estado = "pendente";
         $encomenda->data = Carbon::now()->isoFormat('YYYY-MM-DD');
@@ -53,8 +50,6 @@ class CheckoutController extends Controller
 
 
         $encomenda->save();
-
-        //TODO: RECIBO_URL
 
         if ($encomenda->id){
 
@@ -84,13 +79,6 @@ class CheckoutController extends Controller
             ->with('alert-msg', 'Encomenda "#' . $encomenda->id . '" foi registada com sucesso!')
             ->with('alert-type', 'success');
 
-    }
-
-    public function confirm(Request $request)
-    {
-        return view('checkout.thankyou')
-            ->with('pageTitle', 'Obrigado')
-            ->with('carrinho', session('carrinho') ?? []);
     }
 
 }

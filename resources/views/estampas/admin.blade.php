@@ -1,18 +1,23 @@
 @extends('layout_admin')
 @section('title','Estampas')
 @section('content')
-    <form method="GET" action="#" class="form-group">
-        <div class="row mb-3">
-            <div class="col-2">
-                <a href="{{route('admin.estampas.create')}}" class="btn btn-success" role="button" aria-pressed="true">Nova
-                    Estampa</a>
-            </div>
+
+    <div class="row mb-3">
+        <div class="col-2">
+            <a href="{{route('admin.estampas.create')}}" class="btn btn-success" role="button" aria-pressed="true">Nova
+                Estampa</a>
         </div>
-        <div class="row mb-3">
-            <div class="col-2">
+    </div>
+    <div class="card">
+        <header class="card-header">
+
+        <form method="GET" action="#" >
+
+        <div class="row align-items-end">
+            <div class="col-md-6 col-lg-2 form-group">
                 <label for="inputState">Categoria</label>
                 <div class="input-group">
-                    <select class="form-control" name="categoria" id="idCat">
+                    <select class="custom-select" name="categoria" id="idCat">
                         <option value="show_all" {{$categoriaSel == 'show_all' ? 'selected' : ''}}>Mostrar Tudo</option>
                         <option value="Sem Categoria" {{$categoriaSel == 'Sem Categoria' ? 'selected' : ''}}>Sem
                             categoria
@@ -24,25 +29,34 @@
                         @endforeach
                     </select>
                 </div>
+
             </div>
-            <div class="col-2">
+            <div class="col-md-6 col-lg-2 form-group">
                 <label for="inputState">Nome</label>
                 <input type="text" class="form-control" name="nome" value="{{$nomeSel}}">
             </div>
-            <div class="col-6">
+            <div class="col-md-6 col-lg-4 form-group">
                 <label for="inputState">Descricao</label>
                 <input type="text" class="form-control" name="descricao" value="{{$descricaoSel}}">
             </div>
 
+            <div class="col-md-6 col-lg-3 form-group">
+                <div class="btn-group ">
+                    <a href="{{route('admin.estampas')}}" class="btn btn-secondary">Reset</a>
+                    <button class="btn btn-primary" type="submit">Filtrar</button>
+                </div>
+            </div>
+
         </div>
-        <a href="{{route('admin.estampas')}}" class="btn btn-secondary">Reset</a>
-        <button class="btn btn-primary" type="submit">Filtrar</button>
+
 
     </form>
 
-
-    <table class="table">
-        <thead>
+        </header>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover ">
+                    <thead class="thead-light">
         <tr>
             <th></th>
             <th>Nome</th>
@@ -77,5 +91,7 @@
         </tbody>
     </table>
     {{ $estampas->withQueryString()->links() }}
+    </div>
+    </div>
 @endsection
 

@@ -8,9 +8,11 @@
         <div class="col-9">
         </div>
     </div>
-
-    <table class="table">
-        <thead>
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover ">
+                    <thead class="thead-light">
         <tr>
             <th>Nome</th>
             <th></th>
@@ -38,5 +40,7 @@
         </tbody>
     </table>
     {{$listaCategorias->withQueryString()->links() }}
+            </div>
+        </div>
 @endsection
 

@@ -1,10 +1,14 @@
 @extends('layout_admin')
 @section('title', 'Alterar Password')
 @section('content')
+    <div class="card">
+        <div class="card-body">
     <form method="POST" action="{{route('admin.funcionarios.updatePassword', ['funcionario' => $funcionario]) }}"
           class="form-group">
         @csrf
         @method('PUT')
+        <div class="row">
+            <div class="col-md-8 col-lg-4 col-xl-4">
         <div class="form-group">
             <label for="inputNome">Nome</label>
             <input type="text" class="form-control" name="name" id="inputNome"
@@ -47,8 +51,15 @@
             <div class="small text-danger">{{$message}}</div>
             @enderror
         </div>
+            </div>
+        </div>
+            <hr>
+            <div class="form-group">
         <input type="hidden" name="user_id" value="{{$funcionario->id}}">
-        <button type="submit" class="btn btn-success" name="ok">Save</button>
-        <a href="{{route('admin.dashboard')}}" class="btn btn-danger">Cancel</a>
+        <button type="submit" class="btn btn-success btn-block-sm" name="ok">Guardar</button>
+        <a href="{{route('admin.dashboard')}}" class="btn btn-danger btn-block-sm">Cancelar</a>
+      </div>
     </form>
+        </div>
+    </div>
 @endsection

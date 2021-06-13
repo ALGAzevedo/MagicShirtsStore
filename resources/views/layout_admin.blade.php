@@ -17,6 +17,7 @@
 
     <!-- Custom styles for this template-->
     <link href="{{asset('css/sb-admin-2.min.css')}}" rel="stylesheet">
+    <link href="{{asset('css/admin.css')}}" rel="stylesheet">
 
 </head>
 
@@ -40,7 +41,7 @@
         <hr class="sidebar-divider my-0">
 
         <!-- Nav Item - Dashboard -->
-        <li class="nav-item active">
+        <li class="nav-item {{ Route::currentRouteName() == 'admin.dashboard' ? 'active' : ''}}">
             <a class="nav-link" href="{{route('admin.dashboard')}}">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Dashboard</span></a>
@@ -52,7 +53,7 @@
 
         <!-- Nav Item -->
         @can('viewAny', App\Models\User::class)
-            <li class="nav-item" {{Route::currentRouteName()=='admin.funcionarios'? 'active': ''}}>
+            <li class="nav-item {{ Route::currentRouteName() == 'admin.funcionarios' ? 'active' : ''}}">
                 <a class="nav-link" href="{{route('admin.funcionarios')}}">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Funcionários</span></a>
@@ -60,7 +61,7 @@
         @endcan
         @can('viewAny', App\Models\Cliente::class)
         <!-- Nav Item -->
-            <li class="nav-item" {{Route::currentRouteName()=='admin.clientes'? 'active': ''}}>
+            <li class="nav-item {{Route::currentRouteName()=='admin.clientes'? 'active': ''}}">
                 <a class="nav-link" href="{{route('admin.clientes')}}">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Clientes</span></a>
@@ -68,28 +69,28 @@
         @endcan
     <!-- Nav Item -->
         @can('viewAny_Admin', App\Models\Estampa::class)
-        <li class="nav-item" {{Route::currentRouteName()=='admin.estampas'? 'active': ''}}>
+        <li class="nav-item {{Route::currentRouteName()=='admin.estampas'? 'active': ''}}">
             <a class="nav-link" href="{{route('admin.estampas')}}">
                 <i class="fas fa-fw fa-table"></i>
                 <span>Estampas</span></a>
         </li>
         @endcan
         @can('viewAny', \App\Models\Categoria::class)
-        <li class="nav-item" {{Route::currentRouteName()=='admin.categorias'? 'active': ''}}>
+        <li class="nav-item {{Route::currentRouteName()=='admin.categorias'? 'active': ''}}">
             <a class="nav-link" href="{{route('admin.categorias')}}">
                 <i class="fas fa-fw fa-table"></i>
                 <span>Categorias</span></a>
         </li>
         @endcan
         @can('viewAny', \App\Models\Preco::class)
-            <li class="nav-item" {{Route::currentRouteName()=='admin.precos'? 'active': ''}}>
+            <li class="nav-item {{Route::currentRouteName()=='admin.precos'? 'active': ''}}">
                 <a class="nav-link" href="{{route('admin.precos')}}">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Preços</span></a>
             </li>
     @endcan
     <!-- Nav Item -->
-        <li class="nav-item" {{Route::currentRouteName()=='admin.encomendas'? 'active': ''}}>
+        <li class="nav-item {{Route::currentRouteName()=='admin.encomendas'? 'active': ''}}">
             <a class="nav-link" href="{{route('admin.encomendas')}}">
                 <i class="fas fa-fw fa-table"></i>
                 <span>Encomendas</span></a>
