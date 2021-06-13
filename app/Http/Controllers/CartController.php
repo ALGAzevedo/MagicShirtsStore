@@ -70,11 +70,13 @@ class CartController extends Controller
 
         $preco_un = $preco['normal'];
 
-        if ($request->quantidade >= $this->getQuantDesconto())
-            $preco_un = $preco['desconto'];
 
         $carrinho = session()->get('carrinho', []);
         $quantidade = ($carrinho[$uuid]['quantidade'] ?? 0) + $request->quantidade;
+        
+        if ($quantidade >= $this->getQuantDesconto())
+            $preco_un = $preco['desconto'];
+
 
         $carrinho[$uuid] = [
             'uuid' => $request->cor_codigo . '-' . $estampa_id . '-' . $request->tamanho,
