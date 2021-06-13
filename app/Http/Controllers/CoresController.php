@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\CorPost;
 
 
+
 class CoresController extends Controller
 {
     public function index() {
@@ -25,9 +26,23 @@ class CoresController extends Controller
 
     public function store(CorPost $request)
     {
-        dd($request);
+        $validated_data = $request->validated();
 
-        $newCor= Cor::create($request->validated());
+        $newCor = new Cor;
+
+        $newCor->nome = $validated_data['nome'];
+        $newCor->codigo = $validated_data['codigo'];
+
+        if ($request->hasFile('imgShirt')) {
+
+
+            $custom_name = $validated_data['nome'].'.'.$validated_data['imgShirt']->extension();
+
+            $request->imgShirt->storeAs('public/tshirt_base/', $custom_name);
+        }
+
+        $newCor->save();
+
         return redirect()->route('admin.cores')
             ->with('alert-msg', 'Cor "' . $newCor->nome . '" foi criada com sucesso!')
             ->with('alert-type', 'success');
@@ -35,7 +50,7 @@ class CoresController extends Controller
 
     public function destroy(Cor $cor)
     {
-        dd("AQUI");
+
         $oldName = $cor->nome;
         try {
             $cor->delete();

@@ -95,6 +95,12 @@
                 <span>Encomendas</span></a>
         </li>
         <!-- Nav Item -->
+        <li class="nav-item" {{Route::currentRouteName()=='admin.cores'? 'active': ''}}>
+            <a class="nav-link" href="{{route('admin.cores')}}">
+                <i class="fas fa-fw fa-table"></i>
+                <span>Cores T-shirts</span></a>
+        </li>
+        <!-- Nav Item -->
         <li class="nav-item">
             <a class="nav-link" href="{{url('/')}}">
                 <i class="fas fa-fw fa-home"></i>

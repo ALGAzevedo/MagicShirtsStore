@@ -1,6 +1,12 @@
 @extends('layout_admin')
-@section('title','Preços')
+@section('title','Cores')
 @section('content')
+    <div class="row mb-3">
+        <div class="col-2">
+            <a href="{{route('admin.cores.create')}}" class="btn btn-success" role="button" aria-pressed="true">Nova
+                Cor</a>
+        </div>
+    </div>
 
     <table class="table mt-4">
         <thead>

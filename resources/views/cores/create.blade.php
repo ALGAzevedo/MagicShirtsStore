@@ -3,7 +3,7 @@
 @section('content')
 
     <form method="POST" action="{{route('admin.cores.store', ['cor' => $cor]) }}"
-          class="form-group">
+          class="form-group" enctype="multipart/form-data">
         @method('POST')
         @csrf
         @include('cores/partials/create-edit')
