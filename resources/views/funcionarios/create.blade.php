@@ -8,7 +8,7 @@
         @csrf
         <div class="row">
             <div class="col-md-4">
-        @include('funcionarios.partials.create-edit')
+        @include('funcionarios.partials.create')
             </div>
         </div>
         <hr>

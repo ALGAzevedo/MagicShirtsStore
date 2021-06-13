@@ -96,6 +96,7 @@ class UserController extends Controller
     public function create()
     {
         $newFuncionario = new User;
+
         return view('funcionarios.create')
             ->withFuncionario($newFuncionario);
     }
@@ -112,7 +113,7 @@ class UserController extends Controller
             $path = $request->foto->store('public/fotos');
             $newUser->url_foto = basename($path);
         }
-        $newUser->password = Hash::make($validated_data['password']);
+        $newUser->password = Hash::make($validated_data['newPassword']);
         $newUser->save();
 
         return redirect()->route('admin.funcionarios')

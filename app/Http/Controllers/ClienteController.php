@@ -69,13 +69,13 @@ class ClienteController extends Controller
         }
         $cliente->user->save();
 
-        if ($request->has('endereco')) {
+        if ($request->filled('endereco')) {
             $cliente->endereco = $validated_data['endereco'];
         }
-        if ($request->has('nif')) {
+        if ($request->filled('nif')) {
             $cliente->nif = $validated_data['nif'];
         }
-        if ($request->has('tipo_pagamento')) {
+        if ($request->filled('tipo_pagamento')) {
             $cliente->tipo_pagamento = $validated_data['tipo_pagamento'];
             $cliente->ref_pagamento = $validated_data['ref_pagamento'];
         }

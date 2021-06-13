@@ -16,7 +16,7 @@
 </div>
 <div class="form-row">
     <div class="col-md-6 mb-3">
-        <label for="inputNome">T-shirt(opcional)</label>
+        <label for="inputNome">T-shirt</label>
         <input type="file" class="form-control" name="imgShirt" id="inputIMG">
         @error('imgShirt')
         <div class="small text-danger">{{$message}}</div>

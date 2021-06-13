@@ -202,7 +202,7 @@ Route::get('tshirts/{estampa}', [TshirtController::class, 'choose'])
     ->name('tshirts.choose');
 
 //CHECKOUT
-Route::middleware(['auth', 'can:checkout,App\Models\Encomenda'])->group(function () {
+Route::middleware(['auth', 'emailVerified', 'can:checkout,App\Models\Encomenda'])->group(function () {
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
     Route::post('/checkout/order', [CheckoutController::class, 'store'])->name('checkout.order');
 });

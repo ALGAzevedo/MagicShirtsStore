@@ -10,7 +10,7 @@
         <input type="hidden" name="user_id" value="{{$funcionario->id}}">
         <div class="row">
             <div class="col-md-8 col-lg-4 col-xl-4">
-        @include('funcionarios.partials.create-edit')
+        @include('funcionarios.partials.edit')
             </div>
             <div class="col-md-4 col-lg-6 col-xl-4">
         @isset($funcionario->foto_url)

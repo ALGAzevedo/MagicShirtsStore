@@ -16,13 +16,22 @@
     <div class="small text-danger">{{$message}}</div>
     @enderror
 </div>
-@can('updatePassword', $funcionario)
-    <div class="form-group">
-            <a href="{{route('admin.funcionarios.password.update', ['funcionario' => $funcionario]) }}"
-               class="btn btn-dark">Alterar Password</a>
-    </div>
-@endcan
-
+<div class="form-group">
+    <label for="inputPassword">Password</label>
+    <input type="password" class="form-control" name="newPassword" id="newPassword"
+           value="">
+    @error('newPassword')
+    <div class="small text-danger">{{$message}}</div>
+    @enderror
+</div>
+<div class="form-group">
+    <label for="inputPassword">Confirme a Password</label>
+    <input type="password" class="form-control" name="newPassword_confirmation" id="newPassword_confirmation"
+           value="">
+    @error('confirmPassword')
+    <div class="small text-danger">{{$message}}</div>
+    @enderror
+</div>
 @can('update', $funcionario)
     <div class="form-group">
         <div>Tipo</div>
