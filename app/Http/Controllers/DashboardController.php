@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use LaravelDaily\LaravelCharts\Classes\LaravelChart;
 
 class DashboardController extends Controller
@@ -21,7 +22,9 @@ class DashboardController extends Controller
             'group_by_field_format' => 'Y-m-d'
         ];
 
-        $chart1 = new LaravelChart($chart_options);
+        $chart1 = Cache::remember('_chart1', now()->addMinutes(5), function() use ($chart_options) {
+            return new LaravelChart($chart_options);
+        });
 
         $chart_options = [
             'chart_title' => 'Transações por mês',
@@ -35,7 +38,9 @@ class DashboardController extends Controller
             'group_by_field_format' => 'Y-m-d'
         ];
 
-        $chart2 = new LaravelChart($chart_options);
+        $chart2 = Cache::remember('_chart2', now()->addMinutes(5), function() use ($chart_options) {
+            return new LaravelChart($chart_options);
+        });
 
 
         $chart_options = [
@@ -50,7 +55,9 @@ class DashboardController extends Controller
             'group_by_field_format' => 'Y-m-d'
         ];
 
-        $chart3 = new LaravelChart($chart_options);
+        $chart3 = Cache::remember('_chart3', now()->addMinutes(5), function() use ($chart_options) {
+            return new LaravelChart($chart_options);
+        });
 
         $chart_options = [
             'chart_title' => 'Tipos de pagamento utilizados nos últimos 30 dias',
@@ -61,7 +68,9 @@ class DashboardController extends Controller
             'chart_type' => 'bar',
         ];
 
-        $chart4 = new LaravelChart($chart_options);
+        $chart4 = Cache::remember('_chart4', now()->addMinutes(5), function() use ($chart_options) {
+            return new LaravelChart($chart_options);
+        });
 
 
 

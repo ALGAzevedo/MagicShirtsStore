@@ -1,10 +1,10 @@
 @extends('layout2')
 @section('content')
     <div class="container">
-        @include('myaccount.partials.title')
+        @include('perfil.partials.title')
         <div class="row">
 
-            @include('myaccount.partials.sidebar')
+            @include('perfil.partials.sidebar')
 
             <div class="col-md-9">
                 @if (session('alert-msg'))
@@ -39,7 +39,7 @@
                                 <h6>Modo de pagamento:</h6>
                                 <ul class="list-unstyled mt-2 ">
                                     <li><strong class="text-dark">{{$encomenda->tipo_pagamento}}:&nbsp; </strong>{{$encomenda->ref_pagamento}}</li>
-                                    <li><strong class="font-weight-bold text-muted">Total da encomenda: </strong><br> <strong class="h4 text-dark font-weight-bold">{{$encomenda->preco_total}}€</strong></li>
+                                    <li class="d-block mt-2"><strong class="font-weight-bold text-muted">Total da encomenda: </strong><br> <strong class="h4 text-anulada font-weight-bold">{{$encomenda->preco_total}}€</strong></li>
                                 </ul>
                             </div>
                         </div>

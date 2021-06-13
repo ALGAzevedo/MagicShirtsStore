@@ -2,7 +2,6 @@
 
 @section('content')
     <div class="container">
-        @can('create',App\Models\Cliente::class)
             <section class="mt-4 mb-4">
                 <div class="page-title-wrapper mb-4">
                     <h1>Checkout</h1>
@@ -189,19 +188,6 @@
 
                 </div>
             </form>
-        @else
-            <div class="row">
-                <div class="col-lg-12 mt-4">
-
-                    <div class="alert alert-warning">
-                        O tipo de utilizador não é compatível com esta operação. <a href="{{route('carrinho')}}">Carrinho
-                            de compras.</a>
-
-                    </div>
-
-                </div>
-            </div>
-        @endcan
     </div>
 
 

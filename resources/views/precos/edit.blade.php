@@ -1,6 +1,10 @@
 @extends('layout_admin')
 @section('title','Alterar Preços')
 @section('content')
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-8 col-lg-4 col-xl-4">
     <form method="POST" action="{{route('admin.precos.update', ['precos' => $precos]) }}" class="form-group">
         @csrf
         @method('PUT')
@@ -43,12 +47,16 @@
             <div class="small text-danger">{{$message}}</div>
             @enderror
         </div>
+        <hr>
 
-
-        <div class="form-group text-right">
-            <button type="submit" class="btn btn-success" name="ok">Save</button>
-            <a href="{{route('admin.precos.edit', ['precos' =>$precos])}}" class="btn btn-primary">Reset</a>
-            <a href="{{route('admin.precos')}}" class="btn btn-secondary">Cancel</a>
+        <div class="form-group ">
+            <button type="submit" class="btn btn-success btn-block-sm" name="ok">Guardar</button>
+            <a href="{{route('admin.precos.edit', ['precos' =>$precos])}}" class="btn btn-primary btn-block-sm">Reset</a>
+            <a href="{{route('admin.precos')}}" class="btn btn-secondary btn-block-sm">Cancelar</a>
         </div>
     </form>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

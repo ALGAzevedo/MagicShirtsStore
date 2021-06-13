@@ -1,9 +1,17 @@
 @extends('layout_admin')
 @section('title','Preços')
 @section('content')
+    <div class="row mb-3">
+        <div class="col-3">
+            <a href="{{route('admin.precos.edit', ['precos' =>$precos])}}" class="btn btn-primary">Alterar Preços</a>
+        </div>
+    </div>
 
-        <table class="table">
-            <thead>
+    <div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover ">
+                <thead class="thead-light">
             <tr>
                 <th>Nome</th>
                 <th>Preço</th>
@@ -33,10 +41,9 @@
             </tbody>
 
         </table>
-        <div class="form-group text-right">
-            <a href="{{route('admin.precos.edit', ['precos' =>$precos])}}" class="btn btn-primary">Alterar Preços</a>
+
+
         </div>
-
-
-
+        </div>
+    </div>
 @endsection

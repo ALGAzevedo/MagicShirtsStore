@@ -1,26 +1,28 @@
 @extends('layout_admin')
-@section('title','Estado Encomenda')
 @section('content')
 
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+        <form method="POST" action="{{route('admin.encomendas.update', ['encomenda' => $encomenda])}}">
+            @csrf
+            @method('PUT')
+            <div class="form-group text-right">
+                @isset($estadoSeguinte)
+                    <?php $botao = $estadoSeguinte == "paga" ? "Declarar como Paga" : "Declarar como Fechada" ?>
 
-    @include('encomendas.partials.view-edit');
-
-    <form method="POST" action="{{route('admin.encomendas.update', ['encomenda' => $encomenda])}}">
-        @csrf
-        @method('PUT')
-        <div class="form-group text-right">
-            @isset($estadoSeguinte)
-                <?php $botao = $estadoSeguinte == "paga" ? "Declarar como Paga" : "Declarar como Fechada" ?>
-
-                <button type="submit" class="btn btn-success" name="estado"
-                        value="{{$estadoSeguinte}}">{{$botao}}</button>
-            @endisset
-            @can('updateAnular', \App\Models\Encomenda::class)
-                <button type="submit" class="btn btn-danger" name="estado" value="anulada">Anular Encomenda</button>
-            @endcan
-            <a href="{{route('admin.encomendas')}}"
-               class="btn btn-secondary">Cancel</a>
+                    <button type="submit" class="btn btn-sm btn-success" name="estado"
+                            value="{{$estadoSeguinte}}">{{$botao}}</button>
+                @endisset
+                @can('updateAnular', \App\Models\Encomenda::class)
+                    <button type="submit" class="btn btn-sm btn-danger" name="estado" value="anulada">Anular Encomenda</button>
+                @endcan
+                <a href="{{route('admin.encomendas')}}"
+                   class="btn btn-sm btn-secondary">Cancel</a>
+            </div>
+        </form>
         </div>
-    </form>
+    </div></div>
+    @include('encomendas.partials.view-edit');
 
 @endsection

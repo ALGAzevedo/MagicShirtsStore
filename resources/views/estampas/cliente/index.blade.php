@@ -2,10 +2,10 @@
 
 @section('content')
     <div class="container">
-        @include('myaccount.partials.title')
+        @include('perfil.partials.title')
         <div class="row">
 
-            @include('myaccount.partials.sidebar')
+            @include('perfil.partials.sidebar')
 
             <div class="col-md-9">
 
@@ -20,7 +20,7 @@
 
                     @if($estampas->total()>0 )
 
-                        @include('myaccount.partials.list')
+                        @include('perfil.partials.list')
 
                     @else
                         <div class="card border-0">

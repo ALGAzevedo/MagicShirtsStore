@@ -10180,9 +10180,9 @@ FORMATACAO NAV IMAGEM PERFIL FRONTPAGE
 
 .btn-size:not(:disabled):not(.disabled):active, .btn-size:not(:disabled):not(.disabled).active,
 .show > .btn-size.dropdown-toggle {
-    color: #212529;
-    background-color: #ffffff;
-    border-color: #000;
+    color: #fff;
+    background-color: #1d2124;
+    border-color: #171a1d;
 
 }
 
@@ -10815,13 +10815,13 @@ a.list-group-item:hover {
     margin: 10px 5px;
     margin-bottom: 0;
     border-radius: 25px;
-    background-color: #f4f4f5;
+    background-color: #f7f8f9;
     transition: background-color .2s ease;
 }
 
 .category-badges-item {
     padding: 0 15px;
-    line-height: 38px;
+    line-height: 33px;
     color: #000;
     opacity: 1;
 }
@@ -10936,6 +10936,7 @@ a.list-group-item:hover {
 .table-view th, .table-view td {
     vertical-align: middle;
 }
+
 .order-status {
     display: inline-block;
     -webkit-border-radius: 2px;

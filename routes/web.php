@@ -33,13 +33,9 @@ use \App\Http\Controllers\CartController;
 */
 
 Route::get('/', [PageController::class, 'index'])->name('home');
-
-
 Route::get('quem-somos', [PageController::class, 'about'])->name('about');
 
-
 //ROTAS DO CARRINHO
-//Route::get('tshirts/{estampa}/{codigo}', [TshirtController::class, 'choose'])->name('tshirts.chooseWithColor');
 Route::get('carrinho', [CartController::class, 'index'])->name('carrinho');
 Route::post('carrinho/{estampa}', [CartController::class, 'add'])->name('carrinho.add');
 Route::get('carrinho/{uuid}', [CartController::class, 'update_item'])->name('carrinho.update_item');
@@ -48,7 +44,6 @@ Route::delete('carrinho/{uuid}/remove', [CartController::class, 'destroy_item'])
 Route::post('carrinho', [CartController::class, 'store'])->name('carrinho.store');
 Route::delete('carrinho/empty', [CartController::class, 'destroy'])->name('carrinho.destroy');
 
-
 //ADMINISTRAÇÃO
 
 //MAIN
@@ -56,7 +51,6 @@ Route::delete('carrinho/empty', [CartController::class, 'destroy'])->name('carri
 Route::middleware('auth')->prefix('administracao')->name('admin.')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard')
         ->middleware('can:access-administration');
-
 
 //ADMINISTRACAO ESTAMPAS
     Route::get('estampas', [EstampaController::class, 'admin_index'])->name('estampas')
@@ -111,7 +105,7 @@ Route::middleware('auth')->prefix('administracao')->name('admin.')->group(functi
     Route::get('funcionarios/{funcionario}/edit', [UserController::class, 'edit'])->name('funcionarios.edit')
         ->middleware('can:view,funcionario');
     Route::get('funcionarios/create', [UserController::class, 'create'])->name('funcionarios.create')
-        ->middleware('can:create, App\Models\User');
+        ->middleware('can:create,App\Models\User');
     Route::post('funcionarios', [UserController::class, 'store'])->name('funcionarios.store')
         ->middleware('can:create, App\Models\User');
     Route::put('funcionarios/{funcionario}', [UserController::class, 'update'])->name('funcionarios.update')
@@ -201,7 +195,6 @@ Route::middleware('auth')->group(function () {
         ->name('storage.asset');
 });
 
-
 //Tshirts
 Route::get('estampas', [EstampaController::class, 'index'])->name('estampas.index');
 Route::get('tshirts/{estampa}', [TshirtController::class, 'choose'])
@@ -209,12 +202,9 @@ Route::get('tshirts/{estampa}', [TshirtController::class, 'choose'])
     ->name('tshirts.choose');
 
 //CHECKOUT
-//TODO: Fix to use can:checkout,App\Models\Encomenda | O problema está no método before
 Route::middleware(['auth', 'can:checkout,App\Models\Encomenda'])->group(function () {
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
     Route::post('/checkout/order', [CheckoutController::class, 'store'])->name('checkout.order');
-
-// Route::get('account/orders', [AccountControllerController::class, 'orders'])->name('account.orders');
 });
 
 Auth::routes(['register' => true]);

@@ -32,7 +32,6 @@
                         <img class="logo img-fluid" alt="" src="{{asset('img/logo-tshirt.png')}}">
                     </a>
                 </div>
-                {{-- TODO: IMPLEMENTAR PESQUISA DE ESTAMPAS--}}
                 <div class="col-lg-6 col-sm-6 my-3 my-lg-0">
                     <form action="{{route('estampas.index')}}" method="GET">
                         <div class="input-group w-100">
@@ -73,11 +72,11 @@
                                                aria-haspopup="true" aria-expanded="false">A minha conta</a>
                                             <div class="dropdown-menu">
                                                 @can('viewProfile', App\Models\Cliente::class)
-                                                <a class="dropdown-item" href="{{ route('cliente.encomendas') }}">Encomendas</a>
+                                                    <a class="dropdown-item" href="{{ route('cliente.encomendas') }}">Encomendas</a>
                                                     <a class="dropdown-item"
                                                        href="{{route('cliente.edit', ['cliente'=> Auth::user()->id])}}">Perfil
                                                     </a>
-                                                <a class="dropdown-item" href="{{ route('cliente.estampas') }}">Estampas</a>
+                                                    <a class="dropdown-item" href="{{ route('cliente.estampas') }}">Estampas</a>
                                                     <div class="dropdown-divider"></div>
                                                 @endcan
 
@@ -116,77 +115,31 @@
 
         <div class="collapse navbar-collapse" id="main_nav">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="{{url('/')}}">Home</a>
                 </li>
             </ul>
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('estampas.index')}}">Catálogo</a>
+                    <a class="nav-link {{Route::currentRouteName() == 'estampas.index' ? 'active' : ''}}" href="{{route('estampas.index')}}">Catálogo</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('about')}}">Quem Somos</a>
+                    <a class="nav-link {{Route::currentRouteName() == 'about' ? 'active' : ''}}"  href="{{route('about')}}">Quem Somos</a>
                 </li>
                 @can('access-administration')
                     <li class="nav-item">
-                        <a class="nav-link {{Route::currentRouteName() == 'administracao.dashboard' ? 'active' : ''}}"
+                        <a class="nav-link "
                            href="{{route('admin.dashboard')}}">
                             Administração
                         </a>
                     </li>
                 @endcan
-                <li class="nav-item">
-                    <a class="nav-link mx-2"
-                       title="Carrinho"
-                       href="{{route('carrinho')}}">
-                        <i class="fas fa-shopping-bag" aria-hidden="true"></i> <span
-                            class="badge badge-pill badge-danger ml-1">3</span>
-                    </a>
-                </li>
-
-                @guest
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                    </li>
-                @else
-                <!-- Nav Item - User Information -->
-                    <li class="nav-item dropdown no-arrow">
-                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{Auth::user()->name}}</span>
-                            <img class="img-profile rounded-circle"
-                                 src="{{Auth::user()->foto_url ? asset('storage/fotos/' . Auth::user()->foto_url) : asset('img/default_img.png') }}">
-                        </a>
-                        <!-- Dropdown - User Information -->
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                             aria-labelledby="userDropdown">
-                            @can('viewProfile', App\Models\Cliente::class)
-                                <a class="dropdown-item"
-                                   href="{{route('cliente.edit', ['cliente'=> Auth::user()->id])}}">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Perfil
-                                </a>
-                                <div class="dropdown-divider"></div>
-                            @endcan
-                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Logout
-                            </a>
-                        </div>
-                    </li>
-                @endguest
             </ul>
         </div> <!-- collapse .// -->
     </div> <!-- container .// -->
 </nav>
 
 @yield('content')
-
-
-
 <!-- Footer-->
 <footer id="footer" class="mt-auto">
 
@@ -211,16 +164,17 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Confirmar</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
-            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-body">Tem a certeza de que pretende terminar a sessão desta conta?  </div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+
                 <a class="btn btn-primary" href="{{route('logout')}}" onclick="event.preventDefault();
-                    document.getElementById('logout-form').submit();">Logout</a>
+                    document.getElementById('logout-form').submit();">Terminar sessão</a>
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                     @csrf
                 </form>
