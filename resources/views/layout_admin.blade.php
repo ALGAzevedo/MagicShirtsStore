@@ -68,18 +68,18 @@
         @endcan
     <!-- Nav Item -->
         @can('viewAny_Admin', App\Models\Estampa::class)
-        <li class="nav-item" {{Route::currentRouteName()=='admin.estampas'? 'active': ''}}>
-            <a class="nav-link" href="{{route('admin.estampas')}}">
-                <i class="fas fa-fw fa-table"></i>
-                <span>Estampas</span></a>
-        </li>
+            <li class="nav-item" {{Route::currentRouteName()=='admin.estampas'? 'active': ''}}>
+                <a class="nav-link" href="{{route('admin.estampas')}}">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Estampas</span></a>
+            </li>
         @endcan
         @can('viewAny', \App\Models\Categoria::class)
-        <li class="nav-item" {{Route::currentRouteName()=='admin.categorias'? 'active': ''}}>
-            <a class="nav-link" href="{{route('admin.categorias')}}">
-                <i class="fas fa-fw fa-table"></i>
-                <span>Categorias</span></a>
-        </li>
+            <li class="nav-item" {{Route::currentRouteName()=='admin.categorias'? 'active': ''}}>
+                <a class="nav-link" href="{{route('admin.categorias')}}">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Categorias</span></a>
+            </li>
         @endcan
         @can('viewAny', \App\Models\Preco::class)
             <li class="nav-item" {{Route::currentRouteName()=='admin.precos'? 'active': ''}}>
@@ -89,17 +89,20 @@
             </li>
     @endcan
     <!-- Nav Item -->
+
         <li class="nav-item" {{Route::currentRouteName()=='admin.encomendas'? 'active': ''}}>
             <a class="nav-link" href="{{route('admin.encomendas')}}">
                 <i class="fas fa-fw fa-table"></i>
                 <span>Encomendas</span></a>
         </li>
-        <!-- Nav Item -->
+        @can('viewAny', \App\Models\Cor::class)
+
         <li class="nav-item" {{Route::currentRouteName()=='admin.cores'? 'active': ''}}>
             <a class="nav-link" href="{{route('admin.cores')}}">
                 <i class="fas fa-fw fa-table"></i>
                 <span>Cores T-shirts</span></a>
         </li>
+    @endcan
         <!-- Nav Item -->
         <li class="nav-item">
             <a class="nav-link" href="{{url('/')}}">

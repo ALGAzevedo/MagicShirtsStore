@@ -153,16 +153,14 @@ Route::middleware('auth')->prefix('administracao')->name('admin.')->group(functi
         ->middleware('can:updateBlock,cliente');
 
 //ADMINISTRACAO CORES
-    Route::get('cores', [CoresController::class, 'index'])->name('cores');
-    Route::get('cores/create', [CoresController::class, 'create'])->name('cores.create');
-    Route::post('cores', [CoresController::class, 'store'])->name('cores.store');
-    Route::delete('cores/{cor}', [CoresController::class, 'destroy'])->name('cores.destroy');
-    /*
-    Route::get('cores/{cor}/edit', [CoresController::class, 'edit'])->name('cores.edit');
-    Route::put('cores/{cor}', [CoresController::class, 'update'])->name('cores.update');
-    */
-
-
+    Route::get('cores', [CoresController::class, 'index'])->name('cores')
+        ->middleware('can:viewAny,App\Models\cor');
+    Route::get('cores/create', [CoresController::class, 'create'])->name('cores.create')
+        ->middleware('can:create,App\Models\cor');
+    Route::post('cores', [CoresController::class, 'store'])->name('cores.store')
+    ->middleware('can:create,App\Models\cor');
+    Route::delete('cores/{cor}', [CoresController::class, 'destroy'])->name('cores.destroy')
+        ->middleware('can:delete,cor');
 
 
 
