@@ -63,7 +63,7 @@
                             <div class="form-group">
                             <label for="inputEmail">Email</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" name="name" id="inputNome" value="">
+                                <input type="text" class="form-control" name="email" id="inputEmail" value="">
                                 <div class="input-group-append">
                                     <button class="btn btn-secondary" type="submit">Filtrar</button>
                                 </div>

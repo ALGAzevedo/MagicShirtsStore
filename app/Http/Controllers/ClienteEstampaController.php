@@ -115,11 +115,12 @@ class ClienteEstampaController extends Controller
     public function serve_asset($file)
     {
         $path = 'estampas_privadas/' . $file;
-
+        if (!Storage::exists($path)) {
+            abort(404);
+        }
 
         $estampa = Estampa::where('imagem_url', $file)->withTrashed()->firstOrFail();
-        //where('imagem_url', $file)->get();
-        // $data = Estampa::where('imagem_url', $file)->firstOrFail();
+
         $this->authorize('viewEstampaBack', [Estampa::class, $estampa]);
 
         return response()->file(storage_path('app/' . $path));

@@ -9,7 +9,7 @@ class Encomenda extends Model
 {
     use HasFactory;
 
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $fillable = [
         'cliente_id', 'estado', 'data', 'preco_total', 'notas', 'nif', 'endereco',

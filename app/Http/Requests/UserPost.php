@@ -30,7 +30,8 @@ class UserPost extends FormRequest
             'name' =>         'required',
             'tipo' =>        'required|in:A,F',
             'bloqueado' =>     'required|in:1,0',
-            'password' =>     'required',
+            'newPassword' => ['required', 'string', 'min:8', 'confirmed'],
+            'newPassword_confirmation' => ['required', 'string', 'min:8'],
             'email' => [
                 'required',
                 'email',

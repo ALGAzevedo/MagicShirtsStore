@@ -31,7 +31,7 @@ class CorPost extends FormRequest
         return [
 
             'codigo' => 'required|string|alpha_num|unique:cores,codigo',
-            'imgShirt' => 'nullable|max:8192',
+            'imgShirt' => 'required|max:8192',
             'nome' => ['required', 'string', Rule::unique('cores')->whereNull('deleted_at')],
 
 
