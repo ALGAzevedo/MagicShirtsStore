@@ -43,7 +43,7 @@ class EncomendaAnulada extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $url = url('encomendas/' . $this->encomenda->id);
+        $url = url('cliente/encomendas/' . $this->encomenda->id);
         $user = User::findOrFail($this->userID);
 
         return (new MailMessage)

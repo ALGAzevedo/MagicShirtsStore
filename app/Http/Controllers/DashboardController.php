@@ -63,14 +63,14 @@ class DashboardController extends Controller
         });
 
         $chart_options = [
-            'chart_title' => 'Tipos de pagamento utilizados nos últimos 30 dias',
+            'chart_title' => 'Tipos de pagamento utilizados no último mês',
             'report_type' => 'group_by_string',
-            'model' => 'App\Models\Cliente',
+            'model' => 'App\Models\Encomenda',
             'group_by_field' => 'tipo_pagamento',
             'aggregate_function' => 'count',
             'chart_type' => 'bar',
             'filter_field' => 'created_at',
-            'filter_days' => 30,
+            'filter_period' => 'month',
         ];
 
         $chart4 = Cache::remember('_chart4', now()->addMinutes(5), function() use ($chart_options) {
