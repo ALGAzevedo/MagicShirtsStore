@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Estampa;
 use Illuminate\Http\Request;
 use App\Models\Categoria;
 use App\Http\Requests\CategoriaPost;
@@ -50,6 +51,7 @@ class CategoriaController extends Controller
     {
         $oldName = $categoria->nome;
         try {
+            $this->removeCategory($categoria->id);
             $categoria->delete();
             return redirect()->route('admin.categorias')
                 ->with('alert-msg', 'Categoria "' . $oldName . '" foi apagada com sucesso!')
@@ -65,6 +67,16 @@ class CategoriaController extends Controller
                     ->with('alert-msg', 'Não foi possível apagar a categoria "' . $oldName . '". Erro: ' . $th->errorInfo[2])
                     ->with('alert-type', 'danger');
             }
+        }
+    }
+
+    //ESTAMPAS DA CATEGORIA ELIMINADA PASSAM A TER CATEGORIA NULL
+    private function removeCategory($categoria) {
+
+        $estampas = Estampa::where('categoria_id', $categoria)->get();
+        foreach ($estampas as $estampa) {
+            $estampa->categoria_id = null;
+            $estampa->save();
         }
     }
 
