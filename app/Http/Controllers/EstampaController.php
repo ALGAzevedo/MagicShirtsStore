@@ -187,5 +187,4 @@ class EstampaController extends Controller
             ->with('alert-type', 'success');
     }
 
-
 }

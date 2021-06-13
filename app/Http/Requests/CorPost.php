@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class CategoriaPost extends FormRequest
+class CorPost extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,17 @@ class CategoriaPost extends FormRequest
      */
     public function rules()
     {
+
+
+
+
         return [
-            'nome' => ['required', 'string', Rule::unique('categorias')->whereNull('deleted_at')],
+
+            'codigo' => 'required|string|alpha_num|unique:cores,codigo',
+            'imgShirt' => 'nullable|max:8192',
+            'nome' => ['required', 'string', Rule::unique('cores')->whereNull('deleted_at')],
+
+
         ];
     }
 }

@@ -95,6 +95,14 @@
                 <i class="fas fa-fw fa-table"></i>
                 <span>Encomendas</span></a>
         </li>
+        @can('viewAny', \App\Models\Cor::class)
+
+        <li class="nav-item" {{Route::currentRouteName()=='admin.cores'? 'active': ''}}>
+            <a class="nav-link" href="{{route('admin.cores')}}">
+                <i class="fas fa-fw fa-table"></i>
+                <span>Cores T-shirts</span></a>
+        </li>
+    @endcan
         <!-- Nav Item -->
         <li class="nav-item">
             <a class="nav-link" href="{{url('/')}}">

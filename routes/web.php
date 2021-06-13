@@ -4,6 +4,7 @@
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\ClienteEstampaController;
+use App\Http\Controllers\CoresController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EstampaController;
 use App\Http\Controllers\CategoriaController;
@@ -130,6 +131,19 @@ Route::middleware('auth')->prefix('administracao')->name('admin.')->group(functi
         ->middleware('can:update,cliente');
     Route::put('clientes/{cliente}/block', [ClienteController::class, 'block'])->name('clientes.block')
         ->middleware('can:updateBlock,cliente');
+
+//ADMINISTRACAO CORES
+    Route::get('cores', [CoresController::class, 'index'])->name('cores')
+        ->middleware('can:viewAny,App\Models\cor');
+    Route::get('cores/create', [CoresController::class, 'create'])->name('cores.create')
+        ->middleware('can:create,App\Models\cor');
+    Route::post('cores', [CoresController::class, 'store'])->name('cores.store')
+    ->middleware('can:create,App\Models\cor');
+    Route::delete('cores/{cor}', [CoresController::class, 'destroy'])->name('cores.destroy')
+        ->middleware('can:delete,cor');
+
+
+
 });
 
 //EDICAO PERFIL DO CLIENTE
