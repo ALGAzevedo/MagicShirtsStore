@@ -35,13 +35,14 @@ class EncomendaEnviada extends Mailable
         $user = User::findOrFail($this->userID);
 
         return $this->from('noreply@magicshirtstore.com')
-            ->subject('A sua encomenda for enviada.')
+            ->subject('A sua encomenda foi enviada.')
             ->view('emails.orders.enviada')
             ->withEncomenda($this->encomenda)
             ->with([
                 'orderId' => $this->encomenda->id,
                 'orderName' => $user->name,
                 'orderPrice' => $this->encomenda->preco_total,
-            ]);
+            ])
+            ->attachFromStorage('pdf_recibos/'.$this->encomenda->recibo_url);
     }
 }
