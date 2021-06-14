@@ -33,7 +33,7 @@
                                                value="{{$cliente->user->name}}" class="form-control">
                                     </div>
                                     <div class="form-group col-sm-6">
-                                        <label>NIF <small>(opcional)</small></label>
+                                        <label>NIF</label>
                                         <input type="text" placeholder="NIF" name="nif"
                                                value="{{old('nif', $cliente->nif)}}"
                                                class="form-control">
