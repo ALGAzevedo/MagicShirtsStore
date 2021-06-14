@@ -11,21 +11,7 @@ class UserPolicy
     use HandlesAuthorization;
 
 
-    /**
-     * Determine if the user has Super User privileges (ADMIN)
-     * Admin user is granted all previleges over "Funcionario(User)" entity
-     *
-     *
-     * @param \App\Models\User $user
-     * @param $ability
-     * @return bool
-     */
-    public function before($user, $ability)
-    {
-        if ($user->tipo == 'A') {
-            return true;
-        }
-    }
+
     /**
      * Determine whether the user can view any models.
      *
@@ -34,7 +20,7 @@ class UserPolicy
      */
     public function viewAny(User $user)
     {
-        return false;
+        return $user->tipo == 'A';
     }
 
     /**
@@ -58,7 +44,7 @@ class UserPolicy
      */
     public function create(User $user)
     {
-        return false;
+        return $user->tipo == 'A';
     }
 
     /**
@@ -71,7 +57,7 @@ class UserPolicy
     public function update(User $user, User $model)
     {
 
-        return false;
+        return $user->tipo == 'A';
     }
 
     /**
@@ -84,7 +70,7 @@ class UserPolicy
      */
     public function updatePassword(User $user, User $model)
     {
-        return true;//$user->id == $model->id;
+        return true;
     }
 
     /**
@@ -96,7 +82,7 @@ class UserPolicy
      */
     public function delete(User $user, User $model)
     {
-        return false;
+        return $user->tipo == 'A';
     }
 
     /**
@@ -121,5 +107,10 @@ class UserPolicy
     public function forceDelete(User $user, User $model)
     {
         //
+    }
+
+    public function updateBlock(User $user, User $model){
+
+        return $user->tipo == 'A' && $user->id != $model->id;
     }
 }
