@@ -27,4 +27,13 @@ class EncomendaUpdatePost extends FormRequest
             'estado' => 'required|string|in:paga,fechada,anulada',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'estado.required' => 'Estado da encomenda é obrigatorio',
+            'estado.string' => 'Estado deve ser uma string',
+            'estado.in' => 'Estado deve ser paga, fechada ou anulada',
+        ];
+    }
 }

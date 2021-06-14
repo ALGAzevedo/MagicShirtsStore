@@ -11,7 +11,7 @@
         <div class="form-group">
             <label for="inputEstampa">Upload da estampa</label>
             <input type="file" class="form-control-file" name="estampa_img" id="inputIMG">
-            @error('inputIMG')
+            @error('estampa_img')
             <div class="small text-danger">{{$message}}</div>
             @enderror
         </div>
