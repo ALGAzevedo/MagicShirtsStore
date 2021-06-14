@@ -16,7 +16,7 @@
             <option value="{{$cat->id}}" {{ old('categoria_id', $estampa->categoria_id) == $cat->id ? 'selected' : ''}}>{{$cat->nome}}</option>
         @endforeach
     </select>
-    @error('categoria')
+    @error('categoria_id')
     <div class="small text-danger">{{$message}}</div>
     @enderror
 </div>

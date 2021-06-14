@@ -24,17 +24,11 @@ class CorPost extends FormRequest
      */
     public function rules()
     {
-
-
-
-
         return [
 
             'codigo' => 'required|string|alpha_num|unique:cores,codigo',
             'imgShirt' => 'required|max:8192',
             'nome' => ['required', 'string', Rule::unique('cores')->whereNull('deleted_at')],
-
-
         ];
     }
 }

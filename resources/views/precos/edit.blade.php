@@ -11,7 +11,7 @@
         <div class="form-group">
             <label for="inputPreco_un_catalogo">Preco Unitário Catalogo</label>
             <input type="text" class="form-control" name="preco_un_catalogo" id="inputNome" value="{{old('preco_un_catalogo',$precos->preco_un_catalogo)}}" />
-            @error('Preco_un_catalogo')
+            @error('preco_un_catalogo')
             <div class="small text-danger">{{$message}}</div>
             @enderror
         </div>
