@@ -38,4 +38,7 @@ class CartRequest extends FormRequest
             'quantidade.min' => 'quantidade  mínima é 1'
         ];
     }
+
+
+
 }

@@ -26,11 +26,10 @@ class CheckoutRequest extends FormRequest
     public function rules(Request $request){
 
         $validation_array = [
-            'nif' => 'nullable|numeric|digits:9',
+            'nif' => 'required|numeric|digits:9',
             'endereco' => 'required|string|max:255',
             'tipo_pagamento' => 'required|in:MC,PAYPAL,VISA',
             'notas' => 'nullable|string',
-
         ];
 
         if ($request->tipo_pagamento == 'MC' || $request->tipo_pagamento == 'VISA') {
@@ -44,6 +43,25 @@ class CheckoutRequest extends FormRequest
             ]);
         }
         return $validation_array;
+    }
+
+
+    public function messages()
+    {
+
+        return [
+            'nif.numeric' => 'Nif deve conter apenas números',
+            'nif.required' => 'Nif é um campo obrigatório',
+            'nif.digits' => 'Nif deve conter 9 digitos',
+            'endereco.string' => 'Endereço deve ser uma string',
+            'endereco.max' => 'Endereço deve conter no máximo 255 caracteres',
+            'notas.string' => 'Notas devem ser uma string',
+            'tipo_pagamento.required' => 'Tipo de pagamento é obrigatorio',
+            'ref_pagamento.required' => 'Referencia pagamento é obrigatoria',
+            'ref_pagamento.numeric' => 'Referencia pagamento é um campo numérico',
+            'ref_pagamento.digits' => 'Referencia pagamento deve conter 16 digitos',
+            'ref_pagamento.email' => 'Referencia pagamento deve se rum email válido',
+        ];
     }
 
 }
