@@ -17,6 +17,8 @@
 
     <!-- Custom styles for this template-->
     <link href="{{asset('css/sb-admin-2.min.css')}}" rel="stylesheet">
+
+    <link href="{{asset('css/bootstrap-colorpicker.min.css')}}" rel="stylesheet">
     <link href="{{asset('css/admin.css')}}" rel="stylesheet">
 
 </head>
@@ -256,6 +258,15 @@
 <!-- Custom scripts for all pages-->
 <script src="{{asset('js/sb-admin-2.min.js')}}"></script>
 
+<script src="{{asset('js/bootstrap-colorpicker.min.js')}}"></script>
+<script>
+    $(function () {
+        $('#inputColor').colorpicker({
+            format:'hex',
+            useHashPrefix: false,
+        });
+    });
+</script>
 
 </body>
 

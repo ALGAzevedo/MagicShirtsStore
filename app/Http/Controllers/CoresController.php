@@ -31,12 +31,12 @@ class CoresController extends Controller
         $newCor = new Cor;
 
         $newCor->nome = $validated_data['nome'];
-        $newCor->codigo = $validated_data['codigo'];
+        $newCor->codigo = strtolower($validated_data['codigo']);
 
         if ($request->hasFile('imgShirt')) {
 
 
-            $custom_name = $validated_data['nome'].'.'.$validated_data['imgShirt']->extension();
+            $custom_name = strtolower($validated_data['codigo']).'.'.$validated_data['imgShirt']->extension();
 
             $request->imgShirt->storeAs('public/tshirt_base/', $custom_name);
         }
