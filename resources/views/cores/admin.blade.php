@@ -7,9 +7,11 @@
                 Cor</a>
         </div>
     </div>
-
-    <table class="table mt-4">
-        <thead>
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover table-colors">
+                    <thead class="thead-light">
         <tr>
             <th>Nome</th>
             <th>Codigo</th>
@@ -21,7 +23,7 @@
             <tr>
 
                 <td>{{$cor->nome}}</td>
-                <td>{{$cor->codigo}}</td>
+                <td class="color" > <i style="background-color: {{'#'.$cor->codigo}}"></i> {{$cor->codigo}}</td>
                 <td>
                     <form action="{{route('admin.cores.destroy', ['cor' => $cor])}}" method="POST">
                         @csrf
@@ -35,8 +37,7 @@
     </table>
 
     {{ $cores->withQueryString()->links() }}
-
-
-
-
+            </div>
+    </div>
+    </div>
 @endsection

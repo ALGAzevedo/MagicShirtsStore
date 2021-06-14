@@ -123,6 +123,16 @@
     border-left-width: 0;
 }
 
+.table-colors td.color i {
+    display: inline-block;
+    cursor: pointer;
+    vertical-align: text-top;
+    height: 16px;
+    width: 16px;
+    position: relative;
+    border: 1px solid #ddd;
+}
+
 @media (max-width: 767.98px) {
     .btn-block-sm {
         display: block;
