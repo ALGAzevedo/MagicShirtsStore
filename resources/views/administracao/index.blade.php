@@ -154,14 +154,14 @@
                     <table class="table table-hover ">
                         <thead class="thead-light">
                         <tr>
-                            <th>Codigo</th>
+                            <th>Cor</th>
                             <th>Quantidade</th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($coresMais as $cor)
                             <tr>
-                                <td style="background-color: #{{$cor->cor_codigo}}">{{$cor->cor_codigo}}</td>
+                                <td style="background-color: #{{$cor->cor_codigo}}; color: white">{{$cor->nome}}</td>
                                 <td>{{$cor->quantidade_vend}}</td>
                             </tr>
 

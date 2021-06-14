@@ -81,14 +81,13 @@ class DashboardController extends Controller
         //CORES MAIS VENDIDAS
         if(($coresMais = Cache::get('coresMais')) == null) {
             $coresMais = Tshirt::query()
-                ->select(DB::RAW('count(*) as quantidade_vend, cor_codigo'))
+                ->leftJoin('cores', 'tshirts.cor_codigo', '=', 'cores.codigo')
+                ->select(DB::RAW('count(*) as quantidade_vend, cor_codigo, cores.nome'))
                 ->groupBy('cor_codigo')
                 ->orderByDesc('quantidade_vend')
                 ->take(5)->get();
             Cache::add('coresMais', $coresMais, now()->addMinutes(5));
         }
-
-
 
 
 
