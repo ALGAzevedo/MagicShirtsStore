@@ -16,11 +16,13 @@ use mysql_xdevapi\Table;
 class DashboardController extends Controller
 {
 
-    public function index(){
+    public function index(Request $request)
+    {
+
 
         //vendas este mes €
         $vendasMes = Encomenda::whereYear('data', Carbon::now()->year)
-        ->whereMonth('data', Carbon::now()->month)
+            ->whereMonth('data', Carbon::now()->month)
             ->sum('preco_total');
 
         //encomendas a aguardar processamento (em estado pago)
@@ -38,18 +40,38 @@ class DashboardController extends Controller
         //T-SHIRTS CUSTOMIZADAS VENDIDAS
         $shirtsClient = DB::Table('estampas')
             ->leftJoin('tshirts', 'estampas.id', '=', 'tshirts.estampa_id')
-            ->Join('encomendas', 'tshirts.encomenda_id', '=','encomendas.id')
+            ->Join('encomendas', 'tshirts.encomenda_id', '=', 'encomendas.id')
             ->whereNotNull('estampas.cliente_id')
-            ->where('encomendas.estado', 'fechada')
+            ->where('encomendas.estado', '=', 'fechada')
             ->count();
 
+
+        //ESTAMPAS MAIS VENDIDAS
+        $estampasMais = Estampa::query()
+            ->join('tshirts', 'tshirts.estampa_id', '=', 'estampas.id')
+            ->selectRaw('estampas.*, SUM(tshirts.quantidade) AS quantidade_vend')
+            ->groupBy(['estampas.id'])
+            ->orderByDesc('quantidade_vend')
+            ->take(5)->get();
+
+
+
+        //CORES MAIS VENDIDAS
+
+
+        $coresMais = Tshirt::query()
+
+            ->select(DB::RAW('count(*) as quantidade_vend, cor_codigo'))
+            ->groupBy('cor_codigo')
+            ->orderByDesc('quantidade_vend')
+            ->take(5)->get();
 
 
 
 
 
         $chart_options = [
-            'chart_title' => 'Transações por dia na última semana',
+            'chart_title' => 'Transações diarias Semana',
             'report_type' => 'group_by_date',
             'model' => 'App\Models\Encomenda',
             'group_by_field' => 'data',
@@ -118,6 +140,6 @@ class DashboardController extends Controller
 
 
         return view('administracao.index',compact('chart1', 'chart2', 'chart3', 'chart4', 'vendasMes',
-        'encomendasPagas', 'vendasHoje', 'novosClientesHoje', 'estampasDisponiveis', 'shirtsClient'));
+        'encomendasPagas', 'vendasHoje', 'novosClientesHoje', 'estampasDisponiveis', 'shirtsClient', 'estampasMais', 'coresMais'));
     }
 }
