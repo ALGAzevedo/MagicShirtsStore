@@ -8,6 +8,7 @@ use App\Models\Cor;
 use App\Models\Encomenda;
 use App\Models\Estampa;
 use App\Models\Tshirt;
+use App\Models\User;
 use Exception;
 use App\Notifications\EncomendaAnulada;
 use App\Notifications\EncomendaPaga;
@@ -146,18 +147,20 @@ class EncomendaController extends Controller
         $validated_data = $request->validated();
         $estado = $validated_data['estado'];
 
+        $user = User::findOrFail($encomenda->cliente_id);
+
         //verifica se user pode anular encomenda
 
         if($estado == 'anulada') {
             $this->authorize('updateAnular', Encomenda::class);
-            Auth::user()->notify((new EncomendaAnulada($encomenda, $encomenda->cliente_id))->delay(now()->addSeconds(10)));
+            $user->notify((new EncomendaAnulada($encomenda, $encomenda->cliente_id))->delay(now()->addSeconds(10)));
         }
 
 
         $encomenda->estado = $estado;
 
         if($estado == 'paga'){
-            Auth::user()->notify((new EncomendaPaga($encomenda, $encomenda->cliente_id))->delay(now()->addSeconds(10)));
+            $user->notify((new EncomendaPaga($encomenda, $encomenda->cliente_id))->delay(now()->addSeconds(10)));
         }
 
         if($estado == 'fechada'){
@@ -170,8 +173,8 @@ class EncomendaController extends Controller
             $encomenda->recibo_url = basename($name);
             $encomenda->save();
 
-            Mail::to(Auth::user())
-                ->queue(new EncomendaEnviada($encomenda, Auth::id()));
+            Mail::to($user)
+                ->queue(new EncomendaEnviada($encomenda, $user->id));
         }
 
         $encomenda->save();
