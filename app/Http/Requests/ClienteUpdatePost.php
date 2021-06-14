@@ -32,7 +32,7 @@ class ClienteUpdatePost extends FormRequest
             'name' => 'required',
             'nif' => [
                 'nullable',
-                'string',
+                'numeric',
                 'digits:9'
             ],
             'endereco' => [
@@ -80,6 +80,9 @@ class ClienteUpdatePost extends FormRequest
 
             'tipo.required' => 'O campo tipo é obrigatório.',
             'tipo.in' => 'O campo tipo tem que ser Cliente.',
+
+            'nif.numeric' => 'O campo NIF tem que ser numérico.',
+            'nif.digits' => 'O campo NIF tem que ter exatamente 9 dígitos.',
 
             'bloqueado.required' => 'O campo bloqueado é obrigatório.',
             'bloqueado.in' => 'O campo bloqueado tem que ser 1 ou 0.',
