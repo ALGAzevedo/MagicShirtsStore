@@ -37,6 +37,7 @@
         <div class="small text-danger">{{$message}}</div>
         @enderror
     </div>
+    @can('updateBlock', $funcionario)
     <div class="form-group">
         <div class="form-check form-check-inline">
             <input type="hidden" name="bloqueado" value="0">
@@ -50,6 +51,7 @@
         <div class="small text-danger">{{$message}}</div>
         @enderror
     </div>
+    @endcan
     <div class="form-group">
         <label for="inputFoto">Upload da foto</label>
         <input type="file" class="form-control-file" name="foto" id="inputFoto">
