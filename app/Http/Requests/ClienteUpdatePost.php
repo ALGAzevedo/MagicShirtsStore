@@ -65,13 +65,38 @@ class ClienteUpdatePost extends FormRequest
         return $validation_array;
     }
 
-//    public function messages()
-//    {
-//        return [
-//            'ref_pagamento.required' => 'O campo referência de pagamento é obrigatório.',
-//            'ref_pagamento.email' => 'A referência de pagamento deve ser o seu email do PayPal.',
-//            'ref_pagamento.numeric' => 'A referência de pagamento deve ser o seu número do cartão de crédito',
-//            'ref_pagamento.digits' => 'O número do seu cartão deve ter 16 digitos',
-//        ];
-//    }
+    /**
+     * Get custom messages for validator errors.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'name.required' => 'O campo nome é obrigatório.',
+
+            'endereco.string' => 'O campo endereço tem que ser texto.',
+            'endereco.max' => 'O campo endereço tem um limite de 255 caracteres.',
+
+            'tipo.required' => 'O campo tipo é obrigatório.',
+            'tipo.in' => 'O campo tipo tem que ser Cliente.',
+
+            'bloqueado.required' => 'O campo bloqueado é obrigatório.',
+            'bloqueado.in' => 'O campo bloqueado tem que ser 1 ou 0.',
+
+            'email.required' => 'O campo email é obrigatório.',
+            'email.email' => 'O campo email tem que ser um email válido.',
+            'email.unique' => 'O email que utilizou já existe.',
+
+            'tipo_pagamento.in' => 'O campo tipo pagamento tem que ser MC,VISA ou PAYPAL.',
+
+            'ref_pagamento.required' => 'O campo referência de pagamento é obrigatório.',
+            'ref_pagamento.email' => 'A referência de pagamento deve ser o seu email do PayPal.',
+            'ref_pagamento.numeric' => 'A referência de pagamento deve ser o seu número do cartão de crédito.',
+            'ref_pagamento.digits' => 'O número do seu cartão deve ter 16 digitos.',
+
+            'foto.image' => 'A foto tem que ser uma imagem.',
+            'foto.max:8192' => 'A foto tem que ter tamanho máximo de 8Mb.',
+        ];
+    }
 }

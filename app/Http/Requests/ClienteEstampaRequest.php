@@ -25,9 +25,5 @@ class ClienteEstampaRequest extends FormRequest
             'descricao' => 'nullable|string',
         ];
     }
-    /*
-    public function messages()
-    {
-        return [];
-    }*/
+
 }
