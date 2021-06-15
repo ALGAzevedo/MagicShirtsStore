@@ -22,7 +22,8 @@ class DashboardController extends Controller
 
         //vendas este mes €
         if (($vendasMes = Cache::get('vendasMes')) == null) {
-            $vendasMes = Encomenda::whereYear('data', Carbon::now()->year)
+            $vendasMes = Encomenda::where('estado', 'paga')
+                ->whereYear('data', Carbon::now()->year)
                 ->whereMonth('data', Carbon::now()->month)
                 ->sum('preco_total');
             Cache::add('vendasMes', $vendasMes, now()->addMinutes(5));
@@ -36,7 +37,8 @@ class DashboardController extends Controller
 
         //intens vendidos hoje
         if (($vendasHoje = Cache::get('vendasHoje')) == null) {
-            $vendasHoje = Encomenda::where('data', Carbon::now()->format('Y-m-d'))->sum('preco_total');
+            $vendasHoje = Encomenda::where('data', Carbon::now()->format('Y-m-d'))
+                ->where('estado', 'paga')->sum('preco_total');
             Cache::add('vendasHoje', $vendasHoje, now()->addMinutes(5));
         }
 
@@ -81,7 +83,7 @@ class DashboardController extends Controller
 
 
         //CORES MAIS VENDIDAS
-        if(($coresMais = Cache::get('coresMais')) == null) {
+        if (($coresMais = Cache::get('coresMais')) == null) {
             $coresMais = Tshirt::query()
                 ->leftJoin('cores', 'tshirts.cor_codigo', '=', 'cores.codigo')
                 ->select(DB::RAW('count(*) as quantidade_vend, cor_codigo, cores.nome'))
@@ -90,7 +92,6 @@ class DashboardController extends Controller
                 ->take(5)->get();
             Cache::add('coresMais', $coresMais, now()->addMinutes(5));
         }
-
 
 
         $chart_options = [
