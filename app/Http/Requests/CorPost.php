@@ -35,14 +35,14 @@ class CorPost extends FormRequest
     public function messages()
     {
         return [
-            'codigo.required' => 'Codigo cor é obrigatório',
-            'codigo.alpha_num' => 'Codigo deve conter apenas letras ou números',
-            'codigo.unique' => 'Codigo cor já existe',
-            'imgShirt.required' => 'Imagem da t-shirt é obrigatória',
-            'imgShirt.image' => 'Deve ser uma imagem válida',
-            'imgShirt.max' => 'Tamanho da imagem n deve exceder os 8192KB',
-            'nome.required' => 'Nome é obrigatório',
-            'nome.unique' => 'Nome já existe',
+            'codigo.required' => 'Código cor é obrigatório.',
+            'codigo.alpha_num' => 'Código deve conter apenas letras ou números.',
+            'codigo.unique' => 'Código cor já existe.',
+            'imgShirt.required' => 'Imagem da t-shirt é obrigatória.',
+            'imgShirt.image' => 'Deve ser uma imagem válida.',
+            'imgShirt.max' => 'Tamanho da imagem não deve exceder os 8Mb.',
+            'nome.required' => 'Nome é obrigatório.',
+            'nome.unique' => 'Nome já existe.',
         ];
     }
 }

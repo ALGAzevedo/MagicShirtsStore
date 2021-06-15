@@ -36,13 +36,13 @@ class EstampaPost extends FormRequest
     public function messages()
     {
         return [
-            'nome.required' => 'Nome da estampa é obrigatorio',
-            'nome.string' => 'Nome deve ser uma string',
-            'nome.max' => 'Nome deve conter no Maximo 70 cacteres',
-            'categoria_id.exists' => 'Categoria não existe',
-            'estampa_img.required_if' => 'Uma imagem para a estampa deve ser carregada',
-            'estampa_img.image' => 'Deve ser uma imagem válida',
-            'descricao.max' => 'Descrição deve conter no máximo 255 caracteres',
+            'nome.required' => 'Nome da estampa é obrigatório.',
+            'nome.string' => 'Nome deve ser uma string.',
+            'nome.max' => 'Nome deve conter no Maximo 70 caracteres.',
+            'categoria_id.exists' => 'Categoria não existe.',
+            'estampa_img.required_if' => 'Uma imagem para a estampa deve ser carregada.',
+            'estampa_img.image' => 'Deve ser uma imagem válida.',
+            'descricao.max' => 'Descrição deve conter no máximo 255 caracteres.',
         ];
     }
 

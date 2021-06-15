@@ -28,14 +28,14 @@ class CartRequest extends FormRequest
     public function messages()
     {
         return [
-            'cor_codigo.required' => 'Código de cor é um campo obrigatório',
-            'cor_codigo.exists' => 'Código de cor inválido',
-            'estampa_id.required' => 'estampa_id é um campo obrigatório',
-            'estampa_id.exists' => 'estampa_id inválida',
-            'tamanho.required' => 'tamanho é um campo obrigatório',
-            'tamanho.in' => 'Não é um tamanho válido',
-            'quantidade.required' => 'quantidade  é um campo obrigatório',
-            'quantidade.min' => 'quantidade  mínima é 1'
+            'cor_codigo.required' => 'Código de cor é um campo obrigatório.',
+            'cor_codigo.exists' => 'Código de cor inválido.',
+            'estampa_id.required' => 'O id da estampa é um campo obrigatório.',
+            'estampa_id.exists' => 'O id da estampa é inválido.',
+            'tamanho.required' => 'O tamanho é um campo obrigatório.',
+            'tamanho.in' => 'Não é um tamanho válido.',
+            'quantidade.required' => 'A quantidade é um campo obrigatório.',
+            'quantidade.min' => 'A quantidade mínima é 1.'
         ];
     }
 

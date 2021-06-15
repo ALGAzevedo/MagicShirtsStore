@@ -36,16 +36,26 @@ class PrecoPost extends FormRequest
     public function messages()
     {
         return [
-            'preco_un_catalogo.required' => 'Preço unitário catalogo é obrigatorio',
-            'preco_un_catalogo.numeric' => 'Preço unitário catalogo deve ser do tipo númerico',
-            'preco_un_proprio.required' => 'Preço unitário proprio é obrigatorio',
-            'preco_un_proprio.numeric' => 'Preço unitário proprio deve ser do tipo númerico',
-            'preco_un_catalogo_desconto.required' => 'Preço unitário catalogo desconto é obrigatorio',
-            'preco_un_catalogo_desconto.numeric' => 'Preço unitário catalogo desconto deve ser do tipo númerico',
-            'preco_un_proprio_desconto.required' => 'Preço unitário proprio desconto é obrigatorio',
-            'preco_un_proprio_desconto.numeric' => 'Preço unitário proprio desconto deve ser do tipo númerico',
-            'quantidade_desconto.required' => 'Quantidade desconto é obrigatorio',
-            'quantidade_desconto.numeric' => 'Quantidade desconto deve ser do tipo númerico',
+            'preco_un_catalogo.required' => 'Preço unitário catálogo é obrigatorio.',
+            'preco_un_catalogo.numeric' => 'Preço unitário catálogo deve ser do tipo númerico.',
+            'preco_un_catalogo.min' => 'Preço unitário catálogo deve ser igual ou maior que 1.',
+
+            'preco_un_proprio.required' => 'Preço unitário próprio é obrigatorio.',
+            'preco_un_proprio.numeric' => 'Preço unitário próprio deve ser do tipo númerico.',
+            'preco_un_proprio.min' => 'Preço unitário próprio deve ser igual ou maior que 1.',
+
+            'preco_un_catalogo_desconto.required' => 'Preço unitário catálogo desconto é obrigatorio.',
+            'preco_un_catalogo_desconto.numeric' => 'Preço unitário catálogo desconto deve ser do tipo númerico.',
+            'preco_un_catalogo_desconto.min' => 'Preço unitário catálogo deve ser igual ou maior que 1.',
+
+            'preco_un_proprio_desconto.required' => 'Preço unitário próprio desconto é obrigatorio.',
+            'preco_un_proprio_desconto.numeric' => 'Preço unitário próprio desconto deve ser do tipo númerico.',
+            'preco_un_proprio_desconto.min' => 'Preço unitário próprio desconto deve ser igual ou maior que 1.',
+
+
+            'quantidade_desconto.required' => 'Quantidade desconto é obrigatorio.',
+            'quantidade_desconto.numeric' => 'Quantidade desconto deve ser do tipo númerico.',
+            'quantidade_desconto.min' => 'Preço unitário próprio desconto deve ser igual ou maior que 0.',
 
         ];
     }

@@ -50,17 +50,21 @@ class CheckoutRequest extends FormRequest
     {
 
         return [
-            'nif.numeric' => 'Nif deve conter apenas números',
-            'nif.required' => 'Nif é um campo obrigatório',
-            'nif.digits' => 'Nif deve conter 9 digitos',
-            'endereco.string' => 'Endereço deve ser uma string',
-            'endereco.max' => 'Endereço deve conter no máximo 255 caracteres',
-            'notas.string' => 'Notas devem ser uma string',
-            'tipo_pagamento.required' => 'Tipo de pagamento é obrigatorio',
-            'ref_pagamento.required' => 'Referencia pagamento é obrigatoria',
-            'ref_pagamento.numeric' => 'Referencia pagamento é um campo numérico',
-            'ref_pagamento.digits' => 'Referencia pagamento deve conter 16 digitos',
-            'ref_pagamento.email' => 'Referencia pagamento deve se rum email válido',
+            'nif.numeric' => 'NIF deve conter apenas números.',
+            'nif.required' => 'NIF é um campo obrigatório.',
+            'nif.digits' => 'NIF deve conter 9 dígitos.',
+
+            'endereco.string' => 'Endereço deve ser uma string.',
+            'endereco.max' => 'Endereço deve conter no máximo 255 caracteres.',
+
+            'notas.string' => 'O campo notas deve ser apenas texto.',
+
+            'tipo_pagamento.required' => 'Tipo de pagamento é obrigatório.',
+
+            'ref_pagamento.required' => 'Referência de pagamento é obrigatória.',
+            'ref_pagamento.numeric' => 'Referência de pagamento é um campo numérico.',
+            'ref_pagamento.digits' => 'Referência de pagamento deve conter 16 digitos.',
+            'ref_pagamento.email' => 'Referência de pagamento deve se rum email válido.',
         ];
     }
 

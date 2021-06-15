@@ -32,9 +32,9 @@ class CategoriaPost extends FormRequest
     public function messages()
     {
         return [
-            'nome.required' => 'Nome da categoria é um campo obrigatório',
-            'nome.string' => 'Nome da categoria deve ser uma string',
-            'nome.unique' => 'Nome da categoria já existe',
+            'nome.required' => 'Nome da categoria é um campo obrigatório.',
+            'nome.string' => 'Nome da categoria deve ser apenas texto.',
+            'nome.unique' => 'Nome da categoria já existe.',
         ];
     }
 
