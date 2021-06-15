@@ -31,7 +31,7 @@ class DashboardController extends Controller
         //encomendas a aguardar processamento (em estado pago)
         if (($encomendasPagas = Cache::get('encomendasPagas')) == null) {
             $encomendasPagas = Encomenda::where('estado', 'paga')->count();
-            Cache::add('encomendasPagas', $encomendasPagas, now()->addMinutes(5));
+            Cache::add('encomendasPagas', $encomendasPagas, now()->addSeconds(30));
         }
 
         //intens vendidos hoje
@@ -70,6 +70,8 @@ class DashboardController extends Controller
         if (($estampasMais = Cache::get('estampasMais')) == null) {
             $estampasMais = Estampa::query()
                 ->join('tshirts', 'tshirts.estampa_id', '=', 'estampas.id')
+                ->join('encomendas', 'tshirts.encomenda_id', '=', 'encomendas.id')
+                ->where('encomendas.estado', '=', 'fechada')
                 ->selectRaw('estampas.*, SUM(tshirts.quantidade) AS quantidade_vend')
                 ->groupBy(['estampas.id'])
                 ->orderByDesc('quantidade_vend')
