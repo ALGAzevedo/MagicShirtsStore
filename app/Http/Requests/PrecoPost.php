@@ -24,11 +24,11 @@ class PrecoPost extends FormRequest
     public function rules()
     {
         return [
-            'preco_un_catalogo' => 'required|numeric',
-            'preco_un_proprio' => 'required|numeric',
-            'preco_un_catalogo_desconto' => 'required|numeric',
-            'preco_un_proprio_desconto' => 'required|numeric',
-            'quantidade_desconto' => 'required|numeric',
+            'preco_un_catalogo' => 'required|numeric|min:1',
+            'preco_un_proprio' => 'required|numeric|min:1',
+            'preco_un_catalogo_desconto' => 'required|numeric|min:1',
+            'preco_un_proprio_desconto' => 'required|numeric|min:1',
+            'quantidade_desconto' => 'required|numeric|min:0',
         ];
     }
 
