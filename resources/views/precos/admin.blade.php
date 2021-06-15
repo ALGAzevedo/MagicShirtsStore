@@ -19,23 +19,23 @@
             </thead>
             <tbody>
             <tr>
-                <td>Preco Unitário Catalogo</td>
+                <td>Preço Unitário Catálogo</td>
                 <td>{{$precos->preco_un_catalogo}}</td>
             </tr>
             <tr>
-                <td>Preco Unitário Estampa Propria</td>
+                <td>Preço Unitário Estampa Própria</td>
                 <td>{{$precos->preco_un_proprio}}</td>
             </tr>
             <tr>
-                <td>Preco Unitário Catalogo com Desconto</td>
+                <td>Preço Unitário Catalogo com Desconto</td>
                 <td>{{$precos->preco_un_catalogo_desconto}}</td>
             </tr>
             <tr>
-                <td>Preco Unitário Estampa Propria com Desconto</td>
+                <td>Preço Unitário Estampa Própria com Desconto</td>
                 <td>{{$precos->preco_un_proprio_desconto}}</td>
             </tr>
             <tr>
-                <td>Quantidade Minima Para Desconto</td>
+                <td>Quantidade Mínima Para Desconto</td>
                 <td>{{$precos->quantidade_desconto}}</td>
             </tr>
             </tbody>

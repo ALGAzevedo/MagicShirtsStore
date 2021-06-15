@@ -25,9 +25,26 @@ class ClienteEstampaRequest extends FormRequest
             'descricao' => 'nullable|string',
         ];
     }
-    /*
+
+
+    /**
+     * Get custom messages for validator errors.
+     *
+     * @return array
+     */
     public function messages()
     {
-        return [];
-    }*/
+        return [
+            'nome.required' => 'O campo nome é obrigatório.',
+            'nome.string' => 'O campo nome tem que ser texto.',
+            'nome.max' => 'O campo nome tem que ter no máximo 255 caracteres.',
+
+            'estampa_img.required_if' => 'A imagem da estampa é obrigatória.',
+            'estampa_img.image' => 'A imagem da estampa tem que ser uma imagem.',
+            'estampa_img.max' => 'A imagem pode ter no máximo 8Mb.',
+
+            'descricao' => 'A descrição tem que ser texto.',
+        ];
+    }
+
 }

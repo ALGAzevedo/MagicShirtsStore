@@ -28,4 +28,14 @@ class CategoriaPost extends FormRequest
             'nome' => ['required', 'string', Rule::unique('categorias')->whereNull('deleted_at')],
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'nome.required' => 'Nome da categoria é um campo obrigatório.',
+            'nome.string' => 'Nome da categoria deve ser apenas texto.',
+            'nome.unique' => 'Nome da categoria já existe.',
+        ];
+    }
+
 }

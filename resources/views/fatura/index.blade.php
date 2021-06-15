@@ -7,7 +7,8 @@
     <title>Fatura</title>
 
     <link rel="stylesheet" href="/css/fatura-styles.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
 <div class="container">
@@ -40,6 +41,8 @@
                                 {{$encomenda->nif}}<br>
                             </address>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-xs-6 text-right">
                             <address>
                                 <strong>Enviado Para:</strong><br>
@@ -66,31 +69,36 @@
                     <div class="row">
                         <div class="col-md-12">
                             <h3>Registo Encomenda</h3>
-                            <table class="table table-striped">
+                            <table class="table table-hover table-view">
                                 <thead>
-                                <tr class="line">
-
-                                    <td class="text-center"><strong>Estampa</strong></td>
-                                    <td class="text-right"><strong>Preço</strong></td>
-                                    <td class="text-right"><strong>Qtt</strong></td>
-                                    <td class="text-right"><strong>SUBTOTAL</strong></td>
+                                <tr>
+                                    <th class="item sortable">Item</th>
+                                    <th class="text-lg-right">Custo</th>
+                                    <th class="text-lg-right">Qtd</th>
+                                    <th class="text-lg-right">Total</th>
                                 </tr>
                                 </thead>
-                                <tbody>
 
+                                <tbody>
                                 @foreach ($shirts as $shirt)
-                                    <tr class="line">
-                                        <td class="text-center">{{$shirt->estampa->nome}}</td>
-                                        <td class="text-right">{{$shirt->preco_un}}</td>
-                                        <td class="text-right">{{$shirt->quantidade}}</td>
-                                        <td class="text-right">{{$shirt->subtotal}}€</td>
+                                    <tr>
+                                        <td>
+                                            <p class="title mb-0">{{$shirt->estampa->nome}} </p>
+                                            <span
+                                                class="small text-muted">Tamanho: {{$shirt->tamanho}} | Cor: {{$shirt->cor->nome}}</span>
+                                        </td>
+                                        <td class="text-lg-right"> {{$shirt->preco_un}}€</td>
+                                        <td class="text-lg-right"> &times;{{$shirt->quantidade}} </td>
+                                        <td class="text-lg-right"> {{$shirt->subtotal}}€</td>
                                     </tr>
                                 @endforeach
                                 <tr>
                                     <td colspan="2"></td>
-                                    <td class="text-right"><strong>Total</strong></td>
-                                    <td class="text-right"><strong>{{$encomenda->preco_total}}€</strong></td>
+                                    <td class="text-lg-right"><strong>Total</strong></td>
+                                    <td class="text-lg-right"><strong>{{$encomenda->preco_total}}€</strong></td>
                                 </tr>
+
+
                                 </tbody>
                             </table>
                         </div>
